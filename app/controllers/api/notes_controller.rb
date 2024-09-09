@@ -1,6 +1,5 @@
 module Api
   class NotesController < ApiController
-    before_action :check_api_readable
     before_action :check_api_writable, :only => [:create, :comment, :close, :reopen, :destroy]
     before_action :setup_user_auth, :only => [:create, :show]
     before_action :authorize, :only => [:close, :reopen, :destroy, :comment]
@@ -116,12 +115,12 @@ module Api
       comment = params[:text]
 
       # Find the note and check it is valid
-      @note = Note.find(id)
-      raise OSM::APINotFoundError unless @note
-      raise OSM::APIAlreadyDeletedError.new("note", @note.id) unless @note.visible?
-
-      # Mark the note as hidden
       Note.transaction do
+        @note = Note.lock.find(id)
+        raise OSM::APINotFoundError unless @note
+        raise OSM::APIAlreadyDeletedError.new("note", @note.id) unless @note.visible?
+
+        # Mark the note as hidden
         @note.status = "hidden"
         @note.save
 
@@ -138,9 +137,6 @@ module Api
     ##
     # Add a comment to an existing note
     def comment
-      # Check the ACLs
-      raise OSM::APIAccessDenied if current_user.nil? && Acl.no_note_comment(request.remote_ip)
-
       # Check the arguments are sane
       raise OSM::APIBadUserInput, "No id was given" unless params[:id]
       raise OSM::APIBadUserInput, "No text was given" if params[:text].blank?
@@ -150,13 +146,13 @@ module Api
       comment = params[:text]
 
       # Find the note and check it is valid
-      @note = Note.find(id)
-      raise OSM::APINotFoundError unless @note
-      raise OSM::APIAlreadyDeletedError.new("note", @note.id) unless @note.visible?
-      raise OSM::APINoteAlreadyClosedError, @note if @note.closed?
-
-      # Add a comment to the note
       Note.transaction do
+        @note = Note.lock.find(id)
+        raise OSM::APINotFoundError unless @note
+        raise OSM::APIAlreadyDeletedError.new("note", @note.id) unless @note.visible?
+        raise OSM::APINoteAlreadyClosedError, @note if @note.closed?
+
+        # Add a comment to the note
         add_comment(@note, comment, "commented")
       end
 
@@ -178,13 +174,13 @@ module Api
       comment = params[:text]
 
       # Find the note and check it is valid
-      @note = Note.find_by(:id => id)
-      raise OSM::APINotFoundError unless @note
-      raise OSM::APIAlreadyDeletedError.new("note", @note.id) unless @note.visible?
-      raise OSM::APINoteAlreadyClosedError, @note if @note.closed?
-
-      # Close the note and add a comment
       Note.transaction do
+        @note = Note.lock.find_by(:id => id)
+        raise OSM::APINotFoundError unless @note
+        raise OSM::APIAlreadyDeletedError.new("note", @note.id) unless @note.visible?
+        raise OSM::APINoteAlreadyClosedError, @note if @note.closed?
+
+        # Close the note and add a comment
         @note.close
 
         add_comment(@note, comment, "closed")
@@ -208,13 +204,13 @@ module Api
       comment = params[:text]
 
       # Find the note and check it is valid
-      @note = Note.find_by(:id => id)
-      raise OSM::APINotFoundError unless @note
-      raise OSM::APIAlreadyDeletedError.new("note", @note.id) unless @note.visible? || current_user.moderator?
-      raise OSM::APINoteAlreadyOpenError, @note unless @note.closed? || !@note.visible?
-
-      # Reopen the note and add a comment
       Note.transaction do
+        @note = Note.lock.find_by(:id => id)
+        raise OSM::APINotFoundError unless @note
+        raise OSM::APIAlreadyDeletedError.new("note", @note.id) unless @note.visible? || current_user.moderator?
+        raise OSM::APINoteAlreadyOpenError, @note unless @note.closed? || !@note.visible?
+
+        # Reopen the note and add a comment
         @note.reopen
 
         add_comment(@note, comment, "reopened")
@@ -389,8 +385,14 @@ module Api
     def add_comment(note, text, event, notify: true)
       attributes = { :visible => true, :event => event, :body => text }
 
-      if current_user
-        attributes[:author_id] = current_user.id
+      if doorkeeper_token
+        author = current_user if scope_enabled?(:write_notes)
+      else
+        author = current_user
+      end
+
+      if author
+        attributes[:author_id] = author.id
       else
         attributes[:author_ip] = request.remote_ip
       end

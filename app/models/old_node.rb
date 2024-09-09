@@ -26,7 +26,6 @@
 
 class OldNode < ApplicationRecord
   include GeoRecord
-  include ConsistencyValidations
 
   self.table_name = "nodes"
 
@@ -85,10 +84,6 @@ class OldNode < ApplicationRecord
   end
 
   attr_writer :tags
-
-  def tags_as_hash
-    tags
-  end
 
   # Pretend we're not in any ways
   def ways

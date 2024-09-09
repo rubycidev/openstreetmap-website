@@ -37,6 +37,9 @@ Rails.application.configure do
   # Store uploaded files on the local file system in a temporary directory.
   config.active_storage.service = :test
 
+  # Disable logging in tests, for speed increases. Set to :info to bring back logging
+  config.log_level = :warn
+
   config.action_mailer.perform_caching = false
 
   # Tell Action Mailer not to deliver emails to the real world.
@@ -67,4 +70,7 @@ Rails.application.configure do
 
   # Use the test adapter for ActiveJob during testing.
   config.active_job.queue_adapter = :test
+
+  # Allow FactoryBot to set primary key attributes
+  config.factory_bot.reject_primary_key_attributes = false
 end

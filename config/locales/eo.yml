@@ -20,12 +20,14 @@
 # Author: Petrus Adamus
 # Author: Rafaneta
 # Author: Robin van der Vliet
+# Author: Rsim
 # Author: Spenĉjo
 # Author: Timsk
 # Author: Tradukisto
 # Author: Umbert'
 # Author: Yekrats
 # Author: YvesNevelsteen
+# Author: Ziko
 ---
 eo:
   time:
@@ -36,7 +38,7 @@ eo:
       prompt: Elektu dosieron
     submit:
       diary_comment:
-        create: Publikigi
+        create: Prikomenti
       diary_entry:
         create: Publikigi
         update: Ĝisdatigi
@@ -46,7 +48,7 @@ eo:
         create: Sendi
       client_application:
         create: Registri
-        update: Aktualigi
+        update: Ĝisdatigi
       oauth2_application:
         create: Registri
         update: Ĝisdatigi
@@ -62,8 +64,12 @@ eo:
   activerecord:
     errors:
       messages:
-        invalid_email_address: ŝajnas ne estas ĝusta retpoŝta adreso
+        invalid_email_address: ŝajne ne estas ĝusta retpoŝta adreso
         email_address_not_routable: ne estas enkursigebla
+        display_name_is_user_n: ne povas esti user_n, escepte se n estas via uzant-identigilo
+      models:
+        user_mute:
+          is_already_muted: jam estas silentigita
     models:
       acl: Listo de kontrolo de akiroj
       changeset: Ŝanĝaro
@@ -156,7 +162,6 @@ eo:
         auth_provider: Liveranto de aŭtentigo
         auth_uid: Uzant‑identigilo de aŭtentigo
         email: Retpoŝto
-        email_confirmation: Konfirmi retpoŝtan adreson
         new_email: Nova retpoŝta adreso
         active: Aktiva
         display_name: Montra nomo
@@ -232,7 +237,6 @@ eo:
   auth:
     providers:
       none: Neniu
-      openid: OpenID
       google: Google
       facebook: Facebook
       microsoft: Microsoft
@@ -285,6 +289,8 @@ eo:
         retain_changeset_discussions: viaj (eventualaj) komentoj pri ŝanĝaroj estos
           konservitaj;
         retain_email: via retpoŝta adreso estos konservita.
+        recent_editing_html: Ĉar vi lastatempe redaktis, via konto nuntempe ne povas
+          esti forigita. Forigo estos ebla en %{time}.
         confirm_delete: Ĉu vi certas?
         cancel: Nuligi
   accounts:
@@ -332,15 +338,10 @@ eo:
     destroy:
       success: Via konto estas forigita.
   browse:
-    created: Kreita
-    closed: Fermita
-    created_ago_html: Kreita %{time_ago}
-    closed_ago_html: Fermita %{time_ago}
-    created_ago_by_html: Kreita %{time_ago} de %{user}
-    closed_ago_by_html: Fermita %{time_ago} de %{user}
     deleted_ago_by_html: Forigita %{time_ago} de %{user}
     edited_ago_by_html: Redaktita %{time_ago} de %{user}
     version: Versio
+    redacted_version: Redaktita versio
     in_changeset: Ŝanĝaro
     anonymous: anonimulo
     no_comment: (neniu komento)
@@ -353,31 +354,13 @@ eo:
       other: '%{count} linioj'
     download_xml: Elŝuti XML
     view_history: Vidi historion
+    view_unredacted_history: Vidigi historion de neredaktitaj
     view_details: Montri detalojn
+    view_redacted_data: Vidigi redaktitajn datumojn
+    view_redaction_message: Vidigi mesaĝon pri la redaktado
     location: 'Pozicio:'
     common_details:
       coordinates_html: '%{latitude}; %{longitude}'
-    changeset:
-      title: 'Ŝanĝaro: %{id}'
-      belongs_to: Aŭtoro
-      node: Nodoj (%{count})
-      node_paginated: Nodoj (%{x}-%{y} el %{count})
-      way: Linioj (%{count})
-      way_paginated: Linioj (%{x}-%{y} el %{count})
-      relation: Rilatoj (%{count})
-      relation_paginated: Rilatoj (%{x}-%{y} el %{count})
-      comment: Komentoj (%{count})
-      hidden_comment_by_html: Kaŝita komento de %{time_ago} de %{user}
-      comment_by_html: Komento de %{time_ago} de %{user}
-      changesetxml: Ŝanĝaro XML
-      osmchangexml: osmŜanĝo XML
-      feed:
-        title: Ŝanĝaro %{id}
-        title_comment: Ŝanĝaro %{id} - %{comment}
-      join_discussion: Ensalutu por aliĝi al la diskuto
-      discussion: Diskuto
-      still_open: Ŝanĝaro plue malfermita - diskuto estos malfermita ekde kiam la
-        ŝanĝaro estos fermita.
     node:
       title_html: 'Nodo: %{name}'
       history_title_html: 'Historio de nodo: %{name}'
@@ -436,7 +419,7 @@ eo:
         relation: rilato
     start_rjs:
       feature_warning: Ŝarĝanta %{num_features} objektojn, kiuj povas igi vian foliumilon
-        malrapida aŭ nerespondebla. Ĉu vi certe volas montri ĉi tiujn datumojn?
+        malrapida aŭ nerespondebla. Ĉu vi certe volas montri tiujn ĉi datumojn?
       load_data: Elŝuti datumojn
       loading: Ŝargado…
     tag_details:
@@ -455,6 +438,28 @@ eo:
       introduction: Alklaku la mapon por trovi proksimajn objektojn.
       nearby: Proksimaj objektoj
       enclosing: Ĉirkaŭaj objektoj
+  old_nodes:
+    not_found:
+      sorry: 'Bedaŭrinde la nodo #%{id} en versio %{version} ne troveblas.'
+  old_ways:
+    not_found:
+      sorry: 'Bedaŭrinde la linio #%{id} en versio %{version} ne troveblas.'
+  old_relations:
+    not_found:
+      sorry: 'Bedaŭrinde la rilato #%{id} en versio %{version} ne troveblas.'
+  changeset_comments:
+    feeds:
+      comment:
+        comment: 'Nova komento de %{author} al ŝanĝaro #%{changeset_id}'
+        commented_at_by_html: Ĝisdatigita %{when} de %{user}
+      comments:
+        comment: 'Nova komento de %{author} al ŝanĝaro #%{changeset_id}'
+      show:
+        title_all: Diskuto pri OpenStreetMap-ŝanĝaro
+        title_particular: 'Diskuto pri ŝanĝaro #%{changeset_id}'
+      timeout:
+        sorry: Bedaŭrinde daŭris tro longe por akiri la petitan liston de komentoj
+          pri ŝanĝaro.
   changesets:
     changeset_paging_nav:
       showing_page: Paĝo %{page}
@@ -464,12 +469,6 @@ eo:
       anonymous: Anonimulo
       no_edits: (neniu redakto)
       view_changeset_details: Vidi detalojn pri ŝanĝaro
-    changesets:
-      id: Identigilo
-      saved_at: Konservita je
-      user: Uzanto
-      comment: Komento
-      area: Areo
     index:
       title: Ŝanĝaroj
       title_user: Ŝanĝaroj de %{user}
@@ -483,24 +482,61 @@ eo:
       no_more_area: Neniu plia ŝanĝaro en tiu ĉi areo.
       no_more_user: Neniaj pliaj ŝanĝaroj de tiu ĉi uzanto.
       load_more: Pli
+      feed:
+        title: Ŝanĝaro %{id}
+        title_comment: Ŝanĝaro %{id} - %{comment}
+        created: Kreita
+        closed: Fermita
+        belongs_to: Aŭtoro
+    subscribe:
+      heading: Ĉu aboni diskuton pri tiu ĉi ŝanĝaro?
+      button: Aboni diskuton
+    unsubscribe:
+      heading: Ĉu malaboni diskuton pri tiu ĉi ŝanĝaro?
+      button: Malaboni diskuton
+    heading:
+      title: Ŝanĝaro %{id}
+      created_by_html: Kreita de %{link_user} je %{created}.
+    no_such_entry:
+      title: Neniu tia ŝanĝaro
+      heading: 'Neniu ŝanĝaro kun la identigilo: %{id}'
+      body: Bedaŭrinde ne ekzistas ŝanĝaro kun la identigilo %{id}. Kontrolu pri liter-eraroj
+        aŭ eble vi alklakis eraran ligilon.
+    show:
+      title: 'Ŝanĝaro: %{id}'
+      created: Kreita je %{when}
+      closed: Fermita je %{when}
+      created_ago_html: Kreita %{time_ago}
+      closed_ago_html: Fermita %{time_ago}
+      created_ago_by_html: Kreita %{time_ago} de %{user}
+      closed_ago_by_html: Fermita %{time_ago} de %{user}
+      discussion: Diskuto
+      join_discussion: Ensalutu por aliĝi al la diskuto
+      still_open: Ŝanĝaro plue malfermita - diskuto estos malfermita ekde kiam la
+        ŝanĝaro estos fermita.
+      subscribe: Observi
+      unsubscribe: Malobservi
+      comment_by_html: Komento de %{time_ago} de %{user}
+      hidden_comment_by_html: Kaŝita komento de %{time_ago} de %{user}
+      hide_comment: kaŝi
+      unhide_comment: malkaŝi
+      comment: Komenti
+      changesetxml: Ŝanĝaro XML
+      osmchangexml: osmŜanĝo XML
+    paging_nav:
+      nodes: Nodoj (%{count})
+      nodes_paginated: Nodoj (%{x}-%{y} el %{count})
+      ways: Linioj (%{count})
+      ways_paginated: Linioj (%{x}-%{y} el %{count})
+      relations: Rilatoj (%{count})
+      relations_paginated: Rilatoj (%{x}-%{y} el %{count})
     timeout:
       sorry: Bedaŭrinde daŭris tro longe kompili la petitan liston de ŝanĝaroj.
-  changeset_comments:
-    comment:
-      comment: 'Nova komento de %{author} al ŝanĝaro #%{changeset_id}'
-      commented_at_by_html: Ĝisdatigita %{when} de %{user}
-    comments:
-      comment: 'Nova komento de %{author} al ŝanĝaro #%{changeset_id}'
-    index:
-      title_all: Diskuto pri OpenStreetMap-ŝanĝaro
-      title_particular: 'Diskuto pri ŝanĝaro #%{changeset_id}'
-    timeout:
-      sorry: Bedaŭrinde daŭris tro longe por akiri la petitan liston de komentoj pri
-        ŝanĝaro.
   dashboards:
     contact:
       km away: '%{count} km for'
       m away: '%{count} m for'
+      latest_edit_html: 'Lasta redakto (%{ago}):'
     popup:
       your location: Via loko
       nearby mapper: Proksima uzanto
@@ -534,6 +570,7 @@ eo:
       new_title: Krei novan afiŝon en mia uzant-taglibro
       my_diary: Mia taglibro
       no_entries: Neniu taglibra afiŝo
+    page:
       recent_entries: Lastaj taglibraj afiŝoj
       older_entries: Pli malnovaj afiŝoj
       newer_entries: Pli novaj afiŝoj
@@ -543,6 +580,9 @@ eo:
     show:
       title: Taglibro de %{user} | %{title}
       user_title: Taglibro de %{user}
+      discussion: Diskuto
+      subscribe: Observi
+      unsubscribe: Malobservi
       leave_a_comment: Komenti
       login_to_leave_a_comment_html: '%{login_link} por aldoni komenton'
       login: Ensaluti
@@ -585,16 +625,26 @@ eo:
       all:
         title: OpenStreetMap taglibraj afiŝoj
         description: Lastaj taglibraj afiŝoj de OpenStreetMap-uzantoj
-    comments:
+    subscribe:
+      heading: Ĉu aboni diskuton pri tiu ĉi taglibra afiŝo?
+      button: Aboni diskuton
+    unsubscribe:
+      heading: Ĉu malaboni diskuton pri tiu ĉi taglibra afiŝo?
+      button: Malaboni diskuton
+  diary_comments:
+    index:
       title: Komentoj de %{user} sub taglibraj afiŝoj
       heading: Komentoj de %{user}
       subheading_html: Komentoj de %{user} sub taglibraj afiŝoj
       no_comments: Neniu taglibra komento
+    page:
       post: Afiŝi
       when: Kiam
       comment: Komento
       newer_comments: Pli novaj komentoj
       older_comments: Pli malnovaj komentoj
+    new:
+      heading: Ĉu aldoni komenton al la diskuto pri tiu ĉi taglibra afiŝo?
   doorkeeper:
     errors:
       messages:
@@ -632,6 +682,10 @@ eo:
       contact_the_community_html: '%{contact_link} kun la OpenStreetMap-komunumo,
         se vi trovis misligilon aŭ alian eraron. Skribu la detalan retadreson de via
         peto.'
+    bad_request:
+      title: Malĝusta peto
+      description: La ago – pri kiu vi petis la servilon OpenStreetMap – ne estas
+        valida (HTTP 400)
     forbidden:
       title: Malpermesata
       description: La ago, pri kiu vi petis la OpenStreetMap-servilon estas disponebla
@@ -828,6 +882,7 @@ eo:
           college: Postmezgrada lernejo (konstruaĵo)
           commercial: Oficeja/komerca konstruaĵo
           construction: Konstruaĵo dum konstruado
+          cowshed: Bov-stalo
           detached: Liberstaranta domo
           dormitory: Studenthejmo
           duplex: Ĝemela domo
@@ -857,6 +912,7 @@ eo:
           shed: Budo
           stable: Ĉeval-stalo
           static_caravan: Movdomo (nemovata)
+          sty: Pork-stalo
           temple: Templo (konstruaĵo)
           terrace: Envicaj domoj
           train_station: Fervoj-stacio (konstruaĵo)
@@ -914,7 +970,7 @@ eo:
           construction: Vojo konstruata
           corridor: Koridoro
           crossing: Trapasejo
-          cycleway: Bicikovojo
+          cycleway: Bicikla vojo
           elevator: Lifto
           emergency_access_point: Vivsava rekonebla signo
           emergency_bay: Kriokaza strat-golfo
@@ -1452,13 +1508,19 @@ eo:
       not_updated: Ne aktualigita
       search: Serĉi
       search_guidance: 'Serĉi problemon:'
+      link_to_reports: Montri raportojn
+      states:
+        ignored: Ignorita
+        open: Malfermita
+        resolved: Solvita
+    page:
       user_not_found: Uzanto ne ekzistas
       issues_not_found: Ne trovis tian problemon
+      reported_user: Raportita uzanto
       status: Stato
       reports: Raportoj
       last_updated: Laste aktualigita
       last_updated_time_ago_user_html: '%{time_ago} de %{user}'
-      link_to_reports: Montri raportojn
       reports_count:
         one: '%{count} raporto'
         other: '%{count} raportoj'
@@ -1467,15 +1529,17 @@ eo:
         ignored: Ignorita
         open: Malfermita
         resolved: Solvita
+      older_issues: Pli malnovaj problemoj
+      newer_issues: Pli novaj problemoj
     show:
       title: '%{status} problemo #%{issue_id}'
       reports:
         one: '%{count} raporto'
         other: '%{count} raportoj'
       no_reports: Neniu raporto
-      report_created_at: Unue raportita je %{datetime}
-      last_resolved_at: Laste solvita je %{datetime}
-      last_updated_at: Laste aktualigita je %{datetime} de %{displayname}
+      report_created_at_html: Unue raportita je %{datetime}
+      last_resolved_at_html: Laste solvita je %{datetime}
+      last_updated_at_html: Laste aktualigita je %{datetime} de %{displayname}
       resolve: Solvi
       ignore: Ignori
       reopen: Remalfermi
@@ -1555,24 +1619,23 @@ eo:
     gps_traces: GPS-spuroj
     gps_traces_tooltip: Manipuli la GPS-spurojn
     user_diaries: Taglibroj de uzantoj
-    user_diaries_tooltip: Esplori taglibrojn de uzantoj
     edit_with: Redakti per %{editor}
     tag_line: La libera viki-mondmapo
     intro_header: Bonvenon al OpenStreetMap!
     intro_text: OpenStreetMap estas mapo de la mondo, kreata de homoj kiel vi, kaj
       libere uzebla laŭ malferma permesilo.
     intro_2_create_account: Krei konton
-    hosting_partners_html: Retgastigo estas subtenata de %{ucl}, %{fastly}, %{bytemark}
+    hosting_partners_2024_html: Retgastigo estas provizata de %{fastly}, %{corpmembers}
       kaj aliaj %{partners}.
-    partners_ucl: University College London
     partners_fastly: Fastly
-    partners_bytemark: Bytemark Hosting
+    partners_corpmembers: firmaaj anoj de OSMF
     partners_partners: kunlaborantoj
     tou: Uzkondiĉoj
     osm_offline: La OpenStreetMap-datumbazo estas nuntempe nealireabla pro necesaj
       laboroj de prizorgado.
     osm_read_only: La OpenStreetMap-datumbazo estas nuntempe nurlega pro necesaj laboroj
       de prizorgado.
+    nothing_to_preview: Nenio por antaŭvidi.
     donate: Subteni OpenStreetMap %{link} al fonduso por modernigi aparataron.
     help: Helpo
     about: Pri
@@ -1581,13 +1644,11 @@ eo:
     community: Komunumo
     community_blogs: Taglibroj de komunumo
     community_blogs_title: Taglibroj de anoj de OpenStreetMap-komunumo
-    make_a_donation:
-      title: Subteni OpenStreetMap per mondonaco
-      text: Donaci
     learn_more: Ekscii pli
     more: Pli
   user_mailer:
     diary_comment_notification:
+      description: 'OpenStreetMap: taglibra afiŝo %{id}'
       subject: '[OpenStreetMap] %{user} komentis pri taglibra afiŝo'
       hi: Saluton %{to_user},
       header: '%{from_user} komentis pri la OpenStreetMap-taglibra afiŝo kun la temo
@@ -1598,6 +1659,8 @@ eo:
         aŭ respondi al la aŭtoro ĉe %{replyurl}
       footer_html: Vi ankaŭ povas legi la komenton ĉe %{readurl} kaj komenti ĝin ĉe
         %{commenturl} aŭ respondi al la aŭtoro ĉe %{replyurl}
+      footer_unsubscribe: Vi povas malaboni la diskuton ĉe %{unsubscribeurl}
+      footer_unsubscribe_html: Vi povas malaboni la diskuton ĉe %{unsubscribeurl}
     message_notification:
       subject: '[OpenStreetMap] %{message_title}'
       hi: Saluton %{to_user},
@@ -1617,13 +1680,18 @@ eo:
       befriend_them: Vi ankaŭ povas aldoni vin kiel amikon ĉe %{befriendurl}.
       befriend_them_html: Vi ankaŭ povas aldoni ilin kiel amiko ĉe %{befriendurl}
     gpx_description:
+      description_with_tags: 'Ŝajnas, ke tio ĉi estas via GPX‑dosiero %{trace_name}
+        kun la priskribo %{trace_description} kaj kun la jenaj etikedoj: %{tags}'
       description_with_tags_html: 'Ŝajnas, ke tio ĉi estas via GPX‑dosiero %{trace_name}
         kun la priskribo %{trace_description} kaj kun la jenaj etikedoj: %{tags}'
+      description_with_no_tags: Ŝajnas, ke tio ĉi estas via GPX‑dosiero %{trace_name}
+        kun la priskribo %{trace_description} kaj sen etikedoj
       description_with_no_tags_html: Ŝajnas, ke tio ĉi estas via GPX‑dosiero %{trace_name}
         kun la priskribo %{trace_description} kaj sen etikedoj
     gpx_failure:
       hi: Saluton %{to_user},
       failed_to_import: 'ne estas enportita sukcese. Eraro:'
+      more_info: Pliaj informoj pri eraroj dum enporti GPX‑dosierojn troviĝas ĉe %{url}.
       more_info_html: Pliaj informoj pri eraroj dum enporti GPX‑dosierojn troviĝas
         ĉe %{url}.
       subject: '[OpenStreetMap] Eraro dum enportado de GPX-dosiero'
@@ -1632,6 +1700,9 @@ eo:
       loaded:
         one: estas sukcese enlegita kun %{trace_points} el ebla %{count} punkto.
         other: estas sukcese enlegita kun %{trace_points} el eblaj %{count} punktoj.
+      trace_location: Via spuro estas disponebla ĉe %{trace_url}
+      all_your_traces: Ĉiuj viaj sukcese alŝutitaj GPX-spuroj troveblas ĉe %{url}
+      all_your_traces_html: Ĉiuj viaj sukcese alŝutitaj GPX-spuroj troveblas ĉe %{url}.
       subject: '[OpenStreetMap] GPX-dosiero enportita sukcese'
     signup_confirm:
       subject: '[OpenStreetMap] Bonvenon al OpenStreetMap'
@@ -1655,6 +1726,7 @@ eo:
       click_the_link: Se tiu estas vi, bonvolu alklaki la ligilon sube por restarigi
         la pasvorton.
     note_comment_notification:
+      description: 'OpenStreetMap: rimarko %{id}'
       anonymous: Anonimulo
       greeting: Saluton,
       commented:
@@ -1686,9 +1758,10 @@ eo:
           La rimarko troviĝis ĉe %{place}.'
         commented_note_html: '%{commenter} remalfermis rimarkon sur la mapo pri kiu
           vi interesiĝis. La rimarko troviĝis ĉe %{place}.'
-      details: Pli da detaloj pri la rimarko, vi povas trovi je %{url}.
-      details_html: Pli da detaloj pri la noto troveblas ĉe %{url}.
+      details: Vi povas respondi aŭ sciiĝi pli pri la rimarko ĉe %{url}.
+      details_html: Vi povas respondi aŭ sciiĝi pli pri la rimarko ĉe %{url}.
     changeset_comment_notification:
+      description: 'OpenStreetMap: ŝanĝaro %{id}'
       hi: Saluton %{to_user},
       greeting: Saluton,
       commented:
@@ -1704,12 +1777,10 @@ eo:
         partial_changeset_with_comment: kun komento '%{changeset_comment}'
         partial_changeset_with_comment_html: kun komento '%{changeset_comment}'
         partial_changeset_without_comment: sen komento
-      details: Pli da detaloj pri la ŝanĝaro povas esti trovita ĉe %{url}.
-      details_html: Pli da detaloj pri la ŝanĝaro povas esti trovita ĉe %{url}.
-      unsubscribe: Por malaboni el ĝisdatigoj pri ĉi tiu ŝanĝaro, vizitu %{url} kaj
-        alklaku "Malobservi".
-      unsubscribe_html: Por malaboni la ĝisdatigojn de ĉi tiu ŝanĝaro, vizitu %{url}kaj
-        alklaku "Malaboni".
+      details: Vi povas respondi aŭ sciiĝi pli pri la ŝanĝaro ĉe %{url}.
+      details_html: Vi povas respondi aŭ sciiĝi pli pri la ŝanĝaro ĉe %{url}.
+      unsubscribe: Vi povas malaboni ĝisdatigojn pri tiu ĉi ŝanĝaro ĉe %{url}.
+      unsubscribe_html: Vi povas malaboni ĝisdatigojn pri tiu ĉi ŝanĝaro ĉe %{url}.
   confirmations:
     confirm:
       heading: Kontrolu vian retpoŝtkeston!
@@ -1741,8 +1812,6 @@ eo:
   messages:
     inbox:
       title: Ricevujo
-      my_inbox: Ricevujo
-      my_outbox: Senditujo
       messages: Vi havas %{new_messages} kaj %{old_messages}
       new_messages:
         one: '%{count} novan mesaĝon'
@@ -1750,17 +1819,21 @@ eo:
       old_messages:
         one: '%{count} malnovan mesaĝon'
         other: '%{count} malnovajn mesaĝojn'
-      from: De
-      subject: Temo
-      date: Dato
       no_messages_yet_html: Vi ankoraŭ ne havas iun mesaĝon. Eble kontaktu kun iu
         el %{people_mapping_nearby_link}?
       people_mapping_nearby: proksimaj mapigistoj
+    messages_table:
+      from: De
+      to: Al
+      subject: Temo
+      date: Dato
+      actions: Agoj
     message_summary:
       unread_button: Marki kiel nelegitan
       read_button: Marki kiel legitan
       reply_button: Respondi
       destroy_button: Forigi
+      unmute_button: Movi al ricevujo
     new:
       title: Sendi mesaĝon
       send_message_to_html: Sendi novan mesaĝon al %{name}
@@ -1774,55 +1847,65 @@ eo:
       heading: Tiu ĉi mesaĝo ne ekzistas
       body: Bedaŭrinde ne ekzistas mesaĝo kun tiu ĉi identigilo.
     outbox:
-      title: Elirkesto
-      my_inbox: Ricevujo
-      my_outbox: Senditujo
+      title: Senditujo
+      actions: Agoj
       messages:
         one: Vi havas %{count} senditan mesaĝon
         other: Vi havas %{count} senditajn mesaĝojn
-      to: Al
-      subject: Temo
-      date: Dato
       no_sent_messages_html: Vi ankoraŭ ne sendis iun mesaĝon. Eble kontaktu kun iu
         el %{people_mapping_nearby_link}?
       people_mapping_nearby: proksimaj mapigistoj
+    muted:
+      title: Silentigitaj mesaĝoj
+      messages:
+        one: Vi havas %{count} silentigitan mesaĝon
+        other: Vi havas %{count} silentigitajn mesaĝojn
     reply:
-      wrong_user: Vi estas ensalutinta kiel '%{user}', sed la mesaĝo, kiun vi volas
-        respondi, ne estas sendita al tiu uzanto. Bonvolu ensaluti kiel propra uzanto
-        por respondi ĝin.
+      wrong_user: Vi estas ensalutinta kiel '%{user}', sed la mesaĝo – kiun vi volas
+        respondi – ne estas sendita al tiu uzanto. Ensalutu kiel propra uzanto por
+        respondi ĝin.
     show:
       title: Legi mesaĝon
       reply_button: Respondi
       unread_button: Marki kiel nelegitan
       destroy_button: Forigi
       back: Reveni
-      wrong_user: Vi estas ensalutinta kiel '%{user}', sed la mesaĝo, kiun vi volas
-        legi estas sendita al tiu uzanto. Bonvolu ensaluti kiel propra uzanto por
+      wrong_user: Vi estas ensalutinta kiel '%{user}', sed la mesaĝo – kiun vi volas
+        legi – ne estas sendita al aŭ el tiu uzanto. Ensalutu kiel propra uzanto por
         legi ĝin.
     sent_message_summary:
       destroy_button: Forigi
+    heading:
+      my_inbox: Ricevujo
+      my_outbox: Senditujo
+      muted_messages: Silentigitaj mesaĝoj
     mark:
       as_read: Mesaĝo markita kiel legitan
       as_unread: Mesaĝo markita kiel nelegitan
+    unmute:
+      notice: Movis mesaĝon al ricevujo
+      error: La mesaĝo ne povis esti movita al la ricevujo.
     destroy:
       destroyed: Mesaĝo forigita
   passwords:
-    lost_password:
+    new:
       title: Perdita pasvorto
-      heading: Forgesis vian pasvorton ?
-      email address: 'Retpoŝtadreso:'
+      heading: Ĉu vi forgesis pasvorton?
+      email address: Retpoŝta adreso
       new password button: Nuligi pasvorton
       help_text: Entajpu la retpoŝtan adreson kiun vi uzis por ensaluto, ni sendos
         al vi ligilon, kiun vi povos uzi por restarigi vian pasvorton.
-      notice email on way: Bedaŭras, ke vi perdis ĝin :-( sed baldaŭ vi ricevos retleteron,
-        kiun vi uzos por restarigi ĝin.
-      notice email cannot find: Bedaŭrinde, tiu retadreso ne troveblas.
-    reset_password:
+    create:
+      send_paranoid_instructions: Se via retpoŝta adreso ekzistas en nia datumbazo,
+        vi ricevos ligilon por restarigi pasvorton en via retpoŝtujo post kelkaj minutoj.
+    edit:
       title: Nuligi pasvorton
-      heading: Nuligi Pasvorton por %{user}
+      heading: Nuligi pasvorton por %{user}
       reset: Nuligi pasvorton
+      flash token bad: Netrovebla ĵetono, eble kontrolu la ligilon?
+    update:
       flash changed: Via pasvorto estis ŝanĝita.
-      flash token bad: Netrovebla ĵetono, bonvolu kontroli la URLon.
+      flash token bad: Ne povas trovi ĵetonon. Provu kontroli la retadreson.
   preferences:
     show:
       title: Miaj preferoj
@@ -1866,43 +1949,17 @@ eo:
   sessions:
     new:
       title: Ensaluti
-      heading: Ensaluti
-      email or username: 'Retpoŝtadreso aŭ uzantnomo:'
-      password: 'Pasvorto:'
-      openid_html: '%{logo} OpenID:'
+      tab_title: Ensaluti
+      login_to_authorize_html: Ensalutu al OpenStreetMap por aliri %{client_app_name}.
+      email or username: Retpoŝta adreso aŭ uzantnomo
+      password: Pasvorto
       remember: Memori min
       lost password link: Ĉu vi forgesis vian pasvorton?
       login_button: Ensaluti
       register now: Registriĝi
-      with external: 'Alimaniere, ensalutu uzante:'
-      no account: Ĉu vi ne havas konton?
+      with external: 'ensaluti per ekstera liveranto:'
+      or: aŭ
       auth failure: Bedaŭrinde ne povas ensaluti kun ĉi tiuj informoj.
-      openid_logo_alt: Ensaluti per OpenID
-      auth_providers:
-        openid:
-          title: Ensaluti per OpenID
-          alt: Ensaluti per OpenID URL
-        google:
-          title: Ensaluti per Google
-          alt: Ensaluti per Google OpenID
-        facebook:
-          title: Ensaluti per Fejsbuko
-          alt: Ensaluti per konto je Fejsbuko
-        microsoft:
-          title: Ensaluti per Microsoft
-          alt: Ensaluti per konto Microsoft
-        github:
-          title: Ensaluti per GitHub
-          alt: Ensaluti per konto je GitHub
-        wikipedia:
-          title: Ensaluti per Vikipedio
-          alt: Ensaluti per Vikipedia konto
-        wordpress:
-          title: Ensaluti per Wordpress
-          alt: Ensaluti per Wordpress OpenID
-        aol:
-          title: Ensaluti per AOL
-          alt: Ensaluti per AOL OpenID
     destroy:
       title: Elsaluti
       heading: Elsaluti el OpenStreetMap
@@ -1927,9 +1984,11 @@ eo:
       image: Bildo
       alt: Kromteksto
       url: Retadreso
+      codeblock: Bloko de kodo
     richtext_field:
       edit: Redakti
       preview: Antaŭvidi
+      help: Helpo
   site:
     about:
       next: Sekva
@@ -1976,6 +2035,7 @@ eo:
       legal_2_2_registered_trademarks: registritaj varmarkoj de la Fondaĵo OpenStreetMap
       partners_title: Kunlaborantoj
     copyright:
+      title: Aŭtorrajto kaj permesilo
       foreign:
         title: Pri ĉi tiu traduko
         html: Se okazus konflikto inter ĉi tiu tradukita paĝo kaj %{english_original_link},
@@ -1988,7 +2048,6 @@ eo:
         native_link: Esperanta versio
         mapping_link: ekigi mapigadon
       legal_babble:
-        title_html: Aŭtorrajto kaj permesilo
         introduction_1_html: OpenStreetMap%{registered_trademark_link} estas %{open_data}
           eldonataj laŭ la permesilo %{odc_odbl_link} (ODbL) fare de la %{osm_foundation_link}
           (OSMF).
@@ -2004,6 +2063,7 @@ eo:
         introduction_3_html: Nia dokumentaro estas eldonata laŭ la permesilo %{creative_commons_link}
           (CC BY-SA 2.0).
         introduction_3_creative_commons: Krea Komunaĵo Atribuite-Samkondiĉe 2.0
+        introduction_3_creative_commons_url: https://creativecommons.org/licenses/by-sa/2.0/deed.eo
         credit_title_html: Kiel atribui aŭtorecon
         credit_1_html: 'Kiam vi uzas OpenStreetMap-datumojn, vi devas fari la jenajn
           du agojn:'
@@ -2077,6 +2137,11 @@ eo:
         contributors_fr_credit_html: '%{france}: enhavas datumojn ricevitajn el la
           Ĝenerala Direkcio de Impostoj «Direction Générale des Impôts».'
         contributors_fr_france: Francujo
+        contributors_hr_credit_html: '%{croatia}: enhavas datumojn el %{dgu_link}
+          kaj %{open_data_portal} (publikaj informoj de Kroatujo).'
+        contributors_hr_croatia: Kroatujo
+        contributors_hr_dgu: Ŝtata Termezurada Ofico de Kroatujo
+        contributors_hr_open_data_portal: Ŝtata Portalo de Malfermaj Datumoj
         contributors_nl_credit_html: '%{netherlands}: enhavas datumojn el &copy; AND,
           2007 (%{and_link}).'
         contributors_nl_netherlands: Nederlando
@@ -2136,9 +2201,6 @@ eo:
     index:
       js_1: Vi aŭ uzas foliumilon, kiu ne subtenas Ĝavoskripton, aŭ vi havas ĝin malaktivan.
       js_2: OpensStreetMap uzas Ĝavoskripton por montri ŝoveblan mapon.
-      permalink: Konstanta ligilo
-      shortlink: Mallonga ligilo
-      createnote: Aldoni rimarkon
       license:
         copyright: Aŭtorrajtoj al OpenStreetMap kaj kontribuintoj, laŭ malferma permesilo
       remote_failed: Redaktado malsukcesis - certigu ĉu JOSM aŭ Merkaartor estas startigita
@@ -2150,16 +2212,9 @@ eo:
       user_page_link: uzantpaĝo
       anon_edits_link_text: Tie ĉi vi sciiĝis kiel.
       id_not_configured: iD ne estas agordita
-      no_iframe_support: Via foliumilo ne subtenas 'HTML iframes', ili estas bezonataj
-        por tiu ĉi eblo.
     export:
       title: Elporti
-      area_to_export: Elportonta areo
       manually_select: Permane elektu alian areon.
-      format_to_export: Elport-formo
-      osm_xml_data: XML datumoj de OpenStreetMap
-      map_image: Bildo de mapo (norma tavolo)
-      embeddable_html: Enkorpigebla HTML
       licence: Permesilo
       licence_details_html: OpenStreetMap estas publikigata laŭ la permesilo %{odbl_link}
         (ODbL).
@@ -2182,17 +2237,6 @@ eo:
         other:
           title: Aliaj fontoj
           description: Aliaj fontoj enlistigitaj ĉe OpenStreetMap-vikio
-      options: Elektebloj
-      format: Formo
-      scale: Skalo
-      max: maks
-      image_size: Bildamplekso
-      zoom: Pligrandigi
-      add_marker: Aldoni markon al la mapo
-      latitude: 'Lat:'
-      longitude: 'Lon:'
-      output: Eliro
-      paste_html: Engluu HTML-kodon al via retpaĝo
       export_button: Elporti
     fixthemap:
       title: Raporti problemon / Korekti mapon
@@ -2226,17 +2270,13 @@ eo:
       beginners_guide:
         title: Manlibro por komencantoj
         description: Manlibro por komencantoj kreata de la komunumo (en la angla).
-      help:
-        title: Helpa forumo
-        description: Demandu aŭ serĉu respondojn ĉe retpaĝo de demandoj-kaj-respondoj
-          pri OpenStreetMap.
+      community:
+        title: Helpo kaj forumoj
+        description: Komuna loko por serĉi helpon kaj diskuti pri OpenStreetMap.
       mailing_lists:
         title: Dissendolistoj
         description: Demandu aŭ diskutu pri interesaj temoj en multaj pritemaj aŭ
           regionaj dissendolistoj.
-      community:
-        title: Forumoj de komunumo
-        description: Loko por diskuti pri OpenStreetMap.
       irc:
         title: IRC
         description: Interaga babilejo en multaj diversaj lingvoj kaj pri multaj temoj.
@@ -2291,67 +2331,83 @@ eo:
           primary: Vojo unua-ranga
           secondary: Vojo dua-ranga
           unclassified: Vojo kvara-ranga
+          pedestrian: Piedirada strato
           track: Vojo kampa
           bridleway: Ĉevalvojo
           cycleway: Bicikla vojo
-          cycleway_national: Bicikla vojo ŝtata
-          cycleway_regional: Bicikla vojo regiona
-          cycleway_local: Bicikla vojo loka
+          cycleway_national: Bicikla kurso ŝtata
+          cycleway_regional: Bicikla kurso regiona
+          cycleway_local: Bicikla kurso loka
+          cycleway_mtb: Montbicikla kurso
           footway: Trotuaro
           rail: Fervojo
+          train: Vagonaro
           subway: Metroo
-          tram:
-          - Fervojo malpeza
-          - tramo
-          cable:
-          - Kablovojo
-          - seĝtelfero
-          runway:
-          - Avia dromo
-          - aŭtokur-strato
-          apron:
-          - Aviadil-parkumejo
-          - flugstacio
+          ferry: Pramo
+          light_rail: Malpeza vagonaro
+          tram: Tramo
+          trolleybus: Trolebuso
+          bus: Aŭtobuso
+          cable_car: Kablovojo
+          chair_lift: Telfero seĝa
+          runway: Avia dromo
+          taxiway: Aŭtokur-strato
+          apron: Aviadil-parkumejo
           admin: Administra limo
+          capital: Ĉefurbo
+          city: Urbo
+          orchard: Fruktoĝardeno
+          vineyard: Vinberĝardeno
           forest: Kultiv-arbaro
           wood: Arbaro
+          farmland: Agrokultura tereno
+          grass: Herbotapiŝo
+          meadow: Herbejo
+          bare_rock: Roka areo
+          sand: Sabla tereno
           golf: Golfejo
           park: Parko
+          common: Publika ripoza tereno
+          built_up: Konstruaĵ-kovrita tereno
           resident: Privatdoma tereno
-          common:
-          - Publika ripoza tereno
-          - herbejo
-          - ĝardeno
           retail: Komercejo
           industrial: Industria areo
           commercial: Oficeja tereno
           heathland: Erikejo
-          lake:
-          - Lago
-          - akvorezervujo
+          scrubland: Arbustaro
+          lake: Lago
+          reservoir: Lago artefarita
+          intermittent_water: Sezona akvujo
+          glacier: Glacirivero
+          reef: Rifo
+          wetland: Malsekejo
           farm: Farmobieno
           brownfield: Antaŭ-konstruejo (post-malkonstruado)
           cemetery: Tombejo
           allotments: Familiaj ĝardenoj
           pitch: Ludkampo
           centre: Sporta centro
+          beach: Sablobordo
           reserve: Naturrezervejo
           military: Armea tereno
-          school:
-          - Lernejo
-          - universitato
+          school: Lernejo
+          university: Universitato
+          hospital: Malsanulejo
           building: Grava konstruaĵo
           station: Stacidomo
-          summit:
-          - Montosupro
-          - montpinto
+          summit: Montosupro
+          peak: Montpinto
           tunnel: Strekumita konturo - tunelo
           bridge: Nigra konturo - ponto
           private: Privata aliro
           destination: Aliro nur al celo
           construction: Vojoj konstruataj
+          bus_stop: Haltejo aŭtobusa
+          stop: Haltejo
           bicycle_shop: Bicikl-vendejo
+          bicycle_rental: Bicikl-pruntejo
           bicycle_parking: Parkumejo bicikla
+          bicycle_parking_small: Malgranda parkumejo bicikla
           toilets: Necesejo
     welcome:
       title: Bonvenon!
@@ -2393,6 +2449,7 @@ eo:
         imports: enportoj de datumoj
         automated_edits: aŭtomataj redaktoj
       start_mapping: Ekigi mapigadon
+      continue_authorization: Daŭrigi Rajtigon
       add_a_note:
         title: Ĉu mankas al vi tempo por redakti? Aldonu rimarkon!
         para_1: Se vi volas nur korekti iun etan kaj vi ne havas tempon por registriĝi
@@ -2480,9 +2537,6 @@ eo:
       trace_not_found: Spuro ne trovebla!
       visibility: 'Videbleco:'
       confirm_delete: Ĉu forigi tiun ĉi spuron?
-    trace_paging_nav:
-      older: Antaŭaj spuroj
-      newer: Postaj spuroj
     trace:
       pending: OKAZONTA
       count_points:
@@ -2496,8 +2550,8 @@ eo:
       identifiable: IDENTIGEBLA
       private: PRIVATA
       trackable: SPUREBLA
-      by: de
-      in: en
+      details_with_tags_html: '%{time_ago} de %{user} en %{tags}'
+      details_without_tags_html: '%{time_ago} de %{user}'
     index:
       public_traces: Publikaj GPS-spuroj
       my_gps_traces: Miaj GPS-spuroj
@@ -2513,6 +2567,9 @@ eo:
       my_traces: Miaj spuroj
       traces_from: Publikaj spuroj de %{user}
       remove_tag_filter: Forigi filtrilon de etikedoj
+    page:
+      older: Pli malnovaj spuroj
+      newer: Pli novaj spuroj
     destroy:
       scheduled_for_deletion: Spuro forviŝota
     make_public:
@@ -2534,8 +2591,6 @@ eo:
     require_cookies:
       cookies_needed: Ŝajnas, ke vi malaktivigis 'kuketojn' - bonvolu aktivigi 'kuketojn'
         en via foliumilo por pluigi.
-    require_admin:
-      not_an_admin: Vi devas esti administranto por fari tion.
     setup_user_auth:
       blocked_zero_hour: Vi havas urĝan mesaĝon en la retejo OpenStreetMap. Vi devas
         legi la mesaĝon antaŭ ol vi povos konservi viajn redaktojn.
@@ -2546,34 +2601,31 @@ eo:
         akcepti ĝin, sed vi devas legi ĝin.
     settings_menu:
       account_settings: Agordoj pri konto
-      oauth1_settings: Agordoj OAuth 1
       oauth2_applications: Aplikaĵoj OAuth 2
       oauth2_authorizations: Rajtigoj OAuth 2
+      muted_users: Silentigitaj uzantoj
+    auth_providers:
+      openid_url: OpenID-retadreso
+      openid_login_button: Daŭrigi
+      openid:
+        title: Ensaluti per OpenID
+        alt: markemblemo de OpenID
+      google:
+        title: Ensaluti per Google
+        alt: markemblemo de Google
+      facebook:
+        title: Ensaluti per Facebook
+        alt: markemblemo de Facebook
+      microsoft:
+        title: Ensaluti per Microsoft
+        alt: markemblemo de Microsoft
+      github:
+        title: Ensaluti per GitHub
+        alt: markemblemo de GitHub
+      wikipedia:
+        title: Ensaluti per Vikipedio
+        alt: markemblemo de Vikipedio
   oauth:
-    authorize:
-      title: Rajtigi aliron al via konto
-      request_access_html: La aplikaĵo %{app_name} petas pri aliro al la konto de
-        %{user}. Bonvolu kontroli rajtojn, kiujn vi donas al aplikaĵo. Vi povas elekti
-        rajtojn laŭvole.
-      allow_to: 'Permesi al porklienta aplikaĵo:'
-      allow_read_prefs: legi agordojn de uzanto.
-      allow_write_prefs: modifi viajn agordojn de uzanto.
-      allow_write_diary: afiŝi en taglibro, komenti kaj amikiĝi.
-      allow_write_api: redakti la mapon.
-      allow_read_gpx: legi viajn privatajn GPS-spurojn.
-      allow_write_gpx: alŝuti GPS-spurojn.
-      allow_write_notes: modifi rimarkojn.
-      grant_access: Permesi aliron
-    authorize_success:
-      title: Rajtiga peto akceptita
-      allowed_html: Vi permesis al aplikaĵo %{app_name} aliron al via konto.
-      verification: La kontrol-kodon estas %{code}.
-    authorize_failure:
-      title: Rajtiga peto malakceptita
-      denied: Vi malpermesis al aplikaĵo %{app_name} aliron al via konto
-      invalid: La rajtiga ĵetono ne plu validas.
-    revoke:
-      flash: Vi malvalidigis la ĵetonon por %{application}
     permissions:
       missing: Vi ne permesis al aplikaĵo aliri al ĉi tiu eblo
     scopes:
@@ -2585,49 +2637,13 @@ eo:
       read_gpx: legi privatajn GPS-spurojn
       write_gpx: alŝuti GPS-spurojn
       write_notes: modifi rimarkojn
+      write_redactions: Redakti map-datumojn
       read_email: legi retpoŝtan adreson de uzanto
+      consume_messages: legi, ŝanĝi staton kaj forigi mesaĝojn de uzanto
+      send_messages: sendi privatajn mesaĝojn al aliaj uzantoj
       skip_authorization: Aŭtomate akcepti aplikaĵojn
-  oauth_clients:
-    new:
-      title: Registri novan aplikaĵon
-    edit:
-      title: Modifi vian aplikaĵon
-    show:
-      title: OAuth-detaloj por %{app_name}
-      key: 'Klienta ŝlosilo:'
-      secret: 'Klienta sekreto:'
-      url: 'Retadreso de petoĵetono:'
-      access_url: 'Retadreso de atingoĵetono:'
-      authorize_url: 'Retadreso de rajtigado:'
-      support_notice: Ni subtenas subskribojn HMAC-SHA1 (konsilinda) kaj RSA-SHA1.
-      edit: Redakti detalojn
-      delete: Forigi klienton
-      confirm: Ĉu vi certas?
-      requests: 'Petado pri la jenaj permesoj de la uzanto:'
-    index:
-      title: Miaj OAuth-detaloj
-      my_tokens: Miaj permesataj aplikaĵoj
-      list_tokens: 'La jenaj ĵetonoj estis aldonitaj al aplikaĵoj komisie de vi:'
-      application: Nomo de aplikaĵo
-      issued_at: Eldonita je
-      revoke: Malvalidigi!
-      my_apps: Miaj klientaj aplikaĵoj
-      no_apps_html: Ĉu vi havas iun aplikaĵon, kiun vi volas registri uzante la normon
-        %{oauth}? Vi devas registri vian retaplikaĵon, antaŭ ĝi eblos fari OAuth-petojn
-        al tiu ĉi servo.
-      oauth: OAuth
-      registered_apps: 'Vi havas la jenajn porklientajn aplikaĵojn registritajn:'
-      register_new: Registri vian aplikaĵon
-    form:
-      requests: 'Peti pri la jenajn permesojn de la uzanto:'
-    not_found:
-      sorry: Bedaŭrinde %{type} ne trovita.
-    create:
-      flash: Sukcese registrita la informon
-    update:
-      flash: Informoj pri kliento estas ĝisdatigitaj sukcese
-    destroy:
-      flash: La porklienta aplikaĵo forigita
+    for_roles:
+      moderator: Tiu ĉi permeso estas por agoj disponeblaj nur por kontrolantoj
   oauth2_applications:
     index:
       title: Miaj klientaj aplikaĵoj
@@ -2673,6 +2689,7 @@ eo:
       title: Miaj rajtigitaj aplikaĵoj
       application: Aplikaĵo
       permissions: Permesoj
+      last_authorized: Antaŭa aŭtentigo
       no_applications_html: Vi ankoraŭ rajtigis neniun aplikaĵon %{oauth2}.
     application:
       revoke: Senrajtigi aliron
@@ -2680,30 +2697,45 @@ eo:
   users:
     new:
       title: Registriĝi
+      tab_title: Registriĝi
+      signup_to_authorize_html: Registriĝu al OpenStreetMap por aliri %{client_app_name}.
       no_auto_account_create: Bedaŭrinde ni nun ne povas aŭtomate krei konton por
         vi.
       please_contact_support_html: Kontaktu la %{support_link} por renkonti por krei
         konton – ni provos kiel eble plej rapide respondi vian peton.
       support: subtenan teamon
       about:
-        header: Libera kaj redaktebla
+        header: Libera kaj redaktebla.
         paragraph_1: Malkiel aliaj mapoj, OpenStreetMap estas tute kreata de homoj
           kiel vi kaj ĉiu povas libere korekti, aktualigi, elŝuti kaj uzi ĝin.
-        paragraph_2: Registriĝu por komenci kontribui al la projekto. Nie sendos al
-          vi retleteron por konfirmi vian konton.
+        paragraph_2: Registriĝu por komenci kontribui al la projekto.
+        welcome: Bonvenon al OpenStreetMap
+      duplicate_social_email: Se vi jam havas konton OpenStreetMap kaj volas uzi aŭtentokontrolon
+        de ekstera liveranto, ensalutu uzante vian pasvorton kaj modifu agordojn de
+        via konto.
       display name description: Via publike montrata uzantnomo. Vi povas ŝanĝi ĝin
         poste per la agordoj.
+      by_signing_up:
+        html: 'Registriĝante vi konsentas kun niaj regularoj: %{tou_link}, %{privacy_policy_link}
+          kaj %{contributor_terms_link}.'
+        privacy_policy: Privateca politiko
+        privacy_policy_title: privateca politiko de OSMF enhavanta sekcion pri uzo
+          de retpoŝta adreso
+        contributor_terms: Interkonsento pri kontribuado
+      tou: Kondiĉoj de uzado
       external auth: 'Ensaluti per ekstera servo:'
-      use external auth: Alternative, ensaluti uzante eksteran servon
-      auth no password: Kun ensalutado per ekstera servo, pasvorto ne endas, sed kelkaj
-        iloj aŭ servilo krom tio povas bezoni ĝin.
       continue: Registriĝi
       terms accepted: Dankon por akcepto de nova interkonsento pri kontribuado!
-      email_confirmation_help_html: Via retpoŝta adreso ne estas publike montrata,
-        legu nian %{privacy_policy_link} por pli da informoj.
-      privacy_policy: privatecan politikon
-      privacy_policy_title: privateca politiko de OSMF enhavanta sekcion pri uzo de
-        retpoŝta adreso
+      email_help:
+        privacy_policy: privatecan politikon
+        privacy_policy_title: privateca politiko de OSMF enhavanta sekcion pri uzo
+          de retpoŝta adreso
+        html: Via retpoŝta adreso ne estas publike montrata, legu nian %{privacy_policy_link}
+          por pli da informoj.
+      consider_pd_html: Mi konsideras ke miaj kontribuoj estu eldonitaj en la %{consider_pd_link}.
+      consider_pd: publika havaĵo
+      or: aŭ
+      use external auth: 'registriĝi per ekstera liveranto:'
     terms:
       title: Kondiĉoj
       heading: Kondiĉoj
@@ -2755,8 +2787,10 @@ eo:
       my comments: Miaj komentoj
       my_preferences: Preferoj
       my_dashboard: Panelo
-      blocks on me: Blokas min
+      blocks on me: Ricevitaj blokadoj
       blocks by me: Blokitaj de mi
+      create_mute: Silentigi tiun ĉi uzanton
+      destroy_mute: Malsilentigi tiun ĉi uzanton
       edit_profile: Redakti profilon
       send message: Sendi mesaĝon
       diary: Taglibro
@@ -2766,11 +2800,12 @@ eo:
       remove as friend: Eksamikigi
       add as friend: Aldoni kiel amikon
       mapper since: 'Mapigisto ekde:'
+      last map edit: 'Antaŭa map-redakto:'
+      no activity yet: ankoraŭ neniu agado
       uid: 'Identigilo de uzanto:'
       ct status: 'Interkonsento pri kontribuado:'
       ct undecided: ne decidita
       ct declined: malakceptita
-      latest edit: 'Lasta redakto (%{ago}):'
       email address: 'Retpoŝtadreso:'
       created from: 'Kreita de:'
       status: 'Stato:'
@@ -2778,14 +2813,18 @@ eo:
       role:
         administrator: Ĉi tiu uzanto estas administranto
         moderator: Ĉi tiu uzanto estas kontrolanto
+        importer: Tiu ĉi uzanto estas enportisto
         grant:
           administrator: Permesi aliron de administranto
           moderator: Permesi aliron de kontrolanto
+          importer: Permesi aliron de enportisto
         revoke:
           administrator: Nuligi aliron de administranto
           moderator: Nuligi aliron de kontrolanto
+          importer: Nuligi aliron de enportisto
       block_history: Blokadoj aktivaj
       moderator_history: Blokadoj eldonitaj
+      revoke_all_blocks: Nuligi ĉiujn blokadojn
       comments: Komentoj
       create_block: Bloki ĉi tiun uzanton
       activate_user: Aktivigi tiun ĉi uzanton
@@ -2802,14 +2841,17 @@ eo:
     index:
       title: Uzantoj
       heading: Uzantoj
-      showing:
-        one: Paĝo %{page} (%{first_item} el %{items})
-        other: Paĝo %{page} (%{first_item}-%{last_item} el %{items})
       summary_html: '%{name} kreita de %{ip_address} je %{date}'
       summary_no_ip_html: '%{name} kreita je %{date}'
+      empty: Kongruaj uzantoj ne trovitaj
+    page:
+      older: Pli malnovaj uzantoj
+      newer: Pli novaj uzantoj
+      found_users:
+        one: '%{count} trovita uzanto'
+        other: '%{count} trovitaj uzantoj'
       confirm: Konfirmi elektitajn uzantojn
       hide: Kaŝi elektitajn uzantojn
-      empty: Kongruaj uzantoj ne trovitaj
     suspended:
       title: Konto haltigita
       heading: Konto haltigita
@@ -2829,7 +2871,7 @@ eo:
       heading: Via identigilo ne estas ankoraŭ kunligita kun OpenStreetMap-konto.
       option_1: Se vi estas unuafoje je OpenStreetMap, bonvolu krei novan konton per
         la jena formularo.
-      option_2: Se vi jam havas konton, vi povas ensaluti per via uzantnomo kaj pasvorto,
+      option_2: Se vi jam havas konton, vi povas ensaluti per viaj uzantnomo kaj pasvorto,
         kaj poste kunligi la konton kun via identigilo en agordoj de uzanto.
   user_role:
     filter:
@@ -2843,15 +2885,11 @@ eo:
       heading: Konfirmi donadon de rolo
       are_you_sure: Ĉu vi certe volas doni la rolon '%{role}'  al la uzanto '%{name}'?
       confirm: Konfirmi
-      fail: Ne povas doni rolon '%{role}' al la uzanto '%{name}'. Bonvolu kontroli,
-        ĉu kaj uzanto kaj rolo estas ĝustaj.
     revoke:
       title: Konfirmi nuligo de rolo
       heading: Konfirmi nuligon de rolo
       are_you_sure: Ĉu vi certe volas nuligi la rolon '%{role}' de la uzanto '%{name}'?
       confirm: Konfirmi
-      fail: Ne povas nuligi la rolon '%{role}' de la uzanto '%{name}'. Bonvolu kontroli,
-        ĉu kaj uzanto kaj rolo estas ĝustaj.
   user_blocks:
     model:
       non_moderator_update: Vi devas esti kontrolanto por doni aŭ ĝisdatigi blokadon.
@@ -2863,34 +2901,37 @@ eo:
       title: Kreado de blokado de %{name}
       heading_html: Kreado de blokado de %{name}
       period: Por kiom da tempo, ekde nun, la uzanto estos blokita por aliro al API.
-      back: Montri ĉiujn blokadojn
     edit:
       title: Redaktado de blokado por %{name}
       heading_html: Redaktado de blokado por %{name}
       period: Por kiom da tempo, ekde nun, la uzanto estos blokita por aliro al API.
-      show: Montri ĉi tiun blokadon
-      back: Montri ĉiujn blokadojn
+      revoke: Malvalidigi blokadon
     filter:
-      block_expired: Ĉi tiu blokado malvalidiĝis kaj neredakteblas.
       block_period: La periodo de blokado estu unu el la valoroj elektitaj el la fallisto.
     create:
       flash: Kreis blokon por uzanto %{name}.
     update:
       only_creator_can_edit: Nur la kontrolanto kiu kreis ĉi tiun blokadon, povas
         redakti ĝin.
+      only_creator_can_edit_without_revoking: Nur la kontrolanto, kiu kreis tiun ĉi
+        blokadon, povas redakti sen malvalidigi ĝin.
+      only_creator_or_revoker_can_edit: Nur la kontrolantoj, kiuj kreis aŭ nuligis
+        tiun ĉi blokadon povas redakti ĝin.
+      inactive_block_cannot_be_reactivated: Tiu ĉi blokado estas neaktiva kaj ne povas
+        esti reaktivigita.
       success: Blokado ĝisdatigita.
     index:
       title: Blokadoj de uzanto
       heading: Listo de blokadoj de uzanto
       empty: Ankoraŭ neniu farita blokado.
-    revoke:
-      title: Nuligado de blokado por %{block_on}
-      heading_html: Nuligado de blokado por %{block_on} kreitaj de %{block_by}
-      time_future: Ĉi tiu blokado finiĝos je %{time}.
-      past: La blokado finiĝis %{time} kaj ĝi ne povas esti nuligita nun.
-      confirm: Ĉu vi certe volas nuligi ĉi tiun blokadon?
+    revoke_all:
+      title: Nuligado de ĉiujn blokojn por %{block_on}
+      heading_html: Nuligado de ĉiujn blokojn por %{block_on}
+      empty: '%{name} ne havas aktivajn blokadojn.'
+      confirm: Ĉu vi volas nuligi %{active_blocks}?
+      active_blocks: '{{PLURAL|one=%{count} aktivan blokadon|%{count} aktivajn blokadojn}'
       revoke: Malbloki!
-      flash: Ĉi tiu blokado estas nuligita.
+      flash: Ĉiuj aktivaj blokoj estas nuligitaj.
     helper:
       time_future_html: Finiĝos post %{time}.
       until_login: Aktiva ĝis la uzanto ensalutos.
@@ -2928,26 +2969,54 @@ eo:
       status: 'Stato:'
       show: Montri
       edit: Redakti
-      revoke: Malbloki!
       confirm: Ĉu vi certas?
       reason: 'Kialo de blokado:'
-      back: Montri ĉiujn blokadojn
       revoker: 'Malblokanto:'
       needs_view: La uzanto devas ensaluti antaŭ ĉi tiu blokado nuligos.
     block:
       not_revoked: (ne nuligita)
       show: Montri
       edit: Redakti
-      revoke: Malbloki!
     blocks:
       display_name: Blokita uzanto
       creator_name: Kreinto
       reason: Kialo de blokado
       status: Stato
       revoker_name: Nuligita de
-      showing_page: Paĝo %{page}
-      next: Sekva »
-      previous: « Antaŭa
+      older: Pli malnovaj blokadoj
+      newer: Pli novaj blokadoj
+    navigation:
+      all_blocks: Ĉiuj blokadoj
+      blocks_on_me: Blokadoj por mi
+      blocks_on_user: Blokadoj por %{user}
+      blocks_by_me: Blokadoj de mi
+      blocks_by_user: Blokadoj de %{user}
+      block: 'Blokado #%{id}'
+      new_block: Nova blokado
+  user_mutes:
+    index:
+      title: Silentigitaj uzantoj
+      my_muted_users: Miaj silentigitaj uzantoj
+      you_have_muted_n_users:
+        one: Vi silentigis %{count} uzanton
+        other: Vi silentigis %{count} uzantojn
+      user_mute_explainer: Mesaĝoj de silentigitaj uzantoj estos movitaj al aparta
+        mesaĝujo kaj vi ne ricevos retpoŝtajn sciigojn pri ili.
+      user_mute_admins_and_moderators: Vi povas silentigi administrantojn kaj kontrolantojn,
+        tamen iliaj mesaĝoj ne estos silentigitaj.
+      table:
+        thead:
+          muted_user: Silentigita uzanto
+          actions: Agoj
+        tbody:
+          unmute: Malsilentigi
+          send_message: Sendi mesaĝon
+    create:
+      notice: Vi silentigis la uzanton %{name}.
+      error: Uzanto %{name} ne povas esti silentigita. %{full_message}.
+    destroy:
+      notice: Vi malsilentigis la uzanton %{name}.
+      error: Ne povis malsilentigi la uzanton. Reprovu.
   notes:
     index:
       title: Rimarkoj kreitaj aŭ komentitaj de %{user}
@@ -2985,6 +3054,7 @@ eo:
       reactivate: Remalfermi
       comment_and_resolve: Komenti kaj solvi
       comment: Komenti
+      log_in_to_comment: Ensalutu por komenti tiun ĉi rimarkon
       report_link_html: Se tiu ĉi rimarko enhavas privatajn informojn, kiuj ne devas
         esti publikigitaj, vi povas %{link}.
       other_problems_resolve: Koncerne al ĉiuj aliaj problemoj pri la rimarko, solvu
@@ -2996,6 +3066,10 @@ eo:
       intro: Ĉu vi rimarkis eraron aŭ io mankas? Sciigu aliajn mapigistojn, por ili
         povos ripari tion. Movu la markon al la respektivan pozicion kaj enmetu la
         rimarkon priskribantan la problemon.
+      anonymous_warning_html: Vi ne estas ensalutinta. %{log_in} aŭ %{sign_up} por
+        ricevi sciigojn pri via rimarko.
+      anonymous_warning_log_in: Ensalutu
+      anonymous_warning_sign_up: registriĝu
       advice: Via rimarko estas publika kaj povas esti uzita por ĝisdatigi la mapon,
         do ne enmetu privatajn informojn kaj informojn el kopirajtaj mapoj aŭ aliaj
         datumbazoj.
@@ -3014,14 +3088,15 @@ eo:
       custom_dimensions: Agordi proprajn dimensiojn
       format: 'Dosiertipo:'
       scale: 'Skalo:'
-      image_dimensions: Bildo montros la norman tavolon je distingivo %{width}×%{height}
+      image_dimensions: Bildo montros la tavolon “%{layer}” je distingivo %{width}×%{height}
       download: Elŝuti
       short_url: Mallonga retadreso
       include_marker: Inkludi markon
       center_marker: Centrigi mapon al marko
       paste_html: Engluu HTML-kodon al via retpaĝo
       view_larger_map: Vidi pli grandan mapon
-      only_standard_layer: Nur la norma tavolo de mapo elporteblas kiel bildon
+      only_standard_layer: Nur la tavoloj Norma, Biciklada kaj Transporta estas elporteblaj
+        kiel bildoj
     embed:
       report_problem: Raporti problemon
     key:
@@ -3042,12 +3117,10 @@ eo:
           other: Vi estas %{count} futoj for de tiu punkto
       base:
         standard: Norma mapo
-        cyclosm: CyclOSM
         cycle_map: Biciklada mapo
         transport_map: Transporta mapo
         tracestracktop_topo: Topografia mapo
         hot: Hom-helpa mapo
-        opnvkarte: ÖPNVKarte
       layers:
         header: Tavoloj de mapo
         notes: Map-rimarkoj
@@ -3062,8 +3135,6 @@ eo:
       osm_france: OpenStreetMap France
       thunderforest_credit: Kaheloj danke al %{thunderforest_link}
       andy_allan: Andy ALLAN
-      opnvkarte_credit: Kaheloj danke al %{memomaps_link}
-      memomaps: MeMoMaps
       tracestrack_credit: Kaheloj danke al %{tracestrack_link}
       hotosm_credit: 'Stilo de kaheloj: %{hotosm_link}, retgastigo: %{osm_france_link}'
       hotosm_name: HOTOSM
@@ -3076,13 +3147,7 @@ eo:
       map_data_zoom_in_tooltip: Pligrandigu por vidi map-datumoj
       queryfeature_tooltip: Montri informojn pri objekto
       queryfeature_disabled_tooltip: Pligrandigu por montri informojn pri objektoj
-    changesets:
-      show:
-        comment: Komenti
-        subscribe: Observi
-        unsubscribe: Malobservi
-        hide_comment: kaŝi
-        unhide_comment: malkaŝi
+      embed_html_disabled: HTML-enigo ne haveblas por ĉi tiu mapo-tavolo
     edit_help: Movu la mapon kaj pligrandigu al loko kiun vi volas redakti, kaj poste
       alklaku tie ĉi.
     directions:

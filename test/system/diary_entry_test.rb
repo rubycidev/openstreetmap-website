@@ -3,6 +3,9 @@ require "application_system_test_case"
 class DiaryEntrySystemTest < ApplicationSystemTestCase
   def setup
     create(:language, :code => "en")
+    create(:language, :code => "pt", :english_name => "Portuguese", :native_name => "Português")
+    create(:language, :code => "pt-BR", :english_name => "Brazilian Portuguese", :native_name => "Português do Brasil")
+    create(:language, :code => "ru", :english_name => "Russian", :native_name => "Русский")
     @diary_entry = create(:diary_entry)
   end
 
@@ -10,7 +13,7 @@ class DiaryEntrySystemTest < ApplicationSystemTestCase
     sign_in_as(create(:user))
     visit diary_entries_path
 
-    click_link "Send a message to the author"
+    click_on "Send a message to the author"
 
     assert_content "Send a new message"
     assert_equal "Re: #{@diary_entry.title}", page.find_field("Subject").value
@@ -60,5 +63,15 @@ class DiaryEntrySystemTest < ApplicationSystemTestCase
     visit diary_entry_path(@diary_entry.user, @diary_entry)
 
     assert_content @deleted_comment.body
+  end
+
+  test "should have links to preferred languages" do
+    sign_in_as(create(:user, :languages => %w[en-US pt-BR]))
+    visit diary_entries_path
+
+    assert_link "Diary Entries in English", :href => "/diary/en"
+    assert_link "Diary Entries in Brazilian Portuguese", :href => "/diary/pt-BR"
+    assert_link "Diary Entries in Portuguese", :href => "/diary/pt"
+    assert_no_link "Diary Entries in Russian"
   end
 end

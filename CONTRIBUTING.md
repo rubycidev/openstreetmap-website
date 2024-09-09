@@ -1,5 +1,5 @@
 * https://www.ruby-lang.org/ - The homepage of Ruby which has more links and some great tutorials.
-* http://rubyonrails.org/ - The homepage of Rails, also has links and tutorials
+* https://rubyonrails.org/ - The homepage of Rails, also has links and tutorials.
 
 ## Coding style
 
@@ -12,6 +12,13 @@ development to check that your code matches our guidelines:
 bundle exec rubocop
 bundle exec rails eslint
 bundle exec erblint .
+```
+
+You can also install hooks to have git run checks automatically when
+you commit using [overcommit](https://github.com/sds/overcommit) with:
+
+```
+bundle exec overcommit --install
 ```
 
 ## Testing

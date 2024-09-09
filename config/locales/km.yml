@@ -111,8 +111,6 @@ km:
         ដើម្បីបញ្ជាក់អាសយដ្ឋានអ៊ីមែលថ្មីរបស់អ្នក។
       success: ព័ត៌មានអ្នកប្រើប្រាស់​ បានបន្ទាន់សម័យដោយជោគជ័យ​។
   browse:
-    created: បាន​បង្កើត​
-    closed: បាន​បិទ
     version: កំណែ
     in_changeset: សំណុំបន្លាស់ប្ដូរ
     anonymous: អនាមិក
@@ -122,22 +120,6 @@ km:
     view_history: មើល​ប្រវត្តិ​
     view_details: មើលព័ត៌មានលម្អិត​
     location: ទីតាំង​៖​
-    changeset:
-      title: សំណុំបន្លាស់ប្ដូរ៖ %{id}
-      belongs_to: អ្នក​បង្កើត
-      node: ខ្នែងចំនួន (%{count})
-      node_paginated: ខ្នែងចំនួន (%{x}-%{y} ក្នុងចំណោម %{count})
-      way: ផ្លូវចំនួន (%{count})
-      way_paginated: ផ្លូវចំនួន (%{x}-%{y} ក្នុងចំណោម %{count})
-      relation: ទំនាក់ទំនងចំនួន (%{count})
-      relation_paginated: ទំនាក់ទំនងចំនួន (%{x}-%{y} ក្នុងចំណោម %{count})
-      comment: មតិយោបល់ (%{count})
-      changesetxml: សំណុំបន្លាស់ប្ដូរ​ XML
-      feed:
-        title: សំណុំបន្លាស់ប្ដូរ​ %{id}
-        title_comment: សំណុំបន្លាស់ប្តូរ​ %{id} - %{comment}
-      join_discussion: កត់ឈ្មោះចូលដើម្បីចូលរួមពិភាក្សា
-      discussion: ការពិភាក្សា
     node:
       title_html: ខ្នែង៖ %{name}
       history_title_html: ប្រវត្តិខ្នែង៖ %{name}
@@ -189,12 +171,6 @@ km:
       anonymous: អនាមិក
       no_edits: (គ្មានកំណែប្រែ​)
       view_changeset_details: មើលព័ត៌មានលម្អិតរបស់សំណុំបន្លាស់ប្តូរ​
-    changesets:
-      id: អត្តលេខ
-      saved_at: បានរក្សាទុក​នៅ​
-      user: អ្នកប្រើប្រាស់​
-      comment: មតិយោបល់​
-      area: តំបន់
     index:
       title: សំណុំបន្លាស់ប្ដូរ
       title_user: សំណុំបន្លាស់ប្ដូរធ្វើដោយ %{user}
@@ -207,6 +183,24 @@ km:
       no_more_area: គ្មានសំណុំបន្លាស់ប្ដូរថែមទៀតទេក្នុងតំបន់នេះ។
       no_more_user: គ្មានសំណុំបន្លាស់ប្ដូរដោយអ្នកប្រើប្រាស់នេះថែមទៀតទេ។
       load_more: ផ្ទុកបន្ថែម
+      feed:
+        title: សំណុំបន្លាស់ប្ដូរ​ %{id}
+        title_comment: សំណុំបន្លាស់ប្តូរ​ %{id} - %{comment}
+        created: បាន​បង្កើត​
+        closed: បាន​បិទ
+        belongs_to: អ្នក​បង្កើត
+    show:
+      title: សំណុំបន្លាស់ប្ដូរ៖ %{id}
+      discussion: ការពិភាក្សា
+      join_discussion: កត់ឈ្មោះចូលដើម្បីចូលរួមពិភាក្សា
+      changesetxml: សំណុំបន្លាស់ប្ដូរ​ XML
+    paging_nav:
+      nodes: ខ្នែងចំនួន (%{count})
+      nodes_paginated: ខ្នែងចំនួន (%{x}-%{y} ក្នុងចំណោម %{count})
+      ways: ផ្លូវចំនួន (%{count})
+      ways_paginated: ផ្លូវចំនួន (%{x}-%{y} ក្នុងចំណោម %{count})
+      relations: ទំនាក់ទំនងចំនួន (%{count})
+      relations_paginated: ទំនាក់ទំនងចំនួន (%{x}-%{y} ក្នុងចំណោម %{count})
   dashboards:
     contact:
       km away: ចម្ងាយ %{count} គ.ម.
@@ -228,6 +222,7 @@ km:
       new: ប្រកាសន៍កំណត់ហេតុថ្មី
       new_title: បង្កើតប្រកាសថ្មីមួយក្នុងកំណត់ហេតុអ្នកប្រើប្រាស់របស់អ្នក
       no_entries: គ្មានកំណត់ហេតុទេ
+    page:
       recent_entries: ប្រកាសកំណត់ហេតុថ្មីៗ
       older_entries: ប្រកាសចាស់ៗ
       newer_entries: ប្រកាសថ្មីៗ
@@ -620,8 +615,6 @@ km:
     about: អំពី
     copyright: រក្សាសិទ្ឋ
     community: សហគមន៍
-    make_a_donation:
-      text: ជួយ​ឧបត្ថម្ភ​
     learn_more: ស្វែងយល់បន្ថែម
     more: ផ្សេងទៀត
   user_mailer:
@@ -650,39 +643,19 @@ km:
       button: បញ្ជាក់​
       success: បានបញ្ជាក់អាសយដ្ឋានអ៊ីមែលរបស់អ្នករូចរាល់ហើយ!
   messages:
-    inbox:
+    messages_table:
       from: ពី​
+      to: ទៅ​
       subject: ប្រធានបទ​
       date: កាលបរិច្ឆេទ​
     new:
       back_to_inbox: ត្រឡប់ទៅប្រអប់សំបុត្រ​
-    outbox:
-      to: ទៅ​
-      subject: ប្រធានបទ​
-      date: កាលបរិច្ឆេទ​
   sessions:
     new:
       title: កត់ឈ្មោះចូល
-      heading: កត់ឈ្មោះចូល
+      tab_title: កត់ឈ្មោះចូល
       email or username: អាសយដ្ឋានអ៊ីមែល ឬឈ្មោះអ្នកប្រើប្រាស់​៖
       login_button: កត់ឈ្មោះចូល
-      auth_providers:
-        openid:
-          title: កត់ឈ្មោះចូលដោយប្រើ OpenID
-        google:
-          title: កត់ឈ្មោះចូលដោយប្រើ Google
-        facebook:
-          title: កត់ឈ្មោះចូលដោយប្រើ Facebook
-        microsoft:
-          title: កត់ឈ្មោះចូលដោយប្រើ Windows Live
-        github:
-          title: កត់ឈ្មោះចូលដោយប្រើ GitHub
-        wikipedia:
-          title: កត់ឈ្មោះចូលដោយប្រើវិគីភីឌា
-        wordpress:
-          title: កត់ឈ្មោះចូលដោយប្រើ Wordpress
-        aol:
-          title: កត់ឈ្មោះចូលដោយប្រើ AOL
     destroy:
       title: កត់ឈ្មោះចេញ
       logout_button: កត់ឈ្មោះចេញ
@@ -694,20 +667,10 @@ km:
       not_public: អ្នកមិនបានកំណត់​កំណែប្រែរបស់អ្នកជាសាធារណៈ​។
       user_page_link: ទំព័រអ្នកប្រើប្រាស់​
     export:
-      area_to_export: ផ្ទៃដើម្បីនាំចេញ​
       licence: អាជ្ញាបណ្ណ
       too_large:
         planet:
           title: Planet OSM
-      options: ជម្រើស
-      format: ទម្រង់
-      scale: រង្វាស់​
-      max: អតិ.
-      image_size: ទំហំ​រូបភាព​
-      zoom: ពង្រីកចូលឬបង្រួមចេញ
-      add_marker: បន្ថែមសញ្ញាសម្គាល់ទៅលើផែនទី
-      latitude: រយៈទទឹង៖
-      longitude: រយៈបណ្ដោយ៖
       export_button: នាំចេញ​
     sidebar:
       search_results: លទ្ធផលនៃការស្វែងរក​
@@ -726,17 +689,14 @@ km:
           cycleway_local: ផ្លូវទោចក្រយានតំបន់
           rail: ផ្លូវដែក
           subway: ផ្លូវដែកក្រោមដី
-          tram:
-          - ផ្លូវដែកធុនស្រាល
           admin: ព្រំដែនរដ្ឋបាល
           forest: ព្រៃឈើ​
           park: ឧទ្យាន​
           industrial: តំបន់ឧស្សាហកម្ម​
           farm: កសិដ្ឋាន​
           centre: មជ្ឈមណ្ឌល​កីឡា​
-          school:
-          - សាលារៀន​
-          - សាកលវិទ្យាល័យ​
+          school: សាលារៀន​
+          university: សាកលវិទ្យាល័យ​
           station: ស្ថានីយ៍ផ្លូវដែក
   traces:
     new:
@@ -760,20 +720,27 @@ km:
       edit_map: កែប្រែផែនទី​
       public: សាធារណៈ​
       private: ឯកជន​
-      by: ដោយ​
-      in: ក្នុង​
     index:
       tagged_with: '  បានដាកស្លាកជា %{tags}'
-  oauth_clients:
-    edit:
-      title: កែប្រែ​ទំរង់បែបបទរបស់អ្នក​
-    show:
-      edit: កែប្រែ​ព័ត៌មានលម្អិត​
+  application:
+    auth_providers:
+      openid:
+        title: កត់ឈ្មោះចូលដោយប្រើ OpenID
+      google:
+        title: កត់ឈ្មោះចូលដោយប្រើ Google
+      facebook:
+        title: កត់ឈ្មោះចូលដោយប្រើ Facebook
+      microsoft:
+        title: កត់ឈ្មោះចូលដោយប្រើ Windows Live
+      github:
+        title: កត់ឈ្មោះចូលដោយប្រើ GitHub
+      wikipedia:
+        title: កត់ឈ្មោះចូលដោយប្រើវិគីភីឌា
   users:
     new:
       title: ចុះឈ្មោះ​ចូល
-      use external auth: ប្រើភ្នាក់ងារទី៣ដើម្បីកត់ឈ្មោះចូល
       continue: ចុះឈ្មោះចូល
+      use external auth: ប្រើភ្នាក់ងារទី៣ដើម្បីកត់ឈ្មោះចូល
     terms:
       decline: បដិសេធ
       legale_select: ប្រទេស​ស្នាក់​នៅ៖

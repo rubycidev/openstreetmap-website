@@ -94,8 +94,6 @@ ps:
         link text: دا څه دی؟
       save changes button: بدلونونه خوندي کول
   browse:
-    created: جوړ شو
-    closed: تړل شوی
     relation:
       members: غړي
     relation_member:
@@ -115,11 +113,10 @@ ps:
   changesets:
     changeset:
       anonymous: ورکنومی
-    changesets:
-      id: پېژند
-      user: کارن
-      comment: تبصره
-      area: سيمه
+    index:
+      feed:
+        created: جوړ شو
+        closed: تړل شوی
   dashboards:
     popup:
       friend: ملگری
@@ -140,7 +137,8 @@ ps:
       location: 'ځای:'
       view: کتل
       edit: سمول
-    comments:
+  diary_comments:
+    page:
       when: کله
       comment: تبصره
   friendships:
@@ -292,8 +290,6 @@ ps:
     edit: سمول
     history: پېښليک
     help: لارښود
-    make_a_donation:
-      text: بسپنه ورکول
     learn_more: نور مالومات
   user_mailer:
     diary_comment_notification:
@@ -310,22 +306,20 @@ ps:
     confirm_email:
       button: تاييد
   messages:
-    inbox:
+    messages_table:
       date: نېټه
     message_summary:
       reply_button: ځوابول
       destroy_button: ړنگول
     new:
       title: پيغام لېږل
-    outbox:
-      date: نېټه
     show:
       title: پيغام لوستل
       reply_button: ځواب
     sent_message_summary:
       destroy_button: ړنگول
   passwords:
-    lost_password:
+    new:
       heading: آيا پټنوم مو هېر شوی؟
       email address: 'برېښليک پته:'
   profiles:
@@ -335,13 +329,9 @@ ps:
   sessions:
     new:
       title: ننوتل
-      heading: ننوتل
+      tab_title: ننوتل
       password: 'پټنوم:'
       login_button: ننوتل
-      auth_providers:
-        github:
-          title: د گېټ هب له لارې ننوتل
-          alt: د يو گېټ هب گڼون له لارې ننوتل
     destroy:
       title: وتل
       logout_button: وتل
@@ -358,8 +348,6 @@ ps:
       user_page_link: د کارن مخ
     export:
       licence: منښتليک
-      options: خوښنې
-      format: بڼه
     sidebar:
       search_results: د پلټنې پايلې
       close: تړل
@@ -372,15 +360,13 @@ ps:
         entry:
           forest: ځنگل
           park: پارک
-          lake:
-          - ډنډ
-          - زېرمتون
+          lake: ډنډ
+          reservoir: زېرمتون
           farm: کرونده
           cemetery: هديره
           military: پوځي سيمه
-          school:
-          - ښوونځی
-          - پوهنتون
+          school: ښوونځی
+          university: پوهنتون
   traces:
     new:
       visibility_help: دا څه مانا لري؟
@@ -398,11 +384,11 @@ ps:
     trace:
       view_map: نخشه کتل
       edit_map: نخشه سمول
-  oauth_clients:
-    show:
-      confirm: آيا تاسې ډاډه ياست؟
-    index:
-      application: کاريال نوم
+  application:
+    auth_providers:
+      github:
+        title: د گېټ هب له لارې ننوتل
+        alt: د يو گېټ هب گڼون له لارې ننوتل
   users:
     new:
       title: نومليکنه

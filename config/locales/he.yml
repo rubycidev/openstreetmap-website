@@ -79,6 +79,11 @@ he:
       messages:
         invalid_email_address: זאת אינה כתובת דוא״ל תקנית
         email_address_not_routable: לא בר־ניתוב
+        display_name_is_user_n: זה לא יכול להיות user_n אלא אם כן n הוא מזהה המשתמש
+          שלך
+      models:
+        user_mute:
+          is_already_muted: כבר מושתק
     models:
       acl: רשימת בקרת גישה
       changeset: ערכת שינויים
@@ -171,7 +176,6 @@ he:
         auth_provider: ספק אימות
         auth_uid: מזהה אימות ייחודי
         email: דוא״ל
-        email_confirmation: אימות דוא״ל
         new_email: כתובת דוא״ל חדשה
         active: פעיל
         display_name: שם לתצוגה
@@ -266,11 +270,10 @@ he:
       description: iD (עורך בתוך הדפדפן)
     remote:
       name: שליטה מרחוק
-      description: שליטה מרחוק (JOSM, Potlatch או Merkaartor)
+      description: שליטה מרחוק (JOSM‏, Potlatch או Merkaartor)
   auth:
     providers:
       none: ללא
-      openid: OpenID
       google: גוגל
       facebook: פייסבוק
       microsoft: מיקרוסופט
@@ -313,13 +316,15 @@ he:
         retain_caveats: 'אבל חלק מהמידע עליך יישמר ב־OpenStreetMap, אפילו אחרי מחיקת
           חשבונך:'
         retain_edits: העריכות שלך לבסיס הנתונים של המפה, אם קיימות, יישמרו.
-        retain_traces: ההקלטות (traces) שהעליתם, יישמרו.
+        retain_traces: ההקלטות שהעליתם, אם יש כאלו, יישמרו.
         retain_diary_entries: יומן הכניסות ויומן התגובות שלך, אם קיימים, יישמרו, אך
           לא ניתן יהיה לצפות בהם.
         retain_notes: הערות המפה ותגובות להערות, אם יש כאלה, יישמרו, אבל יוסתרו.
         retain_changeset_discussions: הדיונים שלכם על ערכות השינויים, אם יש כאלה,
           יישמרו.
         retain_email: כתובת הדואר האלקטרוני שלך תישמר.
+        recent_editing_html: כיוון שערכת לאחרונה אין אפשרות למחוק את החשבון שלך. אפשר
+          יהיה למחוק אותו בעוד %{time}.
         confirm_delete: להמשיך?
         cancel: ביטול
   accounts:
@@ -345,7 +350,7 @@ he:
         agreed_with_pd: הצהרת גם שמבחינתך העריכות שלך יהיו בנחלת הכלל.
         link text: מה זה?
       save changes button: שמירת השינויים
-      delete_account: למחוק חשבון…
+      delete_account: מחיקת חשבון...
     go_public:
       heading: עריכה ציבורית
       currently_not_public: כעת, העריכות שלך אלמוניות ואנשים לא יכולים לשלוח לך הודעות
@@ -354,26 +359,21 @@ he:
       only_public_can_edit: מאז המעבר ל־API 0.6, רק משתמשים ציבוריים יכולים לערוך
         נתוני מפה.
       find_out_why: לברר למה
-      email_not_revealed: כתובת הדוא"ל שלך לא תיחשף על־ידי הפיכתה לציבור.
+      email_not_revealed: כתובת הדוא"ל שלך לא תיחשף כשתהפוך לציבורית.
       not_reversible: לא ניתן להפוך את הפעולה הזאת, וכל המשתמשים החדשים כעת ציבוריים
         כברירת מחדל.
       make_edits_public_button: להפוך את כל עריכותיי לציבוריות
     update:
-      success_confirm_needed: מידע על המשתמש עודכן בהצלחה. נא לבדוק את תיבת הדוא"ל
-        כדי לאמת את הדוא"ל החדש.
+      success_confirm_needed: מידע על המשתמש עודכן בהצלחה. נא לבדוק את תיבת הדוא״ל
+        כדי לאמת את הדוא״ל החדש.
       success: פרטי המשתמש עודכנו בהצלחה.
     destroy:
       success: חשבון נמחק.
   browse:
-    created: נוצרה
-    closed: נסגרה
-    created_ago_html: נוצרה %{time_ago}
-    closed_ago_html: נסגרה %{time_ago}
-    created_ago_by_html: נוצרה %{time_ago} על־ידי %{user}
-    closed_ago_by_html: נסגרה %{time_ago} על־ידי %{user}
     deleted_ago_by_html: נמחקה %{time_ago} על־ידי %{user}
     edited_ago_by_html: נערכה %{time_ago} על־ידי %{user}
     version: גרסה
+    redacted_version: גרסה שהוסר ממנה מידע
     in_changeset: ערכת שינויים
     anonymous: אלמוני
     no_comment: (אין הערות)
@@ -390,28 +390,11 @@ he:
       other: '%{count} דרכים'
     download_xml: הורדת XML
     view_history: הצגת ההיסטוריה
+    view_unredacted_history: הצגת היסטוריה ללא הסרות
     view_details: הצגת פרטים
+    view_redacted_data: הצגת הנתונים שהוסרו
+    view_redaction_message: הצגת הודעת הסרה
     location: 'מיקום:'
-    changeset:
-      title: 'ערכת שינויים: %{id}'
-      belongs_to: יוצר
-      node: נקודות (%{count})
-      node_paginated: נקודות (%{x}–%{y} מתוך %{count})
-      way: קווים (%{count})
-      way_paginated: קווים (%{x}–%{y} מתוך %{count})
-      relation: יחסים (%{count})
-      relation_paginated: יחסים (%{x}–%{y} מתוך %{count})
-      comment: הערות (%{count})
-      hidden_comment_by_html: הערה מוסתרת מאת %{user} %{time_ago}
-      comment_by_html: הערה מאת %{user} %{time_ago}
-      changesetxml: XML של ערכת השינויים
-      osmchangexml: osmChange XML
-      feed:
-        title: ערכת שינויים %{id}
-        title_comment: ערכת שינויים %{id} – %{comment}
-      join_discussion: נא להיכנס לחשבון כדי להצטרף לדיון
-      discussion: דיון
-      still_open: ערכת השינויים עדיין פתוחה – הדיון ייפתח אחרי שערכת השיניים תיסגר.
     node:
       title_html: 'נקודה: %{name}'
       history_title_html: 'היסטוריית הנקודה: %{name}'
@@ -494,6 +477,28 @@ he:
       introduction: יש ללחוץ על המפה כדי למצוא ישויות בסביבה.
       nearby: ישויות בסביבה
       enclosing: ישויות מכילות
+  old_nodes:
+    not_found:
+      sorry: לא ניתן למצוא את נקודה מס׳ %{id} בגרסה %{version}, מחילה.
+  old_ways:
+    not_found:
+      sorry: לא ניתן למצוא את דרך מס׳ %{id} בגרסה %{version}, מחילה.
+  old_relations:
+    not_found:
+      sorry: לא ניתן למצוא את יחס מס׳ %{id} בגרסה %{version}, מחילה.
+  changeset_comments:
+    feeds:
+      comment:
+        comment: הערה חדשה על ערכת שינויים מס׳ %{changeset_id} מאת %{author}
+        commented_at_by_html: עודכנה %{when} על־ידי %{user}
+      comments:
+        comment: הערה חדשה בערכת שינויים מס׳ %{changeset_id} מאת %{author}
+      show:
+        title_all: דיון בערכת שינויים של OpenStreetMap
+        title_particular: דיון בערכת שינויים מס׳ %{changeset_id} של OpenStreetMap
+      timeout:
+        sorry: הזמן שלקח לרשימת ההערות על ערכת השינויים שביקשת להתקבל ארוך מדי, עמך
+          הסליחה.
   changesets:
     changeset_paging_nav:
       showing_page: הדף %{page}
@@ -503,12 +508,6 @@ he:
       anonymous: אלמוני
       no_edits: (אין עריכות)
       view_changeset_details: הצגת פרטי ערכת שינויים
-    changesets:
-      id: מזהה
-      saved_at: נשמרו ב־
-      user: משתמש
-      comment: תגובה
-      area: שטח
     index:
       title: ערכות שינויים
       title_user: ערכות שינויים מאת %{user}
@@ -522,24 +521,60 @@ he:
       no_more_area: אין עוד ערכות שינויים באזור הזה.
       no_more_user: אין ערכות שינויים נוספות מאת המשתמש הזה.
       load_more: לטעון עוד
+      feed:
+        title: ערכת שינויים %{id}
+        title_comment: ערכת שינויים %{id} – %{comment}
+        created: נוצרה
+        closed: נסגרה
+        belongs_to: יוצר
+    subscribe:
+      heading: לעשות מינוי לדיון בערכת השינויים הבאה?
+      button: מינוי לדיון
+    unsubscribe:
+      heading: לבטל את המינוי לדיון בערכת השינויים הבאה?
+      button: ביטול המינוי לדיון
+    heading:
+      title: ערכת שינויים %{id}
+      created_by_html: נוצרה על־ידי %{link_user} ב־%{created}.
+    no_such_entry:
+      title: אין ערכת שינויים כזאת
+      heading: 'אין רשומה עם המזהה: %{id}'
+      body: סליחה, אין ערכת שינויים עם המזהה %{id}. אולי האיות לא נכון ואולי לחצת
+        על קישור שגוי.
+    show:
+      title: 'ערכת שינויים: %{id}'
+      created: 'נוצרה: %{when}'
+      closed: 'נסגרה: %{when}'
+      created_ago_html: נוצרה %{time_ago}
+      closed_ago_html: נסגרה %{time_ago}
+      created_ago_by_html: נוצרה %{time_ago} על־ידי %{user}
+      closed_ago_by_html: נסגרה %{time_ago} על־ידי %{user}
+      discussion: דיון
+      join_discussion: נא להיכנס לחשבון כדי להצטרף לדיון
+      still_open: ערכת השינויים עדיין פתוחה – הדיון ייפתח אחרי שערכת השיניים תיסגר.
+      subscribe: מינוי
+      unsubscribe: ביטול מינוי
+      comment_by_html: הערה מאת %{user} %{time_ago}
+      hidden_comment_by_html: הערה מוסתרת מאת %{user} %{time_ago}
+      hide_comment: הסתרה
+      unhide_comment: ביטול הסתרה
+      comment: להגיב
+      changesetxml: XML של ערכת השינויים
+      osmchangexml: osmChange XML
+    paging_nav:
+      nodes: נקודות (%{count})
+      nodes_paginated: נקודות (%{x}–%{y} מתוך %{count})
+      ways: קווים (%{count})
+      ways_paginated: קווים (%{x}–%{y} מתוך %{count})
+      relations: יחסים (%{count})
+      relations_paginated: יחסים (%{x}–%{y} מתוך %{count})
     timeout:
       sorry: קבלת רשימת ערכות השינויים שביקשת אורכת זמן רב מדי, עמך הסליחה.
-  changeset_comments:
-    comment:
-      comment: הערה חדשה על ערכת שינויים מס׳ %{changeset_id} מאת %{author}
-      commented_at_by_html: עודכנה %{when} על־ידי %{user}
-    comments:
-      comment: הערה חדשה בערכת שינויים מס׳ %{changeset_id} מאת %{author}
-    index:
-      title_all: דיון בערכת שינויים של OpenStreetMap
-      title_particular: דיון בערכת שינויים מס׳ %{changeset_id} של OpenStreetMap
-    timeout:
-      sorry: הזמן שלקח לרשימת ההערות על ערכת השינויים שביקשת להתקבל ארוך מדי, עמך
-        הסליחה.
   dashboards:
     contact:
       km away: במרחק %{count} ק״מ
       m away: במרחק %{count} מ׳
+      latest_edit_html: 'עריכה אחרונה (%{ago}):'
     popup:
       your location: מיקומך
       nearby mapper: ממפה סמוך
@@ -573,6 +608,7 @@ he:
       new_title: כתיבת רשומה חדשה ביומן המשתמש שלי
       my_diary: היום שלי
       no_entries: אין רשומות יומן
+    page:
       recent_entries: רשומות יומן אחרונות
       older_entries: רשומות ישנות יותר
       newer_entries: רשומות חדשות יותר
@@ -582,6 +618,9 @@ he:
     show:
       title: היומן של%{user} &rlm; | %{title}
       user_title: היומן של %{user}
+      discussion: דיון
+      subscribe: מינוי
+      unsubscribe: ביטול מינוי
       leave_a_comment: הוספת תגובה
       login_to_leave_a_comment_html: נא %{login_link} כדי להשאיר תגובה
       login: להיכנס
@@ -626,16 +665,26 @@ he:
       all:
         title: רשומות ביומן של OpenStreetMap
         description: רשומות יומן אחרונות ממשתמשי OpenStreetMap
-    comments:
+    subscribe:
+      heading: לעשות מינוי לדיון ברשומת היומן הבאה?
+      button: מינוי לדיון
+    unsubscribe:
+      heading: לבטל את המינוי לדיון ברשומת היומן הבאה?
+      button: ביטול המינוי לדיון
+  diary_comments:
+    index:
       title: הערות יומן שנוספו על־ידי %{user}
       heading: הערות ביומן של %{user}
       subheading_html: הערות יומן שנוספו על־ידי %{user}
       no_comments: אין הערות יומן
+    page:
       post: רשומה
       when: מתי
       comment: תגובה
       newer_comments: הערות חדשות
       older_comments: הערות ישנות
+    new:
+      heading: להוסיף הערה לדיון ברשומת היומן הבאה?
   doorkeeper:
     errors:
       messages:
@@ -670,6 +719,9 @@ he:
       contact: ליצור קשר
       contact_the_community_html: אפשר %{contact_link} עם קהילת OpenStreetMap אם מצאת
         קישור פגום / תקלה. יש לתעד את הכתובת המדויקת של הבקשה שלך.
+    bad_request:
+      title: בקשה מקולקלת
+      description: הפעולה שביקשת בשרת OpenStreetMap אינה תקינה (HTTP 400)
     forbidden:
       title: אסור
       description: הפעולה שביקשת לבצע מול שרת OpenStreetMap זמינה למנהלים בלבד (HTTP
@@ -866,6 +918,7 @@ he:
           college: בניין מכללה
           commercial: בניין מסחרי
           construction: בניין בבנייה
+          cowshed: רפת
           detached: בית פרטי
           dormitory: מעונות
           duplex: בית דופלקס
@@ -895,6 +948,7 @@ he:
           shed: צריף
           stable: אורווה
           static_caravan: קרוואן
+          sty: דיר חזירים
           temple: מקדש
           terrace: בניין מדורג
           train_station: בניין תחנת רכבת
@@ -1180,7 +1234,7 @@ he:
           fjord: פיורד
           forest: יער
           geyser: גייזר
-          glacier: קרחון
+          glacier: קרחון יבשתי
           grassland: ערבה
           heath: בתה
           hill: גבעה
@@ -1490,13 +1544,19 @@ he:
       not_updated: לא עדכני
       search: חיפוש
       search_guidance: 'חיפוש בעיות:'
+      link_to_reports: הצגת דיווחים
+      states:
+        ignored: התעלמות
+        open: פתוחה
+        resolved: נפתרה
+    page:
       user_not_found: המשתמש לא קיים
       issues_not_found: לא נמצאו בעיות כאלה
+      reported_user: משתמש מדווח
       status: מצב
       reports: דיווחים
       last_updated: עדכון אחרון
       last_updated_time_ago_user_html: '%{time_ago} מאת %{user}'
-      link_to_reports: הצגת דיווחים
       reports_count:
         one: דיווח אחד
         two: '%{count} דיווחים'
@@ -1504,9 +1564,11 @@ he:
         other: '%{count} דיווחים'
       reported_item: פריט שדווח
       states:
-        ignored: התעלמות
-        open: פתוחה
-        resolved: נפתרה
+        ignored: חסר־השפעה
+        open: פתוח
+        resolved: פתור
+      older_issues: בעיות ישנות יותר
+      newer_issues: בעיות חדשות יותר
     show:
       title: בעיה במצב %{status} מס׳ %{issue_id}
       reports:
@@ -1515,9 +1577,9 @@ he:
         many: '%{count} דו״חות'
         other: '%{count} דו״חות'
       no_reports: אין דיווחים
-      report_created_at: דיווח ראשון ב־%{datetime}
-      last_resolved_at: נפתר לאחרונה ב־%{datetime}
-      last_updated_at: עדכון אחרון ב־%{datetime} על־ידי %{displayname}
+      report_created_at_html: דיווח ראשון ב־%{datetime}
+      last_resolved_at_html: נפתר לאחרונה ב־%{datetime}
+      last_updated_at_html: עדכון אחרון ב־%{datetime} על־ידי %{displayname}
       resolve: לפתור
       ignore: התעלמות
       reopen: פתיחה מחדש
@@ -1528,11 +1590,11 @@ he:
       no_other_issues: אין בעיות נוספות עם המשתמש הזה.
       comments_on_this_issue: הערות על בעיה זו
     resolve:
-      resolved: מצב הבעיה שונה ל"טופל"
+      resolved: מצב הבעיה שונה ל„טופל”
     ignore:
-      ignored: מצב הבעיה שונה ל"התעלמות"
+      ignored: מצב הבעיה שונה ל„התעלמות”
     reopen:
-      reopened: מצב הבעיות שונה ל"פתוחה"
+      reopened: מצב הבעיות שונה ל„פתוחה”
     comments:
       comment_from_html: תגובה מאת %{user_link} על %{comment_created_at}
       reassign_param: להקצות את הבעיה מחדש?
@@ -1567,10 +1629,10 @@ he:
           threat_label: הערה זו ביומן מכילה איום
           other_label: אחר
         user:
-          spam_label: פרופיל משתמש זה הוא/מכיל ספאם
-          offensive_label: פרופיל משתמש זה בוטה/פוגעני
-          threat_label: פרופיל משתמש זה מכיל איום
-          vandal_label: משתמש זה משחית
+          spam_label: פרופיל המשתמש הזה הוא ספאם (או מכיל ספאם)
+          offensive_label: פרופיל המשתמש הזה בוטה או פוגעני
+          threat_label: פרופיל המשתמש הזה מכיל איום
+          vandal_label: המשתמש הזה הוא משחית
           other_label: אחר
         note:
           spam_label: הערה זו היא זבל
@@ -1597,24 +1659,23 @@ he:
     gps_traces: מסלולי GPS
     gps_traces_tooltip: ניהול מסלולי GPS
     user_diaries: יומני משתמשים
-    user_diaries_tooltip: צפייה ביומני המשתמש
     edit_with: לעריכה עם %{editor}
     tag_line: מפת עולם חופשית בשיטת הוויקי
     intro_header: ברוכים הבאים ל־OpenStreetMap!
     intro_text: OpenStreetMap היא מפה של העולם, שנוצרת על־ידי אנשים כמוך, וחופשית
       לשימוש תחת רישיון פתוח.
     intro_2_create_account: נא ליצור חשבון משתמש
-    hosting_partners_html: האירוח בתמיכת %{ucl}, %{fastly}, %{bytemark}, ו%{partners}
-      נוספים.
-    partners_ucl: UCL
+    hosting_partners_2024_html: האירוח נתמך על־ידי %{fastly}, %{corpmembers} ועוד
+      %{partners}
     partners_fastly: פאסטלי
-    partners_bytemark: בייטמארק הוסטינג
+    partners_corpmembers: חברים תאגידיים אחרים ב־OSMF
     partners_partners: שותפים
     tou: תנאי השימוש
     osm_offline: מסד הנתונים של אתר OpenStreetMap אינו מקוון כעת בשל עבודות תחזוקה
       המבוצעות בו.
     osm_read_only: מסד הנתונים של אתר OpenStreetMap נתון כעת במצב קריאה בלבד בשל עבודות
       תחזוקה המבוצעות בו.
+    nothing_to_preview: אין מה להראות בתצוגה מקדימה.
     donate: תִמכו ב־OpenStreetMap על־ידי %{link} לקרן לשדרוג החומרה.
     help: עזרה
     about: אודות
@@ -1623,13 +1684,11 @@ he:
     community: קהילה
     community_blogs: בלוגים של הקהילה
     community_blogs_title: בלוגים של חברי קהילת OpenStreetMap
-    make_a_donation:
-      title: תִמכו במיזם OpenStreetMap על־ידי מתן תרומה כספית
-      text: תרומה
     learn_more: מידע נוסף
     more: עוד
   user_mailer:
     diary_comment_notification:
+      description: רשומת יומן OpenStreetMap מס׳ %{id}
       subject: '[אופן סטריט מאפ OpenStreetMap] תגובה מאת %{user} נוספה לרשומת יומן'
       hi: שלום %{to_user},
       header: '%{from_user} הגיב לרשומת היומן ב־OpenStreetMap עם הנושא %{subject}:'
@@ -1638,6 +1697,8 @@ he:
         או לשלוח הודעה ליוצר בכתובת %{replyurl}
       footer_html: אפשר גם לקרוא את התגובה בכתובת %{readurl} ולהגיב בכתובת %{commenturl}
         או לשלוח הודעה למחבר בכתובת %{replyurl}
+      footer_unsubscribe: אפשר לבטל את המינוי לדיון בכתובת %{unsubscribeurl}
+      footer_unsubscribe_html: אפשר לבטל את המינוי לדיון בכתובת %{unsubscribeurl}
     message_notification:
       subject: '[OpenStreetMap] %{message_title}'
       hi: שלום %{to_user},
@@ -1655,14 +1716,20 @@ he:
       befriend_them: באפשרותך לסמנו כחבר בכתובת %{befriendurl}.
       befriend_them_html: באפשרותך לסמנו כחבר בכתובת %{befriendurl}.
     gpx_description:
-      description_with_tags_html: 'נראה כי קובץ ה־GPX שלך %{trace_name} העונה לתיאור
-        %{trace_description} והתגיות הבאות: %{tags}'
-      description_with_no_tags_html: נראה כי קובץ ה־GPX שלך %{trace_name} העונה לתיאור
-        %{trace_description} וללא תגיות
+      description_with_tags: 'זה נראה כמו קובץ ה־GPX שלך %{trace_name} עם התיאור %{trace_description}
+        ועם התגים הבאים: %{tags}'
+      description_with_tags_html: 'זה נראה כמו קובץ ה־GPX שלך %{trace_name} עם התיאור
+        %{trace_description} ועם התגים הבאים: %{tags}'
+      description_with_no_tags: זה נראה כמו קובץ ה־GPX שלך %{trace_name} עם התיאור
+        %{trace_description} וללא תגים
+      description_with_no_tags_html: זה נראה כמו קובץ ה־GPX שלך %{trace_name} עם התיאור
+        %{trace_description} וללא תגים
     gpx_failure:
       hi: שלום %{to_user},
-      failed_to_import: 'לא יובא כראוי. הנה השגיאה:'
-      more_info_html: מידע על תקלות בייבוא GPX וכיצד להימנע מהן נמצא תחת %{url}.
+      failed_to_import: 'לא יובא כראוי. הינה השגיאה:'
+      more_info: מידע נוסף על תקלות ביבוא GPX ועל איך להימנע מהן נמצא בכתובת %{url}.
+      more_info_html: מידע נוסף על תקלות ביבוא GPX ועל איך להימנע מהן נמצא בכתובת
+        %{url}.
       subject: '[אופן סטריט מאפ OpenStreetMap] שגיאה בייבוא GPX'
     gpx_success:
       hi: שלום %{to_user},
@@ -1671,6 +1738,9 @@ he:
         two: נטען בהצלחה עם %{trace_points} נקודות מתוך %{count} נקודות אפשריות.
         many: נטען בהצלחה עם %{trace_points} נקודות מתוך %{count} נקודות אפשריות.
         other: נטען בהצלחה עם %{trace_points} נקודות מתוך %{count} נקודות אפשריות.
+      trace_location: ההקלטה שלך זמינה בכתובת %{trace_url}
+      all_your_traces: אפשר למצוא את כל הקלטות ה־GPX שלך בכתובת %{url}
+      all_your_traces_html: אפשר למצוא את כל עקבות ה־GPX שלך שהועלו בהצלחה דרך %{url}.
       subject: '[אופן סטריט מאפ OpenStreetMap] ייבוא GPX הצליח'
     signup_confirm:
       subject: '[אופן סטריט מאפ OpenStreetMap] ברוך בואך לאופן סטריט מאפ'
@@ -1692,6 +1762,7 @@ he:
         כתובת הדוא"ל הזאת באתר openstreetmap.org.
       click_the_link: אם אכן עשית זאת, יש ללחוץ על הקישור להלן כדי לאפס את הסיסמה.
     note_comment_notification:
+      description: הערת OpenStreetMap מס׳ %{id}
       anonymous: משתמש אלמוני
       greeting: שלום,
       commented:
@@ -1723,9 +1794,10 @@ he:
           היא ליד %{place}.
         commented_note_html: '%{commenter} הפעיל מחדש הערת מפה שהגבת עליה. הערה נמצאת
           ליד %{place}'
-      details: אפשר למצוא פרטים נוספים על ההערה בכתובת %{url}
-      details_html: אפשר למצוא פרטים נוספים על ההערה בכתובת %{url}.
+      details: אפשר להגיב להערה או לקבל מידע נוסף עליה בכתובת %{url}
+      details_html: אפשר להגיב להערה או לקבל מידע נוסף עליה בכתובת %{url}
     changeset_comment_notification:
+      description: ערכת שינויים של OpenStreetMap מס׳ %{id}
       hi: שלום %{to_user},
       greeting: שלום,
       commented:
@@ -1744,12 +1816,11 @@ he:
         partial_changeset_with_comment: עם ההערה '%{changeset_comment}'
         partial_changeset_with_comment_html: עם ההערה '%{changeset_comment}'
         partial_changeset_without_comment: ללא הערה
-      details: פרטים נוספים על ערכת השינויים אפשר למצוא בכתובת %{url}
-      details_html: פרטים נוספים על ערכת השינויים אפשר למצוא בכתובת %{url}
-      unsubscribe: כדי לבטל את המינוי לעדכונים מערכת השינויים הזאת, נא לבקר בכתובת
-        %{url} וללחוץ על „ביטול מינוי”.
-      unsubscribe_html: כדי לבטל את המעקב אחרי עדכוני מערכת השינויים הזאת, נא לבקר
-        בכתובת %{url} וללחוץ על „ביטול מינוי”.
+      details: אפשר להגיב לערכת השינויים או לקבל מידע נוסף עליה בכתובת %{url}
+      details_html: אפשר להגיב לערכת השינויים או לקבל מידע נוסף עליה בכתובת %{url}
+      unsubscribe: באפשרותך לבטל את המינוי לעדכונים מערכת השינויים הזאת בכתובת %{url}.
+      unsubscribe_html: באפשרותך לבטל את המינוי לעדכונים מערכת השינויים הזאת בכתובת
+        %{url}.
   confirmations:
     confirm:
       heading: אימות חשבון משתמש
@@ -1761,7 +1832,7 @@ he:
       success: חשבונך אושר, תודה שנרשמת!
       already active: החשבון הזה כבר אושר.
       unknown token: נראה שקוד האישור הזה פג או שאינו קיים.
-      resend_html: אם צריך שנשלח לך שוב את דוא"ל האישור, %{reconfirm_link}.
+      resend_html: אם צריך שנשלח לך שוב את דוא״ל האישור, %{reconfirm_link}.
       click_here: נא ללחוץ כאן
     confirm_resend:
       failure: משתמש %{name} לא נמצא.
@@ -1781,8 +1852,6 @@ he:
   messages:
     inbox:
       title: תיבת דואר נכנס
-      my_inbox: תיבת הדואר הנכנס שלי
-      my_outbox: תיבת הדואר היוצא שלי
       messages: יש לך %{new_messages} ועוד %{old_messages}
       new_messages:
         one: הודעה חדשה אחת
@@ -1790,16 +1859,20 @@ he:
       old_messages:
         one: הודעה ישנה אחת
         other: '%{count} הודעות ישנות'
-      from: מאת
-      subject: נושא
-      date: תאריך
       no_messages_yet_html: אין לך הודעות חדשות עדיין. מה דעתך ליצור קשר עם %{people_mapping_nearby_link}?
       people_mapping_nearby: אנשים ממפים בקרבת מקום
+    messages_table:
+      from: מאת
+      to: אל
+      subject: נושא
+      date: תאריך
+      actions: פעולות
     message_summary:
       unread_button: סימון כ„לא נקרא”
       read_button: סימון כ„נקרא”
       reply_button: להשיב
       destroy_button: מחיקה
+      unmute_button: העברה לדואר הנכנס
     new:
       title: שליחת הודעה
       send_message_to_html: לשליחת הודעה חדשה אל %{name}
@@ -1810,19 +1883,22 @@ he:
     no_such_message:
       title: אין הודעה כזאת
       heading: אין הודעה כזאת
-      body: אנו מצטערים, אין הודעה עם מזהה זה.
+      body: אנו מצטערים, אין הודעה עם המזהה הזה.
     outbox:
       title: תיבת דואר יוצא
-      my_inbox: תיבת הדואר הנכנס שלי
-      my_outbox: תיבת הדואר היוצא שלי
+      actions: פעולות
       messages:
         one: יש לך הודעה אחת שנשלחה
         other: יש לך %{count} הודעות שנשלחו
-      to: אל
-      subject: נושא
-      date: תאריך
       no_sent_messages_html: אין לך הודעות נשלחו עד כה. מה דעתך ליצור קשר עם %{people_mapping_nearby_link}?
       people_mapping_nearby: משתתפים הממפים בקרבת מקום
+    muted:
+      title: הודעות מושתקות
+      messages:
+        one: הודעה מושתקת
+        two: יש לך שתי הודעות מושתקות
+        many: יש לך %{count} הודעות מושתקות
+        other: יש לך %{count} הודעות מושתקות
     reply:
       wrong_user: נכנסת בשם „%{user}”, אבל ההודעה שביקשת להשיב עליה לא נשלחה לאותו
         המשתמש. נא להיכנס בחשבון הנכון כדי להשיב.
@@ -1833,31 +1909,40 @@ he:
       destroy_button: מחיקה
       back: חזרה
       wrong_user: נכנסת בשם „%{user}”, אבל ההודעה שביקשת לקרוא לא נשלחה לאותו המשתמש.
-        נא להיכנס בחשבון הנכון כדי ללקרוא אותה.
+        נא להיכנס לחשבון הנכון כדי לקרוא אותה.
     sent_message_summary:
       destroy_button: מחיקה
+    heading:
+      my_inbox: תיבת הדואר הנכנס שלי
+      my_outbox: תיבת הדואר היוצא שלי
+      muted_messages: הודעות מושתקות
     mark:
       as_read: ההודעה סומנה כהודעה שנקראה
       as_unread: ההודעה סומנה כהודעה שלא נקראה
+    unmute:
+      notice: הודעה הועברה לדואר הנכנס
+      error: אי־אפשר להעביר את ההודעה לדואר הנכנס.
     destroy:
       destroyed: ההודעה נמחקה
   passwords:
-    lost_password:
+    new:
       title: הסיסמה הלכה לאיבוד
       heading: שכחת סיסמה?
-      email address: 'כתובת דוא״ל:'
+      email address: כתובת דוא״ל
       new password button: נא לשלוח לי סיסמה חדשה
       help_text: נא להזין את כתובת הדוא״ל שהשתמשת בה כדי להירשם. אנו נשלח אליה קישור
         שאפשר להשתמש בו כדי לאפס את סיסמתך.
-      notice email on way: אנו מצטערים לשמוע שאיבדת אותה :-( אבל נשלח לדואר האלקטרוני
-        שלך מכתב שבאמצעותו אפשר לאפס אותה.
-      notice email cannot find: סליחה, הכתובת הזאת לא נמצאה.
-    reset_password:
+    create:
+      send_paranoid_instructions: אם כתובת הדוא״ל שלך קיימת במסד הנתונים שלנו, יישלח
+        אליך קישור לשחזור סיסמה לכתובת הדוא״ל הזאת בעוד כמה דקות.
+    edit:
       title: איפוס סיסמה
       heading: איפוס הסיסמה עבור %{user}
       reset: איפוס הסיסמה
-      flash changed: סיסמתך שונתה.
       flash token bad: לא מצאנו את האסימון ההוא, אולי בדיקת הכתובת תעזור?
+    update:
+      flash changed: סיסמתך שונתה.
+      flash token bad: האסימון לא נמצא, אולי משהו עם הכתובת?
   preferences:
     show:
       title: ההעדפות שלי
@@ -1900,43 +1985,17 @@ he:
   sessions:
     new:
       title: כניסה
-      heading: כניסה
-      email or username: 'כתובת דואר אלקטרוני או שם משתמש:'
-      password: 'סיסמה:'
-      openid_html: '%{logo} OpenID:'
+      tab_title: כניסה
+      login_to_authorize_html: נא להיכנס ל־OpenStreetMap כדי לגשת ליישום %{client_app_name}.
+      email or username: כתובת דוא״ל או שם משתמש
+      password: סיסמה
       remember: לזכור אותי
       lost password link: איבדת את הסיסמה שלך?
       login_button: כניסה
       register now: להירשם עכשיו
-      with external: 'לחלופין, השתמשו בצד שלישי כדי להיכנס:'
-      no account: אין לך חשבון?
+      with external: לחלופין, אפשר להשתמש בצד שלישי כדי להיכנס
+      or: או
       auth failure: סליחה, לא ניתן להיכנס עם הפרטים האלה.
-      openid_logo_alt: כניסה עם OpenID
-      auth_providers:
-        openid:
-          title: כניסה עם OpenID
-          alt: כניסה עם URL של OpenID
-        google:
-          title: כניסה עם גוגל
-          alt: כניסה עם OpenID של גוגל
-        facebook:
-          title: כניסה עם פייסבוק
-          alt: כניסה עם חשבון פייסבוק
-        microsoft:
-          title: כניסה עם מיקרוסופט
-          alt: כניסה עם חשבון מיקרוסופט
-        github:
-          title: כניסה באמצעות GitHub
-          alt: כניסה עם חשבון GitHub
-        wikipedia:
-          title: כניסה עם ויקיפדיה
-          alt: כניסה עם חשבון ויקיפדיה
-        wordpress:
-          title: כניסה עם וורדפרס
-          alt: כניסה עם OpenID של וורדפרס
-        aol:
-          title: כניסה עם AOL
-          alt: כניסה עם OpenID של AOL
     destroy:
       title: יציאה
       heading: יציאה מ־OpenStreetMap
@@ -1951,8 +2010,8 @@ he:
       headings: כותרות
       heading: כותרת
       subheading: כותרת משנה
-      unordered: רשימה בלתי־ממוינת
-      ordered: רשימה ממוינת
+      unordered: רשימת תבליטים
+      ordered: רשימה ממוספרת
       first: הפריט הראשון
       second: הפריט השני
       link: קישור
@@ -1960,9 +2019,11 @@ he:
       image: תמונה
       alt: טקסט חלופי
       url: כתובת URL
+      codeblock: קטע קוד
     richtext_field:
       edit: עריכה
       preview: תצוגה מקדימה
+      help: עזרה
   site:
     about:
       next: הבא
@@ -1991,7 +2052,7 @@ he:
       community_driven_osm_foundation: קרן OSM
       open_data_title: נתונים פתוחים
       open_data_1_html: |-
-        OpenStreetMap היא %{open_data}: יש לך הופש להשתמש בה לכל מטרה,
+        OpenStreetMap היא %{open_data}: יש לך חופש להשתמש בה לכל מטרה,
         כל עוד ניתן ייחוס ל־OpenStreetMap ולתורמיה. מותר לשנות את הנתונים
         ולבנות על גביהם דברים מסוימים, אך יש להפיץ את התוצאות של זה
         לפי התנאים של אותו הרישיון. ר' את %{copyright_license_link}
@@ -2014,19 +2075,19 @@ he:
       legal_2_2_registered_trademarks: סימנים מסחריים של OSMF
       partners_title: שותפים
     copyright:
+      title: זכויות יוצרים ורישיון
       foreign:
-        title: אודות תרגום זה
+        title: אודות התרגום הזה
         html: במקרה של חוסר תאימות בין הדף המתורגם הזה לבין %{english_original_link},
           הדף באנגלית הוא הקובע
         english_link: המקור באנגלית
       native:
-        title: אודות דף זה
+        title: אודות הדף הזה
         html: זהו דף זכויות היוצרים בגרסתו באנגלית. אפשר לחזור ל%{native_link} של
           הדף הזה, ואפשר גם להפסיק לקרוא על זכויות יוצרים ו%{mapping_link}.
         native_link: גרסה העברית
         mapping_link: להתחיל למפות
       legal_babble:
-        title_html: זכויות יוצרים ורישיון
         introduction_1_html: |-
           OpenStreetMap%{registered_trademark_link} הוא מיזם %{open_data}, שמתפרסמים לפי תנאי
           %{odc_odbl_link} (ר״ת ODbL) על־ידי %{osm_foundation_link} (ר״ת OSMF).
@@ -2059,9 +2120,9 @@ he:
         credit_3_attribution_guidelines: הנחיות ייחוס
         credit_4_1_html: |-
           כדי להבהיר שהנתונים זמינים לפי תנאי רישיון מסד הנתונים הפתוח, באפשרותך לקשר ל%{this_copyright_page_link}.
-          לחלופין, וכדרישה אם OSM מופץ על־ידיך בצורת נתונים, באפשרותך לתת שם ולקשר ישירות לרישיון (או רישיונות). באמצעי אחסון שבהם קישורים אינם אפשריים (למשל עבודות מודפסות), אנו מציעים לך להפנות את הקוראים שלך לאתר openstreetmap.org (אולי על‏‏־ידי הרחבת
-          "OpenStreetMap" לכתובת המלאה הזאת) ולאתר opendatacommons.org.
-          בדוגמה הזאת, הקרדיט מופיע בפינת המפה.
+          לחלופין, וכדרישה אם OSM מופץ על־ידיך בצורת נתונים, אפשר לספק שם ולקשר ישירות לרישיון (או רישיונות). באמצעי אחסון שבהם קישורים אינם אפשריים (למשל עבודות מודפסות), אנו מציעים לך להפנות את הקוראים שלך לאתר openstreetmap.org (אולי על‏‏־ידי הרחבת
+          ‚OpenStreetMap’ לכתובת המלאה הזאת) ולאתר opendatacommons.org.
+          בדוגמה הזאת, התודות מופיעות בפינת המפה.
         credit_4_1_this_copyright_page: דף זכויות היוצרים הזה
         attribution_example:
           alt: דוגמה לצורה הנכונה לתת ייחוס ל־OpenStreetMap באתר האינטרנט
@@ -2092,8 +2153,8 @@ he:
         contributors_at_cc_by_at_with_amendments: קריאייטיב קומונז ייחוס אוסטריה עם
           תיקונים
         contributors_au_credit_html: |-
-          %{australia}: משלבת או פותחה באמצעות גבולות ניהוליים &copy; %{geoscape_australia_link}
-          ברישיון הקהילייה של אוסטרליה תחת %{cc_licence_link}.
+          %{australia}: משלבת או מפותחת באמצעות Administrative Boundaries‏ &copy;‏ %{geoscape_australia_link}
+          והרישיון ניתן על־ידי הקהילייה של אוסטרליה תחת %{cc_licence_link}.
         contributors_au_australia: אוסטרליה
         contributors_au_geoscape_australia: Geoscape אוסטרליה
         contributors_au_cc_licence: רישיון קריאייטיב קומונז ייחוס 4.0 בין־לאומי (CC
@@ -2121,6 +2182,12 @@ he:
           %{france}: מכילה נתונים שהגיעו במקור
           ממנהלת המיסים הכללית (Direction Générale des Impôts).
         contributors_fr_france: צרפת
+        contributors_hr_credit_html: |-
+          %{croatia}: מכילה נתונים מ%{dgu_link} ומ%{open_data_portal}
+          (מידע ציבורי של קרואטיה).
+        contributors_hr_croatia: קרואטיה
+        contributors_hr_dgu: המִנהל הגאודטי הממלכתי של קרואטיה
+        contributors_hr_open_data_portal: פורטל הנתונים הפתוחים הלאומי
         contributors_nl_credit_html: '%{netherlands}: מכילה © נתוני AND‏, 2007 (‏%{and_link})'
         contributors_nl_netherlands: הולנד
         contributors_nz_credit_html: |-
@@ -2188,9 +2255,6 @@ he:
     index:
       js_1: הדפדפן שבו אתה משתמש אינו תומך ב־JavaScript, או שכיבית את השימוש ב־JavaScript.
       js_2: אתר OpenStreetMap משתמש ב־JavaScript למפה המחליקה.
-      permalink: קישור קבוע
-      shortlink: קישור מקוצר
-      createnote: הוספת הערה
       license:
         copyright: 'זכויות היוצרים: מיזם OpenStreetMap ותורמיו, בכפוף לרישיון פתוח'
       remote_failed: העריכה נכשלה – נא לוודא כי JOSM או Merkaartor נטענו ושאפשרות
@@ -2202,16 +2266,9 @@ he:
       user_page_link: דף המשתמש
       anon_edits_link_text: ר' הסבר מדוע זה כך.
       id_not_configured: לא התבצעו הגדרות של iD
-      no_iframe_support: הדפדפן שלך אינו תומך במסגרות iframe של HTML, שחיוניות לתכונה
-        הזאת.
     export:
       title: יצוא
-      area_to_export: האזור לייצוא
       manually_select: בחירה ידנית של אזור אחר
-      format_to_export: תסדיר לייצוא
-      osm_xml_data: נתוני XML של OpenStreetMap
-      map_image: תמונת מפה (תצוגת שכבה תקנית)
-      embeddable_html: HTML שניתן להטמעה
       licence: רישיון
       licence_details_html: נתוני OpenStreetMap מתפרסמים עכשיו לפי רישיון %{odbl_link}
         (ODbL).
@@ -2233,17 +2290,6 @@ he:
         other:
           title: מקורות אחרים
           description: מקורות נוספים רשומים בוויקי של OpenStreetMap
-      options: אפשרויות
-      format: תסדיר
-      scale: קנה מידה
-      max: לכל היותר
-      image_size: גודל התמונה
-      zoom: מרחק מתצוגה
-      add_marker: הוספת סמן למפה
-      latitude: 'קווי אורך:'
-      longitude: 'קווי רוחב:'
-      output: פלט
-      paste_html: להדביק HTML להטמעה באתר
       export_button: יצוא
     fixthemap:
       title: לדווח על בעיה / לתקן את המפה
@@ -2279,16 +2325,13 @@ he:
         url: https://wiki.openstreetmap.org/wiki/He:Beginners%27_guide
         title: המדריך למתחילים
         description: מדריך בתחזוקת הקהילה למתחילים.
-      help:
-        title: פורום העזרה
-        description: לשאול שאלה או לחפש תשובות באתר השאלות והתשובות של OpenStreetMap.
+      community:
+        title: עזרה ופורום קהילתי
+        description: מקום משותף לחפש עזרה ולנהל שיחות על OpenStreetMap.
       mailing_lists:
         title: רשימות תפוצה
         description: לשאול שאלה או לדון בדברים מעניינים ברשימות תפוצה נושאים ואזוריות
           רבות.
-      community:
-        title: פורום קהילתי
-        description: מקום משותף לשיחות על OpenStreetMap.
       irc:
         title: IRC
         description: שיחה אינטראקטיבית בשפות שונות רבות ובנושאים רבים.
@@ -2339,67 +2382,83 @@ he:
           primary: כביש ראשי
           secondary: כביש משני
           unclassified: דרך לא מסווגת
+          pedestrian: דרך להולכי רגל
           track: מסלול
           bridleway: מסלול לרכיבת סוסים
           cycleway: דרך לאופניים
           cycleway_national: מסלול אופניים לאומי
           cycleway_regional: מסלול אופניים אזורי
           cycleway_local: מסלול אופניים מקומי
+          cycleway_mtb: מסלול אופני הרים
           footway: שביל להולכי רגל
           rail: מסילת ברזל
+          train: רכבת
           subway: רכבת תחתית
-          tram:
-          - רכבת קלה
-          - חשמלית
-          cable:
-          - רכבל
-          - מעלית סקי
-          runway:
-          - מסלול נחיתה
-          - דרך למוניות
-          apron:
-          - רחבת חניה למטוסים
-          - מסוף
+          ferry: מעבורת
+          light_rail: רכבת קלה
+          tram: חשמלית
+          trolleybus: טרוליבוס
+          bus: אוטובוס
+          cable_car: רכבל
+          chair_lift: רכבל מושבים
+          runway: מסלול נחיתה
+          taxiway: מסלול הסעה
+          apron: רחבת חניה למטוסים
           admin: גבול שטח שיפוט
+          capital: בירה
+          city: עיר
+          orchard: מטע
+          vineyard: כרם
           forest: יער
           wood: חורשה
+          farmland: שטח חקלאי
+          grass: דשא
+          meadow: אחו
+          bare_rock: סלע חשוף
+          sand: חול
           golf: מסלול גולף
           park: פארק
+          common: מרעה
+          built_up: שטח בנוי
           resident: אזור מגורים
-          common:
-          - מרעה
-          - מרעה
-          - גן
           retail: אזור קמעונאי
           industrial: אזור תעשייה
           commercial: אזור מסחרי
           heathland: שדה פרא
-          lake:
-          - אגם
-          - מאגר
+          scrubland: בתה
+          lake: אגם
+          reservoir: מאגר
+          intermittent_water: גוף מים תקופתי
+          glacier: קרחון יבשתי
+          reef: שונית
+          wetland: ביצה
           farm: חווה
           brownfield: אזור תעשייה נטוש
           cemetery: בית עלמין
           allotments: שטחים חקלאיים
           pitch: מגרש ספורט
           centre: מרכז ספורט
+          beach: חוף
           reserve: שמורת טבע
           military: שטח צבאי
-          school:
-          - בית ספר
-          - אוניברסיטה
+          school: בית ספר
+          university: אוניברסיטה
+          hospital: בית חולים
           building: בניין בעל חשיבות
           station: תחנת רכבת
-          summit:
-          - פסגה
-          - פסגה
+          summit: פסגה
+          peak: פסגה
           tunnel: קו מקווקו = מנהרה
           bridge: קו שחור = גשר
           private: גישה פרטית
           destination: גישה ליעד
           construction: דרכים בבנייה
+          bus_stop: תחנת אוטובוס
+          stop: עצירה
           bicycle_shop: חנות אופניים
+          bicycle_rental: השכרת אופניים
           bicycle_parking: חניית אופניים
+          bicycle_parking_small: חניית אופניים קטנה
           toilets: שירותים
     welcome:
       title: ברוך בואך!
@@ -2412,13 +2471,13 @@ he:
           הוא מכיל מיליוני מבנים, דרכים ופרטים אחרים על מקומות. אפשר למפות כל ישות
           מהעולם האמיתי שמעניינת אותך.
         real_and_current: אמיתיים ונוכחיים
-        off_the_map_html: מה ש%{doesnt} פה זה מידע דעתני כמו דירוגים, מקומות היסטוריים
+        off_the_map_html: מה ש%{doesnt} פה הוא מידע דעתני כמו דירוגים, מקומות היסטוריים
           או היפותטיים ונתונים ומקורות שמוגבלים בזכויות יוצרים. אנו דורשים ממך לא
           להוסיף מידע ממפות מקוונות או מודפסות אלא אם יש לך אישור מיוחד לכך.
-        doesnt: אינו
+        doesnt: לא נמצא
       basic_terms:
         title: מונחים בסיסיים למיפוי
-        paragraph_1: למיזם OpenStreetMap יש עגה משלו. הנה מספר מילות מפתח שיהיו שימושיות.
+        paragraph_1: למיזם OpenStreetMap יש עגה משלו. הינה כמה מילות מפתח שיהיו שימושיות.
         an_editor_html: '%{editor} הוא תוכנה או אתר שבאפשרותך להשתמש בה לעריכת המפה.'
         a_node_html: '%{node} היא נקודה במפה, כמו מסעדה בודדת או עץ.'
         a_way_html: '%{way} היא קו או שטח, כגון כביש, יובל, נחל או בניין.'
@@ -2436,6 +2495,7 @@ he:
         imports: מחזורי יבוא
         automated_edits: עריכות אוטומטית
       start_mapping: להתחיל למפות
+      continue_authorization: המשך האישור
       add_a_note:
         title: אין לך זמן לערוך? אפשר להוסיף הערה!
         para_1: אם רק רצית לתקן משהו קטן ואין לך זמן להירשם וללמוד איך לערוך, קל להוסיף
@@ -2517,9 +2577,6 @@ he:
       trace_not_found: המסלול לא נמצא!
       visibility: 'נראוּת:'
       confirm_delete: למחוק את הנתיב הזה?
-    trace_paging_nav:
-      older: מסלולים ישנים יותר
-      newer: מסלולים חדשים יותר
     trace:
       pending: בהמתנה
       count_points:
@@ -2535,8 +2592,8 @@ he:
       identifiable: בר זיהוי
       private: פרטי
       trackable: בר מעקב
-      by: מאת
-      in: ב
+      details_with_tags_html: '%{time_ago} מאת %{user} ב־%{tags}'
+      details_without_tags_html: '%{time_ago} מאת %{user}'
     index:
       public_traces: מסלולי GPS ציבוריים
       my_gps_traces: נתיבי ה־GPS שלי
@@ -2550,8 +2607,11 @@ he:
       upload_trace: העלאת מסלול
       all_traces: כל המסלולים
       my_traces: המסלולים שלי
-      traces_from: מסלולים ציבוריים מ-%{user}
+      traces_from: מסלולים ציבוריים מאת %{user}
       remove_tag_filter: הסרת סינון לפי תג
+    page:
+      older: מסלולים ישנים יותר
+      newer: מסלולים חדשים יותר
     destroy:
       scheduled_for_deletion: מסלול מיועד למחיקה
     make_public:
@@ -2573,8 +2633,6 @@ he:
     require_cookies:
       cookies_needed: נראה שהעוגיות כבויות אצלך – נא להפעיל עוגיות בדפדפן שלך כדי
         להמשיך.
-    require_admin:
-      not_an_admin: עליך להחזיק בהרשאות ניהול כדי לבצע את הפעולה הזאת.
     setup_user_auth:
       blocked_zero_hour: יש לך מסר דחוף באתר OpenStreetMap. עליך לקרוא את ההודעה לפני
         שמירת העריכות שלך.
@@ -2583,34 +2641,31 @@ he:
         התרומה. אין צורך לקבל אותם, אבל חובה להציג אותם.
     settings_menu:
       account_settings: הגדרות חשבון
-      oauth1_settings: הגדרות OAuth 1
       oauth2_applications: יישומי OAuth 2
       oauth2_authorizations: אישורי OAuth 2
+      muted_users: משתמשים מושתקים
+    auth_providers:
+      openid_url: כתובת OpenID
+      openid_login_button: המשך
+      openid:
+        title: כניסה עם OpenID
+        alt: סמל OpenID
+      google:
+        title: כניסה עם גוגל
+        alt: סמל גוגל
+      facebook:
+        title: כניסה עם פייסבוק
+        alt: סמל פייסבוק
+      microsoft:
+        title: כניסה עם מיקרוסופט
+        alt: סמל מיקרוסופט
+      github:
+        title: כניסה עם גיטהאב
+        alt: סמל גיטהאב
+      wikipedia:
+        title: כניסה עם ויקיפדיה
+        alt: סמל ויקיפדיה
   oauth:
-    authorize:
-      title: אישור הגישה לחשבון שלך
-      request_access_html: היישום %{app_name} דורש גישה לחשבונך, %{user}. נא לבדוק
-        האם מתאים לך שהיישום יקבל את היכולות האלו. אפשר לבחור או לא לבחור את כל מה
-        שמתאים לך.
-      allow_to: לאפשר ליישום הלקוח שלך
-      allow_read_prefs: לקרוא את העדפות המשתמש שלך.
-      allow_write_prefs: לשנות את העדפות המשתמש שלך.
-      allow_write_diary: ליצור רשומות יומן והערות ולהוסיף חברים.
-      allow_write_api: לשנות את המפה.
-      allow_read_gpx: לקרוא את מסלולי ה־GPS הפרטיים שלך.
-      allow_write_gpx: להעלות מסלולי GPS.
-      allow_write_notes: לשנות הערות
-      grant_access: מתן גישה
-    authorize_success:
-      title: בקשת אישור אושרה
-      allowed_html: נתת ליישום %{app_name} גישה לחשבונך.
-      verification: קוד האימות הוא %{code}.
-    authorize_failure:
-      title: בקשת אישור נכשלה
-      denied: שללת מהיישום %{app_name} את הגישה לחשבון שלך.
-      invalid: האסימון האישור אינו תקף.
-    revoke:
-      flash: שללת את האסימון מהיישום %{application}.
     permissions:
       missing: לא נתת להרשאה גישה למתקן הזה
     scopes:
@@ -2622,48 +2677,13 @@ he:
       read_gpx: לקרוא את מסלולי ה־GPS הפרטיים שלך
       write_gpx: להעלות מסלולי GPS
       write_notes: לשנות הערות
+      write_redactions: שינוי נתוני המפה
       read_email: לקרוא את כתובת הדוא"ל של המשתמש
+      consume_messages: קריאה, עדכון מצב ומחיקה של הודעות משתמשים
+      send_messages: שליחת הודעה פרטית למשתמשים אחרים
       skip_authorization: לאשר את היישום אוטומטית
-  oauth_clients:
-    new:
-      title: רישון יישום חדש
-    edit:
-      title: עריכת היישום שלך
-    show:
-      title: פרטי OAuth עבור %{app_name}
-      key: 'מפתח צרכן:'
-      secret: 'סוד צרכן:'
-      url: 'כתובת אסימון בקשה:'
-      access_url: 'כתובת אסימון גישה:'
-      authorize_url: 'כתובת אישור:'
-      support_notice: אנחנו תומכים בחתימות ב־HMAC-SHA1 (מומלץ) וגם ב־RSA-SHA1.
-      edit: עריכת פרטים
-      delete: מחיקת לקוח
-      confirm: באמת?
-      requests: 'מבקש את ההרשאות הבאות מהמשתמש:'
-    index:
-      title: פרטי ה־OAuth שלי
-      my_tokens: היישומים המאושרים שלי
-      list_tokens: 'האסימונים הבאים הונפקו ליישום בשמך:'
-      application: שם היישום
-      issued_at: הונפק ב־
-      revoke: לשלול!
-      my_apps: יישומי הלקוח שלי
-      no_apps_html: האם יש לך יישום שברצונך לרשום לשימוש אצלנו באמצעות תקן %{oauth}?
-        יש לרשום את יישום הרשת שלך לפני שיוכל לשלוח בקשות OAuth לשירות הזה.
-      oauth: oauth
-      registered_apps: 'רשמת את יישומי הלקוח הבאים:'
-      register_new: רישום היישום שלך
-    form:
-      requests: 'לבקש את ההרשאות הבאות מהמשתמש:'
-    not_found:
-      sorry: סליחה, הסוג %{type} לא נמצא.
-    create:
-      flash: המידע נרשם בהצלחה
-    update:
-      flash: מידע הלקוח עודכן בהצלחה
-    destroy:
-      flash: רישום יישום הלקוח נהרס
+    for_roles:
+      moderator: ההרשאה הזאת מיועדת לפעולות שזמינות רק למפקחים
   oauth2_applications:
     index:
       title: יישומי הלקוח שלי
@@ -2706,6 +2726,7 @@ he:
       title: האפליקציות המורשות שלי
       application: אפליקציה
       permissions: הרשאות
+      last_authorized: אושר בפעם האחרונה
       no_applications_html: לא אישרת עדיין יישומי %{oauth2}.
     application:
       revoke: שלילת גישה
@@ -2713,36 +2734,50 @@ he:
   users:
     new:
       title: הרשמה
+      tab_title: הרשמה
+      signup_to_authorize_html: נא להירשם ל־OpenStreetMap כדי לגשת ליישום %{client_app_name}.
       no_auto_account_create: למרבה הצער, כעת איננו יכולים ליצור לך חשבון באופן אוטומטי.
       please_contact_support_html: נא ליצור קשר עם %{support_link} כדי לארגן יצירת
         חשבון - נשתדל לטפל בבקשה במהירות האפשרית.
       support: תמיכה
       about:
-        header: חופשית וניתנת לעריכה
+        header: חופשית וניתנת לעריכה.
         paragraph_1: בניגוד למפות אחרות, OpenStreetMap נוצרה לחלוטין על־ידי אנשים
           כמוך והיא חופשית לתיקונים, עדכונים, הורדה ושימוש של כל מי שחפץ.
-        paragraph_2: אפשר להירשם כדי להתחיל לתרום. אנו נשלח לך הודעת דוא״ל כדי לאשר
-          את החשבון שלך.
+        paragraph_2: אפשר להירשם כדי להתחיל לתרום.
+        welcome: ברוך בואך ל־OoenStreetMap
+      duplicate_social_email: אם כבר יש לך חשבון OpenStreetMap וברצונך להשתמש בספק
+        זהות של צד שלישי, נא להתחבר באמצעות הסיסמה שלך ולשנות את הגדרות החשבון שלך.
       display name description: שם המשתמש שלך, שמוצג בפומבי. אפשר לשנות את זה בהעדפות
         שלך.
+      by_signing_up:
+        html: הרשמה מהווה את הסכמתך ל%{tou_link}, ל%{privacy_policy_link} ול%{contributor_terms_link}
+          שלנו.
+        privacy_policy: מדיניות הפרטיות
+        privacy_policy_title: מדיניות הפרטיות של OSMF כוללת סעיף על כתובות דוא״ל
+        contributor_terms: תנאי התרומה
+      tou: תנאי השימוש
       external auth: 'אימות עם צד שלישי:'
-      use external auth: 'לחלופין, השתמשו בצד שלישי כדי להיכנס:'
-      auth no password: עם אימות צד שלישי אין צורך בסיסמה, אבל כלים נוספים או שרת
-        יכולים להזדקק לכזה.
       continue: הרשמה
       terms accepted: תודה על קבלת תנאי התרומה החדשים!
-      email_confirmation_help_html: הכתובת שלך אינה מוצגת בפומבי, ר' את %{privacy_policy_link}
-        שלנו למידע נוסף.
-      privacy_policy: מדיניות הפרטיות
-      privacy_policy_title: מדיניות הפרטיות של OSMF כולל סעיף על כתובות דוא"ל
+      email_help:
+        privacy_policy: מדיניות פרטיות
+        privacy_policy_title: מדיניות הפרטיות של OSMF כוללת סעיף על כתובות דוא״ל
+        html: הכתובת שלך אינה מוצגת בפומבי, ר' את %{privacy_policy_link} שלנו למידע
+          נוסף.
+      consider_pd_html: מבחינתי, התרומות שלי נמצאות ב%{consider_pd_link}.
+      consider_pd: נחלת הכלל
+      or: או
+      use external auth: לחלופין, אפשר להשתמש בצד שלישי כדי להירשם
     terms:
       title: תנאים
       heading: תנאים
       heading_ct: תנאי התנדבות
       read and accept with tou: נא לקרוא את הסכם המתנדבים ואת תנאי השימוש, יש לסמן
         את שתי התיבות עם הסיום ואז ללחוץ על כפתור ההמשך.
-      contributor_terms_explain: הסכם זה מאגד את תנאי התרומות הקיימות והעתידיות שלך.
-      read_ct: קראתי את תנאי התורמים לעיל ואני מסכימ/ה לתנאים אלו
+      contributor_terms_explain: ההסכם הזה מגדיר את התנאים של התרומות הקיימות והעתידיות
+        שלך.
+      read_ct: קראתי את תנאי התורמים לעיל והסכמתי איתם
       tou_explain_html: '%{tou_link} האלה מאגדים את תנאי השימוש באתר ובתשתית נוספת
         שמסופקת על־ידי ה־OSMF. נא ללחוץ על הקישור, לקרוא ולהסכים לטקסט.'
       read_tou: קראתי את תנאי השימוש ואני מסכימ/ה לתנאים אלו
@@ -2786,6 +2821,8 @@ he:
       my_dashboard: לוח הבקרה שלי
       blocks on me: מתי חסמו אותי
       blocks by me: מתי חסמתי
+      create_mute: השתקת המשתמש הזה
+      destroy_mute: ביטול השתקת המשתמש הזה
       edit_profile: עריכת פרופיל
       send message: שליחת הודעה
       diary: יומן
@@ -2795,35 +2832,40 @@ he:
       remove as friend: הסרה מרשימת חברים
       add as friend: הוספה כחבר
       mapper since: 'ממפה מאז:'
+      last map edit: 'עריכת מפה אחרונה:'
+      no activity yet: עדיין אין פעילות
       uid: 'מזהה משתמש:'
       ct status: 'תנאי תרומה:'
       ct undecided: עוד אין החלטה
       ct declined: נדחו
-      latest edit: 'עריכה אחרונה (%{ago}):'
       email address: 'כתובת דוא״ל:'
       created from: 'נוצר מתוך:'
       status: 'מצב:'
       spam score: 'דירוג זיבול:'
       role:
-        administrator: לחשבון הזה יש הרשאות מפעיל
-        moderator: זהו חשבון מנהל
+        administrator: לחשבון הזה יש הרשאות מנהל
+        moderator: זהו חשבון מפקח
+        importer: זהו חשבון מייבא
         grant:
-          administrator: הענקת הרשאות מפעיל
-          moderator: הענקת הרשאות מנהל
+          administrator: הענקת הרשאות מנהל
+          moderator: הענקת הרשאות מפקח
+          importer: הענקת הרשאות מייבא
         revoke:
-          administrator: שלילת הרשאות מפעיל
-          moderator: שלילת הרשאות מנהל
+          administrator: שלילת הרשאות מנהל
+          moderator: שלילת הרשאות מפקח
+          importer: שלילת הרשאות מייבא
       block_history: חסימות פעילות
       moderator_history: חסימות שניתנו
+      revoke_all_blocks: ביטול כל החסימות
       comments: הערות
-      create_block: חסימת משתמש זה
-      activate_user: הפעלת משתמש זה
-      confirm_user: אישור משתמש זה
+      create_block: חסימת המשתמש הזה
+      activate_user: הפעלת המשתמש הזה
+      confirm_user: אישור המשתמש הזה
       unconfirm_user: ביטול אישור המשתמש הזה
       unsuspend_user: ביטול השעיית המשתמש הזה
-      hide_user: הסתרת משתמש זה
-      unhide_user: ביטול הסתרת משתמש זה
-      delete_user: מחיקת משתמש זה
+      hide_user: הסתרת המשתמש הזה
+      unhide_user: ביטול הסתרת המשתמש הזה
+      delete_user: מחיקת המשתמש הזה
       confirm: אישור
       report: דיווח על המשתמש
     go_public:
@@ -2831,14 +2873,19 @@ he:
     index:
       title: משתמשים
       heading: משתמשים
-      showing:
-        one: דף %{page} (%{first_item} מתוך %{items})
-        other: דף %{page} (%{first_item}–%{last_item} מתוך %{items})
       summary_html: '%{name} נוצר מכתובת %{ip_address} ב־%{date}'
       summary_no_ip_html: '%{name} נוצר ב־%{date}'
+      empty: לא נמצאו משתמשים תואמים
+    page:
+      older: משתמשים ישנים יותר
+      newer: משתמשים חדשים יותר
+      found_users:
+        one: נמצא משתמש אחד
+        two: נמצאו שני משתמשים
+        many: נמצאו %{count} משתמשים
+        other: נמצאו %{count} משתמשים
       confirm: אישור משתמשים נבחרים
       hide: הסתרת משתמשים נבחרים
-      empty: לא נמצאו משתמשים תואמים
     suspended:
       title: החשבון הושעה
       heading: החשבון הושעה
@@ -2864,25 +2911,21 @@ he:
       not_a_role: המחרוזת „%{role}” אינה תפקיד תקין.
       already_has_role: למשתמש כבר יש תפקיד %{role}.
       doesnt_have_role: למשתמש אין תפקיד %{role}.
-      not_revoke_admin_current_user: לא ניתן לשלול הרשאות מפעיל מהמשתמש הנוכחי.
+      not_revoke_admin_current_user: לא ניתן לשלול הרשאות מנהל מהמשתמש הנוכחי.
     grant:
       title: לאשר הענקת תפקיד
       heading: לאשר הענקת תפקיד
       are_you_sure: האם ברצונך באמת להעניק תפקיד „%{role}” למשתמש „%{name}”?
       confirm: אישור
-      fail: הענקת התפקיד „%{role}” למשתמש „%{name}” נכשלה. נא לבדוק שהמשתמש והתפקיד
-        תקינים.
     revoke:
       title: אישור שלילת תפקיד
       heading: אישור שלילת תפקיד
       are_you_sure: האם באמת לשלול את התפקיד „%{role}” מהמשתמש „%{name}”?
       confirm: אישור
-      fail: שלילת התפקיד „%{role}” מהמשתמש „%{name}” נכשלה. נא לבדוק שהמשתמש והתפקיד
-        תקינים.
   user_blocks:
     model:
-      non_moderator_update: צריך להיות מנהל כדי ליצור או לעדכן חסימה.
-      non_moderator_revoke: צריך להיות מנהל כדי לבטל חסימה.
+      non_moderator_update: צריך להיות מפקח כדי ליצור או לעדכן חסימה.
+      non_moderator_revoke: צריך להיות מפקח כדי לבטל חסימה.
     not_found:
       sorry: סליחה, החסימה עם המזהה %{id} לא נמצאה.
       back: חזרה למפתח
@@ -2890,33 +2933,40 @@ he:
       title: יצירת חסימה של %{name}
       heading_html: יצירת חסימה של %{name}
       period: למשך כמה זמן מעכשיו החשבון ייחסם מביצוע פעולות API.
-      back: הצגת כל החסימות
     edit:
-      title: חסימת עריכה על %{name}
-      heading_html: חסימת עריכה על %{name}
+      title: עריכת החסימה על %{name}
+      heading_html: עריכת החסימה על %{name}
       period: למשך כמה זמן מעכשיו החשבון ייחסם מביצוע פעולות API.
-      show: הצגת החסימה הזאת
-      back: הצגת כל החסימות
+      revoke: שחרור חסימה
     filter:
-      block_expired: ייתכן שהחסימה כבר פקעה ואי־אפשר לערוך אותה.
       block_period: תקופת החסימה צריכה להיות אחד הערכים שאפשר לבחור ברשימה הנפתחת.
     create:
       flash: נוצרה חסימה על חשבון %{name}
     update:
-      only_creator_can_edit: רק המנהל שיצר את החסימה הזאת יכול לערוך אותה.
+      only_creator_can_edit: רק המפקח שיצר את החסימה הזאת יכול לערוך אותה.
+      only_creator_can_edit_without_revoking: רק המפקח שיצר את החסימה הזאת יכול לערוך
+        אותה בלי ביטול מלא.
+      only_creator_or_revoker_can_edit: רק המפקחים שיצרו או ביטלו את החסימה הזאת יכולים
+        לערוך אותה.
+      inactive_block_cannot_be_reactivated: החסימה הזאת אינה פעילה ולא ניתן להפעיל
+        אותה מחדש.
       success: החסימה עודכנה.
     index:
       title: חסימות משתמש
       heading: רשימת חסימות משתמש
       empty: עוד לא נעשו חסימות.
-    revoke:
-      title: בוטלה החסימה על %{block_on}
-      heading_html: ביטול החסימה של %{block_on} על־ידי %{block_by}
-      time_future: החסימה תסתיים ב־%{time}.
-      past: החסימה הזאת הסתיימה ב־%{time} ואי־אפשר לבטל אותה.
-      confirm: האם ברצונך לבטל את החסימה הזאת?
-      revoke: לבטל!
-      flash: החסימה הזאת בוטלה.
+    revoke_all:
+      title: הסרת כל החסימות של %{block_on}
+      heading_html: הסרת כל החסימות של %{block_on}
+      empty: אין חסימות של %{name}.
+      confirm: האם ברצונך להסיר %{active_blocks}?
+      active_blocks:
+        one: חסימה פעילה
+        two: שתי חסימות פעילות
+        many: '%{count} חסימות פעילות'
+        other: '%{count} חסימות פעילות'
+      revoke: להסיר!
+      flash: כל החסימות הפעילות הוסרו.
     helper:
       time_future_html: תסתיים בעוד %{time}
       until_login: פעילה עד שהמשתמש ייכנס לחשבון.
@@ -2959,31 +3009,61 @@ he:
     show:
       title: החשבון של %{block_on} נחסם על־ידי %{block_by}
       heading_html: החשבון של %{block_on} נחסם על־ידי %{block_by}
-      created: :תאריך היצירה
-      duration: :משך זמן
+      created: 'תאריך היצירה:'
+      duration: 'משך זמן:'
       status: 'מצב:'
       show: הצגה
       edit: עריכה
-      revoke: ביטול!
       confirm: באמת?
       reason: 'סיבה לחסימה:'
-      back: צפייה בכל החסימות
       revoker: 'מבטל:'
       needs_view: המשתמש צריך להיכנס לחשבון לפני שהחסימה הזאת יכולה להתבטל.
     block:
       not_revoked: (לא בוטלה)
       show: הצגה
       edit: עריכה
-      revoke: לבטל!
     blocks:
       display_name: משתמש חסום
       creator_name: יוצר
       reason: סיבה לחסימה
       status: מצב
       revoker_name: בוטלה על־ידי
-      showing_page: הדף %{page}
-      next: הבא »
-      previous: « הקודם
+      older: חסימות ישנות יותר
+      newer: חסימות חדשות יותר
+    navigation:
+      all_blocks: כל החסימות
+      blocks_on_me: חסימות שלי
+      blocks_on_user: חסימות של %{user}
+      blocks_by_me: חסימות שעשיתי
+      blocks_by_user: חסימות שנעשו על־ידי %{user}
+      block: חסימה מס׳ %{id}
+      new_block: חסימה חדשה
+  user_mutes:
+    index:
+      title: משתמשים מושתקים
+      my_muted_users: המשתמשים המושתקים שלי
+      you_have_muted_n_users:
+        one: השתקת משתמש אחד
+        two: השתקת שני משתמשים
+        many: השתקת %{count} משתמשים
+        other: השתקת %{count} משתמשים
+      user_mute_explainer: הודעות של משתמשים מושתקים מועברות לתיבת דואר נפרדת ולא
+        תישלחנה אליך התראות בדוא״ל.
+      user_mute_admins_and_moderators: אפשר להשתיק מנהלים ומפקחים אבל ההודעות שלהם
+        לא יושתקו.
+      table:
+        thead:
+          muted_user: משתמש מושתק
+          actions: פעולות
+        tbody:
+          unmute: ביטול השתקה
+          send_message: שליחת הודעה
+    create:
+      notice: השתקת את %{name}.
+      error: לא היה אפשר להשתיק את %{name}.‏ %{full_message}
+    destroy:
+      notice: ביטלת את ההשתקה של %{name}.
+      error: לא היה אפשר לבטל את השתקת המשתמש. נא לנסות שוב.
   notes:
     index:
       title: הערות ותגובות של %{user}
@@ -3020,6 +3100,7 @@ he:
       reactivate: הפעלה מחדש
       comment_and_resolve: להגיב ולפתור
       comment: להגיב
+      log_in_to_comment: יש להיכנס כדי להגיב על ההערה הזאת
       report_link_html: אם ההערה הזאת מכילה מידע רגיש שיש להסיר, אפשר %{link}.
       other_problems_resolve: עבור כל שאר הבעיות עם ההערה, נא לפתור אותה בעצמך באמצעות
         הערה.
@@ -3029,6 +3110,10 @@ he:
       title: הערה חדשה
       intro: יש פה טעות או שחסר משהו? אנו מבקשים ממך לספר את זה לממפים אחרים. לשם
         כך צריך להזיז את הסמן למקום הנכון ולכתוב הערה שמסבירה את הבעיה.
+      anonymous_warning_html: לא נכנסת לחשבון. נא %{log_in} או %{sign_up} אם ברצונך
+        לקבל עדכונים על ההערה שלך.
+      anonymous_warning_log_in: להיכנס לחשבון
+      anonymous_warning_sign_up: להירשם
       advice: /start
       add: הוספת הערה
   javascripts:
@@ -3045,19 +3130,20 @@ he:
       custom_dimensions: הגדרת ממדים בהתאמה אישית
       format: 'תסדיר:'
       scale: 'קנה מידה:'
-      image_dimensions: התמונה תופיע כחלק מהשכבה הרגילה בגודל %{width} x %{height}
+      image_dimensions: התמונה תופיע כחלק מהשכבה %{layer} בגודל %{width} x %{height}
       download: הורדה
       short_url: כתובת קצרה
       include_marker: לכלול סמן
       center_marker: למרכז את המפה לפי הסמן
       paste_html: הדבקת HTML להטבעה באתר
       view_larger_map: צפייה במפה גדולה יותר
-      only_standard_layer: אפשר לייצא רק את השכבה התקנית בתור תמונה
+      only_standard_layer: 'אפשר לייצא בתור תמונה רק את השכבות הבאות: תקנית, מפת אופניים
+        ותחבורה'
     embed:
       report_problem: דיווח על בעיה
     key:
-      title: מפת מפתח
-      tooltip: מפת מפתח
+      title: מפתח מפה
+      tooltip: מפתח מפה
       tooltip_disabled: מפתח מפה אינו זמין לשכבה הזאת
     map:
       zoom:
@@ -3076,13 +3162,11 @@ he:
           many: המרחק שלך מהנקודה הזאת הוא עד %{count} רגל
           other: המרחק שלך מהנקודה הזאת הוא עד %{count} רגל
       base:
-        standard: תקני
-        cyclosm: CyclOSM
+        standard: תקנית
         cycle_map: מפת אופניים
         transport_map: מפת תחבורה
         tracestracktop_topo: טופוגרפיה של Tracestrack
-        hot: הומניטרי
-        opnvkarte: ÖPNVKarte
+        hot: הומניטרית
       layers:
         header: שכבות במפה
         notes: הערות במפה
@@ -3097,8 +3181,6 @@ he:
       osm_france: OpenStreetMap צרפת
       thunderforest_credit: אריחים באדיבות %{thunderforest_link}
       andy_allan: אנדי אלן
-      opnvkarte_credit: אריחים באדיבות %{memomaps_link}
-      memomaps: ממומאפס
       tracestrack_credit: האריחים באדיבות %{tracestrack_link}
       hotosm_credit: סגנון אריחים מאת %{hotosm_link} מתארח אצל %{osm_france_link}
       hotosm_name: צוות OpenStreetMap הומניטרי
@@ -3106,18 +3188,12 @@ he:
       edit_tooltip: עריכת המפה
       edit_disabled_tooltip: להתקרב כדי לערוך את המפה
       createnote_tooltip: הוספת הערה למפה
-      createnote_disabled_tooltip: נא להתקרב כדי להוסיף הערה למפה
+      createnote_disabled_tooltip: התקרבות כדי להוסיף הערה למפה
       map_notes_zoom_in_tooltip: התקרבות כדי לראות הערות על המפה
-      map_data_zoom_in_tooltip: יש לקרב את המפה כדי לראות נתוני מפה
+      map_data_zoom_in_tooltip: יש להתקרב כדי לראות נתוני מפה
       queryfeature_tooltip: שאילתת ישויות
-      queryfeature_disabled_tooltip: תקריב כדי להריץ שאילתת ישויות
-    changesets:
-      show:
-        comment: להגיב
-        subscribe: מינוי
-        unsubscribe: ביטול מינוי
-        hide_comment: הסתרה
-        unhide_comment: ביטול הסתרה
+      queryfeature_disabled_tooltip: התקרבות כדי להריץ שאילתת ישויות
+      embed_html_disabled: הטבעת HTML אינה זמינה בשכבת המפה הזאת
     edit_help: יש להזיז את המפה ולהתמקד על מיקום שברצונך לערוך ואז ללחוץ כאן.
     directions:
       ascend: מעלה

@@ -78,8 +78,6 @@ ksh:
     changeset_paging_nav:
       next: Nächs »
       previous: « Vörijje
-    changesets:
-      user: Metmaacher
   diary_entries:
     form:
       use_map_link: Landkaat bruche
@@ -190,12 +188,13 @@ ksh:
       heading: Donn en neue Adräß för de e-mail beschtäätejje
   messages:
     inbox:
-      from: Vum
-      subject: Theema
-      date: Et Dattum
       no_messages_yet_html: Do häs noch kein Nohreeschte krääje. Woröm deihs De nit
         ens met dä Lück kalle, di %{people_mapping_nearby_link}?
       people_mapping_nearby: en Dinge Nöhde och am Kaate maache sin
+    messages_table:
+      from: Vum
+      subject: Theema
+      date: Et Dattum
     outbox:
       no_sent_messages_html: Do häs noch kein Nohreeschte verscheck. Woröm deihs De
         nit ens met dä Lück kalle, di %{people_mapping_nearby_link}?
@@ -204,40 +203,24 @@ ksh:
     sent_message_summary:
       destroy_button: Fottschmiiße
   passwords:
-    lost_password:
+    new:
       title: Verloore Paßwoot
       heading: Paßwoot verjäße?
       email address: 'De Adräß för de e-mail:'
       new password button: Paßwoot neu säze
-    reset_password:
+    edit:
       title: Paßwoot neu säze
       reset: Paßwoot neu säze
+    update:
       flash changed: Ding Paßwoot es jeändert.
   sessions:
     new:
       title: Enlogge
-      heading: Enlogge
+      tab_title: Enlogge
       email or username: 'De Adräß för de e-mail udder der Metmaacher_Nahme:'
       password: 'Paßwoot:'
       lost password link: Paßwoot verschött jejange?
       login_button: Enlogge
-      auth_providers:
-        google:
-          title: Övver Google ennlogge
-          alt: Ennlogge medd ener OpenID vun Google
-        facebook:
-          title: Donn övver ene Zohjang op Facebook ennlogge
-          alt: Donn övver ene Zohjang op Facebook ennlogge
-        microsoft:
-          title: Donn medd enem Zohjang op Windows Live ennlogge
-          alt: Donn medd enem Zohjang op Windows Live ennlogge
-        github:
-          title: Övver GitHub ennlogge
-          alt: Donn övver ene Zohjang bei GitHub ennlogge
-        wordpress:
-          title: Övver Wordpress ennlogge
-        aol:
-          title: Övver AOL enlogge
   site:
     about:
       legal_title: Rääschlesch
@@ -248,9 +231,6 @@ ksh:
         title: Övver di Sigg heh
     edit:
       anon_edits_link_text: Fengk eruß, woröm dadd esu es.
-    export:
-      osm_xml_data: OpenStreetMap sing XML Daate
-      options: Ennschtällonge
     help:
       beginners_guide:
         title: Aanleidong för Aanfänger
@@ -277,34 +257,24 @@ ksh:
           footway: Fohßwääsch udder Päddsche
           rail: Eiserbahn
           subway: U-Bahn
-          tram:
-          - Klëijnbahn
-          - Strohßebahn
-          cable:
-          - Seilbahn
-          - Sässelbahn
-          runway:
-          - Startbahn, Landebahn
-          - Rollwääsch om Fluchhaaven
-          apron:
-          - Halldepläz om Fluchveäld
-          - Terminal em Fluchhaaven
+          cable_car: Seilbahn
+          chair_lift: Sässelbahn
+          runway: Startbahn, Landebahn
+          taxiway: Rollwääsch om Fluchhaaven
+          apron: Halldepläz om Fluchveäld
           admin: Verwalldongsjränz
           forest: Wald, Bösch
           wood: Urwald
           golf: Jolfplaz
           park: Park
+          common: öffentlesch Land
           resident: Wohnjebeet
-          common:
-          - öffentlesch Land
-          - Wiß
           retail: Einkaufszentrum
           industrial: Industriejebeet
           commercial: Jewerbejebeet
           heathland: Heed
-          lake:
-          - See, Wejer
-          - Stausee
+          lake: See, Wejer
+          reservoir: Stausee
           farm: Buurehoff
           brownfield: Industriebrachland
           cemetery: Friedhoff
@@ -313,14 +283,12 @@ ksh:
           centre: Schpochtzäntom
           reserve: Naturschozjebeet
           military: Jebeet vum Kammiß
-          school:
-          - Scholl
-          - Univäsität
+          school: Scholl
+          university: Univäsität
           building: Weeschtesch Bouwärk
           station: Bahnhoff
-          summit:
-          - Bärschspez
-          - Bärschspez
+          summit: Bärschspez
+          peak: Bärschspez
           tunnel: Rand jeschtreschelt = Tunnell
           bridge: Fätte Rand = Bröck
           private: Der Zohjang es prėvaat
@@ -343,8 +311,6 @@ ksh:
       public: ÖFFENTLESCH
       private: PRĖVAAT
       trackable: NOHTRÄCKBAA
-      by: vum
-      in: en
     index:
       public_traces: Öffentlesche GPS-Opnahme
       public_traces_from: Öffentlesche GPS-Opnahme vum %{user}
@@ -364,16 +330,19 @@ ksh:
       cookies_needed: |-
         Et schingk, wi wann De cookies afjeschalldt häz.
         Bes esu jood un donn se en Dingem Brauser aanschallde, ih dat De wigger mähß.
-  oauth:
-    authorize:
-      allow_write_api: donn de Landkaat änndere
-      allow_read_gpx: donn de privaate eije GPS-Opnahme lässe
-      allow_write_gpx: GPS-Opnahme huhlaade
-  oauth_clients:
-    show:
-      edit: Einzelheite ändere
-    index:
-      revoke: Zeröckroofe!
+    auth_providers:
+      google:
+        title: Övver Google ennlogge
+        alt: Ennlogge medd ener OpenID vun Google
+      facebook:
+        title: Donn övver ene Zohjang op Facebook ennlogge
+        alt: Donn övver ene Zohjang op Facebook ennlogge
+      microsoft:
+        title: Donn medd enem Zohjang op Windows Live ennlogge
+        alt: Donn medd enem Zohjang op Windows Live ennlogge
+      github:
+        title: Övver GitHub ennlogge
+        alt: Donn övver ene Zohjang bei GitHub ennlogge
   users:
     terms:
       decline: Aflehne

@@ -24,6 +24,7 @@
 # Author: HanV
 # Author: Hansmuller
 # Author: Henke
+# Author: Iamthedutchdude
 # Author: JaapDeKleine
 # Author: Jillids
 # Author: Jochempluim
@@ -39,6 +40,7 @@
 # Author: MatthiasS
 # Author: McDutchie
 # Author: MedShot
+# Author: Mitsjol
 # Author: MrLeopold
 # Author: Mvexel
 # Author: Nickthijssen1994
@@ -62,6 +64,7 @@
 # Author: Sven L
 # Author: Tjcool007
 # Author: Trijnstel
+# Author: Vistaus
 # Author: Xbaked potatox
 ---
 nl:
@@ -101,6 +104,10 @@ nl:
       messages:
         invalid_email_address: lijkt geen geldig e-mailadres te zijn
         email_address_not_routable: is niet routeerbaar
+        display_name_is_user_n: kan niet user_n zijn, tenzij n uw gebruikers-ID is
+      models:
+        user_mute:
+          is_already_muted: is al gedempt
     models:
       acl: Toegangscontrolelijst
       changeset: Wijzigingenset
@@ -191,9 +198,8 @@ nl:
         details: Geef wat meer details over het probleem (verplicht).
       user:
         auth_provider: Authenticatiedienst
-        auth_uid: Authenticatie UID
+        auth_uid: Authenticatie-UID
         email: E-mail
-        email_confirmation: E-mailbevestiging
         new_email: Nieuw e-mailadres
         active: Actief
         display_name: Weergavenaam
@@ -206,8 +212,9 @@ nl:
         pass_crypt_confirmation: Wachtwoord bevestigen
     help:
       doorkeeper/application:
-        confidential: Toepassing wordt gebruikt waar het clientgeheim vertrouwelijk
-          kan worden gehouden (native mobiele apps en éénpagina-apps zijn niet vertrouwelijk)
+        confidential: De applicatie wordt gebruikt waar het clientgeheim vertrouwelijk
+          kan worden gehouden (voor mobiele apparaten ontworpen apps en éénpagina-apps
+          zijn niet vertrouwelijk)
         redirect_uri: Gebruik één regel per URI
       trace:
         tagstring: kommagescheiden
@@ -269,7 +276,6 @@ nl:
   auth:
     providers:
       none: Geen
-      openid: OpenID
       google: Google
       facebook: Facebook
       microsoft: Microsoft
@@ -325,6 +331,9 @@ nl:
         retain_changeset_discussions: Uw overleg over wijzigingensets, indien van
           toepassing, blijft behouden.
         retain_email: Uw e-mailadres blijft behouden.
+        recent_editing_html: Omdat u onlangs bewerkingen hebt aangebracht, kan uw
+          account momenteel niet worden verwijderd. Verwijderen is pas over %{time}
+          mogelijk.
         confirm_delete: Weet u het zeker?
         cancel: Annuleren
   accounts:
@@ -374,15 +383,10 @@ nl:
     destroy:
       success: Account verwijderd.
   browse:
-    created: Aangemaakt
-    closed: Gesloten
-    created_ago_html: Gemaakt %{time_ago}
-    closed_ago_html: Gesloten %{time_ago}
-    created_ago_by_html: '%{time_ago} gemaakt door %{user}'
-    closed_ago_by_html: '%{time_ago} gesloten door %{user}'
     deleted_ago_by_html: '%{time_ago} verwijderd door %{user}'
     edited_ago_by_html: '%{time_ago} bewerkt door %{user}'
     version: Versie
+    redacted_version: Geredigeerde versie
     in_changeset: Wijzigingenset
     anonymous: anoniem
     no_comment: (geen opmerking)
@@ -395,29 +399,11 @@ nl:
       other: '%{count} wegen'
     download_xml: XML downloaden
     view_history: Geschiedenis weergeven
+    view_unredacted_history: Niet-geredigeerde geschiedenis bekijken
     view_details: Details weergeven
+    view_redacted_data: Geredigeerde gegevens bekijken
+    view_redaction_message: Redactiebericht bekijken
     location: 'Locatie:'
-    changeset:
-      title: 'Wijzigingenset: %{id}'
-      belongs_to: Auteur
-      node: Knooppunten (%{count})
-      node_paginated: Knooppunten (%{x}-%{y} van %{count})
-      way: Wegen (%{count})
-      way_paginated: Wegen (%{x}-%{y} van %{count})
-      relation: Relaties (%{count})
-      relation_paginated: Relaties (%{x}-%{y} van %{count})
-      comment: Reacties (%{count})
-      hidden_comment_by_html: Verborgen reactie van %{user}, %{time_ago}
-      comment_by_html: Reactie van %{user}, %{time_ago}
-      changesetxml: Wijzigingenset-XML
-      osmchangexml: osmChange-XML
-      feed:
-        title: Wijzigingenset %{id}
-        title_comment: Wijzigingenset %{id} - %{comment}
-      join_discussion: Meld u aan om mee te praten
-      discussion: Overleg
-      still_open: Wijzigingenset is nog open – overleg gaat open zodra de wijzigingenset
-        wordt afgesloten.
     node:
       title_html: 'Knooppunt: %{name}'
       history_title_html: 'Knooppuntgeschiedenis: %{name}'
@@ -476,9 +462,9 @@ nl:
         way: weg
         relation: relatie
     start_rjs:
-      feature_warning: Er worden %{num_features} objecten geladen, waardoor uw browser
-        traag kan worden of niet meer kan reageren. Weet u zeker dat u deze gegevens
-        wilt weergeven?
+      feature_warning: '%{num_features} functies worden geladen, waardoor uw browser
+        traag kan worden of niet reageert. Weet u zeker dat je deze gegevens wilt
+        weergeven?'
       load_data: Gegevens laden
       loading: Bezig met laden…
     tag_details:
@@ -497,6 +483,28 @@ nl:
       introduction: Klik op de kaart om nabije objecten te vinden.
       nearby: Objecten in de buurt
       enclosing: Omsluitende objecten
+  old_nodes:
+    not_found:
+      sorry: 'Sorry, knooppunt #%{id} versie %{version} kon niet worden gevonden.'
+  old_ways:
+    not_found:
+      sorry: 'Sorry, weg #%{id} versie %{version} niet kon worden gevonden.'
+  old_relations:
+    not_found:
+      sorry: 'Sorry, relatie #%{id} versie %{version} kon niet worden gevonden.'
+  changeset_comments:
+    feeds:
+      comment:
+        comment: 'Nieuwe reactie bij wijzigingenset #%{changeset_id} door %{author}'
+        commented_at_by_html: '%{when} bijgewerkt door %{user}'
+      comments:
+        comment: 'Nieuwe reactie bij wijzigingenset #%{changeset_id} door %{author}'
+      show:
+        title_all: Overleg over een wijzigingenset van OpenStreetMap
+        title_particular: 'Overleg over wijzigingenset #%{changeset_id} van OpenStreetMap'
+      timeout:
+        sorry: Sorry, het oproepen van de lijst met wijzigingenset-opmerkingen die
+          u hebt opgevraagd duurde te lang.
   changesets:
     changeset_paging_nav:
       showing_page: Pagina %{page}
@@ -506,12 +514,6 @@ nl:
       anonymous: Anoniem
       no_edits: (geen bewerkingen)
       view_changeset_details: Details wijzigingenset weergeven
-    changesets:
-      id: ID
-      saved_at: Opgeslagen op
-      user: Gebruiker
-      comment: Opmerking
-      area: Gebied
     index:
       title: Wijzigingensets
       title_user: Wijzigingensets door %{user}
@@ -525,25 +527,62 @@ nl:
       no_more_area: Geen wijzigingensets meer in dit gebied.
       no_more_user: Geen wijzigingensets meer van deze gebruiker.
       load_more: Meer laden
+      feed:
+        title: Wijzigingenset %{id}
+        title_comment: Wijzigingenset %{id} - %{comment}
+        created: Aangemaakt
+        closed: Gesloten
+        belongs_to: Auteur
+    subscribe:
+      heading: Abonneren op de volgende discussie over wijzigingenreeks?
+      button: Op discussie abonneren
+    unsubscribe:
+      heading: Afmelden voor de volgende discussie over wijzigingenreeks
+      button: Van discussie afmelden
+    heading:
+      title: Wijzigingenreeks %{id}
+      created_by_html: Gemaakt door %{link_user} op %{created}.
+    no_such_entry:
+      title: Een dergelijke wijzigingenreeks bestaat niet
+      heading: 'Geen gegevens met de id: %{id}'
+      body: Er is geen wijzigingenreeks met de id %{id}. Controleer uw spelling, of
+        wellicht is de lijk die u hebt gevolgd foutief.
+    show:
+      title: 'Wijzigingenset: %{id}'
+      created: 'Aangemaakt: %{when}'
+      closed: 'Gesloten: %{when}'
+      created_ago_html: Gemaakt %{time_ago}
+      closed_ago_html: Gesloten %{time_ago}
+      created_ago_by_html: '%{time_ago} gemaakt door %{user}'
+      closed_ago_by_html: '%{time_ago} gesloten door %{user}'
+      discussion: Overleg
+      join_discussion: Meld u aan om mee te praten
+      still_open: Wijzigingenset is nog open – overleg gaat open zodra de wijzigingenset
+        wordt afgesloten.
+      subscribe: Abonneren
+      unsubscribe: Uitschrijven
+      comment_by_html: Reactie van %{user}, %{time_ago}
+      hidden_comment_by_html: Verborgen reactie van %{user}, %{time_ago}
+      hide_comment: verbergen
+      unhide_comment: zichtbaar maken
+      comment: Reageren
+      changesetxml: Wijzigingenset-XML
+      osmchangexml: osmChange-XML
+    paging_nav:
+      nodes: Knooppunten (%{count})
+      nodes_paginated: Knooppunten (%{x}-%{y} van %{count})
+      ways: Wegen (%{count})
+      ways_paginated: Wegen (%{x}-%{y} van %{count})
+      relations: Relaties (%{count})
+      relations_paginated: Relaties (%{x}-%{y} van %{count})
     timeout:
       sorry: Het oproepen van de lijst met wijzigingensets die u hebt opgevraagd duurde
         te lang.
-  changeset_comments:
-    comment:
-      comment: 'Nieuwe reactie bij wijzigingenset #%{changeset_id} door %{author}'
-      commented_at_by_html: '%{when} bijgewerkt door %{user}'
-    comments:
-      comment: 'Nieuwe reactie bij wijzigingenset #%{changeset_id} door %{author}'
-    index:
-      title_all: Overleg over een wijzigingenset van OpenStreetMap
-      title_particular: 'Overleg over wijzigingenset #%{changeset_id} van OpenStreetMap'
-    timeout:
-      sorry: Sorry, het oproepen van de lijst met wijzigingenset-opmerkingen die u
-        hebt opgevraagd duurde te lang.
   dashboards:
     contact:
       km away: '%{count} km verwijderd'
       m away: '%{count} m verwijderd'
+      latest_edit_html: 'Laatste bewerking (%{ago}):'
     popup:
       your location: Uw locatie
       nearby mapper: Dichtbijzijnde mapper
@@ -578,6 +617,7 @@ nl:
       new_title: Nieuw bericht in mijn dagboek schrijven
       my_diary: Mijn dagboek
       no_entries: Het dagboek is leeg
+    page:
       recent_entries: Recente dagboekberichten
       older_entries: Oudere berichten
       newer_entries: Nieuwere berichten
@@ -587,6 +627,9 @@ nl:
     show:
       title: Dagboek van %{user} | %{title}
       user_title: Dagboek van %{user}
+      discussion: Overleg
+      subscribe: Abonneren
+      unsubscribe: Deabonneren
       leave_a_comment: Een reactie achterlaten
       login_to_leave_a_comment_html: U moet moet zich %{login_link} om te kunnen reageren
       login: Aanmelden
@@ -630,16 +673,26 @@ nl:
       all:
         title: OpenStreetMap-dagboekberichten
         description: Recente dagboekberichten van OpenStreetMap-gebruikers
-    comments:
+    subscribe:
+      heading: Abonneren op de volgende dagboekaantekeningendiscussie?
+      button: Op discussie abonneren
+    unsubscribe:
+      heading: Afmelden voor de volgende dagboekaantekeningendiscussie?
+      button: Van discussie afmelden
+  diary_comments:
+    index:
       title: Dagboekreacties toegevoegd door %{user}
       heading: Dagboekreacties van %{user}
       subheading_html: Dagboekreacties toegevoegd door %{user}
       no_comments: Geen dagboekreacties
+    page:
       post: Dagboekbericht
       when: Wanneer
       comment: Reactie
       newer_comments: Nieuwere reacties
       older_comments: Oudere reacties
+    new:
+      heading: Een reactie toevoegen aan de volgende dagboekaantekening?
   doorkeeper:
     errors:
       messages:
@@ -679,6 +732,10 @@ nl:
       contact_the_community_html: Aarzel niet om %{contact_link} op te nemen met de
         OpenStreetMap-community als u een niet werkende link of een bug hebt gevonden.
         Noteer de exacte URL van uw verzoek.
+    bad_request:
+      title: Onjuiste aanvraag
+      description: De bewerking die u op de OpenStreetMap-server hebt aangevraagd
+        is ongeldig (HTTP 400)
     forbidden:
       title: Verboden
       description: De door u gevraagde bewerking op de OpenStreetMap-server is alleen
@@ -875,6 +932,7 @@ nl:
           college: Schoolgebouw
           commercial: Commercieel gebouw
           construction: Gebouw in aanbouw
+          cowshed: Koeienstal
           detached: Alleenstaande woning
           dormitory: Studentenhuis
           duplex: Koppelwoning
@@ -904,6 +962,7 @@ nl:
           shed: Schuurtje
           stable: Stal
           static_caravan: Stacaravan
+          sty: Varkensstal
           temple: Tempelgebouw
           terrace: Rijhuizen
           train_station: Spoorwegstationsgebouw
@@ -1495,17 +1554,23 @@ nl:
       select_status: Selecteer Status
       select_type: Selecteer Type
       select_last_updated_by: Selecteer Laatst Bijgewerkt Door
-      reported_user: Gerapporteerde Gebruiker
+      reported_user: Gerapporteerde gebruiker
       not_updated: Niet Bijgewerkt
       search: Zoeken
       search_guidance: 'Problemen zoeken:'
+      link_to_reports: Rapporten weergeven
+      states:
+        ignored: Genegeerd
+        open: Open
+        resolved: Opgelost
+    page:
       user_not_found: Gebruiker bestaat niet
       issues_not_found: Geen dergelijke problemen gevonden
+      reported_user: Gerapporteerde gebruiker
       status: Status
       reports: Rapportages
       last_updated: Laatst Bijgewerkt
       last_updated_time_ago_user_html: '%{time_ago} door %{user}'
-      link_to_reports: Rapporten weergeven
       reports_count:
         one: '%{count} rapport'
         other: '%{count} rapporten'
@@ -1514,15 +1579,17 @@ nl:
         ignored: Genegeerd
         open: Open
         resolved: Opgelost
+      older_issues: Oudere meldingen
+      newer_issues: Nieuwere meldingen
     show:
       title: '%{status} Probleem #%{issue_id}'
       reports:
         one: '%{count} rapport'
         other: '%{count} rapporten'
       no_reports: Geen rapporten
-      report_created_at: Voor het eerst vermeld op %{datetime}
-      last_resolved_at: Laatst opgelost op %{datetime}
-      last_updated_at: Laatst bijgewerkt op %{datetime} door %{displayname}
+      report_created_at_html: Voor het eerst vermeld op %{datetime}
+      last_resolved_at_html: Laatst opgelost op %{datetime}
+      last_updated_at_html: Laatst bijgewerkt op %{datetime} door %{displayname}
       resolve: Oplossen
       ignore: Negeren
       reopen: Heropenen
@@ -1607,24 +1674,23 @@ nl:
     gps_traces: Gps-trajecten
     gps_traces_tooltip: Gps-trajecten beheren
     user_diaries: Gebruikersdagboeken
-    user_diaries_tooltip: Gebruikersdagboeken weergeven
     edit_with: Bewerken met %{editor}
     tag_line: De vrije wikiwereldkaart
     intro_header: Welkom bij OpenStreetMap!
     intro_text: OpenStreetMap is een kaart van de wereld, gemaakt door mensen zoals
       u en vrij te gebruiken onder een open licentie.
     intro_2_create_account: Maak een account aan
-    hosting_partners_html: Hosting wordt ondersteund door %{ucl}, %{fastly}, %{bytemark},
+    hosting_partners_2024_html: Hosting wordt ondersteund door %{fastly}, %{corpmembers}
       en andere %{partners}.
-    partners_ucl: het UCL VR Centre
     partners_fastly: Fastly
-    partners_bytemark: Bytemark Hosting
+    partners_corpmembers: OSMF-bedrijfsleden
     partners_partners: partners
     tou: Gebruiksvoorwaarden
     osm_offline: De OpenStreetMap-database is momenteel niet beschikbaar wegens het
       uitvoeren van onderhoudswerkzaamheden.
     osm_read_only: De OpenStreetMap-database kan op het moment niet gewijzigd worden
       wegens het uitvoeren van onderhoudswerkzaamheden.
+    nothing_to_preview: Er is geen voorvertoning.
     donate: Ondersteun OpenStreetMap door te %{link} aan het Hardware Upgrade-fonds.
     help: Hulp
     about: Over
@@ -1633,13 +1699,11 @@ nl:
     community: Gemeenschap
     community_blogs: Gemeenschapsblogs
     community_blogs_title: Blogs van leden van de OpenStreetMap-gemeenschap
-    make_a_donation:
-      title: Steun OpenStreetMap met een donatie
-      text: Doneren
     learn_more: Meer lezen
     more: Meer
   user_mailer:
     diary_comment_notification:
+      description: 'OpenStreetMap-dagboekbericht #%{id}'
       subject: '[OpenStreetMap] %{user} heeft een reactie bij uw dagboek geplaatst'
       hi: Hallo %{to_user},
       header: '%{from_user} heeft gereageerd op het OpenStreetMap-dagboekbericht met
@@ -1650,6 +1714,8 @@ nl:
         op %{commenturl} of een bericht sturen naar de auteur via %{replyurl}
       footer_html: U kunt de reactie ook lezen op %{readurl} en u kunt zelf ook reageren
         op %{commenturl} of een bericht sturen naar de auteur via %{replyurl}
+      footer_unsubscribe: U kunt zich afmelden voor de discussie op %{unsubscribeurl}
+      footer_unsubscribe_html: U kunt zich afmelden van de discussie op %{unsubscribeurl}
     message_notification:
       subject: '[OpenStreetMap] %{message_title}'
       hi: Hallo %{to_user},
@@ -1670,13 +1736,19 @@ nl:
       befriend_them: U kunt deze gebruiker ook als vriend toevoegen op %{befriendurl}.
       befriend_them_html: U kunt deze gebruiker ook als vriend toevoegen op %{befriendurl}.
     gpx_description:
+      description_with_tags: Het ziet ernaar uit dat uw GPX-bestand %{trace_name}
+        met beschrijving %{trace_description} en de labels %{tags}
       description_with_tags_html: Het ziet ernaar uit dat uw GPX-bestand %{trace_name}
         met beschrijving %{trace_description} en de labels %{tags}
+      description_with_no_tags: Het ziet ernaar uit dat uw GPX-bestand %{trace_name}
+        met beschrijving %{trace_description} zonder labels
       description_with_no_tags_html: Het ziet ernaar uit dat uw GPX-bestand %{trace_name}
         met beschrijving %{trace_description} zonder labels
     gpx_failure:
       hi: Hallo %{to_user},
       failed_to_import: 'is niet geïmporteerd. Hier volgt de foutmelding:'
+      more_info: Meer informatie over mislukte GPX-imports en hoe u ze kunt vermijden,
+        kunt u vinden op %{url}.
       more_info_html: Meer informatie over mislukte GPX-imports en hoe u ze kunt vermijden,
         kunt u vinden op %{url}.
       subject: '[OpenStreetMap] GPX-import mislukt'
@@ -1685,6 +1757,10 @@ nl:
       loaded:
         one: goed ontvangen, met %{trace_points} van %{count} mogelijk punt.
         other: goed ontvangen; met %{trace_points} van %{count} mogelijke punten.
+      trace_location: Uw traject is beschikbaar op %{trace_url}
+      all_your_traces: Al uw succesvol geüploade GPX-traces zijn te vinden op %{url}.
+      all_your_traces_html: Alle succesvol geüploade GPX-traces zijn te vinden op
+        %{url}.
       subject: '[OpenStreetMap] GPX-import afgerond'
     signup_confirm:
       subject: '[OpenStreetMap] Welkom bij OpenStreetMap'
@@ -1705,11 +1781,12 @@ nl:
     lost_password:
       subject: '[OpenStreetMap] Verzoek wachtwoord opnieuw instellen'
       greeting: Hallo,
-      hopefully_you: Iemand (mogelijk u) heeft aangevraagd om het wachtwoord opnieuw
+      hopefully_you: Iemand (mogelijk u) heeft gevraagd om het wachtwoord opnieuw
         in te laten stellen voor het account met dit e-mailadres op openstreetmap.org.
       click_the_link: Als u dit bent, klik dan op de onderstaande koppeling om uw
         wachtwoord opnieuw in te stellen.
     note_comment_notification:
+      description: 'OpenStreetMap-notitie #%{id}'
       anonymous: Een anonieme gebruiker
       greeting: Hallo,
       commented:
@@ -1751,9 +1828,10 @@ nl:
         commented_note_html: '%{commenter} heeft een kaartopmerking waarop u hebt
           gereageerd opnieuw geactiveerd. De opmerking is gemaakt in de buurt van
           %{place}.'
-      details: Meer details over de opmerking zijn te vinden op %{url}.
-      details_html: Meer details over de opmerking zijn te vinden op %{url}.
+      details: Reageer of lees meer over de opmerking op %{url}.
+      details_html: Reageer of lees meer over de opmerking op %{url}.
     changeset_comment_notification:
+      description: 'OpenStreetMap-wijzigingenreeks #%{id}'
       hi: Hoi %{to_user},
       greeting: Hallo,
       commented:
@@ -1772,12 +1850,11 @@ nl:
         partial_changeset_with_comment: met reactie "%{changeset_comment}"
         partial_changeset_with_comment_html: met commentaar "%{changeset_comment}"
         partial_changeset_without_comment: zonder reactie
-      details: Meer details over de wijzigingenset kunt u vinden op %{url}.
-      details_html: Meer details over de wijzigingenset kunt u vinden op %{url}.
-      unsubscribe: Om u af te melden van de updates van deze wijzigingenset, ga naar
-        %{url} en klik op "Afmelden".
-      unsubscribe_html: Om geen meldingen meer te krijgen over deze wijzigingset,
-        gaat u naar %{url} en klikt u op "Afmelden".
+      details: Reageer of lees meer over de wijzigingenset op %{url}.
+      details_html: Reageer of lees meer over de wijzigingenset op %{url}.
+      unsubscribe: U kunt afmelden voor updates van deze wijzigingensetop %{url}.
+      unsubscribe_html: U kunt u afmelden voor updates van deze wijzigingenset op
+        %{url}.
   confirmations:
     confirm:
       heading: Controleer uw e-mail
@@ -1811,8 +1888,6 @@ nl:
   messages:
     inbox:
       title: Postvak IN
-      my_inbox: Mijn Postvak IN
-      my_outbox: Mijn Postvak UIT
       messages: U hebt %{new_messages} en %{old_messages}
       new_messages:
         one: '%{count} nieuw bericht'
@@ -1820,17 +1895,21 @@ nl:
       old_messages:
         one: '%{count} oud bericht'
         other: '%{count} oude berichten'
-      from: Van
-      subject: Onderwerp
-      date: Datum
       no_messages_yet_html: U hebt nog geen berichten. Waarom legt u geen contact
         met %{people_mapping_nearby_link}?
       people_mapping_nearby: dichtbijzijnde mappers
+    messages_table:
+      from: Van
+      to: Aan
+      subject: Onderwerp
+      date: Datum
+      actions: Handelingen
     message_summary:
       unread_button: Markeren als ongelezen
       read_button: Markeren als gelezen
       reply_button: Antwoorden
       destroy_button: Verwijderen
+      unmute_button: Naar Inbox verplaatsen
     new:
       title: Bericht verzenden
       send_message_to_html: Een persoonlijk bericht naar %{name} verzenden
@@ -1845,17 +1924,18 @@ nl:
       body: Er is geen bericht met dat ID.
     outbox:
       title: Postvak UIT
-      my_inbox: Mijn Postvak IN
-      my_outbox: Mijn Postvak UIT
+      actions: Handelingen
       messages:
         one: U hebt één verzonden bericht
         other: U hebt %{count} verzonden berichten
-      to: Aan
-      subject: Onderwerp
-      date: Datum
       no_sent_messages_html: U hebt nog geen berichten verzonden. Waarom legt u geen
         contact met %{people_mapping_nearby_link}?
       people_mapping_nearby: dichtbijzijnde mappers
+    muted:
+      title: Gedempte berichten
+      messages:
+        one: '%{count} verborgen bericht'
+        other: U hebt %{count} genegeerde berichten
     reply:
       wrong_user: U bent aangemeld als "%{user}", maar het bericht waarop u wilt antwoorden
         is niet aan die gebruiker gericht. Meld u aan als de juiste gebruiker om te
@@ -1871,13 +1951,20 @@ nl:
         Meld u aan als de juiste gebruiker om het te lezen.
     sent_message_summary:
       destroy_button: Verwijderen
+    heading:
+      my_inbox: Mijn Postvak IN
+      my_outbox: Mijn Postvak UIT
+      muted_messages: Gedempte berichten
     mark:
       as_read: Gemarkeerd als gelezen
       as_unread: Gemarkeerd als ongelezen
+    unmute:
+      notice: Bericht is verplaatst naar Inbox
+      error: Het bericht kon niet naar de Inbox worden verplaatst.
     destroy:
       destroyed: Het bericht is verwijderd
   passwords:
-    lost_password:
+    new:
       title: Wachtwoord vergeten
       heading: Wachtwoord vergeten?
       email address: 'E-mailadres:'
@@ -1885,13 +1972,15 @@ nl:
       help_text: Voer het e-mailadres in dat u hebt opgegeven bij uw registratie.
         We sturen u dan een webkoppeling die u kunt gebruiken om uw wachtwoord opnieuw
         in te stellen.
-      notice email on way: Spijtig om te horen dat u het vergeten bent, maar er is
-        een e-mail onderweg zodat u uw wachtwoord opnieuw kunt instellen.
-      notice email cannot find: Dat e-mailadres kon helaas niet worden gevonden.
-    reset_password:
+    create:
+      send_paranoid_instructions: Als uw e-mailadres in onze database bestaat, ontvangt
+        u binnen enkele minuten een wachtwoordherstellink op uw e-mailadres.
+    edit:
       title: Wachtwoord opnieuw instellen
       heading: Wachtwoord voor %{user} opnieuw instellen
       reset: Wachtwoord opnieuw instellen
+      flash token bad: Het token kon niet gevonden worden. Controleer de URL.
+    update:
       flash changed: Uw wachtwoord is gewijzigd.
       flash token bad: Het token kon niet gevonden worden. Controleer de URL.
   preferences:
@@ -1938,43 +2027,18 @@ nl:
   sessions:
     new:
       title: Aanmelden
-      heading: Aanmelden
+      tab_title: Aanmelden
+      login_to_authorize_html: Meld u aan bij OpenStreetMap om toegang te krijgen
+        tot %{client_app_name}.
       email or username: 'E-mailadres of gebruikersnaam:'
       password: 'Wachtwoord:'
-      openid_html: '%{logo} OpenID:'
       remember: Aanmeldgegevens onthouden
       lost password link: Wachtwoord vergeten?
       login_button: Aanmelden
       register now: Nu inschrijven
-      with external: 'U kunt ook gebruik maken van een derde partij om aan te melden:'
-      no account: Hebt u geen account?
+      with external: of meld u aan via een derde
+      or: of
       auth failure: Met deze gegevens kunt u helaas niet aanmelden.
-      openid_logo_alt: Aanmelden met een OpenID
-      auth_providers:
-        openid:
-          title: Aanmelden met OpenID
-          alt: Aanmelden met een OpenID URL
-        google:
-          title: Aanmelden met Google
-          alt: Aanmelden met een Google OpenID
-        facebook:
-          title: Aanmelden met Facebook
-          alt: Aanmelden met een Facebookaccount
-        microsoft:
-          title: Aanmelden met Microsoft
-          alt: Aanmelden met een Microsoft-account
-        github:
-          title: Aanmelden met GitHub
-          alt: Aanmelden met een GitHub-account
-        wikipedia:
-          title: Aanmelden met Wikipedia
-          alt: Aanmelden met een Wikipedia-account
-        wordpress:
-          title: Aanmelden met Wordpress
-          alt: Aanmelden met een Wordpress OpenID
-        aol:
-          title: Aanmelden met AOL
-          alt: Aanmelden met een AOL OpenID
     destroy:
       title: Afmelden
       heading: Afmelden van OpenStreetMap
@@ -1998,9 +2062,11 @@ nl:
       image: Afbeelding
       alt: Alternatieve tekst
       url: URL
+      codeblock: Codeblok
     richtext_field:
       edit: Bewerken
       preview: Voorvertoning
+      help: Hulp
   site:
     about:
       next: Volgende
@@ -2051,6 +2117,7 @@ nl:
       legal_2_2_registered_trademarks: geregistreerde handelsmerken van de OSMF
       partners_title: Partners
     copyright:
+      title: Auteursrechten en licentie
       foreign:
         title: Over deze vertaling
         html: In het geval deze taalversie en %{english_original_link} elkaar tegenspreken,
@@ -2064,7 +2131,6 @@ nl:
         native_link: Nederlandstalige versie
         mapping_link: begin met mappen
       legal_babble:
-        title_html: Auteursrechten en licentie
         introduction_1_html: |-
           OpenStreetMap%{registered_trademark_link} is %{open_data}, in licentie gegeven onder de
           %{odc_odbl_link} (ODbL) door de %{osm_foundation_link} (OSMF).
@@ -2085,7 +2151,7 @@ nl:
         credit_title_html: Hoe OpenStreetMap te vermelden
         credit_1_html: 'Wanneer u OpenStreetMap-gegevens gebruikt, bent u verplicht
           de volgende twee dingen te doen:'
-        credit_2_1: Vermeld OpenStreetMap door onze copyrightmelding te tonen.
+        credit_2_1: Vermeld OpenStreetMap door onze copyrightmelding weer te geven.
         credit_2_2: Maak duidelijk dat de data beschikbaar is onder de Open Database-licentie.
         credit_3_html: Voor de auteursrechtelijke vermelding hanteren wij verschillende
           voorschriften ten aanzien van de manier waarop deze moet worden weergegeven,
@@ -2163,6 +2229,11 @@ nl:
           %{france}: Bevat gegevens van de
           Direction Générale des Impôts.
         contributors_fr_france: Frankrijk
+        contributors_hr_credit_html: '%{croatia}: bevat gegevens uit de %{dgu_link}
+          en %{open_data_portal} (openbare informatie van Kroatië).'
+        contributors_hr_croatia: Kroatië
+        contributors_hr_dgu: Staatsgeodesisch bestuur van Kroatië
+        contributors_hr_open_data_portal: Nationaal Open Data Portaal
         contributors_nl_credit_html: '%{netherlands}: Bevat gegevens &copy; AND, 2007
           (%{and_link})'
         contributors_nl_netherlands: Nederland
@@ -2230,9 +2301,6 @@ nl:
       js_1: U gebruikt een browser die JavaScript niet ondersteunt, of u hebt JavaScript
         uitgeschakeld.
       js_2: OpenStreetMap gebruikt JavaScript voor de slippykaart.
-      permalink: Permanente koppeling
-      shortlink: Korte koppeling
-      createnote: Opmerking toevoegen
       license:
         copyright: Copyright OpenStreetMap en bijdragers, onder een open licentie
       remote_failed: Bewerken is mislukt. Zorg dat JOSM of Merkaartor is geladen en
@@ -2244,16 +2312,9 @@ nl:
       user_page_link: gebruikerspagina
       anon_edits_link_text: Lees waarom dit het geval is.
       id_not_configured: iD is niet ingesteld
-      no_iframe_support: Uw browser ondersteunt geen iframes HTML die nodig zijn voor
-        deze functie.
     export:
       title: Exporteren
-      area_to_export: Te exporteren gebied
       manually_select: Handmatig een ander gebied selecteren
-      format_to_export: Bestandsformaat
-      osm_xml_data: OpenStreetMap XML-gegevens
-      map_image: Kaartafbeelding (geeft de standaard laag weer)
-      embeddable_html: HTML-code
       licence: Licentie
       licence_details_html: OpenStreetMap-gegevens zijn gelicentieerd onder de %{odbl_link}
         (ODbL).
@@ -2277,17 +2338,6 @@ nl:
         other:
           title: Andere bronnen
           description: Extra bronnen die worden vermeld op de OpenStreetMap-wiki
-      options: Opties
-      format: 'Formaat:'
-      scale: Schaal
-      max: max
-      image_size: 'Afbeeldingsgrootte:'
-      zoom: Zoomen
-      add_marker: Marker op de kaart zetten
-      latitude: 'Breedte:'
-      longitude: 'Lengte:'
-      output: Uitvoer
-      paste_html: Kopieer de HTML-code en voeg deze toe aan uw website
       export_button: Exporteren
     fixthemap:
       title: Een probleem melden / de kaart corrigeren
@@ -2325,17 +2375,14 @@ nl:
         url: https://wiki.openstreetmap.org/wiki/NL:Beginnershandleiding
         title: Handleiding voor beginners
         description: Handleiding voor beginners, onderhouden door de gemeenschap.
-      help:
-        title: Help Forum
-        description: Stel een vraag of zoek antwoorden op de vraag- en antwoordsite
-          van OpenStreetMap.
+      community:
+        title: Hulp- en gemeenschapsforum
+        description: Een gedeelde plek waar je hulp kunt zoeken en gesprekken kunt
+          voeren over OpenStreetMap.
       mailing_lists:
         title: Mailinglijsten
         description: Stel een vraag of bespreek interessante zaken op een hele reeks
           onderwerpsgebonden of regionale mailinglijsten.
-      community:
-        title: Gemeenschapsforum
-        description: Een gedeelde plek voor conversaties over OpenStreetMap.
       irc:
         title: IRC
         description: Interactieve chat in vele verschillende talen en over tal van
@@ -2390,67 +2437,83 @@ nl:
           primary: Primaire weg
           secondary: Secundaire weg
           unclassified: Lokale weg
+          pedestrian: Voetpad
           track: Veld- of bosweg
           bridleway: Ruiterpad
           cycleway: Fietspad
           cycleway_national: Nationale fietsroute
           cycleway_regional: Regionale fietsroute
           cycleway_local: Lokale fietsroute
+          cycleway_mtb: Mountainbikeroute
           footway: Voetpad
           rail: Spoorweg
+          train: Trein
           subway: Metro
-          tram:
-          - Lightrail
-          - tram
-          cable:
-          - Kabelbaan
-          - stoeltjeslift
-          runway:
-          - Start- en landingsbaan
-          - taxibaan
-          apron:
-          - Luchthavenplatform
-          - terminal
+          ferry: Veerboot
+          light_rail: Lightrail
+          tram: Tram
+          trolleybus: Trolleybus
+          bus: Bus
+          cable_car: Kabelbaan
+          chair_lift: Stoeltjeslift
+          runway: Start- en landingsbaan
+          taxiway: Taxibaan
+          apron: Luchthavenplatform
           admin: Bestuurlijke grens
+          capital: Hoofdstad
+          city: Stad
+          orchard: Boomgaard
+          vineyard: Wijngaard
           forest: Bos
           wood: Bos
+          farmland: Landbouwgrond
+          grass: Gras
+          meadow: Weide
+          bare_rock: Kale rots
+          sand: Zand
           golf: Golfbaan
           park: Park
+          common: Gemene grond
+          built_up: Bebouwde kom
           resident: Woongebied
-          common:
-          - Gemene grond
-          - weide
-          - tuin
           retail: Winkelgebied
           industrial: Industriegebied
           commercial: Commercieel gebied
           heathland: Heide
-          lake:
-          - Meer
-          - reservoir
+          scrubland: Struikgewas
+          lake: Meer
+          reservoir: Reservoir
+          intermittent_water: Onderbroken waterlichaam
+          glacier: Gletsjer
+          reef: Rif
+          wetland: Moeras
           farm: Boerderij
           brownfield: Braakliggend terrein
           cemetery: Begraafplaats
           allotments: Volkstuinen
           pitch: Sportveld
           centre: Sportcentrum
+          beach: Strand
           reserve: Natuurreservaat
           military: Militair gebied
-          school:
-          - School
-          - universiteit
+          school: School; universiteit
+          university: Universiteit
+          hospital: Ziekenhuis
           building: Belangrijk gebouw
           station: Spoorwegstation
-          summit:
-          - Top
-          - piek
+          summit: Top
+          peak: Piek
           tunnel: Tunnel
           bridge: Brug
           private: Privétoegang
           destination: Bestemmingsverkeer
           construction: Weg in aanleg
+          bus_stop: Bushalte
+          stop: Halte
           bicycle_shop: Fietsenwinkel
+          bicycle_rental: Fietsverhuur
           bicycle_parking: Fietsenstalling
+          bicycle_parking_small: Kleine fietsenstalling
           toilets: Toiletten
     welcome:
       title: Welkom!
@@ -2494,6 +2557,7 @@ nl:
         imports: Importeringen
         automated_edits: Geautomatiseerde bewerkingen
       start_mapping: Beginnen met kaarten maken
+      continue_authorization: Doorgaan met autoriseren
       add_a_note:
         title: Geen tijd om te bewerken? Voeg een opmerking toe!
         para_1: Als u gewoon iets kleins wilt verbeteren en niet de tijd hebt om u
@@ -2581,9 +2645,6 @@ nl:
       trace_not_found: Traject is niet gevonden!
       visibility: 'Zichtbaarheid:'
       confirm_delete: Dit traject verwijderen?
-    trace_paging_nav:
-      older: Oudere trajecten
-      newer: Nieuwere trajecten
     trace:
       pending: BEZIG
       count_points:
@@ -2597,8 +2658,8 @@ nl:
       identifiable: IDENTIFICEERBAAR
       private: PERSOONLIJK
       trackable: TRACEERBAAR
-      by: door
-      in: in
+      details_with_tags_html: '%{time_ago} door %{user} in %{tags}'
+      details_without_tags_html: '%{time_ago} door %{user}'
     index:
       public_traces: Openbare gps-trajecten
       my_gps_traces: Mijn GPS-traces
@@ -2614,6 +2675,9 @@ nl:
       my_traces: Mijn trajecten
       traces_from: Openbare trajecten van %{user}
       remove_tag_filter: Labelfilter verwijderen
+    page:
+      older: Oudere trajecten
+      newer: Nieuwere trajecten
     destroy:
       scheduled_for_deletion: Traject staat op de lijst voor verwijdering
     make_public:
@@ -2636,8 +2700,6 @@ nl:
     require_cookies:
       cookies_needed: U hebt cookies waarschijnlijk uitgeschakeld in uw browser. Schakel
         cookies in voordat u verder gaat.
-    require_admin:
-      not_an_admin: U moet moderator zijn om deze handeling te kunnen verrichten.
     setup_user_auth:
       blocked_zero_hour: U heeft een urgente melding op de website van OpenStreetMap.
         U moet het bericht lezen voordat u uw wijzigingen op kunt slaan.
@@ -2648,34 +2710,31 @@ nl:
         niet te onderschijven, maar moet ze wel gezien hebben.
     settings_menu:
       account_settings: Accountinstellingen
-      oauth1_settings: OAuth 1 instellingen
       oauth2_applications: OAuth 2 toepassingen
       oauth2_authorizations: OAuth 2 autorisaties
+      muted_users: Gedempte gebruikers
+    auth_providers:
+      openid_url: OpenID-URL
+      openid_login_button: Doorgaan
+      openid:
+        title: Aanmelden met OpenID
+        alt: OpenID-logo
+      google:
+        title: Aanmelden met Google
+        alt: Google-logo
+      facebook:
+        title: Aanmelden met Facebook
+        alt: Facebook-logo
+      microsoft:
+        title: Aanmelden met Microsoft
+        alt: Microsoft-logo
+      github:
+        title: Aanmelden met GitHub
+        alt: GitHub-logo
+      wikipedia:
+        title: Aanmelden met Wikipedia
+        alt: Wikipedia-logo
   oauth:
-    authorize:
-      title: Geef toegang tot uw account
-      request_access_html: De toepassing %{app_name} vraagt toegang tot uw account
-        %{user}. Controleer of u deze toepassing de volgende mogelijkheden wilt bieden.
-        U kunt zoveel of zo weinig rechten toewijzen als u wilt.
-      allow_to: 'De clienttoepassing de volgende rechten geven:'
-      allow_read_prefs: uw gebruikersvoorkeuren lezen.
-      allow_write_prefs: uw gebruikersvoorkeuren wijzigen.
-      allow_write_diary: dagboekberichten schrijven, reacties geven en vrienden maken
-      allow_write_api: de kaart wijzigen.
-      allow_read_gpx: uw persoonlijke gps-trajecten lezen
-      allow_write_gpx: Gps-trajecten uploaden
-      allow_write_notes: opmerkingen wijzigen.
-      grant_access: Toegang verlenen
-    authorize_success:
-      title: Autorisatieaanvraag toegestaan
-      allowed_html: U hebt de toepassing %{app_name} toegang verleend tot uw account.
-      verification: De controlecode is %{code}.
-    authorize_failure:
-      title: De autorisatieaanvraag is mislukt.
-      denied: U hebt de toepassing %{app_name} toegang tot uw account geweigerd.
-      invalid: Het autorisatietoken is niet geldig.
-    revoke:
-      flash: U hebt het token voor %{application} ingetrokken
     permissions:
       missing: U heeft niet toegestaan dat de toepassing toegang heeft tot dit kenmerk.
     scopes:
@@ -2687,49 +2746,14 @@ nl:
       read_gpx: Persoonlijke gps-trajecten lezen
       write_gpx: Gps-trajecten uploaden
       write_notes: Opmerkingen wijzigen
+      write_redactions: Kaartgegevens redigeren
       read_email: E-mailadres lezen
+      consume_messages: Gebruikersberichten lezen, bijwerken en verwijderen
+      send_messages: Privéberichten naar andere gebruikers verzenden
       skip_authorization: Toepassing automatisch goedkeuren
-  oauth_clients:
-    new:
-      title: Nieuwe toepassing registreren
-    edit:
-      title: Uw toepassing bewerken
-    show:
-      title: OAuth-gegevens voor %{app_name}
-      key: 'Gebruikerssleutel:'
-      secret: 'Gebruikersgeheim:'
-      url: 'URL voor tokenverzoek:'
-      access_url: 'URL voor toegangstoken:'
-      authorize_url: 'URL voor autorisatie:'
-      support_notice: HMAC-SHA-1- (aangeraden) en RSA-SHA1-handtekeningen worden ondersteund.
-      edit: Details bewerken
-      delete: Client verwijderen
-      confirm: Weet u het zeker?
-      requests: 'Van de gebruiker worden de volgende rechten gevraagd:'
-    index:
-      title: Mijn OAuth-gegevens
-      my_tokens: Mijn geautoriseerde toepassingen
-      list_tokens: 'De volgende tokens zijn op uw naam voor toepassingen uitgegeven:'
-      application: Naam toepassing
-      issued_at: Uitgegeven op
-      revoke: Intrekken!
-      my_apps: Mijn client-toepassingen
-      no_apps_html: Heeft u een toepassing die u wilt registreren met de %{oauth}-standaard?
-        Dan moet u uw webtoepassing registreren voordat u OAuth-verzoeken naar deze
-        dienst kunt maken.
-      oauth: OAuth
-      registered_apps: 'U hebt de onderstaande client-toepassingen geregistreerd:'
-      register_new: Uw toepassing registreren
-    form:
-      requests: 'De volgende toegang van gebruikers vragen:'
-    not_found:
-      sorry: Die %{type} kon helaas niet worden gevonden.
-    create:
-      flash: De informatie is succesvol geregistreerd
-    update:
-      flash: De informatie voor de client is bijgewerkt
-    destroy:
-      flash: Registratie van de client-toepassing verwijderd
+    for_roles:
+      moderator: Deze toestemming geldt alleen voor acties die alleen toegankelijk
+        zijn voor moderators
   oauth2_applications:
     index:
       title: Mijn client-toepassingen
@@ -2775,6 +2799,7 @@ nl:
       title: Mijn geautoriseerde toepassingen
       application: Toepassing
       permissions: Rechten
+      last_authorized: Laatst geautoriseerd
       no_applications_html: U heeft nog geen %{oauth2}-toepassingen geautoriseerd.
     application:
       revoke: Toegang intrekken
@@ -2782,30 +2807,45 @@ nl:
   users:
     new:
       title: Registreren
+      tab_title: Registreren
+      signup_to_authorize_html: Registreer u bij OpenStreetMap om toegang te krijgen
+        tot %{client_app_name}.
       no_auto_account_create: Helaas is het momenteel niet mogelijk om automatisch
         een account voor u aan te maken.
       please_contact_support_html: Neem contact op met de %{support_link} om een account
         aan te maken - we zullen proberen het verzoek zo snel mogelijk af te handelen.
       support: ondersteuning
       about:
-        header: Open en te bewerken
+        header: Vrij van rechten en vrij te bewerken.
         paragraph_1: In tegenstelling tot andere kaarten is OpenStreetMap volledig
           gemaakt door mensen zoals u, en is het voor iedereen gratis te verbeteren,
           bij te werken, te downloaden en te gebruiken.
-        paragraph_2: Schrijf u in om te beginnen met bijdragen. We sturen een e-mail
-          om uw account te bevestigen.
+        paragraph_2: Schrijf u in om te beginnen met bijdragen.
+        welcome: Welkom bij OpenStreetMap
+      duplicate_social_email: Als u al een OpenStreetMap-account heeft en een identiteitsprovider
+        van derden wilt gebruiken, log dan in met uw wachtwoord en wijzig de instellingen
+        van uw account.
       display name description: Uw openbare gebruikersnaam. U kunt deze later in uw
         voorkeuren wijzigen.
+      by_signing_up:
+        html: Door u aan te melden, gaat u akkoord met onze %{tou_link}, %{privacy_policy_link}
+          en %{contributor_terms_link}.
+        privacy_policy: privacybeleid
+        privacy_policy_title: OSMF-privacybeleid, met een kopje over e-mailadressen
+        contributor_terms: bijdragevoorwaarden
+      tou: gebruiksvoorwaarden
       external auth: 'Authenticatie van derden:'
-      use external auth: U kunt ook gebruik maken van een derde partij om aan te melden
-      auth no password: Met authenticatie van derden is een wachtwoord niet verplicht,
-        maar sommige extra hulpmiddelen of servers kunnen het nog steeds nodig hebben.
       continue: Registreren
       terms accepted: Dank u wel voor het aanvaarden van de nieuwe bijdragersovereenkomst!
-      email_confirmation_help_html: Uw adres wordt niet openbaar gemaakt, zie ons
-        %{privacy_policy_link} voor meer informatie.
-      privacy_policy: privacybeleid
-      privacy_policy_title: OSMF-privacybeleid, met een kopje over e-mailadressen
+      email_help:
+        privacy_policy: privacybeleid
+        privacy_policy_title: OSMF-privacybeleid, met een sectie over e-mailadressen
+        html: Uw adres wordt niet openbaar gemaakt, zie ons %{privacy_policy_link}
+          voor meer informatie.
+      consider_pd_html: Ik beschouw mijn bijdragen als onderdeel van het %{consider_pd_link}.
+      consider_pd: publiek domein
+      or: of
+      use external auth: of schrijf u in via een derde partij
     terms:
       title: Voorwaarden
       heading: Voorwaarden
@@ -2859,6 +2899,8 @@ nl:
       my_dashboard: Mijn dashboard
       blocks on me: Blokkades voor u
       blocks by me: Blokkades door u
+      create_mute: Demp deze gebruiker
+      destroy_mute: Hef het dempen van deze gebruiker op
       edit_profile: Profiel wijzigen
       send message: Bericht verzenden
       diary: Dagboek
@@ -2868,11 +2910,12 @@ nl:
       remove as friend: Vriend verwijderen
       add as friend: Vriend toevoegen
       mapper since: 'Mapper sinds:'
+      last map edit: 'Recentste bewerking:'
+      no activity yet: Nog geen activiteit
       uid: 'Gebruikers-ID:'
       ct status: 'Voorwaarden voor bijdragen:'
       ct undecided: Onbeslist
       ct declined: Afgewezen
-      latest edit: 'Laatste bewerking (%{ago}):'
       email address: 'E-mailadres:'
       created from: 'Aangemaakt door:'
       status: 'Status:'
@@ -2880,14 +2923,18 @@ nl:
       role:
         administrator: Deze gebruiker is beheerder
         moderator: Deze gebruiker is moderator
+        importer: Deze gebruiker is een importeur
         grant:
           administrator: Beheerdersrechten toekennen
           moderator: Moderatorrechten toekennen
+          importer: Importeurstoegang verlenen
         revoke:
           administrator: Beheerdersrechten intrekken
           moderator: Moderatorrechten intrekken
+          importer: Importeurstoegang intrekken
       block_history: Actieve blokkades
       moderator_history: Uitgevoerde blokkades
+      revoke_all_blocks: Alle blokkades opheffen
       comments: Reacties
       create_block: Deze gebruiker blokkeren
       activate_user: Deze gebruiker activeren
@@ -2904,14 +2951,17 @@ nl:
     index:
       title: Gebruikers
       heading: Gebruikers
-      showing:
-        one: Pagina %{page} (%{first_item} van %{items})
-        other: Pagina %{page} (%{first_item}-%{last_item} van %{items})
       summary_html: '%{name} aangemaakt vanaf %{ip_address} op %{date}'
       summary_no_ip_html: '%{name} aangemaakt op %{date}'
+      empty: Geen gebruikers gevonden
+    page:
+      older: Oudere gebruikers
+      newer: Nieuwere gebruikers
+      found_users:
+        one: '%{count} gebruiker gevonden'
+        other: '%{count} gebruikers gevonden'
       confirm: Geselecteerde gebruikers bevestigen
       hide: Gelelecteerde gebruikers verbergen
-      empty: Geen gebruikers gevonden
     suspended:
       title: Gebruiker opgeschort
       heading: Account opgeschort
@@ -2947,16 +2997,12 @@ nl:
       are_you_sure: Weet u zeker dat u de rol "%{role}" aan gebruiker "%{name}" wilt
         toekennen?
       confirm: Bevestigen
-      fail: Het was niet mogelijk de rol "%{role}" aan gebruiker "%{name}" toe te
-        kennen. Controleer of de gebruikersnaam en rolnaam correct waren.
     revoke:
       title: Intrekken rechten bevestigen
       heading: Intrekken rechten bevestigen
       are_you_sure: Weet u zeker dat u de rol "%{role}" van gebruiker "%{name}" wilt
         intrekken?
       confirm: Bevestigen
-      fail: Het was niet mogelijk de rol "%{role}" voor gebruiker "%{name}" in te
-        trekken. Controleer of de gebruikersnaam en rolnaam correct waren.
   user_blocks:
     model:
       non_moderator_update: U moet moderator zijn om een blokkade te kunnen instellen
@@ -2970,40 +3016,45 @@ nl:
       heading_html: Blokkade aanmaken voor %{name}
       period: Hoe lang, per nu, moet de gebruiker worden uitgesloten van het gebruik
         van de API?
-      back: Alle blokkades weergeven
     edit:
       title: Blokkade voor %{name} bijwerken
       heading_html: Blokkade voor %{name} bijwerken
       period: Hoe lang, per nu, moet de gebruiker worden uitgesloten van het gebruik
         van de API?
-      show: Deze blokkade weergeven
-      back: Alle blokkades weergeven
+      revoke: Blokkade intrekken
     filter:
-      block_expired: De blokkade is al vervallen en kan niet bijgewerkt worden.
       block_period: De duur van de blokkade moet één van de waarden in het menu zijn.
     create:
       flash: Heeft gebruiker %{name} geblokkeerd.
     update:
       only_creator_can_edit: Alleen de moderator die deze blokkade heeft ingesteld
         kan wijzigingen aanbrengen.
+      only_creator_can_edit_without_revoking: Alleen de moderator die deze blokkade
+        heeft ingesteld kan er zonder intrekken wijzigingen in aanbrengen.
+      only_creator_or_revoker_can_edit: Alleen de moderator die deze blokkade heeft
+        ingesteld of ingetrokken kan wijzigingen aanbrengen.
+      inactive_block_cannot_be_reactivated: Deze blokkade is inactief en kan niet
+        opnieuw worden geactiveerd.
       success: De blokkade is bijgewerkt.
     index:
       title: Gebruikersblokkades
       heading: Lijst met gebruikersblokkades
       empty: Er zijn nog geen blokkades ingesteld.
-    revoke:
-      title: Blokkade voor %{block_on} intrekken
-      heading_html: Blokkade voor %{block_on} door %{block_by} intrekken
-      time_future: Deze blokkade vervalt over %{time}.
-      past: De blokkade is %{time} vervallen en kan nu niet ingetrokken worden.
-      confirm: Weet u zeker dat u deze blokkade wilt intrekken?
+    revoke_all:
+      title: Alle blokkeringen op %{block_on} intrekken
+      heading_html: Alle blokkeringen op %{block_on} intrekken
+      empty: '%{name} heeft geen actieve blokkeringen.'
+      confirm: Weet u zeker dat u %{active_blocks} wilt intrekken?
+      active_blocks:
+        one: '%{count} actieve blokkering'
+        other: '%{count} actieve blokkeringen'
       revoke: Intrekken
-      flash: Deze blokkade is ingetrokken.
+      flash: Alle actieve blokkeringen zijn ingetrokken.
     helper:
       time_future_html: Vervalt over %{time}.
       until_login: Actief totdat de gebruiker zich aanmeldt.
-      time_future_and_until_login_html: Eindigt in %{time} en nadat de gebruiker ingelogd
-        is.
+      time_future_and_until_login_html: Eindigt in %{time} en nadat de gebruiker zich
+        heeft aangemeld.
       time_past_html: '%{time} vervallen.'
       block_duration:
         hours:
@@ -3037,26 +3088,54 @@ nl:
       status: 'Status:'
       show: Weergeven
       edit: Bewerken
-      revoke: Intrekken
       confirm: Weet u het zeker?
       reason: 'Reden voor blokkade:'
-      back: Alle blokkades weergeven
       revoker: 'Ingetrokken door:'
       needs_view: De gebruiker moet zich aanmelden voordat deze blokkade wordt verwijderd.
     block:
       not_revoked: (niet ingetrokken)
       show: Weergeven
       edit: Bewerken
-      revoke: Intrekken
     blocks:
       display_name: Geblokkeerde gebruiker
       creator_name: Auteur
       reason: Reden voor blokkade
       status: Status
       revoker_name: Ingetrokken door
-      showing_page: Pagina %{page}
-      next: Volgende »
-      previous: « Vorige
+      older: Oudere blokkades
+      newer: Nieuwere blokkades
+    navigation:
+      all_blocks: Alle blokkades
+      blocks_on_me: Blokkades voor u
+      blocks_on_user: Blokkades voor %{user}
+      blocks_by_me: Blokkades door u
+      blocks_by_user: Blokkades door %{user}
+      block: 'Blokkade #%{id}'
+      new_block: Nieuwe blokkade
+  user_mutes:
+    index:
+      title: Gedempte gebruikers
+      my_muted_users: Mijn gedempte gebruikers
+      you_have_muted_n_users:
+        one: Je hebt %{count} gebruiker gedempt
+        other: Je hebt %{count} gebruikers gedempt
+      user_mute_explainer: Berichten van gedempte gebruikers worden naar een aparte
+        inbox verplaatst en u ontvangt geen e-mailmeldingen.
+      user_mute_admins_and_moderators: U kunt beheerders en moderators dempen, maar
+        hun berichten worden niet gedempt.
+      table:
+        thead:
+          muted_user: Gedempte gebruiker
+          actions: Handelingen
+        tbody:
+          unmute: Dempen opheffen
+          send_message: Bericht verzenden
+    create:
+      notice: Je hebt %{name} gedempt.
+      error: '%{name} kan niet worden gedempt. %{full_message}.'
+    destroy:
+      notice: Je hebt het dempen van %{name} opgeheven.
+      error: Het dempen van de gebruiker kan niet worden opgeheven. Probeer het opnieuw.
   notes:
     index:
       title: Opmerkingen gemaakt door %{user}
@@ -3094,6 +3173,7 @@ nl:
       reactivate: Opnieuw activeren
       comment_and_resolve: Reageren en oplossen
       comment: Reageren
+      log_in_to_comment: Log in om op deze notitie te reageren
       report_link_html: Als deze opmerking gevoelige informatie bevat die verwijderd
         moet worden, kunt u %{link}.
       other_problems_resolve: Voor alle andere problemen met de notitie, gelieve deze
@@ -3106,6 +3186,10 @@ nl:
       intro: Een fout gezien of ontbreekt er iets? Laat het andere mappers weten zodat
         wij het kunnen oplossen. Verplaats de markering naar de correcte positie en
         beschrijf het probleem.
+      anonymous_warning_html: U bent niet aangemeld. Als u updates van uw aantekening
+        wilt ontvangen, kunt u %{log_in} of %{sign_up}.
+      anonymous_warning_log_in: aanmelden
+      anonymous_warning_sign_up: registreren
       advice: Deze opmerking is openbaar en kan gebruikt worden om de kaart bij te
         werken. Vul hier dus geen persoonlijke informatie in, en ook geen informatie
         uit kaarten of telefoonboeken waar auteursrechtelijke bescherming op rust.
@@ -3124,14 +3208,15 @@ nl:
       custom_dimensions: Aangepaste afmetingen instellen
       format: 'Formaat:'
       scale: 'Schaal:'
-      image_dimensions: Afbeelding geeft standaardlaag weer op %{width} x %{height}
+      image_dimensions: Afbeelding geeft laag %{layer} weer op %{width} x %{height}
       download: Downloaden
       short_url: Korte URL
       include_marker: Marker opnemen
       center_marker: Kaart centreren op de marker
       paste_html: Kopieer de HTML-code en voeg deze toe aan uw website
       view_larger_map: Grotere kaart weergeven
-      only_standard_layer: Alleen de standaard laag kan worden geëxporteerd als afbeelding
+      only_standard_layer: Alleen de lagen Standaard, Fietskaart en Transportlagen
+        kunnen worden geëxporteerd als afbeelding
     embed:
       report_problem: Een probleem melden
     key:
@@ -3152,12 +3237,10 @@ nl:
           other: U bevindt zich binnen %{count} voet van dit punt
       base:
         standard: Standaard
-        cyclosm: CyclOSM
         cycle_map: Fietskaart
         transport_map: Transportkaart
         tracestracktop_topo: Tracestrack Topo
         hot: Humanitair
-        opnvkarte: ÖPNVKarte
       layers:
         header: Kaartlagen
         notes: Kaartopmerkingen
@@ -3172,8 +3255,6 @@ nl:
       osm_france: OpenStreetMap Frankrijk
       thunderforest_credit: Tegels met dank aan %{thunderforest_link}
       andy_allan: Andy Allan
-      opnvkarte_credit: Tegels met dank aan %{memomaps_link}
-      memomaps: MeMoMaps
       tracestrack_credit: Tegels met dank aan %{tracestrack_link}
       hotosm_credit: Kaartstijl door %{hotosm_link} gehost door %{osm_france_link}
       hotosm_name: Humanitair OpenStreetMap-team
@@ -3186,13 +3267,8 @@ nl:
       map_data_zoom_in_tooltip: Inzoomen om kaartgegevens te bekijken
       queryfeature_tooltip: Nabije objecten opvragen
       queryfeature_disabled_tooltip: Inzoomen om objecten op te vragen
-    changesets:
-      show:
-        comment: Reageren
-        subscribe: Abonneren
-        unsubscribe: Uitschrijven
-        hide_comment: verbergen
-        unhide_comment: zichtbaar maken
+      embed_html_disabled: Het inbedden van HTML-code is voor deze kaartlaag niet
+        mogelijk
     edit_help: Verplaats de kaart en zoom in op een plaats die u wilt bewerken. Klik
       daarna hier.
     directions:
@@ -3300,7 +3376,7 @@ nl:
       directions_from: Routebeschrijving vanaf hier
       directions_to: Routebeschrijving naar hier
       add_note: Hier een opmerking toevoegen
-      show_address: Adres tonen
+      show_address: Adres weergeven
       query_features: Kaartelementen opvragen
       centre_map: De kaart hier centreren
   redactions:

@@ -1,6 +1,7 @@
 # Messages for Norwegian Bokmål (norsk bokmål)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: 6400
 # Author: Abbe98
 # Author: Citadell
 # Author: Danieldegroot2
@@ -29,7 +30,7 @@
 # Author: Oyvind
 # Author: SuperPotato
 # Author: The real emj
-# Author: 6400
+# Author: Yupik
 ---
 nb:
   time:
@@ -68,6 +69,11 @@ nb:
       messages:
         invalid_email_address: later ikke til å være en gyldig e-postadresse
         email_address_not_routable: kan ikke rutes
+        display_name_is_user_n: kan ikke være user_n med mindre n allerede er bruker-ID-en
+          din
+      models:
+        user_mute:
+          is_already_muted: er allerede dempet
     models:
       acl: Tilgangskontrolliste
       changeset: Endringssett
@@ -160,7 +166,6 @@ nb:
         auth_provider: Leverandør av autentisering
         auth_uid: Autentisering UID
         email: E-post
-        email_confirmation: E-post-bekreftelse
         new_email: Ny e-postadresse
         active: Aktiv
         display_name: Visningsnavn
@@ -231,11 +236,10 @@ nb:
       description: iD (redigering i nettleseren)
     remote:
       name: Lokalt installert program
-      description: Fjernkontroll (JOSM, Potlatch, Merkaartor)
+      description: eksternt program (JOSM, Potlatch, Merkaartor)
   auth:
     providers:
       none: Ingen
-      openid: OpenID
       google: Google
       facebook: Facebook
       github: GitHub
@@ -313,8 +317,6 @@ nb:
     destroy:
       success: Kontoen er slettet.
   browse:
-    created: Opprettet
-    closed: Lukket
     version: Versjon
     in_changeset: Endringssett
     anonymous: anonym
@@ -330,25 +332,6 @@ nb:
     view_history: Vis historikk
     view_details: Vis detaljer
     location: 'Posisjon:'
-    changeset:
-      title: 'Endringssett: %{id}'
-      belongs_to: Forfatter
-      node: Noder (%{count})
-      node_paginated: Noder (%{x}-%{y} av %{count})
-      way: Strekninger (%{count})
-      way_paginated: Strekninger (%{x}-%{y} av %{count})
-      relation: Forbindelser (%{count})
-      relation_paginated: Forbindelser (%{x}-%{y} av %{count})
-      comment: Kommentarer (%{count})
-      changesetxml: XML for endringssett
-      osmchangexml: osmChange-XML
-      feed:
-        title: Endringssett %{id}
-        title_comment: 'Endringsforløp: %{id} - %{comment}'
-      join_discussion: Logg inn for å delta i diskusjonen
-      discussion: Diskusjon
-      still_open: Endringssettet er fortsatt åpent – diskusjonen åpner når endringssettet
-        er lukket.
     node:
       title_html: 'Node: %{name}'
       history_title_html: 'Node-historikk: %{name}'
@@ -422,6 +405,18 @@ nb:
       introduction: Klikk på kartet for å finne nærliggende funksjoner.
       nearby: Nærliggende funksjoner
       enclosing: Regionsfunksjoner
+  changeset_comments:
+    feeds:
+      comment:
+        comment: Ny kommentar til endringssett %{changeset_id} av %{author}
+        commented_at_by_html: Oppdatert for %{when} siden av %{user}
+      comments:
+        comment: Ny kommentar til endringssett %{changeset_id} av %{author}
+      show:
+        title_all: OpenStreetMap-endringssettsdiskusjon
+        title_particular: 'OpenStreetMap-endringssettsdiskusjon #%{changeset_id}'
+      timeout:
+        sorry: Listen over endringssett du ba om tok for lang tid å hente.
   changesets:
     changeset_paging_nav:
       showing_page: Side %{page}
@@ -431,12 +426,6 @@ nb:
       anonymous: Anonym
       no_edits: (ingen redigeringer)
       view_changeset_details: Vis endringssettsdetaljer
-    changesets:
-      id: ID
-      saved_at: Lagret den
-      user: Bruker
-      comment: Kommentar
-      area: Område
     index:
       title: Endringssett
       title_user: Endringssett av %{user}
@@ -449,23 +438,41 @@ nb:
       no_more_area: Ingen flere endringssett i dette området.
       no_more_user: Ingen flere endringssett av denne brukeren.
       load_more: Last inn mer
-    timeout:
-      sorry: Listen over endringssett du ba om tok for lang tid å hente.
-  changeset_comments:
-    comment:
-      comment: Ny kommentar til endringssett %{changeset_id} av %{author}
-      commented_at_by_html: Oppdatert for %{when} siden av %{user}
-    comments:
-      comment: Ny kommentar til endringssett %{changeset_id} av %{author}
-    index:
-      title_all: OpenStreetMap-endringssettsdiskusjon
-      title_particular: 'OpenStreetMap-endringssettsdiskusjon #%{changeset_id}'
+      feed:
+        title: Endringssett %{id}
+        title_comment: 'Endringsforløp: %{id} - %{comment}'
+        created: Opprettet
+        closed: Lukket
+        belongs_to: Forfatter
+    no_such_entry:
+      heading: 'Ingen oppføring med ID-en: %{id}'
+    show:
+      title: 'Endringssett: %{id}'
+      discussion: Diskusjon
+      join_discussion: Logg inn for å delta i diskusjonen
+      still_open: Endringssettet er fortsatt åpent – diskusjonen åpner når endringssettet
+        er lukket.
+      subscribe: Abonner
+      unsubscribe: Avslutt abonnement
+      hide_comment: skjul
+      unhide_comment: vis
+      comment: Kommenter
+      changesetxml: XML for endringssett
+      osmchangexml: osmChange-XML
+    paging_nav:
+      nodes: Noder (%{count})
+      nodes_paginated: Noder (%{x}-%{y} av %{count})
+      ways: Strekninger (%{count})
+      ways_paginated: Strekninger (%{x}-%{y} av %{count})
+      relations: Forbindelser (%{count})
+      relations_paginated: Forbindelser (%{x}-%{y} av %{count})
     timeout:
       sorry: Listen over endringssett du ba om tok for lang tid å hente.
   dashboards:
     contact:
       km away: '%{count}km unna'
       m away: '%{count}m unna'
+      latest_edit_html: 'Siste redigering (%{ago}):'
     popup:
       your location: Din posisjon
       nearby mapper: Bruker i nærheten
@@ -496,6 +503,7 @@ nb:
       new_title: Skriv et nytt innlegg i brukerdagboken min
       my_diary: Min dagbok
       no_entries: Ingen innlegg i dagboka
+    page:
       recent_entries: Nye innlegg i dagboka
       older_entries: Eldre innlegg
       newer_entries: Nyere innlegg
@@ -505,6 +513,7 @@ nb:
     show:
       title: '%{user} sin dagbok | %{title}'
       user_title: Dagboken til %{user}
+      discussion: Diskusjon
       leave_a_comment: Legg igjen en kommentar
       login_to_leave_a_comment_html: '%{login_link} for å legge inn en kommentar'
       login: Logg inn
@@ -547,12 +556,20 @@ nb:
       all:
         title: Innlegg i OpenStreetMap-dagboka
         description: Nye innlegg i dagbøkene til OpenStreetMap-brukere
-    comments:
+  diary_comments:
+    page:
       post: Artikkel
       when: Når
       comment: Kommentar
       newer_comments: Nyere kommentarer
       older_comments: Eldre kommentarer
+  errors:
+    contact:
+      contact: kontakt
+    forbidden:
+      title: Forbudt
+    not_found:
+      title: Fil ikke funnet
   friendships:
     make_friend:
       heading: Legge til %{user} som venn?
@@ -650,6 +667,7 @@ nb:
           library: Bibliotek
           marketplace: Markedsplass
           monastery: Kloster
+          money_transfer: Pengeoverføring
           motorcycle_parking: Motorsykkelparkering
           music_school: Musikkskole
           nightclub: Nattklubb
@@ -1027,22 +1045,27 @@ nb:
         office:
           accountant: Revisor
           administrative: Administrasjon
+          advertising_agency: Reklamebyrå
           architect: Arkitekt
           association: Forening
           company: Firma
           educational_institution: Utdanningsinstitusjon
           employment_agency: Bemanningsfirma
           estate_agent: Eiendomsmegler
+          financial: Finanskontor
           government: Statlig kontor
           insurance: Forsikringskontor
           it: IT-kontor
           lawyer: Advokat
+          logistics: Logistikkontor
+          newspaper: Aviskontor
           ngo: Ikke-statlig kontor
           telecommunication: Telekommunikasjonskontor
           travel_agent: Reisebyrå
           "yes": Kontor
         place:
           allotments: Jordlapper
+          archipelago: Øygruppe
           city: By
           city_block: Bykvartal
           country: Land
@@ -1057,6 +1080,7 @@ nb:
           locality: Plass
           municipality: Kommune
           neighbourhood: Naboskap
+          plot: Tomt
           postcode: Postnummer
           quarter: Kvartal
           region: Område
@@ -1256,28 +1280,31 @@ nb:
       not_updated: Ikke oppdatert
       search: Søk
       search_guidance: 'Søk blant saker:'
+      link_to_reports: Se på rapporter
+      states:
+        ignored: Sett bort fra
+        open: Åpen
+        resolved: Løst
+    page:
       user_not_found: Brukeren finnes ikke
       issues_not_found: Ingen slik sak funnet
       status: Status
       reports: Rapporter
       last_updated: Sist oppdatert
-      link_to_reports: Se på rapporter
+      last_updated_time_ago_user_html: '%{time_ago} av %{user}'
       reports_count:
-        other: 1 rapport
+        one: '%{count} rapport'
+        other: '%{count} rapporter'
       reported_item: Rapportert element
-      states:
-        ignored: Sett bort fra
-        open: Åpen
-        resolved: Løst
     show:
       title: '%{status} Sak #%{issue_id}'
       reports:
         one: '%{count} rapport'
         other: '%{count} rapporter'
       no_reports: Ingen rapporter
-      report_created_at: Første gang rapportert %{datetime}
-      last_resolved_at: Siste gang løst %{datetime}
-      last_updated_at: Siste gang oppdatert %{datetime} av %{displayname}
+      report_created_at_html: Første gang rapportert %{datetime}
+      last_resolved_at_html: Siste gang løst %{datetime}
+      last_updated_at_html: Siste gang oppdatert %{datetime} av %{displayname}
       resolve: Løs
       ignore: Se bort fra
       reopen: Gjenåpne
@@ -1305,6 +1332,7 @@ nb:
   issue_comments:
     create:
       comment_created: Din kommentar ble feilfritt opprettet
+      issue_reassigned: Kommentaren din ble opprettet, og saken ble tildelt på nytt
   reports:
     new:
       title_html: Rapport %{link}
@@ -1357,16 +1385,12 @@ nb:
     gps_traces: GPS-spor
     gps_traces_tooltip: Behandle GPS-spor
     user_diaries: Brukerdagbok
-    user_diaries_tooltip: Vis brukerens dagbok
     edit_with: Rediger med %{editor}
     tag_line: Fritt Wiki-verdenskart
     intro_header: Velkommen til OpenStreetMap!
     intro_text: OpenStreetMap er et kart over verden, skapt av mennesker som deg,
       og gratis å bruke under en åpen lisens.
     intro_2_create_account: Opprett en brukerkonto
-    hosting_partners_html: Hosting støttes av %{ucl}, %{bytemark}, og andre %{partners}.
-    partners_ucl: UCL
-    partners_bytemark: Bytemark Hosting
     partners_partners: partnere
     tou: Bruksvilkår
     osm_offline: OpenStreetMap databasen er for øyeblikket utilgjengelig mens essensielt
@@ -1381,9 +1405,6 @@ nb:
     community: Fellesskap
     community_blogs: Fellesskapsblogger
     community_blogs_title: Blogger fra medlemmene i OpenStreetMap-felleskapet
-    make_a_donation:
-      title: Støtt OpenStreetMap med en donasjon
-      text: Doner
     learn_more: Lær mer
     more: Mer
   user_mailer:
@@ -1405,11 +1426,15 @@ nb:
       subject: '[OpenStreetMap] %{user} la deg til som en venn'
       had_added_you: '%{user} har lagt deg til som venn på OpenStreetMap.'
       see_their_profile: Du kan se profilen deres på %{userurl}.
+      see_their_profile_html: Du kan se profilen hens på %{userurl}.
       befriend_them: Du kan også legge dem til som venn på %{befriendurl}.
+      befriend_them_html: Du kan også legge hen til som venn på %{befriendurl}.
     gpx_failure:
+      hi: Hei, %{to_user},
       failed_to_import: 'klarte ikke importere. Her er feilen:'
       subject: '[OpenStreetMap] Feil under import av GPX'
     gpx_success:
+      hi: Hei, %{to_user},
       subject: '[OpenStreetMap] Vellykket import av GPX'
     signup_confirm:
       subject: '[OpenStreetMap] Velkommen til OpenStreetMap'
@@ -1471,8 +1496,9 @@ nb:
         partial_changeset_with_comment: med kommentaren '%{changeset_comment}'
         partial_changeset_without_comment: uten kommentar
       details: Flere detaljer om endringen finnes på %{url}.
-      unsubscribe: For å fjerne abonnementet på oppdateringer til dette endringssettet,
-        besøk %{url} og klikk «Avslutt abonnement».
+      unsubscribe: Du kan avslutte abonnementet på dette endringssettet på %{url}.
+      unsubscribe_html: Du kan avslutte abonnementet på oppdateringer på dette endringssettet
+        på %{url}.
   confirmations:
     confirm:
       heading: Sjekk e-posten din!
@@ -1484,6 +1510,7 @@ nb:
       success: Kontoen din er bekreftet - takk for at du registrerte deg.
       already active: Denne kontoen har allerede blitt bekreftet.
       unknown token: Denne bekreftelseskoden finnes ikke eller har utløpt.
+      click_here: trykk her
     confirm_resend:
       failure: Fant ikke brukeren %{name}.
     confirm_email:
@@ -1496,7 +1523,6 @@ nb:
   messages:
     inbox:
       title: Innboks
-      my_inbox: Min innboks
       messages: Du har %{new_messages} og %{old_messages}
       new_messages:
         one: '%{count} ny melding'
@@ -1504,17 +1530,21 @@ nb:
       old_messages:
         one: '%{count} gammel melding'
         other: '%{count} gamle meldinger'
-      from: Fra
-      subject: Emne
-      date: Dato
       no_messages_yet_html: Du har ingen meldinger ennå. Kanskje du kan prøve å komme
         i kontakt med %{people_mapping_nearby_link}?
       people_mapping_nearby: folk som kartlegger i nærheten
+    messages_table:
+      from: Fra
+      to: Til
+      subject: Emne
+      date: Dato
+      actions: Handlinger
     message_summary:
       unread_button: Marker som ulest
       read_button: Marker som lest
       reply_button: Svar
       destroy_button: Slett
+      unmute_button: Flytt til innboksen
     new:
       title: Send melding
       send_message_to_html: Send en ny melding til %{name}
@@ -1529,16 +1559,18 @@ nb:
       body: Det er ingen melding med den ID-en.
     outbox:
       title: Utboks
-      my_inbox: Min innboks
+      actions: Handlinger
       messages:
         one: Du har %{count} sendt melding
         other: Du har %{count} sendte meldinger
-      to: Til
-      subject: Emne
-      date: Dato
       no_sent_messages_html: Du har ikke sendt noen meldinger ennå. Hvorfor ikke bli
         kjent med noen %{people_mapping_nearby_link}?
       people_mapping_nearby: folk i nærheten som lager kart
+    muted:
+      title: Dempede meldinger
+      messages:
+        one: '%{count} dempet melding'
+        other: Du har %{count} dempede meldinger
     reply:
       wrong_user: Du er logget inn som «%{user}», men meldingen du ønsker å svare
         på ble ikke sendt til den brukeren. Logg inn som korrekt bruker for å svare.
@@ -1552,38 +1584,51 @@ nb:
         ikke sendt fra eller til den brukeren. Logg inn som korrekt bruker for å lese.
     sent_message_summary:
       destroy_button: Slett
+    heading:
+      my_inbox: Min innboks
+      my_outbox: Min utboks
+      muted_messages: Dempede meldinger
     mark:
       as_read: Melding markert som lest
       as_unread: Melding markert som ulest
+    unmute:
+      notice: Meldingen har blitt flyttet til innboksen
+      error: Meldingen kunne ikke flyttes til innboksen.
     destroy:
       destroyed: Melding slettet
   passwords:
-    lost_password:
+    new:
       title: Glemt passord
       heading: Glemt passord?
-      email address: 'E-postadresse:'
+      email address: E-postadresse
       new password button: Nullstill passord
       help_text: Skriv inn e-postadressen du brukte for å registrere deg, og vi vil
         sende deg ei lenke som du kan bruke til å nullstille passordet ditt.
-      notice email on way: Synd at du mistet det, men en e-post er på vei slik at
-        du kan tilbakestille det snart.
-      notice email cannot find: Klarte ikke finne den e-postadressen. Beklager.
-    reset_password:
+    edit:
       title: Nullstill passord
       heading: Nullstill passord for %{user}
       reset: Nullstill passord
-      flash changed: Ditt passord er endret.
       flash token bad: Kunne ikke finne den nøkkelen. Sjekke URLen kanskje?
+    update:
+      flash changed: Ditt passord er endret.
   preferences:
     show:
+      title: Mine innstillinger
+      preferred_editor: Foretrukket redigeringsverktøy
       preferred_languages: Foretrukne språk
       edit_preferences: Endre innstillinger
     edit:
       title: Endre innstillinger
+      save: Oppdater innstillingene
       cancel: Avbryt
+    update:
+      failure: Kunne ikke oppdatere innstillingene.
+    update_success_flash:
+      message: Innstillinger oppdatert.
   profiles:
     edit:
       title: Rediger profil
+      save: Oppdater profil
       cancel: Avbryt
       image: Bilde
       gravatar:
@@ -1602,46 +1647,21 @@ nb:
       show: Vis
       delete: Slett
       undelete: Angre sletting
+    update:
+      success: Profil oppdatert.
+      failure: Kunne ikke oppdatere profil.
   sessions:
     new:
       title: Logg inn
-      heading: Logg inn
-      email or username: 'E-postadresse eller brukernavn:'
-      password: 'Passord:'
-      openid_html: '%{logo} OpenID:'
+      tab_title: Logg inn
+      email or username: E-postadresse eller brukernavn
+      password: Passord
       remember: Husk meg
       lost password link: Mistet passordet ditt?
       login_button: Logg inn
       register now: Registrer deg nå
       with external: 'Alternativt kan du bruke en tredjepart til å logge inn:'
-      no account: Har du ikke en konto?
       auth failure: Beklager, kunne ikke logge inn med den informasjonen
-      openid_logo_alt: Logg inn med en OpenID
-      auth_providers:
-        openid:
-          title: Logg inn med OpenID
-          alt: Logg inn med en OpenID-URL
-        google:
-          title: Logg inn med Google
-          alt: Logg inn med en Google OpenID
-        facebook:
-          title: Logg inn med Facebook
-          alt: Logg inn med en Facebook-konto
-        microsoft:
-          title: Logg inn med Microsoft
-          alt: Logg inn med en Microsoft-konto
-        github:
-          title: Logg inn med GitHub
-          alt: Logg inn med en GitHub-konto
-        wikipedia:
-          title: Logg inn med Wikipedia
-          alt: Logg inn med en Wikipedia-konto
-        wordpress:
-          title: Logg inn med Wordpress
-          alt: Logg inn med en Wordpress OpenID
-        aol:
-          title: Logg inn med AOL
-          alt: Logg inn med en AOL OpenID
     destroy:
       title: Logg ut
       heading: Logg ut fra OpenStreetMap
@@ -1666,6 +1686,7 @@ nb:
       legal_title: Juridisk
       partners_title: Partnere
     copyright:
+      title: Opphavsrett og lisenser
       foreign:
         title: Om denne oversettelsen
         html: I tilfelle konflikt mellom denne oversatte siden og %{english_original_link}
@@ -1679,7 +1700,6 @@ nb:
         native_link: Norsk versjon
         mapping_link: start kartlegging
       legal_babble:
-        title_html: Opphavsrett og lisenser
         credit_title_html: Hvordan kreditere OpenStreetMap
         credit_1_html: Vi krever at du bruker godskrivinga «© OpenStreetMap-bidragsyterene».
         attribution_example:
@@ -1690,6 +1710,20 @@ nb:
         contributors_intro_html: 'Vi har tusenvis av individuelle bidragsytere. Vi
           inkluderer også åpne datasett fra nasjonale karttjenester og andre kilder,
           blant annet fra:'
+        contributors_at_austria: Østerrike
+        contributors_au_australia: Australia
+        contributors_ca_canada: Canada
+        contributors_cz_czechia: Tsjekkia
+        contributors_fi_finland: Finland
+        contributors_fr_france: Frankrike
+        contributors_hr_croatia: Kroatia
+        contributors_nl_netherlands: Nederland
+        contributors_nz_new_zealand: New Zealand
+        contributors_rs_serbia: Serbia
+        contributors_si_slovenia: Slovenia
+        contributors_es_spain: Spania
+        contributors_za_south_africa: Sør-Afrika
+        contributors_gb_united_kingdom: Storbritannia
         contributors_footer_2_html: |2-
             Inkludering av data i OpenStreetMap innebærer ikke at den opprinnelige
             dataleverandøren støtter OpenStreetMap, gir noen garanti eller
@@ -1702,9 +1736,6 @@ nb:
       js_1: Du har en nettleser som ikke støtter JavaScript eller så har du slått
         av JavaScript.
       js_2: OpenStreetMap bruker JavaScript på kartsidene.
-      permalink: Permanent lenke
-      shortlink: Kort lenke
-      createnote: Legg til en merknad
       license:
         copyright: Rettighetshaver OpenStreetMap og bidragsytere, under en åpen lisens
       remote_failed: Klarte ikke redigere - forsikre deg at JOSM eller Merkaartor
@@ -1716,16 +1747,9 @@ nb:
       user_page_link: brukerside
       anon_edits_link_text: Finn ut hvorfor dette er tilfellet.
       id_not_configured: iD er ikke satt opp
-      no_iframe_support: Nettleseren din støtter ikke HTML iframes som er nødvendig
-        for denne egenskapen.
     export:
       title: Eksporter
-      area_to_export: Område som skal eksporteres
       manually_select: Velg et annet område manuelt
-      format_to_export: Eksportformat
-      osm_xml_data: OpenStreetMap XML-data
-      map_image: Kartbilde (viser standardlag)
-      embeddable_html: HTML som kan bygges inn
       licence: Lisens
       too_large:
         advice: 'Hvis eksporten over skulle feile kan du forsøke å bruke av en av
@@ -1746,17 +1770,6 @@ nb:
         other:
           title: Andre kilder
           description: Ytterliger kilder listet på OpenStreetMap-wikien
-      options: Valg
-      format: Format
-      scale: Skala
-      max: maks
-      image_size: Bildestørrelse
-      zoom: Zoom
-      add_marker: Legg til en markør på kartet
-      latitude: 'Bre:'
-      longitude: 'Len:'
-      output: Utdata
-      paste_html: Lim inn HTML som skal bygges inn i nettsted
       export_button: Eksporter
     fixthemap:
       title: Rapporter et problem / Korriger kartet
@@ -1783,10 +1796,6 @@ nb:
         url: http://wiki.openstreetmap.org/wiki/Nn:Beginners%27_guide
         title: Hjelp for nybegynnere
         description: Dugnadsbasert guide for nybegynnere.
-      help:
-        title: Hjelpeforum
-        description: Still spørsmål eller sjekk svar på OpenStreetMaps spørsmål- og
-          svar-sider.
       mailing_lists:
         title: E-postlister
         description: Still et spørsmål eller diskuter interessante tema på en rekke
@@ -1839,57 +1848,56 @@ nb:
           footway: Gangvei
           rail: Jernbane
           subway: Undergrunnsbane
-          tram:
-          - Bybane
-          - trikk
-          cable:
-          - Kabelvogn
-          - stolheis
-          runway:
-          - Flystripe
-          - taksebane
-          apron:
-          - terminal
-          - terminal
+          cable_car: Kabelvogn
+          chair_lift: stolheis
+          runway: Flystripe
+          taxiway: taksebane
+          apron: terminal
           admin: Administrativ grense
+          capital: Hovedstad
+          city: By
           forest: Skog
           wood: Ved
           golf: Golfbane
           park: Park
+          common: Vanlig
           resident: Boligområde
-          common:
-          - Vanlig
-          - eng
           retail: Detaljsalgområde
           industrial: Industriområde
           commercial: Kommersielt område
           heathland: Heilandskap
-          lake:
-          - Innsjø
-          - reservoar
+          lake: Innsjø
+          reservoir: reservoar
+          glacier: Isbre
+          reef: Rev
+          wetland: Våtmark
           farm: Gård
           brownfield: Tidligere industriområde
           cemetery: Gravplass
           allotments: Kolonihager
           pitch: Sportsarena
           centre: Sportssenter
+          beach: Strand
           reserve: Naturreservat
           military: Militært område
-          school:
-          - Skole
-          - universitet
+          school: Skole
+          university: Universitet
+          hospital: Sykehus
           building: Viktig bygning
           station: Jernbanestasjon
-          summit:
-          - Topp
-          - fjelltopp
+          summit: Topp
+          peak: Fjelltopp
           tunnel: Streket kant = tunnel
           bridge: Sort kant = bru
           private: Privat tilgang
           destination: Destinasjonstilgang
           construction: Veier under konstruksjon
+          bus_stop: Busstopp
+          stop: Stopp
           bicycle_shop: Sykkelbutikk
+          bicycle_rental: Sykkelutleie
           bicycle_parking: Sykkelparkering
+          bicycle_parking_small: Liten sykkelparkering
           toilets: Toaletter
     welcome:
       title: Velkommen!
@@ -1964,9 +1972,6 @@ nb:
       trace_not_found: Sporet ble ikke funnet!
       visibility: 'Synlighet:'
       confirm_delete: Slett dette sporet?
-    trace_paging_nav:
-      older: Eldre spor
-      newer: Nyere spor
     trace:
       pending: VENTER
       count_points:
@@ -1980,8 +1985,6 @@ nb:
       identifiable: IDENTIFISERBAR
       private: PRIVAT
       trackable: SPORBAR
-      by: av
-      in: i
     index:
       public_traces: Offentlig GPS-spor
       public_traces_from: Offentlige GPS-spor fra %{user}
@@ -1989,6 +1992,9 @@ nb:
       tagged_with: merket med %{tags}
       upload_trace: Last opp et GPS-spor
       my_traces: Mine spor
+    page:
+      older: Eldre spor
+      newer: Nyere spor
     destroy:
       scheduled_for_deletion: Spor planlagt slettet
     make_public:
@@ -2011,8 +2017,6 @@ nb:
     require_cookies:
       cookies_needed: Du ser ut til å ha deaktivert informasjonskapsler. Aktiver informasjonskapsler
         i nettleseren din før du fortsetter.
-    require_admin:
-      not_an_admin: Du må være administrator for å kunne utføre denne handlingen.
     setup_user_auth:
       blocked_zero_hour: Du har en viktig beskjed på OpenStreetMap-nettsida. Du må
         lese beskjeden før du vil kunne lagre redigeringene dine.
@@ -2021,31 +2025,26 @@ nb:
       need_to_see_terms: Din tilgang til API-et er midlertidig stoppet. Logg inn på
         nettsiden for å lese bidragsytervilkårene. Du trenger ikke godta vilkårene,
         men du må lese dem.
+    auth_providers:
+      openid:
+        title: Logg inn med OpenID
+        alt: Logg inn med en OpenID-URL
+      google:
+        title: Logg inn med Google
+        alt: Logg inn med en Google OpenID
+      facebook:
+        title: Logg inn med Facebook
+        alt: Logg inn med en Facebook-konto
+      microsoft:
+        title: Logg inn med Microsoft
+        alt: Logg inn med en Microsoft-konto
+      github:
+        title: Logg inn med GitHub
+        alt: Logg inn med en GitHub-konto
+      wikipedia:
+        title: Logg inn med Wikipedia
+        alt: Logg inn med en Wikipedia-konto
   oauth:
-    authorize:
-      title: Autoriser tilgang til din konto
-      request_access_html: Applikasjonen %{app_name} ber om tilgang til din konto,
-        %{user}. Sjekk om du vil at applikasjonen skal ha følgende muligheter. Du
-        kan velge så mange eller få du vil.
-      allow_to: 'Gi programmet lov til å:'
-      allow_read_prefs: lese brukeralternativ dine.
-      allow_write_prefs: endre brukeralternativ dine.
-      allow_write_diary: opprette dagbokoppføringer, kommentarer og finne venner.
-      allow_write_api: endre kartet.
-      allow_read_gpx: lese dine private GPS-spor.
-      allow_write_gpx: laste opp GPS-spor.
-      allow_write_notes: endre merknader.
-      grant_access: Gi tilgang
-    authorize_success:
-      title: Autoriseringsforespørsel tillatt
-      allowed_html: Du har gitt programmet %{app_name} tilgang til din konto.
-      verification: Verifikasjonskoden er %{code}.
-    authorize_failure:
-      title: Mislykket forespørsel om autorisering
-      denied: Du har nektet programmet %{app_name} tilgang til din konto.
-      invalid: Autoriseringstoken er ikke gyldig.
-    revoke:
-      flash: Du slettet nøkkelen for %{application}
     permissions:
       missing: Du har ikke latt applikasjonen få tilgang til denne fasiliteten
     scopes:
@@ -2056,47 +2055,6 @@ nb:
       write_gpx: Last opp GPS-spor
       write_notes: Endre merknader
       read_email: Lese brukerens e-postadresse
-  oauth_clients:
-    new:
-      title: Registrer en ny applikasjon
-    edit:
-      title: Rediger ditt programvare
-    show:
-      title: OAuth-detaljer for %{app_name}
-      key: 'Forbrukernøkkel:'
-      secret: 'Forbrukerhemmelighet:'
-      url: 'URL for forespørelsnøkkel:'
-      access_url: URL for tilgangensnøkkel
-      authorize_url: 'Godkjenn URL:'
-      support_notice: Vi støtter HMAC-SHA1 (anbefalt) og RSA-SHA1 signaturer.
-      edit: Rediger detaljer
-      delete: Slett klient
-      confirm: Er du sikker?
-      requests: 'Ber om følgende tillatelser fra brukeren:'
-    index:
-      title: Mine OAuth-detaljer
-      my_tokens: Mine autoriserte applikasjoner
-      list_tokens: 'Følgende nøkler er utstedt til programmer i ditt navn:'
-      application: Applikasjonsnavn
-      issued_at: Utstedt
-      revoke: Tilbakekall!
-      my_apps: Mine klientapplikasjoner
-      no_apps_html: Har du et program som du vil registrere for bruk med oss gjennom
-        %{oauth}-standarden? Da må du først registrere ditt nettprogram før det kan
-        gjøre OAuth-forespørsler til denne tjenesten.
-      oauth: OAuth
-      registered_apps: 'Du har registrert følgende klientapplikasjoner:'
-      register_new: Registrer din applikasjon
-    form:
-      requests: 'Be om følgende tillatelser fra brukeren:'
-    not_found:
-      sorry: Klarte ikke finne den %{type}-en.
-    create:
-      flash: Vellykket registrering av informasjonen
-    update:
-      flash: Oppdaterte klientinformasjonen
-    destroy:
-      flash: Ødelagt klientapplikasjonsregistreringen
   oauth2_applications:
     index:
       title: Mine applikasjoner
@@ -2120,11 +2078,9 @@ nb:
       display name description: Ditt offentlig fremviste brukernavn. Du kan endre
         dette senere i alternativ.
       external auth: 'Tredjepartsgodkjenning:'
-      use external auth: Alternativt kan du bruke en tredjepart til å logge inn
-      auth no password: Med tredjepartsbekreftelse er passord ikke påkrevd, men en
-        del ekstra verktøy og tjenere kan trenge det.
       continue: Registrer deg
       terms accepted: Takk for at du godtok de nye bidragsytervilkårene!
+      use external auth: Alternativt kan du bruke en tredjepart til å logge inn
     terms:
       title: Vilkår
       heading: Vilkår
@@ -2178,7 +2134,6 @@ nb:
       ct status: 'Bidragsyters vilkår:'
       ct undecided: Usikker
       ct declined: Avslått
-      latest edit: 'Siste redigering (%{ago}):'
       email address: 'E-postadresse:'
       created from: 'Opprettet fra:'
       status: 'Status:'
@@ -2208,14 +2163,14 @@ nb:
     index:
       title: Brukere
       heading: Brukere
-      showing:
-        one: Side %{page} (%{first_item} av %{items})
-        other: Side %{page} (%{first_item}-%{last_item} av %{items})
       summary_html: '%{name} opprettet fra %{ip_address} den %{date}'
       summary_no_ip_html: '%{name} opprettet %{date}'
+      empty: Ingen samsvarende brukere funnet
+    page:
+      older: Eldre brukere
+      newer: Nyere brukere
       confirm: Bekreft valgte brukere
       hide: Skjul valgte brukere
-      empty: Ingen samsvarende brukere funnet
     suspended:
       title: Konto stengt
       heading: Konto stengt
@@ -2242,16 +2197,12 @@ nb:
       heading: Bekreft rolletildeling
       are_you_sure: Er du sikker på at du vil gi rollen `%{role}' til brukeren `%{name}'?
       confirm: Bekreft
-      fail: Kunne ikke gi rollen "%{role}" til bruker "%{name}". Sjekk at brukeren
-        og rollen er gyldig.
     revoke:
       title: Bekreft fjerning av rolle
       heading: Bekreft fjerning av rolle
       are_you_sure: Er du sikker på at du vil fjerne rollen "%{role}" fra brukeren
         "%{name}"?
       confirm: Bekreft
-      fail: Kunne ikke fjerne rollen "%{role}" fra bruker "%{name}". Sjekk at bruker
-        og rolle er gyldig.
   user_blocks:
     model:
       non_moderator_update: Må være en moderator for å opprette eller oppdatere en
@@ -2264,15 +2215,11 @@ nb:
       title: Oppretter blokkering av %{name}
       heading_html: Oppretter blokkering av %{name}
       period: Hvor lenge, fra nå, skal brukeren blokkeres fra API-en.
-      back: Vis alle blokkeringer
     edit:
       title: Endrer blokkering av %{name}
       heading_html: Endrer blokkering av %{name}
       period: Hvor lenge, fra nå, brukeren skal bli blokkert fra API-en.
-      show: Vis denne blokkeringen
-      back: Vis alle blokkeringer
     filter:
-      block_expired: Blokkeringen har allerede utløpt og kan ikke endres.
       block_period: Blokkeringsperioden må være en av verdiene som kan velges fra
         rullegardinen.
     create:
@@ -2285,14 +2232,6 @@ nb:
       title: Brukerblokkeringer
       heading: Liste over brukerblokkeringer
       empty: Ingen blokkeringer har blitt utført ennå.
-    revoke:
-      title: Tilbakekaller blokkering på %{block_on}
-      heading_html: Tilbakekaller blokkering på %{block_on} av %{block_by}
-      time_future: Denne blokkeringen ender om %{time}
-      past: Denne blokkeringen endte for %{time} og kan ikke tilbakekalles nå.
-      confirm: Er du sikker på at du vil tilbakekalle denne blokkeringen?
-      revoke: Tilbakekall!
-      flash: Denne blokkeringen har blitt tilbakekalt.
     helper:
       time_future_html: Slutter om %{time}.
       until_login: Aktiv inntil brukeren logger inn.
@@ -2330,26 +2269,20 @@ nb:
       status: 'Status:'
       show: Vis
       edit: Rediger
-      revoke: Tilbakekall!
       confirm: Er du sikker?
       reason: 'Årsak for blokkering:'
-      back: Vis alle blokkeringer
       revoker: 'Tilbakekaller:'
       needs_view: Brukeren må logge inn før denne blokkeringen blir fjernet.
     block:
       not_revoked: (ikke tilbakekalt)
       show: Vis
       edit: Rediger
-      revoke: Tilbakekall!
     blocks:
       display_name: Blokkert bruker
       creator_name: Opprettet av
       reason: Årsak for blokkering
       status: Status
       revoker_name: Tilbakekalt av
-      showing_page: Side %{page}
-      next: Neste »
-      previous: « Forrige
   notes:
     index:
       title: Merknader sendt inn eller kommentert på av %{user}
@@ -2427,7 +2360,6 @@ nb:
         cycle_map: Sykkelkart
         transport_map: Transport-kart
         hot: Humanitært
-        opnvkarte: ÖPNVKarte
       layers:
         header: Kartlag
         notes: Kartmerknader
@@ -2444,13 +2376,6 @@ nb:
       map_data_zoom_in_tooltip: Forstørr utvalg for å se kartdata
       queryfeature_tooltip: Se over elementer
       queryfeature_disabled_tooltip: Forstørr utvalg for å se over elementer
-    changesets:
-      show:
-        comment: Kommenter
-        subscribe: Abonner
-        unsubscribe: Avslutt abonnement
-        hide_comment: skjul
-        unhide_comment: vis
     edit_help: Flytt kartet og forstørr utvalg til et sted du vil redigere, og klikk
       så her.
     directions:

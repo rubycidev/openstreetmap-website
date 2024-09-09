@@ -143,7 +143,6 @@ bg:
       user:
         auth_provider: Доставчик на автентикация
         email: Електронна поща
-        email_confirmation: Потвърждение по имейл
         new_email: Нова електронна поща
         active: Активен
         display_name: Видимо потребителско име
@@ -205,11 +204,10 @@ bg:
       description: iD (браузърен редактор)
     remote:
       name: дистанционно управление
-      description: Дистанционно управление (JOSM, Potlatch или Merkaartor)
+      description: дистанционно управление (JOSM, Potlatch или Merkaartor)
   auth:
     providers:
       none: Нищо
-      openid: OpenID
       google: Google
       facebook: Facebook
       microsoft: Майкрософт
@@ -222,8 +220,8 @@ bg:
         opened_at_by_html: Създадена %{when} от %{user}
         commented_at_html: Обновена %{when}
         commented_at_by_html: Обновена %{when} от %{user}
-        closed_at_html: Решена %{when}
-        closed_at_by_html: Решена %{when} от %{user}
+        closed_at_html: Затворена %{when}
+        closed_at_by_html: Затворена %{when} от %{user}
         reopened_at_html: Повторно отворена %{when}
         reopened_at_by_html: Повторно отворена %{when} от %{user}
       rss:
@@ -261,6 +259,8 @@ bg:
         retain_changeset_discussions: Обсъжданията на списъци от промени, ако има
           такива, ще бъдат запазени.
         retain_email: Вашият имейл адрес ще бъде запазен.
+        recent_editing_html: Тъй като сте редактирали наскоро, Вашият акаунт в момента
+          не може да бъде изтрит. Изтриването ще бъде възможно след %{time}.
         confirm_delete: Сигурни ли сте?
         cancel: Отказ
   accounts:
@@ -292,10 +292,7 @@ bg:
     destroy:
       success: Профилът е изтрит.
   browse:
-    created: Създадена
-    closed: Затворена
-    closed_ago_html: Затворен %{time_ago}
-    created_ago_by_html: Създаден %{time_ago} от %{user}
+    edited_ago_by_html: Редактирано %{time_ago} от %{user}
     version: Версия
     in_changeset: Списък с промени
     anonymous: анонимен
@@ -305,25 +302,6 @@ bg:
     view_history: Показване на историята
     view_details: Показване на детайли
     location: 'Местоположение:'
-    changeset:
-      title: 'Списък с промени: %{id}'
-      belongs_to: Автор
-      node: Възли (%{count})
-      node_paginated: Възли (%{x}-%{y} от общо %{count})
-      way: Пътища (%{count})
-      way_paginated: Пътища (%{x}-%{y} от общо %{count})
-      relation: Релации (%{count})
-      relation_paginated: Релации(%{x}-%{y} от %{count})
-      comment: Коментари (%{count})
-      changesetxml: XML на списъка с промени
-      osmchangexml: osmChange XML
-      feed:
-        title: Списък с промени %{id}
-        title_comment: Списък с промени %{id} - %{comment}
-      join_discussion: Впишете се, за да се присъедините към обсъждането
-      discussion: Обсъждане
-      still_open: Списъкът с промени не е завършен - обсъждането ще започне след неговото
-        завършване.
     node:
       title_html: 'Възел: %{name}'
       history_title_html: 'История на възела: %{name}'
@@ -386,6 +364,19 @@ bg:
       title: Търсене на обекти
       introduction: Щракнете върху картата, за да търсите обекти в близост.
       nearby: Обекти в близост
+  changeset_comments:
+    feeds:
+      comment:
+        comment: Нов коментар към списък с промени № %{changeset_id} на %{author}
+        commented_at_by_html: Обновен преди %{when} от %{user}
+      comments:
+        comment: Нов коментар към списък с промени № %{changeset_id} на %{author}
+      show:
+        title_all: Дискусия за промяна на OpenStreetMap
+        title_particular: 'Разговор за промяната #%{changeset_id} на OpenStreetMap'
+      timeout:
+        sorry: Съжаляваме, но списъка с коментарит по промените който заявихте се
+          зарежда твърде дълго.
   changesets:
     changeset_paging_nav:
       showing_page: Страница %{page}
@@ -395,12 +386,6 @@ bg:
       anonymous: Анонимен
       no_edits: (без промяна)
       view_changeset_details: Подробности за списъка с промени
-    changesets:
-      id: ID
-      saved_at: Записан на
-      user: Потребител
-      comment: Коментар
-      area: Област
     index:
       title: Списък с промени
       title_user: Списък с промените на %{user}
@@ -413,34 +398,56 @@ bg:
       no_more_area: Няма повече списъци с промени в този район.
       no_more_user: Няма повече списъци с промени от потребителя.
       load_more: Зареждане на още
+      feed:
+        title: Списък с промени %{id}
+        title_comment: Списък с промени %{id} - %{comment}
+        created: Създадена
+        closed: Затворена
+        belongs_to: Автор
+    show:
+      title: 'Списък с промени: %{id}'
+      closed_ago_html: Затворен %{time_ago}
+      created_ago_by_html: Създаден %{time_ago} от %{user}
+      closed_ago_by_html: Затворен %{time_ago} от %{user}
+      discussion: Обсъждане
+      join_discussion: Впишете се, за да се присъедините към обсъждането
+      still_open: Списъкът с промени не е завършен - обсъждането ще започне след неговото
+        завършване.
+      subscribe: Абониране
+      unsubscribe: Отписване
+      hide_comment: скриване
+      unhide_comment: показване
+      comment: Коментиране
+      changesetxml: XML на списъка с промени
+      osmchangexml: osmChange XML
+    paging_nav:
+      nodes: Възли (%{count})
+      nodes_paginated: Възли (%{x}-%{y} от общо %{count})
+      ways: Пътища (%{count})
+      ways_paginated: Пътища (%{x}-%{y} от общо %{count})
+      relations: Релации (%{count})
+      relations_paginated: Релации(%{x}-%{y} от %{count})
     timeout:
       sorry: Съжаляваме, но списъка с промени който заявихте се зарежда твърде дълго.
-  changeset_comments:
-    comment:
-      comment: Нов коментар към списък с промени № %{changeset_id} на %{author}
-      commented_at_by_html: Обновен преди %{when} от %{user}
-    comments:
-      comment: Нов коментар към списък с промени № %{changeset_id} на %{author}
-    index:
-      title_all: Дискусия за промяна на OpenStreetMap
-      title_particular: 'Разговор за промяната #%{changeset_id} на OpenStreetMap'
-    timeout:
-      sorry: Съжаляваме, но списъка с коментарит по промените който заявихте се зарежда
-        твърде дълго.
   dashboards:
     contact:
       km away: '%{count} км от вас'
       m away: '%{count} м от вас'
+      latest_edit_html: 'Последна промяна (%{ago}):'
     popup:
       your location: Моето местоположение
       nearby mapper: Картографи в близост
       friend: Приятел
     show:
+      no_home_location_html: '%{edit_profile_link} и задайте домашното си местоположение,
+        за да видите потребителите наблизо.'
       edit_your_profile: Редактиране на профила
       my friends: Моите приятели
       no friends: Все още нямате добавени приятели.
       nearby users: Други потребители в близост
       no nearby users: Все още няма други потребители, които картографират в близост.
+      friends_changesets: набори с промени на приятели
+      friends_diaries: записи в дневника на приятели
   diary_entries:
     new:
       title: Нова публикация в дневника
@@ -457,6 +464,7 @@ bg:
       new_title: Нова публикация в моя дневник
       my_diary: Моя дневник
       no_entries: Няма записи в дневника
+    page:
       recent_entries: Последни публикации в дневника
       older_entries: По-стари записи
       newer_entries: По-нови записи
@@ -481,6 +489,7 @@ bg:
       comment_count:
         one: 1 коментар
         other: '%{count} коментара'
+      no_comments: Без коментари
       edit_link: Променяне на публикацията
       hide_link: Скриване на публикацията
       unhide_link: Скриване на публикацията
@@ -500,15 +509,24 @@ bg:
       user:
         title: OpenStreetMap дневник записи за %{user}
         description: Последни OpenStreetMap записи в дневника от %{user}
+      language:
+        title: Записи в дневника на OpenStreetMap на %{language_name}
+        description: Скорошни записи в дневника от потребители на OpenStreetMap на
+          %{language_name}
       all:
         title: Записи в дневника на OpenStreetMap
-    comments:
+  diary_comments:
+    index:
       no_comments: Няма коментари в дневника
+    page:
       post: Публикация
       when: Кога
       comment: Коментар
       newer_comments: По-нови коментари
       older_comments: По-стари коментари
+  doorkeeper:
+    scopes:
+      address: Вижте вашия физически адрес
   errors:
     contact:
       contact: контакт
@@ -525,6 +543,10 @@ bg:
       success: '%{name} беше премахнат от списъка с приятелите.'
       not_a_friend: '%{name} не е между вашите приятели.'
   geocoder:
+    search:
+      title:
+        results_from_html: Резултати от %{results_link}
+        latlon: Вътрешни
     search_osm_nominatim:
       prefix:
         aerialway:
@@ -540,6 +562,7 @@ bg:
           gate: Врата на летище
           hangar: Хангар
           helipad: Вертолетна площадка
+          parking_position: Позиция за паркиране
           runway: Писта
           taxilane: Таксилента
           taxiway: Път за рулиране
@@ -587,6 +610,7 @@ bg:
           fuel: Бензиностанция
           gambling: Хазартни игри
           grave_yard: Гробище
+          grit_bin: Кошче за пясък
           hospital: Болница
           hunting_stand: Ловна стоянка
           ice_cream: Сладолед
@@ -694,20 +718,25 @@ bg:
           electronics_repair: Ремонт Електроника
           gardener: Градинар
           handicraft: Ръчна изработка
+          hvac: Климатици
+          metal_construction: Метални конструкции
           painter: Художник
           photographer: Фотограф
           plumber: Водопроводчик
+          roofer: Покриви
+          sawmill: Дъскорезница
           shoemaker: Обущар
           tailor: Шивач
           window_construction: Изработка на прозорци
           winery: Винарна
           "yes": Работилница
         emergency:
-          access_point: Тчока за достъп
+          access_point: Точка за достъп
           ambulance_station: Станция за линейки
           defibrillator: Дефибрилатор
           fire_extinguisher: Пожарогасител
           landing_site: Място за аварийно приземяване
+          life_ring: Спасителен пояс
           phone: Телефон за спешни повиквания
           water_tank: Цистерна за спешни случаи
         highway:
@@ -716,6 +745,7 @@ bg:
           bus_stop: Автобусна спирка
           construction: Магистрала в строеж
           corridor: Коридор
+          crossing: Пресичане
           cycleway: Велосипедна пътека
           elevator: Асансьор
           emergency_access_point: Пункт за спешна помощ
@@ -754,6 +784,7 @@ bg:
           unclassified: Некласифициран път
           "yes": Път
         historic:
+          aircraft: Исторически самолет
           archaeological_site: Разкопки
           battlefield: Бойно поле
           boundary_stone: Граничен камък
@@ -771,6 +802,7 @@ bg:
           mine: Рудник
           mine_shaft: Шахта на мина
           monument: Паметник
+          railway: Историческа ж.п. линия
           roman_road: Римски път
           ruins: Развалини
           stone: Камък
@@ -834,6 +866,7 @@ bg:
           water_park: Аквапарк
         man_made:
           antenna: Антена
+          beacon: Маяк
           beehive: Кошер
           bridge: Мост
           bunker_silo: Бункер
@@ -855,6 +888,7 @@ bg:
           silo: Силоз
           snow_cannon: Снежно оръдие
           storage_tank: Резервоар
+          street_cabinet: Ел. табло на улицата
           surveillance: Наблюдение
           telescope: Телескоп
           tower: Кула
@@ -873,6 +907,7 @@ bg:
         mountain_pass:
           "yes": Планински проход
         natural:
+          atoll: Атол
           bay: Залив
           beach: Плаж
           cape: Нос
@@ -898,10 +933,12 @@ bg:
           rock: Скала
           saddle: Седловина
           sand: Пясък
+          scrub: Храсти
           spring: Ручей
           stone: Камък
           tree: Дърво
           tree_row: Редица дървета
+          tundra: Тундра
           valley: Долина
           volcano: Вулкан
           water: Вода
@@ -927,10 +964,12 @@ bg:
           ngo: Офис на НПО
           notary: Нотариус
           research: Изследователски офис
+          tax_advisor: Данъчен съветник
           travel_agent: Туристическа агенция
           "yes": Офис
         place:
           allotments: Градини
+          archipelago: Архипелаг
           city: Град
           country: Държава
           county: Област
@@ -1006,6 +1045,7 @@ bg:
           fishing: Рибарски магазин
           florist: Цветарски магазин
           food: Хранителни стоки
+          frame: Магазин за рамки
           funeral_directors: Погребална служба
           furniture: Мебели
           garden_centre: Градински център
@@ -1027,6 +1067,7 @@ bg:
           mall: Търговски център
           massage: Масаж
           mobile_phone: Магазин за мобилни телефони
+          money_lender: Лихвар
           motorcycle: Магазин за Мотори и Мотоциклети
           music: Музикален магазин
           musical_instrument: Музикални Инструменти
@@ -1037,6 +1078,7 @@ bg:
           paint: Бои и лакови
           perfumery: Парфюмерия
           pet: Магазин за домашни любимци
+          pet_grooming: Грижа за домашни любимци
           photo: Фотомагазин
           seafood: Морска храна
           second_hand: Магазин Втора-ръка
@@ -1045,6 +1087,7 @@ bg:
           stationery: Канцеларски материали
           supermarket: Супермаркет
           tailor: Шивач
+          tattoo: Татуировки
           ticket: Билетна каса
           toys: Магазин за играчки
           travel_agency: Туристическа агенция
@@ -1071,6 +1114,7 @@ bg:
           museum: Музей
           picnic_site: Място за пикник
           theme_park: Увеселителен парк
+          viewpoint: Място с добра гледка
           wilderness_hut: Горска хижа
           zoo: Зологическа градина
         tunnel:
@@ -1080,15 +1124,17 @@ bg:
           canal: Канал
           dam: Язовирна стена
           dock: Док
+          mooring: Пристан
           river: Река
           stream: Поток
           waterfall: Водопад
           "yes": Воден път
       admin_levels:
         level2: Държавна граница
-        level4: Държавна граница
-        level5: Граница на региона
-        level6: Областна граница
+        level4: Граница на област
+        level5: Граница на община
+        level6: Граница на район
+        level7: Граница на кметство
         level8: Граница на землище
         level9: Граница на селото
         level10: Граница на предградията
@@ -1108,30 +1154,31 @@ bg:
       reported_user: Докладван потребител
       search: Търсене
       search_guidance: 'Търсете за проблеми:'
+      link_to_reports: Преглед на докладите
+      states:
+        ignored: Пренебрегнат
+        open: Отворен
+        resolved: Затворени
+    page:
       user_not_found: Потребителят не съществува
       issues_not_found: Не е открит такъв проблем
       status: Състояние
       reports: Доклади
       last_updated: Последна промяна
       last_updated_time_ago_user_html: '%{time_ago} от %{user}'
-      link_to_reports: Преглед на докладите
       reports_count:
         one: '%{count} доклад'
         other: '%{count} доклада'
       reported_item: Докладван елемент
-      states:
-        ignored: Пренебрегнат
-        open: Отворен
-        resolved: Решени
     show:
       title: '%{status} Проблем #%{issue_id}'
       reports:
         one: '%{count} доклад'
         other: '%{count} доклада'
-      report_created_at: Първоначално докладван на %{datetime}
-      last_resolved_at: Последно решена на %{datetime}
-      last_updated_at: Последно актуализиран на %{datetime} от %{displayname}
-      resolve: Решаване
+      report_created_at_html: Първоначално докладван на %{datetime}
+      last_resolved_at_html: Последно затворена на %{datetime}
+      last_updated_at_html: Последно актуализиран на %{datetime} от %{displayname}
+      resolve: Затваряне
       ignore: Пропусни
       reopen: Отново отвори
       reports_of_this_issue: Сигнали за този Проблем
@@ -1205,35 +1252,30 @@ bg:
     gps_traces: Следи от GPS
     gps_traces_tooltip: Управление на следи от GPS
     user_diaries: Потребителски дневници
-    user_diaries_tooltip: Дневници на потребители
     edit_with: Променяне с %{editor}
     tag_line: Свободна Wiki-карта на света
     intro_header: Добре дошли в OpenStreetMap!
     intro_text: OpenStreetMap е карта на света създадена от хора като вас, за свободно
       ползване и под отворен лиценз.
     intro_2_create_account: Създаване на сметка
-    hosting_partners_html: Хостингът се поддържа от %{ucl}, %{fastly}, %{bytemark}
-      и други %{partners}.
-    partners_ucl: UCL
-    partners_bytemark: Bytemark
     partners_partners: партньори
     tou: Условия за ползване
     osm_offline: Базата на данни на  OpenStreetMap в момента е изключена докато се
       извършва необходима поддръжка.
+    osm_read_only: В момента базата данни на OpenStreetMap е в режим "само за четене",
+      тъй като се извършва техническа поддръжка на базата данни.
     help: Помощ
     about: За проекта
     copyright: Авторски права
     communities: Общности
     community: Общност
-    make_a_donation:
-      title: Подкрепете OpenStreetMap с парично дарение
-      text: Направете дарение
     learn_more: Научете повече
     more: Още
   user_mailer:
     diary_comment_notification:
       hi: Здравейте %{to_user},
     message_notification:
+      subject: '[OpenStreetMap] %{message_title}'
       hi: Здравейте %{to_user},
     friendship_notification:
       hi: Здравейте %{to_user},
@@ -1242,6 +1284,7 @@ bg:
       see_their_profile: Можете да видите профила му на %{userurl}.
       befriend_them: Можете да ги добавите като приятел на %{befriendurl}.
     gpx_failure:
+      hi: Здравейте %{to_user},
       failed_to_import: 'не е внесен. Това е грешката:'
       subject: '[OpenStreetMap] Грешка при внасяне на GPX'
     gpx_success:
@@ -1276,15 +1319,18 @@ bg:
         subject_other: '[OpenStreetMap] %{commenter} коментира бележка, от която се
           интересувате'
       closed:
-        subject_own: '[OpenStreetMap] %{commenter} е решил една от бележките ви'
-        your_note: '%{commenter} е решил една от бележките ви към картата в близост
+        subject_own: '[OpenStreetMap] %{commenter} е затворил една от бележките ви'
+        subject_other: '[OpenStreetMap] %{commenter} затвори бележка, която ви интересува'
+        your_note: '%{commenter} е затворил една от вашите бележки на картата близо
           до %{place}.'
+        your_note_html: '%{commenter} е затворил една от вашите бележки на картата
+          близо до %{place}.'
       reopened:
         subject_own: '[OpenStreetMap] %{commenter} повторно е отворил една от бележките
           ви'
         your_note: '%{commenter} повторно е отворил една от бележките ви към картата
           в близост до %{place}.'
-      details: Повече детайли за бележката можете да намерите на %{url}.
+      details: Отговорете или прочетете повече за бележката на адрес %{url}.
     changeset_comment_notification:
       hi: Здравейте %{to_user},
       greeting: Здравейте,
@@ -1303,6 +1349,7 @@ bg:
       success: Профилът е потвърден, благодарим за регистрацията!
       already active: Този профил вече е бил потвърден.
       unknown token: Този код за потвърждение е изтекъл или не съществува.
+      click_here: Кликнете тук
     confirm_resend:
       failure: Потребителят %{name} не е открит.
     confirm_email:
@@ -1315,8 +1362,6 @@ bg:
   messages:
     inbox:
       title: Входящи
-      my_inbox: Входяща кутия
-      my_outbox: Изходяща кутия
       messages: Имате %{new_messages} и %{old_messages}
       new_messages:
         one: '%{count} ново съобщение'
@@ -1324,12 +1369,15 @@ bg:
       old_messages:
         one: '%{count} прочетено съобщение'
         other: '%{count} прочетени съобщения'
-      from: От
-      subject: Тема
-      date: Дата
       no_messages_yet_html: Все още нямате никакви съобщения. Не искате ли да се свържете
         с други %{people_mapping_nearby_link}?
       people_mapping_nearby: картографи в близост
+    messages_table:
+      from: От
+      to: До
+      subject: Тема
+      date: Дата
+      actions: Действия
     message_summary:
       unread_button: Отбелязване като непрочетено
       read_button: Отбелязване като прочетено
@@ -1347,14 +1395,10 @@ bg:
       body: Съжаляваме но няма съобщение със това id.
     outbox:
       title: Изходящи
-      my_inbox: Входящи
-      my_outbox: Изходяща кутия
+      actions: Действия
       messages:
         one: Изпратили сте %{count} съобщение
         other: Изпратили сте %{count} съобщения
-      to: До
-      subject: Тема
-      date: Дата
       no_sent_messages_html: Все още нямате никакви съобщения. Не искате ли да се
         свържете с други %{people_mapping_nearby_link}?
       people_mapping_nearby: картографи в близост
@@ -1370,25 +1414,29 @@ bg:
       back: Назад
     sent_message_summary:
       destroy_button: Изтриване
+    heading:
+      my_inbox: Входяща кутия
+      my_outbox: Изходяща кутия
+      muted_messages: Заглушени съобщения
     mark:
       as_read: Съобщението е отбелязано като прочетено
       as_unread: Съобщението е отбелязано като непрочетено
     destroy:
       destroyed: Съобщението беше изтрито
   passwords:
-    lost_password:
+    new:
       title: Възстановяване на парола
       heading: Забравена парола?
-      email address: 'Електронна поща:'
+      email address: Електронна поща
       new password button: Нова парола
       help_text: Въведете имейл адреса, който сте използвали при регистрацията, и
         ние ще Ви изпратим връзка, която можете да използвате, за да промените паролата
         си.
-      notice email cannot find: Съжаляваме, но този електронен адрес не е намерен.
-    reset_password:
+    edit:
       title: Възстановяване на парола
       heading: Смени Парола за %{user}
       reset: Нулиране на парола
+    update:
       flash changed: Паролата е променена успешно.
   preferences:
     show:
@@ -1399,12 +1447,16 @@ bg:
     edit:
       save: Запазване на предпочитанията
       cancel: Отказ
+    update_success_flash:
+      message: Настройките са обновени.
   profiles:
     edit:
+      title: Редактиране на профила
       cancel: Отказ
       image: Изображение
       gravatar:
         gravatar: Използване на Gravatar
+        what_is_gravatar: Какво е Gravatar?
       new image: Добавяне на изображение
       keep image: Запазване на текущото изображение
       delete image: Премахване на текущото изображение
@@ -1414,49 +1466,22 @@ bg:
       no home location: Не сте избрали своето местоположение.
       update home location on click: Променяне на моето местоположение при избиране
         от картата
+      show: Показване
     update:
       success: Профилът е обновен.
       failure: Неуспешно обновление на профила.
   sessions:
     new:
       title: Влизане
-      heading: Влизане
-      email or username: 'Електронна поща или потребителско име:'
-      password: 'Парола:'
-      openid_html: '%{logo} OpenID:'
+      tab_title: Влизане
+      email or username: Електронна поща или потребителско име
+      password: Парола
       remember: Запомняне
       lost password link: Забравена парола?
       login_button: Влизане
       register now: Регистрирайте се
       with external: 'Или използвайте удостоверяване от външен източник:'
-      no account: Нямате сметка?
       auth failure: Съжаляваме, но не можете да влезете с тези данни.
-      openid_logo_alt: Влизане с OpenID
-      auth_providers:
-        openid:
-          title: Влизане с OpenID
-          alt: Влизане с адрес на OpenID
-        google:
-          title: Влизане с Гугъл
-          alt: Влизане с OpenID на Google
-        facebook:
-          title: Влизане с Facebook
-          alt: Влизане със сметка на Facebook
-        microsoft:
-          title: Влизане с Майкрософт
-          alt: Влизане със сметка на Майкрософт
-        github:
-          title: Влизане с GitHub
-          alt: Влизане със сметка в GitHub
-        wikipedia:
-          title: Влизане с Уикипедия
-          alt: Влизане със сметка от Уикипедия
-        wordpress:
-          title: Влизане с Wordpress
-          alt: Влизане с OpenID от Wordpress
-        aol:
-          title: Влизане с AOL
-          alt: Влизане с OpenID от AOL
     destroy:
       title: Изход
       heading: Изход от OpenStreetMap
@@ -1464,7 +1489,9 @@ bg:
   shared:
     markdown_help:
       headings: Заглавия
+      heading: Заглавие
       subheading: Подзаглавие
+      unordered: Неподреден списък
       ordered: Подреден списък
       first: Първи елемент
       second: Втори елемент
@@ -1472,12 +1499,15 @@ bg:
       text: Текст
       image: Изображение
       alt: Алтернативен текст
+      url: URL
+      codeblock: Блок с код
     richtext_field:
       edit: Редактиране
       preview: Предварителен преглед
   site:
     about:
       next: Напред
+      heading_html: '%{copyright}OpenStreetMap %{br} сътрудници'
       used_by_html: '%{name} осигурява картографски данни на хиляди страници, мобилни
         приложения и устройства'
       lede_text: OpenStreetMap е създадена от общност от картографи, които предоставят
@@ -1494,6 +1524,7 @@ bg:
         работници, които картографират райони, засегнати от бедствия, и много други.
         За да научите повече за общността, вижте %{osm_blog_link}, %{user_diaries_link},
         %{community_blogs_link} и %{osm_foundation_link}.
+      community_driven_user_diaries: потребителските дневници
       community_driven_community_blogs: блогове на общността
       open_data_title: Отворени данни
       open_data_1_html: 'OpenStreetMap е %{open_data}: Вие сте свободни да я използвате
@@ -1501,12 +1532,14 @@ bg:
         промените или надграждате данните по определен начин, можете да разпространявате
         резултата само под същия лиценз. За подробности вижте %{copyright_license_link}.'
       open_data_open_data: отворени данни
+      open_data_copyright_license: Авторски права и лиценз
       legal_title: Правни въпроси
       legal_1_1_html: |-
         Този сайт и много други свързани с него услуги се управляват официално от
         %{openstreetmap_foundation_link} (OSMF)
         от името на общността. Използването на всички услуги, управлявани от OSMF, е предмет на
         на нашите %{terms_of_use_link}, %{aup_link} и нашата %{privacy_policy_link}.
+      legal_1_1_privacy_policy: Политика за поверителност
       legal_2_1_html: Моля, %{contact_the_osmf_link} ако имате въпроси, свързани с
         лицензирането, авторските права или други правни въпроси.
       legal_2_1_contact_the_osmf: свържете се с OSMF
@@ -1514,6 +1547,7 @@ bg:
       legal_2_2_registered_trademarks: регистрирани търговски марки на OSMF
       partners_title: Партньори
     copyright:
+      title: Авторски права и лиценз
       foreign:
         title: За този превод
         html: В случай на противоречие между тази преведена страница и %{english_original_link},
@@ -1527,16 +1561,43 @@ bg:
         native_link: българската версия
         mapping_link: картографирате
       legal_babble:
-        title_html: Авторски права и лиценз
         credit_title_html: Как да кредитирате OpenStreetMap
+        credit_1_html: 'Когато използвате данни от OpenStreetMap, от вас се изисква
+          да направите следните две неща:'
+        credit_2_1: Отдайте необходимото на OpenStreetMap, показвайки уведомлението
+          ни за авторски права.
+        credit_2_2: Ясно да посочите, че данните са достъпни съгласно Лиценза за отворени
+          бази данни (Open Database License).
+        credit_3_html: По отношение на известието за авторските права имаме различни
+          изисквания за начина, по който то трябва да се показва, в зависимост от
+          това как използвате нашите данни. В зависимост от това дали сте създали
+          карта с възможност за преглед, печатна карта или статично изображение, се
+          прилагат различни правила за начина на показване на съобщението за авторски
+          права. Пълна информация за изискванията може да бъде намерена в %{attribution_guidelines_link}.
         more_title_html: Открийте повече
         contributors_title_html: Нашите сътрудници
+        contributors_intro_html: |-
+          Нашите сътрудници са хиляди. Ние включваме и
+          данни, които са отворено лицензирани от национални картографски агенции
+          и други източници, сред които:
         infringement_title_html: Нарушаване на авторските права
+        infringement_1_html: Напомняме на сътрудниците на OSM никога да не добавят
+          данни от източници, защитени с авторски права (например Google Maps или
+          печатни карти), без изрично разрешение от притежателите на авторските права.
+        infringement_2_1_html: Ако смятате, че материал, защитен с авторско право,
+          е добавен по неправомерен начин в базата данни на OpenStreetMap или в този
+          сайт, моля, обърнете се към нашата %{takedown_procedure_link} или подайте
+          сигнал директно чрез нашата %{online_filing_page_link}.
+        infringement_2_1_takedown_procedure: процедура за сваляне
+        infringement_2_1_online_filing_page: онлайн страница за подаване на документи
+        trademarks_title: Търговски марки
+        trademarks_1_1_html: |-
+          OpenStreetMap, логото с лупата и State of the Map са регистрирани търговски марки на
+          OpenStreetMap Foundation. Ако имате въпроси относно използването на марките, моля вижте нашата
+          %{trademark_policy_link}.
+        trademarks_1_1_trademark_policy: политика за търговски марки
     index:
       js_2: OpenStreetMap използва JavaScript за своята статична карта.
-      permalink: Постоянна връзка
-      shortlink: Къса връзка
-      createnote: Добавяне на бележка
     edit:
       not_public: Не сте посочили вашите редакции да бъдат публични.
       user_page_link: Потребителска страница
@@ -1544,11 +1605,7 @@ bg:
       id_not_configured: iD не е настроен
     export:
       title: Експортиране
-      area_to_export: Зона за експортиране
       manually_select: Ръчно избиране на друга област
-      format_to_export: Формат за експортиране
-      osm_xml_data: OpenStreetMap XML данни
-      embeddable_html: HTML-код за вграждане
       licence: Лиценз
       too_large:
         advice: 'Ако експортирането по-горе не сработи, моля, използвайте един от
@@ -1561,17 +1618,6 @@ bg:
           title: Geofabrik Downloads
         other:
           title: Други източници
-      options: Настройки
-      format: Формат
-      scale: Мащаб
-      max: макс.
-      image_size: Размер на изображението
-      zoom: Мащабиране
-      add_marker: Добавяне на маркер на картата
-      latitude: 'Геогр. шир:'
-      longitude: 'Геогр. дълж:'
-      output: Изход
-      paste_html: Копирайте HTML за вграждане в интернет страница
       export_button: Експортиране
     fixthemap:
       title: Докладвай проблем/Коригирай картата
@@ -1597,17 +1643,13 @@ bg:
       beginners_guide:
         title: Наръчник за начинаещи
         description: Ръководство за начинаещи, поддържано от общността.
-      help:
-        title: Форум за поддръжка
-        description: Задайте въпрос или потърсете отговори в сайта за въпроси и отговори
-          на OpenStreetMap.
+      community:
+        title: Форум на общността
+        description: Споделено място за търсене на помощ и разговори за OpenStreetMap.
       mailing_lists:
         title: Пощенски списъци
         description: Задайте въпрос или дискутирайте интересни теми в широк спектър
           от тематични и регионални пощенски списъци.
-      community:
-        title: Форум на общността
-        description: Споделено място за разговори за OpenStreetMap.
       irc:
         title: IRC
         description: Интерактивен чат на много различни езици и по много теми.
@@ -1656,34 +1698,24 @@ bg:
           footway: Пътека
           rail: Железен път
           subway: Метро
-          tram:
-          - Бърз трамвай
-          - трамвай
-          cable:
-          - Кабинков лифт
-          - седалков лифт
-          runway:
-          - Летищна писта
-          - път за рулиране
-          apron:
-          - Летищен перон
-          - терминал
+          cable_car: Кабинков лифт
+          chair_lift: Седалков лифт
+          runway: Летищна писта
+          taxiway: Път за рулиране
+          apron: Летищен перон
           admin: Административна граница
           forest: Гора
-          wood: Дървета
+          wood: Гора
           golf: Игрище за голф
           park: Парк
+          common: Обща
           resident: Жилищна зона
-          common:
-          - Обща
-          - ливада
           retail: Търговска зона
           industrial: Промишлена зона
           commercial: Търговска зона
           heathland: Пустош
-          lake:
-          - Езеро
-          - язовир
+          lake: Езеро
+          reservoir: Язовир
           farm: Ферма
           brownfield: Място за строеж
           cemetery: Гробище
@@ -1692,14 +1724,12 @@ bg:
           centre: Спортен център
           reserve: Природен резерват
           military: Военна зона
-          school:
-          - Училище
-          - университет
+          school: Училище
+          university: Университет
           building: Значима сграда
           station: Железопътна гара
-          summit:
-          - Било
-          - връх
+          summit: Било
+          peak: Връх
           tunnel: Тунел (пунктирана линия)
           bridge: Мост (плътна линия)
           private: Частен достъп
@@ -1770,6 +1800,7 @@ bg:
           степен като местните клонове. Всъщност много групи съществуват много успешно
           като неформално събиране на хора или като общностна група. Всеки може да
           ги създаде или да се присъедини към тях. Прочетете повече на %{communities_wiki_link}.
+        communities_wiki: уики страницата на общностите
   traces:
     new:
       upload_trace: Качване на следи от GPS
@@ -1813,9 +1844,6 @@ bg:
       trace_not_found: Следата не е открита!
       visibility: 'Видимост:'
       confirm_delete: Изтрий това трасе?
-    trace_paging_nav:
-      older: По-стари следи
-      newer: По-нови следи
     trace:
       pending: Обработва се
       count_points:
@@ -1827,14 +1855,17 @@ bg:
       public: ПУБЛИЧНО
       private: ЧАСТНО
       trackable: ПРОСЛЕДИМО
-      by: от
-      in: в
     index:
       public_traces: Публични следи от GPS
       public_traces_from: Публични следи от GPS от потребител %{user}
+      description: Преглед на скорошни качвания на GPS следи
       tagged_with: с етикет %{tags}
       upload_trace: Качване на следи от GPS
+      all_traces: Всички следи
       my_traces: Моите следи
+    page:
+      older: По-стари следи
+      newer: По-нови следи
     georss:
       title: OpenStreetMap GPS трасета
     description:
@@ -1844,49 +1875,31 @@ bg:
       description_without_count: Файл на GPX от %{user}
   application:
     permission_denied: Нямате разрешение за достъп до това действие
-    require_admin:
-      not_an_admin: Трябва да сте админ за да извършите това действие
+    auth_providers:
+      openid:
+        title: Влизане с OpenID
+        alt: Лого на OpenID
+      google:
+        title: Влизане с Гугъл
+        alt: Лого на Гугъл
+      facebook:
+        title: Влизане с Facebook
+        alt: Лого на Фейсбук
+      microsoft:
+        title: Влизане с Майкрософт
+        alt: Лого на Майкрософт
+      github:
+        title: Влизане с GitHub
+        alt: Лого на GitHub
+      wikipedia:
+        title: Влизане с Уикипедия
+        alt: Лого на Уикипедия
   oauth:
-    authorize:
-      allow_to: 'Позволи приложението на клиента да:'
-      allow_read_prefs: прочетете вашите потребителски предпочитания
-      allow_write_prefs: променете вашите потребителски предпочитания.
-      allow_write_diary: създай дневник на бележките, коментарите и новите приятелства
-      allow_write_api: промени картата.
-      allow_read_gpx: прочети вашите лични GPS следи.
-      allow_write_gpx: Качване на GPS следи.
-      allow_write_notes: променяне на бележки.
-      grant_access: Позволи Достъп
-    authorize_success:
-      title: Искането за достъп е разрешено
-      allowed_html: Вие позволихте на приложение %{app_name} достъп до вашия профил.
-      verification: Верификационния код е %{code}.
-    authorize_failure:
-      title: Искането за достъп не успя
-    revoke:
-      flash: Анулирахте удостоверяването на %{application}
     scopes:
       write_prefs: Променете потребителски предпочитания
       write_diary: Създай дневник на бележките, коментарите и новите приятелства
       write_api: Промени картата
       write_notes: Промени бележки
-  oauth_clients:
-    show:
-      key: 'Клиентски ключ:'
-      secret: 'Клиентски секрет:'
-      edit: Редакция детайли
-      delete: Изтриване Клиент
-      confirm: Сигурен ли сте?
-    index:
-      title: Мои данни за OAuth
-      my_tokens: Упълномощени от мен приложения
-      list_tokens: 'Следните токени са издадени на приложения от ваше име:'
-      application: Име на приложението
-      issued_at: Упълномощено на
-      revoke: Анулиране!
-      my_apps: Мои клиентски приложения
-      oauth: OAuth
-      register_new: Регистриране на приложение
   users:
     new:
       title: Регистриране
@@ -1896,9 +1909,9 @@ bg:
           хора като Вас и е безплатна за всеки, който иска да я поправи, актуализира,
           изтегли и използва.
       external auth: 'Удостоверяване от външен източник:'
-      use external auth: Или използвайте удостоверяване от външен източник
       continue: Регистриране
       terms accepted: Благодарим Ви, че приемате новите условия за сътрудничество!
+      use external auth: Или използвайте удостоверяване от външен източник
     terms:
       title: Условия
       heading: Условия
@@ -1929,6 +1942,8 @@ bg:
       my_preferences: Предпочитания
       blocks on me: Блокирани от мен
       blocks by me: Блокирани от мен
+      create_mute: Заглушаване на потребителя
+      edit_profile: Редактиране на профила
       send message: Изпратете съобщение
       diary: Дневник
       edits: Промени
@@ -1940,7 +1955,6 @@ bg:
       ct status: 'Условия за сътрудничество:'
       ct undecided: Неопределени
       ct declined: Отхвърлени
-      latest edit: 'Последна промяна (%{ago}):'
       email address: 'Електронна поща:'
       created from: 'Създадена от:'
       status: 'Състояние:'
@@ -1965,12 +1979,10 @@ bg:
     index:
       title: Потребители
       heading: Потребители
-      showing:
-        one: Страница %{page} (%{first_item} от %{items})
-        other: Страница %{page} (%{first_item}-%{last_item} от %{items})
       summary_no_ip_html: '%{name} създадено на %{date}'
-      hide: Скрий избраните потребители
       empty: Не са открити съвпадащи профили
+    page:
+      hide: Скрий избраните потребители
     suspended:
       support: поддръжка
   user_role:
@@ -1981,13 +1993,9 @@ bg:
   user_blocks:
     not_found:
       back: Обратно към индекс
-    new:
-      back: Виж всички блокирания
     edit:
       title: Промяна на блокирането на %{name}
       heading_html: Промяна на блокирането на %{name}
-    revoke:
-      revoke: Анулиране!
     helper:
       time_future_html: Изтича след %{time}.
       block_duration:
@@ -2012,7 +2020,6 @@ bg:
       status: 'Състояние:'
       show: Показване
       edit: Променяне
-      revoke: Анулиране!
       confirm: Сигурни ли сте?
       reason: 'Причина за анулиране:'
     block:
@@ -2022,9 +2029,11 @@ bg:
       creator_name: Създател
       reason: Причина за блокиране
       status: Състояние
-      showing_page: Страница %{page}
-      next: Следваща »
-      previous: « Предишна
+  user_mutes:
+    index:
+      table:
+        thead:
+          actions: Действия
   notes:
     index:
       title: Бележки създадени или с коментар от %{user}
@@ -2042,21 +2051,21 @@ bg:
       title: Бележка № %{id}
       description: Описание
       open_title: Нерешена бележка № %{note_name}
-      closed_title: Решена бележка № %{note_name}
+      closed_title: Затворена бележка № %{note_name}
       hidden_title: Скрита бележка № %{note_name}
       event_opened_by_html: Създадена от %{user} %{time_ago}
       report: докладване
       anonymous_warning: Бележката е от анонимен потребител и съдържа твърдения, които
         трябва да бъдат проверени.
       hide: Скриване
-      resolve: Решаване
+      resolve: Затваряне
       reactivate: Повторно отваряне
-      comment_and_resolve: Коментиране и решаване
+      comment_and_resolve: Коментиране и затваряне
       comment: Коментиране
       report_link_html: Ако тази бележка съдържа поверителна информация, която трябва
         да бъде премахната, можете да я %{link}.
-      other_problems_resolve: За всички други проблеми с бележката, моля, разрешете
-        ги с коментар.
+      other_problems_resolve: За всички други проблеми с бележката, моля, затворете
+        я с коментар.
     new:
       title: Нова бележка
       intro: Забелязали сте грешка или нещо липсващо? Уведомете другите картографи,
@@ -2085,7 +2094,8 @@ bg:
       include_marker: Добавяне на маркер
       center_marker: Центриране на маркера
       view_larger_map: Преглед на по-голяма карта
-      only_standard_layer: Само стандартния слой може да бъде изнесен като изображение
+      only_standard_layer: Само стандартния слой, колоездачната карта и транспортната
+        карта могат да бъдат изнесени като изображение
     embed:
       report_problem: Докладване за проблем
     key:
@@ -2119,13 +2129,6 @@ bg:
       map_data_zoom_in_tooltip: Увеличете за подробности
       queryfeature_tooltip: Търсене на обекти
       queryfeature_disabled_tooltip: Увеличете за търсене на обекти
-    changesets:
-      show:
-        comment: Коментиране
-        subscribe: Абониране
-        unsubscribe: Отписване
-        hide_comment: скриване
-        unhide_comment: показване
     directions:
       ascend: Изкачване
       engines:
@@ -2135,6 +2138,9 @@ bg:
         graphhopper_bicycle: Велосипед (GraphHopper)
         graphhopper_car: Автомобил (GraphHopper)
         graphhopper_foot: Пеша (GraphHopper)
+        fossgis_valhalla_bicycle: Велосипед (Valhalla)
+        fossgis_valhalla_car: Автомобил (Valhalla)
+        fossgis_valhalla_foot: Пеша (Valhalla)
       descend: Спускане
       directions: Упътване
       distance: Разстояние
@@ -2148,6 +2154,8 @@ bg:
         offramp_right_with_exit_directions: Излезте от %{exit} изход вдясно към %{directions}
         offramp_right_with_exit_name_directions: Излезте от %{exit} изход вдясно на
           %{name}, към %{directions}
+        onramp_right_without_directions: Завийте надясно към рампата
+        onramp_right: Завийте надясно към рампата
         endofroad_right_without_exit: В края на пътя завийте надясно по %{name}
         merge_right_without_exit: Навлезте надясно на %{name}
         fork_right_without_exit: На разклона завийте надясно по %{name}
@@ -2156,11 +2164,14 @@ bg:
         uturn_without_exit: Обратен завой по %{name}
         sharp_left_without_exit: Остър завой наляво по %{name}
         turn_left_without_exit: Завийте наляво по %{name}
+        offramp_left: Вземете изхода наляво
         offramp_left_with_exit: Излезте от %{exit} изход вляво
         offramp_left_with_exit_name: Излезте от %{exit} изход вляво на %{name}
         offramp_left_with_exit_directions: Излезте от %{exit} изход вляво към %{directions}
         offramp_left_with_exit_name_directions: Излезте от %{exit} изход вляво на
           %{name}, към %{directions}
+        offramp_left_with_name: Вземете изхода наляво към %{name}
+        offramp_left_with_directions: Вземете изхода наляво в посока %{directions}
         endofroad_left_without_exit: В края на пътя завийте наляво по %{name}
         merge_left_without_exit: Навлезте наляво на %{name}
         fork_left_without_exit: На разклона завийте наляво по %{name}
@@ -2175,7 +2186,7 @@ bg:
         roundabout_with_exit: На кръговото движение излезте от %{exit} изход към %{name}
         roundabout_with_exit_ordinal: На кръговото движение вземете %{exit} изход
           към %{name}
-        exit_roundabout: Излезете от кръговото движение от %{name}
+        exit_roundabout: Излезте от кръговото движение от %{name}
         unnamed: неименуван път
         courtesy: Упътване благодарение на %{link}
         exit_counts:

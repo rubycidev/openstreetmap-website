@@ -200,8 +200,6 @@ fit:
       heading: 'Mookkaukset julkisia:'
       make_edits_public_button: Tee mookkauksistani julkisia
   browse:
-    created: Luotu
-    closed: Ratkaistu
     version: Versuuni
     in_changeset: Muutoskokoelma
     anonymous: tuntematon
@@ -211,25 +209,6 @@ fit:
     view_history: Näytä histuuria
     view_details: Näytä tieot
     location: 'Sijainti:'
-    changeset:
-      title: 'Muutoskokoelma: %{id}'
-      belongs_to: Lähättäjä
-      node: Pisteet (%{count})
-      node_paginated: Pisteet (%{x}-%{y} / %{count})
-      way: Reitit (%{count})
-      way_paginated: Reitit (%{x}-%{y} of %{count})
-      relation: Relaatiot (%{count})
-      relation_paginated: Relaatiot (%{x}-%{y} / %{count})
-      comment: Kommentit (%{count})
-      changesetxml: Muutoskokoelman XML
-      osmchangexml: osmChange XML
-      feed:
-        title: Muutoskokoelma %{id}
-        title_comment: Muutoskokoelma %{id} - %{comment}
-      join_discussion: Lokkaa sisäle, jos halvaat osallistua keskusteluun
-      discussion: Keskustelu
-      still_open: Muutoskokoelma on edelleen avoimena - keskustelu avathaan heti kun
-        muutoskokoelma on suljettu.
     node:
       title_html: 'Piste: %{name}'
       history_title_html: Pisteen %{name} histuuria
@@ -297,6 +276,19 @@ fit:
       introduction: Näytä luettelo lähistön karttakohteista knapauttamalla karthaa.
       nearby: Lähistön karttakohteet
       enclosing: Ympäröivät karttakohteet
+  changeset_comments:
+    feeds:
+      comment:
+        comment: 'Käyttäjä %{author} kommentoi muutoskokoelmaa #%{changeset_id}'
+        commented_at_by_html: '%{user} päivittänyt %{when}'
+      comments:
+        comment: 'Uusi kommentti käyttäjän %{author} muutoskokoelmassa #%{changeset_id}'
+      show:
+        title_all: Keskustelu OpenStreetMapin muutoskokoelmasta
+        title_particular: 'OpenStreetMap muutoskokoelma #%{changeset_id} keskustelu'
+      timeout:
+        sorry: Valitettavasti pyytämäsi muutoskokoelmien kommenttien hakeminen kesti
+          liian kauan.
   changesets:
     changeset_paging_nav:
       showing_page: Sivu %{page}
@@ -306,12 +298,6 @@ fit:
       anonymous: Tuntematon
       no_edits: (ei mookkauksia)
       view_changeset_details: Näytä muutoskokoelman tarkemmat tieot
-    changesets:
-      id: Tunniste
-      saved_at: Säästetty
-      user: Käyttäjä
-      comment: Kommentti
-      area: Alue
     index:
       title: Muutoskokoelmat
       title_user: Käyttäjän %{user} muutoskokoelmat
@@ -324,24 +310,35 @@ fit:
       no_more_area: Ei muita muutosryhmiä tällä alueella.
       no_more_user: Ei muita muutosryhmiä tällä käyttäjällä.
       load_more: Lattaa lissää
+      feed:
+        title: Muutoskokoelma %{id}
+        title_comment: Muutoskokoelma %{id} - %{comment}
+        created: Luotu
+        closed: Ratkaistu
+        belongs_to: Lähättäjä
+    show:
+      title: 'Muutoskokoelma: %{id}'
+      discussion: Keskustelu
+      join_discussion: Lokkaa sisäle, jos halvaat osallistua keskusteluun
+      still_open: Muutoskokoelma on edelleen avoimena - keskustelu avathaan heti kun
+        muutoskokoelma on suljettu.
+      comment: Kommentoi
+      changesetxml: Muutoskokoelman XML
+      osmchangexml: osmChange XML
+    paging_nav:
+      nodes: Pisteet (%{count})
+      nodes_paginated: Pisteet (%{x}-%{y} / %{count})
+      ways: Reitit (%{count})
+      ways_paginated: Reitit (%{x}-%{y} of %{count})
+      relations: Relaatiot (%{count})
+      relations_paginated: Relaatiot (%{x}-%{y} / %{count})
     timeout:
       sorry: Valitettavasti pyytämäsi muutoskokoelmien listan hakeminen kesti liian
         kauan.
-  changeset_comments:
-    comment:
-      comment: 'Käyttäjä %{author} kommentoi muutoskokoelmaa #%{changeset_id}'
-      commented_at_by_html: '%{user} päivittänyt %{when}'
-    comments:
-      comment: 'Uusi kommentti käyttäjän %{author} muutoskokoelmassa #%{changeset_id}'
-    index:
-      title_all: Keskustelu OpenStreetMapin muutoskokoelmasta
-      title_particular: 'OpenStreetMap muutoskokoelma #%{changeset_id} keskustelu'
-    timeout:
-      sorry: Valitettavasti pyytämäsi muutoskokoelmien kommenttien hakeminen kesti
-        liian kauan.
   dashboards:
     contact:
       km away: '%{count} kilometrin päässä'
+      latest_edit_html: 'Viimeisin muutos (%{ago}):'
     popup:
       your location: Sinun paikka
       friend: Kaveri
@@ -362,6 +359,7 @@ fit:
       new: Lissää päiväkirjamerkintä
       new_title: Kirjota uusi merkintä minun käyttäjän päiväkirjaan
       no_entries: Päiväkirjassa ei ole merkintöjä.
+    page:
       recent_entries: Uusimmat päiväkirjamerkinnät
       older_entries: Vanhempia...
       newer_entries: Uuempia...
@@ -413,7 +411,8 @@ fit:
       all:
         title: OpenStreetMap-päiväkirjamerkinnät
         description: Verekset OpenStreetMapin käyttäjitten päiväkirjamerkinnät
-    comments:
+  diary_comments:
+    page:
       post: Kommentti
       when: Taatumi
       comment: Kommentti
@@ -502,27 +501,28 @@ fit:
       not_updated: Ei päivitetty
       search: Hakea
       search_guidance: 'Eti tapauksia:'
+      link_to_reports: Näytä ilmiannot
+      states:
+        open: Avvaa
+        resolved: Ratkaistu
+    page:
       user_not_found: Käyttäjää ei löydy
       issues_not_found: Tapahtumia ei löytynyt
       status: Tila
       reports: Ilmiannot
       last_updated: Päivitetty
-      link_to_reports: Näytä ilmiannot
       reports_count:
         one: 1 ilmotus
         other: '%{count} ilmiantoa'
-      states:
-        open: Avvaa
-        resolved: Ratkaistu
     show:
       title: '%{status} Tapaus #%{issue_id}'
       reports:
         zero: Ei ilmiantoa
         one: Yksi ilmianto
         other: '%{count} ilmiantoa'
-      report_created_at: Ilmotettu ensimmäisen kerran %{datetime}
-      last_resolved_at: Ratkastu %{datetime}
-      last_updated_at: Viimeisin käsittelijä %{displayname} %{datetime}
+      report_created_at_html: Ilmotettu ensimmäisen kerran %{datetime}
+      last_resolved_at_html: Ratkastu %{datetime}
+      last_updated_at_html: Viimeisin käsittelijä %{displayname} %{datetime}
       resolve: Ratkase
       ignore: Merkitte aiheettomaksi
       reopen: Aukase uuesti
@@ -579,7 +579,6 @@ fit:
     gps_traces: GPS-jäljet
     gps_traces_tooltip: Hallitse GPS-jälkiä
     user_diaries: Päiväkirjamerkinnät
-    user_diaries_tooltip: Näytä käyttäjän päiväkirjat
     edit_with: 'Mookkaa: %{editor}'
     tag_line: Vapaa ja avvoin maailmankartta
     intro_header: Tervetuloa OpenStreetMaphiin!
@@ -635,7 +634,6 @@ fit:
   messages:
     inbox:
       title: Saapuneet
-      my_inbox: Saapuneet
       messages: Kansiossa oon %{new_messages} ja %{old_messages}.
       new_messages:
         one: '%{count} lukematon viesti'
@@ -643,11 +641,13 @@ fit:
       old_messages:
         one: '%{count} luettu viesti'
         other: '%{count} luettua viestiä'
-      from: Lähättäjä
-      subject: Otsikko
-      date: Taatumi
       no_messages_yet_html: Ei viestejä. %{people_mapping_nearby_link}
       people_mapping_nearby: Lähiseudun kartoittajat
+    messages_table:
+      from: Lähättäjä
+      to: Vastaanottaja
+      subject: Otsikko
+      date: Taatumi
     message_summary:
       unread_button: Markeeraa lukemattomaksi
       read_button: Markeeraa luetuksi
@@ -669,9 +669,6 @@ fit:
       messages:
         one: Kansiossa oon %{count} lähätetty viesti.
         other: Kansiossa oon %{count} lähätettyä viestiä.
-      to: Vastaanottaja
-      subject: Otsikko
-      date: Taatumi
       no_sent_messages_html: Et ole lähettänyt vielä viestejä. Miksi et ottaisi yhteyttä
         joihinkin %{people_mapping_nearby_link}?
       people_mapping_nearby: lähellä kartoittaviin käyttäjiin
@@ -687,13 +684,15 @@ fit:
       back: Takashiin
     sent_message_summary:
       destroy_button: Ota poies
+    heading:
+      my_inbox: Saapuneet
     mark:
       as_read: Viesti markeerattu luetuksi.
       as_unread: Viesti markeerattu lukemattomaksi.
     destroy:
       destroyed: Viesti otettu poies
   passwords:
-    lost_password:
+    new:
       title: Unohtunut salasana
       heading: Unohditko salasanasi?
       email address: 'E-postiatressi:'
@@ -708,23 +707,12 @@ fit:
   sessions:
     new:
       title: Lokkaussivu
-      heading: Lokkaa
+      tab_title: Lokkaa
       email or username: 'E-postiatressi tai käyttäjänimi:'
       password: 'Salasana:'
       lost password link: Unhouttanu sinun salasanan?
       login_button: Lokkaa sisäle
       register now: Luo konttu nyt
-      openid_logo_alt: Lokkaa sisäle OpenID-konttulla
-      auth_providers:
-        openid:
-          title: Lokkaa sisäle OpenID:llä
-          alt: Lokkaa sisäle OpenID-atressilla
-        google:
-          title: Lokkaa sisäle Googlella
-        facebook:
-          title: Lokkaa sisäle Feispukilla
-        wikipedia:
-          title: Lokkaa sisäle Wikipeetialla
     destroy:
       title: Lokkaa ulos
       heading: Lokkaa ulos OpenStreetMapista
@@ -746,6 +734,7 @@ fit:
       legal_title: Lakitekninen jako
       partners_title: Kumppanit
     copyright:
+      title: Tekijänoikeus ja lisensi
       foreign:
         title: Tietoja tästä käänöksestä
         html: Jos tämän käänätyn sivun ja %{english_original_link} välillä oon eroja,
@@ -759,7 +748,6 @@ fit:
         native_link: meänkielinen versuuni
         mapping_link: aloittaa kartoituksen
       legal_babble:
-        title_html: Tekijänoikeus ja lisensi
         credit_title_html: OpenStreetMapin mainitseminen
         credit_1_html: OpenStreetMapin sisältöä levitettäessä oon mainittava teksti
           &quot;&copy; OpenStreetMapin tekijät&quot; tai sen engelskankielinen vastine
@@ -769,17 +757,10 @@ fit:
           title: Nimeämisesimerkki
         more_title_html: Lisätietoja
         contributors_title_html: Meän tekijät
-    index:
-      permalink: Ikunen länkki
-      shortlink: Lyhylänkki
     edit:
       user_page_link: käyttäjätieot
     export:
       title: Alueen eksporteeraus
-      area_to_export: Eksporteerattava alue
-      format_to_export: Eksporteerausmuoto
-      osm_xml_data: OpenStreetMap XML-taatta
-      embeddable_html: HTML-kooti
       licence: Lisensi
       too_large:
         planet:
@@ -789,17 +770,6 @@ fit:
         other:
           title: Muut läheet
           description: Muut läheet ovat esillä OpenStreetMap-wikissä
-      options: Inställninkit
-      format: 'Fiilimuoto:'
-      scale: Mittakaava
-      max: eninthään
-      image_size: Kuvan koko
-      zoom: Suurennostaso
-      add_marker: Lissää vietävään kartaan kohemerkki
-      latitude: 'Lev:'
-      longitude: 'Pit:'
-      output: Tulos
-      paste_html: Jäljennä ja liitä tämä HTML-kooti verkkosivulesi
       export_button: Eksporteeraa
     fixthemap:
       title: Ilmota prupleemasta / Korjaa karttaa
@@ -811,8 +781,6 @@ fit:
       welcome:
         url: /welcome
         title: Tervetuloa OpenStreetMaphiin
-      help:
-        title: Apufoorumi
       irc:
         title: IRC
       wiki:
@@ -829,8 +797,7 @@ fit:
     key:
       table:
         entry:
-          school:
-            1: yniversiteetti
+          university: yniversiteetti
     welcome:
       title: Tervetuloa!
       add_a_note:
@@ -856,18 +823,20 @@ fit:
       identifiable: TUNNISTETTAVA
       private: YKSITYINEN
       trackable: SEURATTAVA
-      by: käyttäjältä
-      in: avainsanoilla
     index:
       public_traces: Julkiset GPS-jäljet
       my_traces: Minun GPS-jäljet
-  oauth_clients:
-    edit:
-      title: Mookkaa sovellustasi
-    show:
-      edit: Mookkaa yksityiskohtia
-      delete: Ota poies kynti
-      confirm: Oletko varma?
+  application:
+    auth_providers:
+      openid:
+        title: Lokkaa sisäle OpenID:llä
+        alt: Lokkaa sisäle OpenID-atressilla
+      google:
+        title: Lokkaa sisäle Googlella
+      facebook:
+        title: Lokkaa sisäle Feispukilla
+      wikipedia:
+        title: Lokkaa sisäle Wikipeetialla
   users:
     new:
       title: Luo konttu
@@ -894,7 +863,6 @@ fit:
       send message: Lähätä viesti
       edits: Mookkaukset
       add as friend: Lissää ystäväksi
-      latest edit: 'Viimeisin muutos (%{ago}):'
       email address: 'E-postiatressi:'
     go_public:
       flash success: Kaikki tekemäsi mookkaukset ovat nyt julkisia.
@@ -907,9 +875,6 @@ fit:
       edit: Mookkaa
     block:
       edit: Mookkaa
-    blocks:
-      next: Seuraava »
-      previous: « Eelinen
   notes:
     index:
       description: Kuvvaus
@@ -935,9 +900,6 @@ fit:
     site:
       edit_tooltip: Mookkaa karttaa
       edit_disabled_tooltip: Lähennä karttaa mookataksesi
-    changesets:
-      show:
-        comment: Kommentoi
     directions:
       instructions:
         unnamed: nimetön tie

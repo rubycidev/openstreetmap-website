@@ -141,7 +141,6 @@ te:
         auth_provider: ఆథెంటికేషను ఇచ్చేవారు
         auth_uid: ఆథెంటికేషను UID
         email: ఈ-మెయిల్
-        email_confirmation: ఈమెయిలు నిర్థారణ
         new_email: కొత్త ఈమెయిలు చిరునామా
         active: క్రియాశీలం
         display_name: కనిపించే పేరు
@@ -305,8 +304,6 @@ te:
     destroy:
       success: ఖాతాను తొలగించాం.
   browse:
-    created: 'సృష్టించబడినది:'
-    closed: ముగించబడింది
     version: సంచిక
     in_changeset: మార్పులసమితి
     anonymous: అజ్ఞాత
@@ -322,24 +319,6 @@ te:
     view_history: చరిత్రను చూడండి
     view_details: వివరాలను చూడండి
     location: 'ప్రాంతం:'
-    changeset:
-      title: 'మార్పులసమితి: %{id}'
-      belongs_to: రచయిత
-      node: బుడిపెలు (%{count})
-      node_paginated: బుడిపెలు (%{count} లో %{x}-%{y})
-      way: మార్గాలు (%{count})
-      way_paginated: దారులు (%{count} లో %{x}-%{y})
-      relation: సంబంధాలు (%{count})
-      relation_paginated: '%{count} లో %{x}-%{y} యొక్క సంబంధాలు'
-      comment: వ్యాఖ్యలు (%{count})
-      changesetxml: మార్పులసమితి XML
-      osmchangexml: osmChange XML
-      feed:
-        title: మార్పులసమితి %{id}
-        title_comment: మార్పులసమితి %{id} - %{comment}
-      join_discussion: చర్చలో పాల్గొనేందుకు లాగినవండి
-      discussion: చర్చ
-      still_open: మార్పులసమితి ఇంకా తెరిచే ఉంది - దాన్ని మూసివేయగానే చర్చ తెరుచుకుంటుంది.
     node:
       title_html: 'బిందువు: %{name}'
       history_title_html: 'బుడిపె చరిత్ర: %{name}'
@@ -412,6 +391,18 @@ te:
       introduction: సమీపం లోని అంశాలను చూసేందుకు మ్యాపుపై నొక్కండి.
       nearby: దగ్గర్లోని విశేషాలు
       enclosing: అంశాలమ్ను శోధిస్తున్నారు
+  changeset_comments:
+    feeds:
+      comment:
+        comment: '#%{changeset_id} మార్పులసమితిపై %{author} వ్యాఖ్య ఏమీ చెయ్యలేదు'
+        commented_at_by_html: '%{when} %{user} తాజాకరించారు'
+      comments:
+        comment: '#%{changeset_id} మార్పులసమితిపై %{author} గారి కొత్త వ్యాఖ్య'
+      show:
+        title_all: OpenStreetMap మార్పులసమితి చర్చ
+        title_particular: 'OpenStreetMap మార్పులసమితి #%{changeset_id} చర్చ'
+      timeout:
+        sorry: సారీ, మీరడిగిన మార్పులసమితి వ్యాఖ్యలు తేవడానికి చాలా సమయం పట్టింది.
   changesets:
     changeset_paging_nav:
       showing_page: పేజీ %{page}
@@ -421,12 +412,6 @@ te:
       anonymous: అనామకం
       no_edits: (మార్పులు లేవు)
       view_changeset_details: మార్పులసమితి వివరాలు చూడండి
-    changesets:
-      id: ఐడీ
-      saved_at: భద్రపరచిన సమయం
-      user: వాడుకరి
-      comment: వ్యాఖ్య
-      area: ప్రదేశం
     index:
       title: మార్పుల సమితులు
       title_user: '%{user} చేసిన మార్పులసమితులు'
@@ -439,23 +424,38 @@ te:
       no_more_area: ఈ ప్రాంతంలో మార్పులసమితులు మరి లేవు.
       no_more_user: ఈ వాడుకరి మార్పులసమితులు ఇక లేవు.
       load_more: మరిన్ని చూపించు
+      feed:
+        title: మార్పులసమితి %{id}
+        title_comment: మార్పులసమితి %{id} - %{comment}
+        created: 'సృష్టించబడినది:'
+        closed: ముగించబడింది
+        belongs_to: రచయిత
+    show:
+      title: 'మార్పులసమితి: %{id}'
+      discussion: చర్చ
+      join_discussion: చర్చలో పాల్గొనేందుకు లాగినవండి
+      still_open: మార్పులసమితి ఇంకా తెరిచే ఉంది - దాన్ని మూసివేయగానే చర్చ తెరుచుకుంటుంది.
+      subscribe: గమనింపులలో చేర్చు
+      unsubscribe: గమనింపులనుండి తొలగించు
+      hide_comment: దాచు
+      unhide_comment: చూపించు
+      comment: వ్యాఖ్య
+      changesetxml: మార్పులసమితి XML
+      osmchangexml: osmChange XML
+    paging_nav:
+      nodes: బుడిపెలు (%{count})
+      nodes_paginated: బుడిపెలు (%{count} లో %{x}-%{y})
+      ways: మార్గాలు (%{count})
+      ways_paginated: దారులు (%{count} లో %{x}-%{y})
+      relations: సంబంధాలు (%{count})
+      relations_paginated: '%{count} లో %{x}-%{y} యొక్క సంబంధాలు'
     timeout:
       sorry: సారీ, మీరడిగిన మార్పులసమితుల జాబితాను తేవడంలో చాలా సమయం పట్టింది.
-  changeset_comments:
-    comment:
-      comment: '#%{changeset_id} మార్పులసమితిపై %{author} వ్యాఖ్య ఏమీ చెయ్యలేదు'
-      commented_at_by_html: '%{when} %{user} తాజాకరించారు'
-    comments:
-      comment: '#%{changeset_id} మార్పులసమితిపై %{author} గారి కొత్త వ్యాఖ్య'
-    index:
-      title_all: OpenStreetMap మార్పులసమితి చర్చ
-      title_particular: 'OpenStreetMap మార్పులసమితి #%{changeset_id} చర్చ'
-    timeout:
-      sorry: సారీ, మీరడిగిన మార్పులసమితి వ్యాఖ్యలు తేవడానికి చాలా సమయం పట్టింది.
   dashboards:
     contact:
       km away: '%{count}కిమీ దూరంలో'
       m away: '%{count}మీ దూరంలో'
+      latest_edit_html: 'చివరి మార్పు (%{ago}):'
     popup:
       your location: మీ ప్రాంతం
       nearby mapper: సమీపం లోని మ్యాపరు
@@ -489,6 +489,7 @@ te:
       new_title: నా వాడుకరి డైరీలో ఓ కొత్త పద్దు రాయండి
       my_diary: నా డైరీ
       no_entries: డైరీ పద్దులు లేవు
+    page:
       recent_entries: ఇటీవలి డైరీ పద్దులు
       older_entries: పాత పద్దులు
       newer_entries: కొత్త పద్దులు
@@ -541,11 +542,13 @@ te:
       all:
         title: OpenStreetMap డైరీ పద్దులు
         description: OpenStreetMap వాడుకరులు ఇటీవల చేర్చిన డైరీ పద్దులు
-    comments:
+  diary_comments:
+    index:
       title: '%{user} చేర్చిన డైరీ వ్యాఖ్యలు'
       heading: '%{user} గారి డైరీ వ్యాఖ్యలు'
       subheading_html: '%{user} డైరీ వ్యాఖ్యలను చేర్చారు'
       no_comments: డైరీ వ్యాఖ్యలేమీ లేవు
+    page:
       post: పంపించు
       when: ఎప్పుడు
       comment: వ్యాఖ్య
@@ -1357,25 +1360,26 @@ te:
       not_updated: తాజాకరించలేదు
       search: వెతుకు
       search_guidance: 'అంశాల్లో వెతుకు:'
+      link_to_reports: నివేదికలను చూడండి
+      states:
+        ignored: పట్టించుకోలేదు
+        open: తెరిచి ఉన్నవి
+        resolved: పరిష్కరించినవి
+    page:
       user_not_found: వాడుకరి ఉనికిలో లేరు
       issues_not_found: అలాంటి అంశాలేమీ కనబడలేదు
       status: స్థితి
       reports: నివేదికలు
       last_updated: చివరిగా తాజాకరించినది
-      link_to_reports: నివేదికలను చూడండి
       reports_count:
         one: 1 ఫిర్యాదు
         other: '%{count} ఫిర్యాదులు'
       reported_item: అంశంపై ఫిర్యాదు చేసారు
-      states:
-        ignored: పట్టించుకోలేదు
-        open: తెరిచి ఉన్నవి
-        resolved: పరిష్కరించినవి
     show:
       title: '%{status} అంశం #%{issue_id}'
-      report_created_at: '%{datetime} న మొదటిసారి ఫిర్యాదు చేసారు'
-      last_resolved_at: '%{datetime} న చివరిగా పరిష్కరించారు'
-      last_updated_at: చివరిగా %{displayname} గారు %{datetime} కు తాజాకరించారు
+      report_created_at_html: '%{datetime} న మొదటిసారి ఫిర్యాదు చేసారు'
+      last_resolved_at_html: '%{datetime} న చివరిగా పరిష్కరించారు'
+      last_updated_at_html: చివరిగా %{displayname} గారు %{datetime} కు తాజాకరించారు
       resolve: పరిష్కరించు
       ignore: పట్టించుకోవద్దు
       reopen: మళ్ళీ తెరువు
@@ -1455,18 +1459,13 @@ te:
     gps_traces: GPS జాడలు
     gps_traces_tooltip: GPS జాడలను నిర్వహించు
     user_diaries: వాడుకరి డైరీలు
-    user_diaries_tooltip: వాడుకరి డైరీలను చూడండి
     edit_with: '%{editor} తో సవరించండి'
     tag_line: స్వేచ్ఛా వికీ ప్రపంచ పటం
     intro_header: ఓపెన్‌స్ట్రీట్‌మ్యాప్‌కి స్వాగతం!
     intro_text: OpenStreetMap, ఓ ప్రపంచ మ్యాపు. మీలాంటి వారే దీన్ని తయారు చేసారు.
       స్వేచ్ఛా లైసెన్సు ద్వారా స్వేచ్ఛగా దీన్ని వాడుకోవచ్చు.
     intro_2_create_account: వాడుకరి ఖాతాను సృష్టించుకోండి
-    hosting_partners_html: '%{ucl}, %{fastly}, %{bytemark}, ఇతర %{partners} హోస్టింగుకు
-      మద్దతు నిస్తున్నారు.'
-    partners_ucl: UCL
     partners_fastly: Fastly
-    partners_bytemark: Bytemark Hosting
     partners_partners: భాగస్వాములు
     tou: వాడుక నియమాలు
     osm_offline: OpenStreetMap డేటాబేసులో అత్యావశ్యకమైన నిర్వహణ పనులు జరుగుతున్నందున
@@ -1480,9 +1479,6 @@ te:
     community: కమ్యూనిటీ
     community_blogs: కమ్యూనిటీ బ్లాగులు
     community_blogs_title: OpenStreetMap సముదాయ సభ్యుల బ్లాగులు
-    make_a_donation:
-      title: OpenStreetMap కు ధనసహాయం చేసి మద్దతివ్వండి
-      text: విరాళమివ్వండి
     learn_more: మరింత తెలుసుకోండి
     more: మరిన్ని
   user_mailer:
@@ -1640,8 +1636,6 @@ te:
   messages:
     inbox:
       title: ఇన్‌బాక్సు
-      my_inbox: నా ఇన్‌బాక్స్
-      my_outbox: నా ఔట్‌బాక్సు
       messages: మీకు %{new_messages}, %{old_messages} ఉన్నాయి
       new_messages:
         one: '%{count} కొత్త సందేశం'
@@ -1649,12 +1643,14 @@ te:
       old_messages:
         one: '%{count} పాత సందేశం'
         other: '%{count} పాత సందేశాలు'
-      from: నుండి
-      subject: విషయం
-      date: తేదీ
       no_messages_yet_html: మీకింకా సందేశాలేమీ లేవు. %{people_mapping_nearby_link}
         ఎవరినైనా ఎందుకు సంప్రదించకూడదూ?
       people_mapping_nearby: సమీపంలో మ్యాపింగు చేస్తున్నవారు
+    messages_table:
+      from: నుండి
+      to: కు
+      subject: విషయం
+      date: తేదీ
     message_summary:
       unread_button: చదవనట్లుగా గుర్తుపెట్టు
       read_button: చదివినట్లుగా గుర్తుపెట్టు
@@ -1674,14 +1670,9 @@ te:
       body: సారీ, ఆ ఐడీతో సందేశమేమీ లేదు.
     outbox:
       title: ఔట్‌బాక్సు
-      my_inbox: నా ఇన్‌బాక్సు
-      my_outbox: నా ఔట్‌బాక్సు
       messages:
         one: మీకు %{count} పంపిన సందేశం ఉంది
         other: మీకు %{count} పంపిన సందేశాలు ఉన్నాయి
-      to: కు
-      subject: విషయం
-      date: తేదీ
       no_sent_messages_html: మీకింకా పంపిన సందేశాలు లేవు. %{people_mapping_nearby_link}
         ఎవరినైనా ఎందుకు సంప్రదించకూడదూ?
       people_mapping_nearby: సమీపంలో మ్యాపింగు చేస్తున్నవారు
@@ -1698,28 +1689,29 @@ te:
         పంపలేదు, ఆ వాడుకరికి రాలేదు. సరైన వాడుకరిగా లాగినై చదవండి.
     sent_message_summary:
       destroy_button: తొలగించు
+    heading:
+      my_inbox: నా ఇన్‌బాక్స్
+      my_outbox: నా ఔట్‌బాక్సు
     mark:
       as_read: సందేశాన్ని చదివినట్లుగా గుర్తుపెట్టాం
       as_unread: సందేశాన్ని చదవనట్లుగా గుర్తుపెట్టాం
     destroy:
       destroyed: సందేశాన్ని తొలగించాం
   passwords:
-    lost_password:
+    new:
       title: సంకేతపదం పోయింది
       heading: సంకేతపదం మర్చిపోయారా?
       email address: 'ఈమెయిల్ చిరునామా:'
       new password button: సంకేతపదాన్ని మార్చు
       help_text: నమోదైనపుడు మీరిచ్చిన ఈమెయిలు చిరునామాను ఇవ్వండి. సంకేతపదాన్ని మార్చుకునే
         లింకును ఆ చిరునామాకు పంపిస్తాం.
-      notice email on way: అయ్యో.. పోయిందా :-( పోన్లెండి, దాన్ని మార్చుకునేందుకు ఒక
-        ఈమెయిలు వచ్చేస్తోంది.
-      notice email cannot find: క్షమించండి, ఆ ఈమెయిలు చిరునామా దొరకలేదు.
-    reset_password:
+    edit:
       title: సంకేతపదం మార్పు
       heading: '%{user} సంకేతపదాన్ని మార్చు'
       reset: సంకేతపదాన్ని మార్చు
-      flash changed: మీ సంకేతపదాన్ని మార్చాం.
       flash token bad: ఆ టోకెను కనబడలేదు, ఓసారి URL సరిచూస్తారా?
+    update:
+      flash changed: మీ సంకేతపదాన్ని మార్చాం.
   preferences:
     show:
       title: నా అభీష్టాలు
@@ -1759,43 +1751,15 @@ te:
   sessions:
     new:
       title: ప్రవేశం
-      heading: ప్రవేశం
+      tab_title: ప్రవేశం
       email or username: 'ఈమెయిల్ చిరునామా లేదా వాడుకరిపేరు:'
       password: 'సంకేతపదం:'
-      openid_html: '%{logo} OpenID:'
       remember: నన్ను గుర్తుంచుకో
       lost password link: మీ సంకేతపదం పోయిందా?
       login_button: ప్రవేశించు
       register now: ఇప్పుడే నమోదవ్వండి
       with external: 'లేదా, ఏదైనా థర్డ్ పార్టీతో లాగినవండి:'
-      no account: మీకు ఖాతా లేదా?
       auth failure: సారీ, ఈ వివరాలతో లాగిన్ చెయ్యలేకపోయాం.
-      openid_logo_alt: ఏదైనా OpenID తో లాగినవండి
-      auth_providers:
-        openid:
-          title: OpenID తో లాగినవండి
-          alt: ఏదైనా OpenID URL తో లాగినవండి
-        google:
-          title: Google తో లాగినవండి
-          alt: Google OpenID తో లాగినవండి
-        facebook:
-          title: Facebook తో లాగినవండి
-          alt: Facebook ఖాతాతో లాగినవండి
-        microsoft:
-          title: Windows Live తో లాగినవండి
-          alt: Windows Live ఖాతాతో లాగినవండి
-        github:
-          title: GitHub తో లాగినవండి
-          alt: GitHub ఖాతాతో లాగినవండి
-        wikipedia:
-          title: వికీపీడియాతో లాగినవండి
-          alt: వికీపీడియా ఖాతాతో లాగినవండి
-        wordpress:
-          title: వర్డ్‌ప్రెస్‌తో లాగినవండి
-          alt: వర్డ్‌ప్రెస్ OpenID తో లాగినవండి
-        aol:
-          title: AOL తో లాగినవండి
-          alt: AOL OpenID తో లాగినవండి
     destroy:
       title: నిష్క్రమించు
       heading: ఓపెన్‌స్ట్రీట్‌మ్యాప్‌ నుండి నిష్క్రమించండి
@@ -1833,6 +1797,7 @@ te:
       open_data_title: ఓపెన్ డేటా
       partners_title: భాగస్వాములు
     copyright:
+      title: కాపీహక్కు, లైసెన్సు
       foreign:
         title: ఈ అనువాదం గురించి
         html: అనువదించిన పేజీకీ %{english_original_link} కూ మధ్య ఘర్షణ ఏర్పడినపుడు
@@ -1845,7 +1810,6 @@ te:
         native_link: THIS_LANGUAGE_NAME_HERE కూర్పు
         mapping_link: మ్యాపింగు మొదలుపెట్టండి
       legal_babble:
-        title_html: కాపీహక్కు, లైసెన్సు
         introduction_1_open_data: ఓపెన్ డేటా
         introduction_2_legal_code: చట్టపరమైన కోడ్
         credit_title_html: OpenStreetMap కు శ్రేయస్సు నివ్వడం ఎలా
@@ -1882,23 +1846,12 @@ te:
         infringement_2_1_online_filing_page: ఆన్‌లైన్ ఫైలింగ్ పేజీ
         trademarks_title: ట్రేడ్‌మార్క్‌లు
         trademarks_1_1_trademark_policy: ట్రేడ్మార్క్ విధానం
-    index:
-      permalink: స్థిరలంకె
-      shortlink: చిన్నలింకు
-      createnote: ఓ నోట్‍ను చేర్చండి
     edit:
       user_page_link: వాడుకరి పేజీ
       anon_edits_link_text: ఇది ఇలా ఎందుకుందో తెలుసుకోండి.
-      no_iframe_support: మీ బ్రౌజరులో HTML iframes కు మద్దతు లేదు. ఈ అంశం పనిచేసేందుకు
-        అది అవసరం.
     export:
       title: ఎగుమతి
-      area_to_export: ఎగిమతి చెయ్యాల్సిన ప్రాంతం
       manually_select: వేరే ప్రాంతాన్ని మానవికంగా ఎంచుకోండి
-      format_to_export: ఎగిమతి చెయ్యాల్సిన ఆకృతి
-      osm_xml_data: OpenStreetMap XML డేటా
-      map_image: మ్యాపు బొమ్మ (ప్రామాణిక పొరను చూపిస్తుంది)
-      embeddable_html: ఇముడ్చగలిగే HTML
       licence: లైసెన్సు
       too_large:
         advice: 'పై ఎగుమతి విఫలమైతే, కింది జాబితా లోంచి ఒక మూలాన్ని వాడండి:'
@@ -1915,17 +1868,6 @@ te:
           title: ఇతర మూలాలు
           description: Additional sources listed on the OpenStreetMap వికీలోని జాబితాలో
             ఉన్న అదనపు మూలాలు
-      options: ఎంపికలు
-      format: ఫార్మాటు
-      scale: కొలబద్ద
-      max: గరిష్టం
-      image_size: బొమ్మ పరిమాణం
-      zoom: పెద్దది
-      add_marker: మ్యాపుకు ఒక మార్కరును చేర్చండి
-      latitude: 'అక్షాం:'
-      longitude: 'రేఖాం:'
-      output: ఔట్‌పుట్
-      paste_html: వెబ్‌సైటులో ఇమిడ్చే HTML ను అతికించండి
       export_button: ఎగుమతించు
     fixthemap:
       title: సమస్యను నివేదించండి / మ్యాపును సరిచెయ్యండి
@@ -1950,10 +1892,6 @@ te:
       beginners_guide:
         title: కొత్తవారికి మార్గదర్శిని
         description: కొత్తవారి కోసం సముదాయం నిర్వహించే మార్గదర్శిని.
-      help:
-        title: సహాయ వేదిక
-        description: OpenStreetMap వారి ప్రశ్న-జవాబుల సైట్లో మీ ప్రశ్నలు అడగండి, లేదా
-          సమాధానాల కోసం చూడండి.
       mailing_lists:
         title: మెయిలింగు జాబితాలు
       irc:
@@ -2002,33 +1940,23 @@ te:
           footway: కాల్దారి
           rail: రైలుమార్గం
           subway: కిందారి
-          tram:
-          - లైట్ రైల్
-          - ట్రాము
-          cable:
-          - కేబుల్ కారు
-          - చెయిర్ లిఫ్ట్
-          runway:
-          - విమానాశ్రయం రన్‌వే
-          - టాక్సీ వే
-          apron:
-          - విమానాశ్రయం ఏప్రాన్
-          - టర్మినల్
+          cable_car: కేబుల్ కారు
+          chair_lift: చెయిర్ లిఫ్ట్
+          runway: విమానాశ్రయం రన్‌వే
+          taxiway: టాక్సీ వే
+          apron: విమానాశ్రయం ఏప్రాన్
           admin: పరిపాలనా సరిహద్దు
           forest: అడవి
           wood: కలప
           golf: గోల్ఫ్ కోర్సు
           park: పార్కు
+          common: పచ్చికబయలు
           resident: నివాస ప్రాంతం
-          common:
-          - పచ్చికబయలు
-          - పచ్చికబయలు
           retail: రిటెయిల్ ప్రదేశం
           industrial: పారిశ్రామిక ప్రదేశం
           commercial: వాణిజ్య ప్రదేశం
-          lake:
-          - సరస్సు
-          - జలాశయం
+          lake: సరస్సు
+          reservoir: జలాశయం
           farm: పొలాలు
           brownfield: బ్రౌన్‌ఫీల్డ్ స్థలం
           cemetery: స్మశానం
@@ -2036,13 +1964,11 @@ te:
           centre: క్రీడా కేంద్రం
           reserve: ప్రకృతి సంరక్షణ కేంద్రం
           military: మిలిటరీ ప్రదేశం
-          school:
-          - పాఠశాల
-          - విశ్వవిద్యాలయం
+          school: పాఠశాల
+          university: విశ్వవిద్యాలయం
           building: ప్రముఖ కట్టడము
           station: రైల్వే స్టేషన్
-          summit:
-            1: శిఖరం
+          peak: శిఖరం
           bridge: Black casing = వంతెన
           construction: నిర్మాణంలో ఉన్న రహదార్లు
           bicycle_shop: సైకిలు దుకాణం
@@ -2116,9 +2042,6 @@ te:
       trace_not_found: ట్రేసు కనబడలేదు!
       visibility: 'దృశ్యత:'
       confirm_delete: ఈ ట్రేసును తొలగించాలా?
-    trace_paging_nav:
-      older: పాత ట్రేసులు
-      newer: కొత్త ట్రేసులు
     trace:
       pending: పెండింగు
       count_points:
@@ -2143,6 +2066,9 @@ te:
       my_traces: నా ట్రేసులు
       traces_from: '%{user} గారి బహిరంగ ట్రేసులు'
       remove_tag_filter: ట్యాగు వడపోతను తీసెయ్యి
+    page:
+      older: పాత ట్రేసులు
+      newer: కొత్త ట్రేసులు
     destroy:
       scheduled_for_deletion: ఈ ట్రేసు తొలగింపు కోసం వేచి ఉంది
     make_public:
@@ -2164,8 +2090,6 @@ te:
     require_cookies:
       cookies_needed: మీ కూకీలను అచేతనం చేసినట్లున్నారు - ముందు మీ బ్రౌజరులో కూకీలను
         చేతనం చేసుకుని, ఆపై ముందుకు సాగండి.
-    require_admin:
-      not_an_admin: ఆ పని చెయ్యాలంటే మీరు నిర్వాహకులై ఉండాలి.
     setup_user_auth:
       blocked_zero_hour: OpenStreetMap వెబ్‌సైట్లో మీకు ఒక అర్జెంటు సందేశం ఉంది. మీ
         దిద్దుబాట్లను భద్రపరచాలంటే, ముందు మీరు ఆ సందేశాన్ని చదవాల్సి ఉంటుంది.
@@ -2176,21 +2100,28 @@ te:
         మీరు ఒప్పుకోవాల్సిన అవసరం లేదు, కానీ వాటిని చూసి తీరాలి.
     settings_menu:
       account_settings: ఖాతా అమరికలు
-      oauth1_settings: OAuth 1 అమరికలు
       oauth2_applications: OAuth 2 అనువర్తనాలు
       oauth2_authorizations: OAuth 2 ఆథరైజేషన్లు
+    auth_providers:
+      openid:
+        title: OpenID తో లాగినవండి
+        alt: ఏదైనా OpenID URL తో లాగినవండి
+      google:
+        title: Google తో లాగినవండి
+        alt: Google OpenID తో లాగినవండి
+      facebook:
+        title: Facebook తో లాగినవండి
+        alt: Facebook ఖాతాతో లాగినవండి
+      microsoft:
+        title: Windows Live తో లాగినవండి
+        alt: Windows Live ఖాతాతో లాగినవండి
+      github:
+        title: GitHub తో లాగినవండి
+        alt: GitHub ఖాతాతో లాగినవండి
+      wikipedia:
+        title: వికీపీడియాతో లాగినవండి
+        alt: వికీపీడియా ఖాతాతో లాగినవండి
   oauth:
-    authorize:
-      title: మీ ఖాతాను అందుకునేందుకు ఆథరైజు చెయ్యండి
-      allow_read_prefs: మీ వాడుకరి అభీష్టాలను చదవడం.
-      allow_write_prefs: మీ వాడుకరి అభీష్టాలను మార్చుకోవడం.
-      allow_write_diary: డైరీ ఎంట్రీలు, వ్యాఖ్యలు సృష్టించడం, మిత్రులను చేసుకోవడం.
-      allow_write_api: మ్యాపును సవరించడం.
-      allow_read_gpx: మీ ప్రైవేటు GPS ట్రేసులను చదవడం.
-      allow_write_gpx: GPS ట్రేసులను ఎక్కించడం.
-      allow_write_notes: గమనికలను సవరించడం.
-    authorize_success:
-      title: ఆథరైజేషను అభ్యర్థనను అనుమతించాం
     scopes:
       read_prefs: వాడుకరి అభీష్టాలను చదువు
       write_prefs: వాడుకరి అభీష్టాలను మార్చు
@@ -2198,12 +2129,6 @@ te:
       write_api: మ్యాపు సవరించండి
       read_gpx: ప్రైవేటు GPS ట్రేసులను చదవండి
       write_gpx: GPS ట్రేసులను ఎక్కించండి
-  oauth_clients:
-    show:
-      edit: వివరాలను మార్చు
-      confirm: నిశ్చయంగానే ఉన్నారా?
-    index:
-      application: ఉపకరణపు పేరు
   oauth2_applications:
     index:
       new: కొత్త అనువర్తనాన్ని నమోదు చెయ్యండి
@@ -2257,7 +2182,6 @@ te:
       ct status: 'తోడ్పాటు నియమాలు:'
       ct undecided: నిర్ణయించుకోలేదు
       ct declined: తిరస్కరించారు
-      latest edit: 'చివరి మార్పు (%{ago}):'
       email address: 'ఈమెయిలు చిరునామా:'
       status: 'స్థితి:'
       spam score: 'స్పామ్ స్కోరు:'
@@ -2288,14 +2212,12 @@ te:
     index:
       title: వాడుకరులు
       heading: వాడుకరులు
-      showing:
-        one: పేజీ %{page} (%{items} లో %{first_item})
-        other: పేజీ %{page} (%{items} లో %{first_item}-%{last_item})
       summary_html: '%{name}, %{date} న %{ip_address} నుండి సృష్టించారు'
       summary_no_ip_html: '%{name} %{date} న సృష్టించారు'
+      empty: సరిపోలే వాడుకరులు కనబడలేదు
+    page:
       confirm: ఎంచుకున్న వాడూకరులను ధ్రువీకరించు
       hide: ఎంచుకున్న వాడుకరులను దాచు
-      empty: సరిపోలే వాడుకరులు కనబడలేదు
     suspended:
       title: ఖాతాను సస్పెండు చేసారు
       heading: సస్పెండు చేసిన ఖాతా
@@ -2323,15 +2245,11 @@ te:
       heading: పాత్ర అనుమతి నిర్థారణ
       are_you_sure: వాడుకరి `%{name}' కి `%{role}' పాత్ర ఇవ్వాలని మీరు నిశ్చయించుకున్నారా?
       confirm: నిర్ధారించు
-      fail: వాడుకరి `%{name}' కు `%{role}' పాత్రను ఇవ్వలేకపోయాం. వాడుకరి, పాత్ర రెండూ
-        సరైనవేనని నిర్థారించుకోండి.
     revoke:
       title: పాత్ర ఉపసంహరణను నిర్థారించండి
       heading: పాత్ర ఉపసంహరణ నిర్థారణ
       are_you_sure: వాడుకరి `%{name}' నుండి `%{role}' ను ఉపసంహరించాలని మీరు నిశ్చయించుకున్నారా?
       confirm: నిర్ధారించు
-      fail: వాడుకరి `%{name}' నుండి `%{role}' ను ఉపసంహరించలేఖ పోయాం. వాడుకరి, పాత్ర
-        రెండూ సరైనవేనని నిర్థారించుకోండి.
   user_blocks:
     model:
       non_moderator_update: నిరోధాన్ని విధించాలన్నా, తాజాకరించాలన్నా మోడరేటరై ఉండాలి.
@@ -2343,15 +2261,11 @@ te:
       title: '%{name} పై నిరోధం విధిస్తున్నాం'
       heading_html: '%{name} పై నిరోధం విధిస్తున్నాం'
       period: ఇప్పుడు మొదలుపెట్టి, ఎంత కాలం పాటు వాడుకరి API వాడకుండా నిరోధంలో ఉంటారు.
-      back: అన్ని నిరోధాలను చూడండి
     edit:
       title: '%{name} పై ఉన్న నిరోధాన్ని సవరిస్తున్నారు'
       heading_html: '%{name} పై ఉన్న నిరోధాన్ని సవరిస్తున్నారు'
       period: ఇప్పుడు మొదలుపెట్టి, ఎంత కాలం పాటు వాడుకరి API వాడకుండా నిరోధంలో ఉంటారు.
-      show: ఈ నిరోధాన్ని చూడండి
-      back: అన్ని నిరోధాలను చూడండి
     filter:
-      block_expired: నిరోధం ఈసరికే ముగిసిపోయింది. దాన్ని సవరించలేరు.
       block_period: నిరోధ కాలం డ్రాప్ డౌన్ జాబితా లోంచి ఎంచుకునే విలువల్లో ఒకటై ఉండాలి.
     create:
       flash: వాడుకరి %{name} పై నిరోధం సృష్టించారు.
@@ -2362,14 +2276,6 @@ te:
       title: వాడుకరి నిరోధాలు
       heading: వాడుకరి నిరోధాల జాబితా
       empty: ఇంకా నిరోధాలేమీ విధించలేదు.
-    revoke:
-      title: '%{block_on} పై ఉన్న నిరోధాన్ని ఎత్తేస్తున్నారు.'
-      heading_html: '%{block_on} పై %{block_by} విధించిన నిరోధాన్ని ఎత్తేస్తున్నారు.'
-      time_future: '%{time} కు నిరోధం ముగుస్తుంది.'
-      past: '%{time} కు నిరోధం ముగిసిపోయింది. ఇప్పుడు దాన్ని ఎత్తివేయలేరు.'
-      confirm: మీరు నిజంగానే ఈ నిరోధాన్ని ఎత్తివేయాలనుకుంటున్నారా?
-      revoke: ఎత్తివేయండి!
-      flash: నిరోధాన్ని ఎత్తివేసారు.
     helper:
       time_future_html: '%{time}లో ముగుస్తుంది.'
       until_login: వాడుకరి లాగిన్ అయ్యేదాకా చేతనంగా ఉంటుంది.
@@ -2407,26 +2313,20 @@ te:
       status: 'స్థితి:'
       show: చూపించు
       edit: మార్చు
-      revoke: ఎత్తివేయండి!
       confirm: నిశ్చయించుకున్నారా?
       reason: 'నిరోధానికి కారణం:'
-      back: అన్ని నిరోధాలను చూడండి
       revoker: 'ఎత్తివేసేవారు:'
       needs_view: ఈ నిరోధం తొలగిపోవాలంటే ఈ వాడుకరి లాగినవ్వాలి.
     block:
       not_revoked: (ఎత్తివేయలేదు)
       show: చూపించు
       edit: మార్చు
-      revoke: ఎత్తివేయండి!
     blocks:
       display_name: నిరోధిత వాడుకరి
       creator_name: సృష్టికర్త
       reason: నిరోధానికి కారణం
       status: స్థితి
       revoker_name: ఎత్తివేసినవారు
-      showing_page: పేజీ %{page}
-      next: తదుపరి »
-      previous: « మునుపటి
   notes:
     index:
       title: గమనికలు సమర్పించినది లేదా వ్యాఖ్యానించినది %{user}
@@ -2493,11 +2393,9 @@ te:
           other: మీరు ఈ బిందువు నుండి %{count} అడుగుల దూరం లోపే ఉన్నారు
       base:
         standard: ప్రామాణికం
-        cyclosm: CyclOSM
         cycle_map: సైకిలు మ్యాపు
         transport_map: రవాణా పటం
         hot: మానవత్వ
-        opnvkarte: ÖPNVKarte
       layers:
         header: మ్యాపు పొరలు
         notes: పటపు గమనికలు
@@ -2513,13 +2411,6 @@ te:
       map_data_zoom_in_tooltip: మ్యాపు డేటాను చూసేందుకు జూమిన్ చెయ్యి
       queryfeature_tooltip: క్వెరీ విశేషాలు
       queryfeature_disabled_tooltip: క్వెరీ చిశేషాల కోసం జూమిన్ చెయ్యండి
-    changesets:
-      show:
-        comment: వ్యాఖ్య
-        subscribe: గమనింపులలో చేర్చు
-        unsubscribe: గమనింపులనుండి తొలగించు
-        hide_comment: దాచు
-        unhide_comment: చూపించు
     edit_help: మ్యాపును జరిపి, మీరు సరిదిద్దాలనుకున్న స్థలంపై జూమిన్ చేసి, అప్పుడు
       ఇక్కడ నొక్కండి.
     directions:

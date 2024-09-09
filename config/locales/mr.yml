@@ -194,8 +194,6 @@ mr:
         link text: हे काय आहे?
       save changes button: बदल जतन करा
   browse:
-    created: बनविले
-    closed: बंद केले
     version: आवृत्ती
     in_changeset: बदलसंच
     anonymous: अनामिक
@@ -211,21 +209,6 @@ mr:
     view_history: इतिहास पहा
     view_details: तपशील पहा
     location: 'ठिकाण:'
-    changeset:
-      title: 'बदलसंच: %{id}'
-      belongs_to: लेखक
-      node: गाठी (%{count})
-      node_paginated: गाठी (%{x}-%{y}, %{count} पैकी)
-      way: मार्ग (%{count})
-      way_paginated: मार्ग (%{x}-%{y}, %{count} पैकी)
-      relation: संबंध (%{count})
-      relation_paginated: संबंध (%{x}-%{y}, %{count} पैकी)
-      changesetxml: बदलसंच XML
-      osmchangexml: osmChange XML
-      feed:
-        title: बदलसंच %{id}
-        title_comment: बदलसंच %{id} - %{comment}
-      join_discussion: चर्चेत सहभागी होण्यासाठी सनोंद प्रवेश करा
     node:
       title_html: 'गाठ: %{name}'
       history_title_html: 'गाठीचा इतिहास: %{name}'
@@ -284,6 +267,11 @@ mr:
       wikipedia_link: विकिपिडियावरील %{page} हा लेख
     query:
       title: वस्तूंची विचारणा
+  changeset_comments:
+    feeds:
+      show:
+        title_all: OpenStreetMap बदलसंच चर्चा
+        title_particular: 'OpenStreetMap बदलसंच #%{changeset_id} चर्चा'
   changesets:
     changeset_paging_nav:
       showing_page: लेख %{page}
@@ -293,12 +281,6 @@ mr:
       anonymous: अनामिक
       no_edits: (संपादने नाहीत)
       view_changeset_details: बदलसंचाचा तपशील पहा
-    changesets:
-      id: ओळखसंख्या (आयडी)
-      saved_at: ला जतन केले
-      user: सदस्य
-      comment: टिप्पणी
-      area: क्षेत्र
     index:
       title: बदलसंच
       title_user: '%{user}चे बदलसंच'
@@ -311,16 +293,32 @@ mr:
       no_more_area: या भागात अधिक बदलसंच नाहीत.
       no_more_user: या सदस्याचे अधिक बदलसंच नाहीत.
       load_more: अधिक प्रभारण करा
+      feed:
+        title: बदलसंच %{id}
+        title_comment: बदलसंच %{id} - %{comment}
+        created: बनविले
+        closed: बंद केले
+        belongs_to: लेखक
+    show:
+      title: 'बदलसंच: %{id}'
+      join_discussion: चर्चेत सहभागी होण्यासाठी सनोंद प्रवेश करा
+      comment: टिप्पणी
+      changesetxml: बदलसंच XML
+      osmchangexml: osmChange XML
+    paging_nav:
+      nodes: गाठी (%{count})
+      nodes_paginated: गाठी (%{x}-%{y}, %{count} पैकी)
+      ways: मार्ग (%{count})
+      ways_paginated: मार्ग (%{x}-%{y}, %{count} पैकी)
+      relations: संबंध (%{count})
+      relations_paginated: संबंध (%{x}-%{y}, %{count} पैकी)
     timeout:
       sorry: क्षमा असावी, आपण मागितलेली बदलसंचाची यादी मिळविण्यास फार वेळ लागला.
-  changeset_comments:
-    index:
-      title_all: OpenStreetMap बदलसंच चर्चा
-      title_particular: 'OpenStreetMap बदलसंच #%{changeset_id} चर्चा'
   dashboards:
     contact:
       km away: '%{count} कि.मी. दूर'
       m away: '%{count} मी. दूर'
+      latest_edit_html: 'नवीनतम संपादन %{ago}:'
     popup:
       your location: आपले ठिकाण
       nearby mapper: जवळपासचे नकाशाकार
@@ -348,6 +346,7 @@ mr:
       new: अनुदिनीत नवी नोंद
       new_title: आपल्या अनुदिनीत नवी नोंद लिहा
       no_entries: रिक्त अनुदिनी
+    page:
       recent_entries: रोजनिशीतील अलीकडील नोंदी
       older_entries: जुन्या नोंदी
       newer_entries: नव्या नोंदी
@@ -395,7 +394,8 @@ mr:
       all:
         title: ओपनस्ट्रीटमॅप अनुदिनीतील नोंदी
         description: ओपनस्ट्रीटमॅप सदस्यांकडून अलीकडील अनुदिनी-नोंदी
-    comments:
+  diary_comments:
+    page:
       post: पाठवा
       when: कधी
       comment: टिप्पणी
@@ -848,15 +848,12 @@ mr:
     export_data: माहिती निर्यात
     gps_traces: GPS अनुरेख
     user_diaries: सदस्य अनुदिनी
-    user_diaries_tooltip: सदस्य अनुदिनी पहा
     edit_with: '%{editor} वापरून संपादन करा'
     tag_line: मुक्त विकि जागतिक नकाशा
     intro_header: ओपनस्ट्रीटमॅपवर स्वागत आहे!
     intro_text: ओपनस्ट्रीटमॅप हा जगाचा नकाशा आहे, जो आपल्यासारख्या लोकांनी तयार केला
       आहे, व जो खुल्या परवान्यांतर्गत वापरास मुक्त आहे.
     intro_2_create_account: सदस्यखाते तयार करा
-    partners_ucl: UCL VR सेंटर
-    partners_bytemark: बाईटमार्क होस्टिंग
     partners_partners: भागीदार
     osm_offline: डाटाबेसचे आवश्यक देखरेखीचे काम असल्यामुळे ओपनस्ट्रीटमॅप डाटाबेस ही
       जालावेगळी करण्यात आलेली आहे.
@@ -870,9 +867,6 @@ mr:
     community: समुदाय
     community_blogs: अनुदिनी
     community_blogs_title: ओपनस्ट्रीटमॅप समुदायाच्या सदस्यांच्या अनुदिनी
-    make_a_donation:
-      title: आर्थिक देणगी देऊन  करुन ओपनस्ट्रीटमॅपला  साहाय्य करा.
-      text: देणगी द्या
     learn_more: अधिक जाणून घ्या
     more: अधिक
   user_mailer:
@@ -926,7 +920,6 @@ mr:
   messages:
     inbox:
       title: अंतर्पेटी
-      my_inbox: माझी अंतर्पेटी
       messages: आपल्यासाठी %{new_messages} आणि %{old_messages} आहेत
       new_messages:
         one: '%{count} नवा संदेश'
@@ -934,12 +927,14 @@ mr:
       old_messages:
         one: '%{count} जुना संदेश'
         other: '%{count} जुने संदेश'
-      from: पासून
-      subject: विषय
-      date: दिनांक
       no_messages_yet_html: आपल्यासाठी अद्याप संदेश नाहीत. %{people_mapping_nearby_link}
         संपर्क साधावा काय?
       people_mapping_nearby: जवळपासच्या इतर नकाशाकारांशी
+    messages_table:
+      from: पासून
+      to: प्रति
+      subject: विषय
+      date: दिनांक
     message_summary:
       unread_button: न वाचलेले अशी खूण करा
       read_button: वाचले अशी खूण करा
@@ -961,9 +956,6 @@ mr:
       messages:
         one: आपण पाठविलेला %{count} संदेश
         other: आपण पाठविलेले %{count} संदेश
-      to: प्रति
-      subject: विषय
-      date: दिनांक
       no_sent_messages_html: आपण अद्याप कुठलेही संदेश पाठविलेले नाहीत. %{people_mapping_nearby_link}
         संपर्क साधावा काय?
       people_mapping_nearby: जवळपासच्या इतर नकाशाकारांशी
@@ -981,20 +973,23 @@ mr:
         सदस्य म्हणून दाखल व्हा.
     sent_message_summary:
       destroy_button: वगळा
+    heading:
+      my_inbox: माझी अंतर्पेटी
     mark:
       as_read: संदेश वाचला आहे अशी खूण केली
       as_unread: संदेश वाचला नाही अशी खूण केली
     destroy:
       destroyed: संदेश वगळला
   passwords:
-    lost_password:
+    new:
       heading: परवलीचा शब्द विसरला?
       email address: 'विपत्र पत्ता:'
       new password button: परवलीचा शब्द पुनर्स्थापित करा
-    reset_password:
+    edit:
       title: परवलीचा शब्द पुनर्स्थापित करा
       heading: '%{user}साठी परवलीचा शब्द पुनर्स्थापित करा'
       reset: परवलीचा शब्द पुनर्स्थापित करा
+    update:
       flash changed: आपला परवलीचा शब्द बदलण्यात आला आहे.
   preferences:
     show:
@@ -1017,14 +1012,13 @@ mr:
   sessions:
     new:
       title: सनोंद प्रवेश करा
-      heading: सनोंद प्रवेश करा
+      tab_title: सनोंद प्रवेश करा
       email or username: 'विपत्रपत्ता किंवा सदस्यनाव:'
       password: 'परवलीचा शब्द:'
       remember: माझी आठवण ठेवा
       lost password link: परवलीचा शब्द विसरलात?
       login_button: सनोंद प्रवेश करा
       register now: आत्ता नोंदणी करा
-      no account: आपले खाते नाही?
   site:
     about:
       next: पुढील
@@ -1041,6 +1035,7 @@ mr:
       open_data_title: मुक्त माहिती
       partners_title: भागीदार
     copyright:
+      title: प्रताधिकार व परवाना
       foreign:
         title: या भाषांतराबद्दल
         html: या भाषांतरीत पानाच्या व %{english_original_link} यादरम्यान काही वादाचा
@@ -1054,7 +1049,6 @@ mr:
         native_link: मराठी आवृत्ती
         mapping_link: नकाशा आरेखन
       legal_babble:
-        title_html: प्रताधिकार व परवाना
         credit_title_html: ओपनस्ट्रीटमॅपला श्रेय कसे द्यावे
         credit_1_html: |-
           &ldquo;&copy; OpenStreetMap
@@ -1073,9 +1067,6 @@ mr:
       js_1: आपण जावास्क्रीप्ट चालवू न शकणारा न्याहाळक वापरत आहात, किंवा जावास्क्रीप्ट
         निष्क्रिय आहे.
       js_2: ओपनस्ट्रीटमॅप सरकत्या नकाशासाठी जावास्क्रीप्टचा वापर करते.
-      permalink: शाश्वत दुवा
-      shortlink: लघुदुवा
-      createnote: टीप जोडा
       license:
         copyright: प्रताधिकार ओपनस्ट्रीटमॅप आणि योगदाते, खुल्या परवान्यांतर्गत
       remote_failed: संपादन अयशस्वी - JOSM किंवा Merkaartor चालू केले आहे आणि रिमोट
@@ -1088,12 +1079,7 @@ mr:
       anon_edits_link_text: असे का आहे ते जाणून घ्या.
     export:
       title: निर्यात
-      area_to_export: निर्यात करावयाचे क्षेत्र
       manually_select: वेगळे क्षेत्र निवडा
-      format_to_export: निर्यातीचे प्रारुप
-      osm_xml_data: ओपनस्ट्रीटमॅप XML डाटा
-      map_image: नकाशा चित्र (प्रमाणित स्तर दाखविते)
-      embeddable_html: अंतःस्थापन करण्याजोगी HTML
       licence: परवाना
       too_large:
         advice: 'जर वरील निर्यात करण्यास अपयश आले, तर कृपया खालील स्रोत वापरण्याचा
@@ -1114,17 +1100,6 @@ mr:
         other:
           title: इतर स्रोत
           description: ओपनस्ट्रीटमॅप विकीवर सूचीबद्ध अतिरिक्त स्रोत
-      options: विकल्प
-      format: आराखडा
-      scale: प्रमाण
-      max: कमाल
-      image_size: चित्राचा आकार
-      zoom: मोठे करा
-      add_marker: नकाशावर दर्शकचिन्ह जोडा
-      latitude: 'अक्षांश:'
-      longitude: 'रेखांश:'
-      output: उत्पादन
-      paste_html: संकेतस्थळावर अंतःस्थापनासाठी HTML चिकटवा
       export_button: निर्यात
     fixthemap:
       title: समस्या नोंदवा/नकाशा नीयत करा
@@ -1137,10 +1112,6 @@ mr:
       welcome:
         url: /welcome
         title: ओएसएम वर स्वागत आहे
-      help:
-        title: help.openstreetmap.org
-        description: OSMच्या प्रश्नोत्तरासाठीच्या संकेतस्थळावर प्रश्न विचारा किंवा
-          उत्तरे शोधा.
       wiki:
         title: wiki.openstreetmap.org
         description: सखोल OSM प्रलेखनासाठी विकी वाचा.
@@ -1170,33 +1141,23 @@ mr:
           footway: पदपथ
           rail: लोहमार्ग
           subway: मेट्रो
-          tram:
-          - हलकी रेल्वे
-          - ट्राम
-          cable:
-          - रज्जुमार्ग
-          - खुर्ची उद्वाहन
-          runway:
-          - विमानतळ धावपट्टी
-          - खेचमार्ग
-          apron:
-          - विमानतळावरील भरणतळ
-          - अग्र
+          cable_car: रज्जुमार्ग
+          chair_lift: खुर्ची उद्वाहन
+          runway: विमानतळ धावपट्टी
+          taxiway: खेचमार्ग
+          apron: विमानतळावरील भरणतळ
           admin: प्रशासकीय सीमा
           forest: वन
           wood: जंगल
           golf: गोल्फ कोर्स
           park: उद्यान
+          common: सार्वजनिक जमीन
           resident: निवासी क्षेत्र
-          common:
-          - सार्वजनिक जमीन
-          - कुरण
           retail: विक्री क्षेत्र
           industrial: औद्योगिक क्षेत्र
           commercial: वाणिज्यिक क्षेत्र
-          lake:
-          - तलाव
-          - जलाशय
+          lake: तलाव
+          reservoir: जलाशय
           farm: मळा
           cemetery: दफनभूमी
           allotments: वाटप
@@ -1204,14 +1165,12 @@ mr:
           centre: क्रीडाकेंद्र
           reserve: अभयारण्य
           military: लष्करी क्षेत्र
-          school:
-          - शाळा
-          - विद्यापीठ
+          school: शाळा
+          university: विद्यापीठ
           building: महत्वपूर्ण इमारत
           station: रेल्वे स्थानक
-          summit:
-          - शिखर
-          - शिखर
+          summit: शिखर
+          peak: शिखर
           tunnel: तुटक कड = बोगदा
           bridge: काळी कड = पूल
           private: खाजगी प्रवेश
@@ -1280,9 +1239,6 @@ mr:
       delete_trace: हा अनुरेख वगळा
       trace_not_found: अनुरेख आढळला नाही!
       visibility: 'दृश्यता:'
-    trace_paging_nav:
-      older: जुने अनुरेख
-      newer: नवे अनुरेख
     trace:
       pending: प्रलंबित
       count_points: '%{count} बिंदू'
@@ -1294,8 +1250,6 @@ mr:
       identifiable: ओळखण्याजोगी
       private: खाजगी
       trackable: मागोव्याजोगा
-      by: तर्फे
-      in: आत
     index:
       public_traces: सार्वजनिक GPS अनुरेख
       my_gps_traces: माझ्या GPS अनुरेखा
@@ -1304,35 +1258,17 @@ mr:
       upload_trace: अनुरेख चढवा
       all_traces: सर्व अनुरेख
       my_traces: माझे अनुरेख
+    page:
+      older: जुने अनुरेख
+      newer: नवे अनुरेख
     georss:
       title: OpenStreetMap GPS अनुरेखा
   application:
     settings_menu:
       account_settings: खाते मांडण्या
-      oauth1_settings: OAuth 1 मांडण्या
   oauth:
-    authorize:
-      allow_write_gpx: GPS अनुरेख चढवा
     scopes:
       write_gpx: GPS अनुरेख चढवा
-  oauth_clients:
-    new:
-      title: नवीन अनुप्रयोगाची नोंदणी करा
-    edit:
-      title: अनुप्रयोग संपादा
-    show:
-      title: '%{app_name}साठी OAuth तपशील'
-      key: 'उपभोक्ता किल्ली:'
-      secret: 'उपभोक्ता गुपित:'
-      url: 'विनंती बिल्ला URL:'
-      access_url: 'प्रवेश बिल्ला URL:'
-      edit: तपशील संपादा
-      confirm: नक्की आहात?
-    index:
-      title: माझे OAuth तपशील
-      register_new: आपल्या अनुप्रयोगाची नोंदणी करा
-    form:
-      requests: 'सदस्याकडून खालील परवानग्यांची मागणी करा:'
   users:
     new:
       title: नोंदणी करा
@@ -1378,16 +1314,12 @@ mr:
       ct status: 'योगदात्यांसाठी अटी:'
       ct undecided: अनिर्णीत
       ct declined: अमान्य
-      latest edit: 'नवीनतम संपादन %{ago}:'
       email address: 'ईमेल पत्ता:'
       status: 'स्थिती:'
       report: या वापरकर्त्याची तक्रार करा
     index:
       title: सदस्य
       heading: सदस्य
-      showing:
-        one: पान %{page} (%{first_item}, %{items} पैकी)
-        other: पान %{page} (%{first_item}-%{last_item}, %{items}पैकी)
   user_blocks:
     helper:
       block_duration:
@@ -1403,10 +1335,6 @@ mr:
         years:
           one: '%{count} वर्ष'
           other: '%{count} वर्षे'
-    blocks:
-      showing_page: पान %{page}
-      next: पुढील »
-      previous: « मागील
   notes:
     show:
       title: 'टीप: %{id}'
@@ -1457,9 +1385,6 @@ mr:
       createnote_disabled_tooltip: नकाशावर टीप जोडण्यासाठी झूम करा
       queryfeature_tooltip: वस्तूंची विचारणा
       queryfeature_disabled_tooltip: वस्तूंची विचारणा करण्यासाठी झूम करा
-    changesets:
-      show:
-        comment: टिप्पणी
     directions:
       instructions:
         offramp_right_with_exit: उजवीकडील %{exit}ने बाहेर पडा

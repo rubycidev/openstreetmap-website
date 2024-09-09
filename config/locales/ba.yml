@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: AiseluRB
 # Author: Amire80
+# Author: Bashkorttan
 # Author: Lizalizaufa
 # Author: MR973
 # Author: Roustammr
@@ -24,7 +25,7 @@ ba:
       prompt: Файлды һайлағыҙ
     submit:
       diary_comment:
-        create: Һаҡларға
+        create: Комментарий
       diary_entry:
         create: Баҫтырырға
         update: Яңыртырға
@@ -52,6 +53,11 @@ ba:
       messages:
         invalid_email_address: Ысын электрон почта адресына оҡшамаған
         email_address_not_routable: йүнәлешле түгел
+        display_name_is_user_n: use_n була алмай, әгәр n һеҙҙең ҡулланыусы идентификаторығыҙ
+          булмаһа.
+      models:
+        user_mute:
+          is_already_muted: тауышы инде һүндерелгән
     models:
       acl: Инеүҙе сикләү исемлеге
       changeset: Төҙәтеүҙәр пакеты
@@ -106,6 +112,7 @@ ba:
       diary_entry:
         user: Ҡулланыусы
         title: Тема
+        body: Текст
         latitude: Киңлек
         longitude: Оҙонлоҡ
         language_code: Тел
@@ -144,7 +151,6 @@ ba:
         auth_provider: Аутентификация провайдеры
         auth_uid: Аутентификация UID
         email: Электрон почта адресы
-        email_confirmation: Электрон почтаны раҫлау
         new_email: Яңы электрон почта адресы
         active: Әүҙем
         display_name: Сағылдырылған исем
@@ -160,6 +166,7 @@ ba:
         confidential: Ҡушымта клиент серен сер итеп тоторға мөмкин булған урындарҙа
           ҡулланыласаҡ (үҙ мобиль ҡушымталар һәм бер битле ҡушымталар конфиденциаль
           түгел)
+        redirect_uri: URI өсөн бер юл ҡулланығыҙ
       trace:
         tagstring: өтөр аша
       user_block:
@@ -174,41 +181,41 @@ ba:
   datetime:
     distance_in_words_ago:
       about_x_hours:
-        one: яҡынса 1 сәғәт элек
-        other: яҡынса %{count} сәғәт элек
+        one: '%{count} сәғәт самаһы элек'
+        other: '%{count} сәғәт самаһы элек'
       about_x_months:
-        one: яҡынса 1 ай элек
-        other: яҡынса %{count} ай элек
+        one: '%{count} ай самаһы элек'
+        other: '%{count} ай самаһы элек'
       about_x_years:
-        one: яҡынса 1 йыл элек
-        other: яҡынса %{count} йыл элек
+        one: '%{count} йыл самаһы элек'
+        other: '%{count} йыл самаһы элек'
       almost_x_years:
-        one: 1 йыл элек тиерлек
-        other: '%{count} йыл элек тиерлек'
+        one: '%{count} йыл тирәһе элек'
+        other: '%{count} йыл тирәһе элек'
       half_a_minute: ярты минут элек
       less_than_x_seconds:
-        one: 1 секунд кәм элек
-        other: '%{count} секунд кәм элек'
+        one: '%{count} секундтан аҙ ваҡыт элек'
+        other: '%{count} секундтан аҙ ваҡыт элек'
       less_than_x_minutes:
-        one: 1 минут кәм элек
-        other: '%{count} минут кәм элек'
+        one: '%{count} минуттан аҙ ваҡыт элек'
+        other: '%{count} минуттан аҙ ваҡыт элек'
       over_x_years:
-        one: яҡынса 1 йыл элек
-        other: яҡынса %{count} йыл элек
+        one: '%{count} йылдан ашыу ваҡыт элек'
+        other: '%{count} йылдан ашыу ваҡыт элек'
       x_seconds:
-        one: 1 секунд элек
+        one: '%{count} секунд элек'
         other: '%{count} секунд элек'
       x_minutes:
-        one: 1 минут элек
+        one: '%{count} минут элек'
         other: '%{count} минут элек'
       x_days:
-        one: 1 көн элек
+        one: '%{count} көн элек'
         other: '%{count} көн элек'
       x_months:
-        one: 1 ай элек
+        one: '%{count} ай элек'
         other: '%{count} ай элек'
       x_years:
-        one: 1 йыл элек
+        one: '%{count} йыл элек'
         other: '%{count} йыл элек'
   editor:
     default: Һайланмаған (ҡуйылған %{name})
@@ -221,7 +228,6 @@ ba:
   auth:
     providers:
       none: Юҡ
-      openid: OpenID
       google: Google
       facebook: Facebook
       microsoft: Майкрософт
@@ -240,6 +246,7 @@ ba:
         reopened_at_by_html: Кире асылды %{when} ҡулланыусы %{user}
       rss:
         title: OpenStreetMap Яҙмалары
+        description_all: Яһалған, комментарий бирелгән йәки ябыҡ иҫкәрмәләр исемлеге
         description_area: Һеҙҙең өлкәлә яһалған, комментарий бирелгән йәки ябылған
           яҙмалар исемлеге [(%{min_lat}|%{min_lon}) -- (%{max_lat}|%{max_lon})]
         description_item: RSS-яҙмалар ағымы %{id}
@@ -250,9 +257,17 @@ ba:
       entry:
         comment: Комментарий
         full: Тулы текст
+  account:
+    deletions:
+      show:
+        title: Минең иҫәп яҙманы юйырға
+        warning: Иғтибар! Аккаунтты юйыу процесы һуңғы, һәм кире ҡайтарып булмай.
+        delete_account: Аккаунтты юйырға
+        delete_introduction: 'Түбәндәге төймә ярҙамында OpenStreetMap аккаунтты юйырға
+          мөмкин. Түбәндәге нескәлектәргә иғтибар итегеҙ:'
+        delete_profile: Һеҙҙең профилегеҙҙең мәғлүмәттәре, шул иҫәптән аватар, тасуирлама
+          һәм өй адресы юйыласаҡ.
   browse:
-    created: Булдырылған
-    closed: Ябыҡ
     version: Версия
     in_changeset: Төҙәтеүҙәр пакеты
     anonymous: Аноним
@@ -265,28 +280,9 @@ ba:
       one: 1 юл
       other: '%{count} юлдар'
     download_xml: ' XML-ды күсереү'
-    view_history: Тарихты ҡарау
+    view_history: Тарих
     view_details: Ентекләберәк
     location: 'Географик урын:'
-    changeset:
-      title: 'Төҙәтеүҙәр пакеты: %{id}'
-      belongs_to: Автор
-      node: Нөктәләр (%{count})
-      node_paginated: Нөктәләр (%{x}-%{y} из %{count})
-      way: Һыҙыҡтар (%{count})
-      way_paginated: Юлдар (%{x}-%{y} %{count}һынан)
-      relation: Мөнәсәбәттәр (%{count})
-      relation_paginated: Мөнәсәбәттәр (%{x}-%{y} %{count}нан)
-      comment: Комментарийҙар (%{count})
-      changesetxml: Төҙәтеүҙәр пакетының XML-ы
-      osmchangexml: osmChange XML
-      feed:
-        title: 'Төҙәтеүҙәр пакеты: %{id}'
-        title_comment: Төҙәтеүҙәр пакеты %{id} — %{comment}
-      join_discussion: Фекер алышыуға ҡушылыу өсөн системаға инегеҙ
-      discussion: Фекер алышыу
-      still_open: Төҙәтмәләр пакеты әле асыҡ. Фекер алышыу, төҙәтмәләр пакеты ябылғандан
-        һуң ғына буласаҡ.
     node:
       title_html: 'Нөктә: %{name}'
       history_title_html: 'Нөктә тарихы: %{name}'
@@ -361,6 +357,20 @@ ba:
       introduction: Яҡындағы объекттарҙы табыу өсөн картаға баҫығыҙ
       nearby: Яҡындағы объекттар
       enclosing: Урыны
+  changeset_comments:
+    feeds:
+      comment:
+        comment: '%{author} тарафынан төҙәтмәләр пакетына %{changeset_id} яңы комментарий'
+        commented_at_by_html: Яңыртылған %{when} ҡулланыусы %{user} тарафынан
+      comments:
+        comment: '%{author} тарафынан төҙәтмәләр пакетына %{changeset_id} яңы комментарий'
+      show:
+        title_all: OpenStreetMap төҙәтмәләр пакеты буйынса фекерләшеү
+        title_particular: ' OpenStreetMap #%{changeset_id} төҙәтмәләр пакеты буйынса
+          фекерләшеү'
+      timeout:
+        sorry: Ҡыҙғанысҡа ҡаршы, һеҙ һораған төҙәтмә пакеттары исемлеген алыу өсөн
+          күп ваҡыт талап итә.
   changesets:
     changeset_paging_nav:
       showing_page: ' %{page} бите'
@@ -370,12 +380,6 @@ ba:
       anonymous: Аноним
       no_edits: (төҙәтеүҙәр юҡ)
       view_changeset_details: Төҙәтеүҙәр пакетының тәфсирен ҡарап сығырға
-    changesets:
-      id: ID
-      saved_at: Тамамланған
-      user: Ҡулланыусы
-      comment: Комментарий
-      area: Өлкә
     index:
       title: Төҙәтеүҙәр пакеты
       title_user: ' %{user} ҡулланыусыһының төҙәтеүҙәр пакеты'
@@ -388,19 +392,27 @@ ba:
       no_more_area: Был өлкәлә башҡа төҙәтмәләр пакеты юҡ.
       no_more_user: Был ҡулланыусынан башҡа төҙәтмәләр пакеты юҡ.
       load_more: Күберәк тейәү
-    timeout:
-      sorry: Ҡыҙғанысҡа ҡаршы, һеҙ һораған төҙәтмә пакеттары исемлеген алыу өсөн күп
-        ваҡыт талап итә.
-  changeset_comments:
-    comment:
-      comment: '%{author} тарафынан төҙәтмәләр пакетына %{changeset_id} яңы комментарий'
-      commented_at_by_html: Яңыртылған %{when} ҡулланыусы %{user} тарафынан
-    comments:
-      comment: '%{author} тарафынан төҙәтмәләр пакетына %{changeset_id} яңы комментарий'
-    index:
-      title_all: OpenStreetMap төҙәтмәләр пакеты буйынса фекерләшеү
-      title_particular: ' OpenStreetMap #%{changeset_id} төҙәтмәләр пакеты буйынса
-        фекерләшеү'
+      feed:
+        title: 'Төҙәтеүҙәр пакеты: %{id}'
+        title_comment: Төҙәтеүҙәр пакеты %{id} — %{comment}
+        created: Булдырылған
+        closed: Ябыҡ
+        belongs_to: Автор
+    show:
+      title: 'Төҙәтеүҙәр пакеты: %{id}'
+      discussion: Фекер алышыу
+      join_discussion: Фекер алышыуға ҡушылыу өсөн системаға инегеҙ
+      still_open: Төҙәтмәләр пакеты әле асыҡ. Фекер алышыу, төҙәтмәләр пакеты ябылғандан
+        һуң ғына буласаҡ.
+      changesetxml: Төҙәтеүҙәр пакетының XML-ы
+      osmchangexml: osmChange XML
+    paging_nav:
+      nodes: Нөктәләр (%{count})
+      nodes_paginated: Нөктәләр (%{x}-%{y} из %{count})
+      ways: Һыҙыҡтар (%{count})
+      ways_paginated: Юлдар (%{x}-%{y} %{count}һынан)
+      relations: Мөнәсәбәттәр (%{count})
+      relations_paginated: Мөнәсәбәттәр (%{x}-%{y} %{count}нан)
     timeout:
       sorry: Ҡыҙғанысҡа ҡаршы, һеҙ һораған төҙәтмә пакеттары исемлеген алыу өсөн күп
         ваҡыт талап итә.
@@ -435,6 +447,7 @@ ba:
       new_title: Минең көндәлектә яңы яҙма яҙыу
       my_diary: Минең көндәлек
       no_entries: Көндәлектә яҙмалар юҡ
+    page:
       recent_entries: Һуңғы көндәлек яҙмалары
       older_entries: Иҫкерәк яҙмалар
       newer_entries: Яңыраҡ яҙмалар
@@ -486,8 +499,10 @@ ba:
       all:
         title: OpenStreetMap көндәлек яҙмаһы
         description: OpenStreetMap ҡулланысыларының һуңғы көндәлек яҙмалары
-    comments:
+  diary_comments:
+    index:
       no_comments: Көндәлектә комментарийҙар юҡ
+    page:
       post: Post
       when: Ҡасан
       comment: Комментарий
@@ -964,22 +979,11 @@ ba:
   site:
     export:
       title: Сығарырға
-      area_to_export: Сығарыу яланы
       manually_select: Башҡа өлкәне ҡулдан һайларға
-      format_to_export: Сығарыу форматы
-      osm_xml_data: Биремдең OpenStreetMap XML форматы
-      map_image: Карта һүрәте (стандарт ҡатламды күрһәтә)
-      embeddable_html: Ҡуйылған HTML
       licence: Лицензия
       too_large:
         planet:
           title: OSM планетаһы
-      max: макс.
-      image_size: Һүрәт ҙурлығы
-      add_marker: Картаға билдә ҡуйыу
-      latitude: 'Киңлек:'
-      longitude: 'Оҙонлоҡ:'
-      paste_html: Сайтҡа индереп ҡуйыу өсөн HTML-код
   notes:
     show:
       title: ' %{id} искәрмәһе'

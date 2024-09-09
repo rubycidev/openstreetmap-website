@@ -104,8 +104,6 @@ sco:
     edit:
       title: Eedit accoont
   browse:
-    created: Creatit
-    closed: Closed
     version: Version
     in_changeset: Chyngeset
     anonymous: anonymous
@@ -115,23 +113,6 @@ sco:
     view_history: View History
     view_details: View Details
     location: 'Location:'
-    changeset:
-      title: 'Chyngeset: %{id}'
-      belongs_to: Author
-      node: Nodes (%{count})
-      node_paginated: Nodes (%{x}-%{y} of %{count})
-      way: Ways (%{count})
-      way_paginated: Ways (%{x}-%{y} of %{count})
-      relation: Relations (%{count})
-      relation_paginated: Relations (%{x}-%{y} of %{count})
-      comment: Comments (%{count})
-      changesetxml: Chyngeset XML
-      osmchangexml: osmChange XML
-      feed:
-        title: Chyngeset %{id}
-        title_comment: Chyngeset %{id} - %{comment}
-      join_discussion: Log in tae jyn the discussion
-      discussion: Discussion
     node:
       title_html: 'Node: %{name}'
       history_title_html: 'Node History: %{name}'
@@ -190,6 +171,10 @@ sco:
       wikidata_link: The %{page} item on Wikidata
       wikipedia_link: The %{page} airticle on Wikipaedia
       telephone_link: Caw %{phone_number}
+  changeset_comments:
+    feeds:
+      comment:
+        commented_at_by_html: Updatit %{when} ago bi %{user}
   changesets:
     changeset_paging_nav:
       showing_page: Page %{page}
@@ -199,12 +184,6 @@ sco:
       anonymous: Anonymous
       no_edits: (no eedits)
       view_changeset_details: View chyngeset details
-    changesets:
-      id: ID
-      saved_at: Saved at
-      user: Uiser
-      comment: Comment
-      area: Area
     index:
       title: Chyngesets
       title_user: Chyngesets bi %{user}
@@ -217,11 +196,27 @@ sco:
       no_more_area: No mair chyngesets in this aurie.
       no_more_user: No mair chyngesets bi this uiser.
       load_more: Load mair
+      feed:
+        title: Chyngeset %{id}
+        title_comment: Chyngeset %{id} - %{comment}
+        created: Creatit
+        closed: Closed
+        belongs_to: Author
+    show:
+      title: 'Chyngeset: %{id}'
+      discussion: Discussion
+      join_discussion: Log in tae jyn the discussion
+      changesetxml: Chyngeset XML
+      osmchangexml: osmChange XML
+    paging_nav:
+      nodes: Nodes (%{count})
+      nodes_paginated: Nodes (%{x}-%{y} of %{count})
+      ways: Ways (%{count})
+      ways_paginated: Ways (%{x}-%{y} of %{count})
+      relations: Relations (%{count})
+      relations_paginated: Relations (%{x}-%{y} of %{count})
     timeout:
       sorry: Sorry, the leet o chyngesets ye requestit teuk too lang tae retrieve.
-  changeset_comments:
-    comment:
-      commented_at_by_html: Updatit %{when} ago bi %{user}
   diary_entries:
     new:
       title: New Diary Entry
@@ -237,6 +232,7 @@ sco:
       new: New Diary Entry
       new_title: Compone a new entry in yer uiser diary
       no_entries: No diary entries
+    page:
       recent_entries: Recent diary entries
       older_entries: Aulder Entries
       newer_entries: Newer Entries
@@ -283,7 +279,8 @@ sco:
       all:
         title: OpenStreetMap diary entries
         description: Recent diary entries frae uisers o OpenStreetMap
-    comments:
+  diary_comments:
+    page:
       post: Post
       when: When
       comment: Comment
@@ -758,15 +755,12 @@ sco:
     gps_traces: GPS Traces
     gps_traces_tooltip: Manage GPS traces
     user_diaries: Uiser Diaries
-    user_diaries_tooltip: View uiser diaries
     edit_with: Eedit wi %{editor}
     tag_line: The Free Wiki Warld Cairt
     intro_header: Walcome tae OpenStreetMap!
     intro_text: OpenStreetMap is a cairt o the warld, creatit bi fowk lik ye an free
       tae uise unner an open license.
     intro_2_create_account: Create a uiser accoont
-    partners_ucl: the UCL VR Centre
-    partners_bytemark: Bytemark Hosting
     partners_partners: pairtners
     osm_offline: The OpenStreetMap database is currently offline while essential database
       maintenance wirk is carried oot.
@@ -779,9 +773,6 @@ sco:
     community: Commonty
     community_blogs: Commonty Blogs
     community_blogs_title: Blogs frae members o the OpenStreetMap commonty
-    make_a_donation:
-      title: Support OpenStreetMap wi a monetary donation
-      text: Make a Donation
     learn_more: Learn Mair
     more: Mair
   user_mailer:
@@ -797,39 +788,17 @@ sco:
         subject_other: '[OpenStreetMap] %{commenter} haes commentit on a note ye are
           interestit in'
   passwords:
-    lost_password:
+    new:
       title: Lost password
       heading: Forgotten Passwird?
   sessions:
-    new:
-      auth_providers:
-        google:
-          title: Login wi Google
-          alt: Login wi a Google OpenID
-        facebook:
-          title: Login wi Facebook
-          alt: Login wi a Facebook Accoont
-        microsoft:
-          title: Login wi Windows Live
-          alt: Login wi a Windows Live Accoont
-        github:
-          title: Login wi GitHub
-          alt: Login wi a GitHub Account
-        wikipedia:
-          title: Login wi Wikipedia
-          alt: Login wi a Wikipedia Accoont
-        wordpress:
-          title: Login wi Wordpress
-          alt: Login wi a Wordpress OpenID
-        aol:
-          title: Login wi AOL
-          alt: Login wi an AOL OpenID
     destroy:
       title: Logoot
       heading: Logoot frae OpenStreetMap
       logout_button: Logoot
   site:
     copyright:
+      title: Copyricht an License
       foreign:
         title: Aboot this translation
         html: In the event of a conflict atween this translatit page an %{english_original_link},
@@ -843,7 +812,6 @@ sco:
         native_link: Scots version
         mapping_link: stairt cairttin
       legal_babble:
-        title_html: Copyricht an License
         credit_title_html: Hou tae credit OpenStreetMap
         credit_1_html: |-
           We require that ye uise the credit &ldquo;&copy; OpenStreetMap
@@ -860,12 +828,7 @@ sco:
         infringement_title_html: Copyricht infringement
     export:
       title: Export
-      area_to_export: Area tae Export
       manually_select: Manually select a different aurie
-      format_to_export: Format tae Export
-      osm_xml_data: OpenStreetMap XML Data
-      map_image: Cairt Image (shaws staundart layer)
-      embeddable_html: Embeddable HTML
       licence: Licence
       too_large:
         advice: 'If the abuin export fails, please consider uisin ane o the soorces
@@ -887,17 +850,6 @@ sco:
         other:
           title: Ither Soorces
           description: Addeetional soorces leetit on the OpenStreetMap wiki
-      options: Options
-      format: Format
-      scale: Scale
-      max: max
-      image_size: Image Size
-      zoom: Zuim
-      add_marker: Add a marker tae the cairt
-      latitude: 'Lat:'
-      longitude: 'Lon:'
-      output: Ootput
-      paste_html: Paste HTML tae embed in wabsteid
       export_button: Export
     fixthemap:
       how_to_help:
@@ -923,13 +875,11 @@ sco:
           retail: Retail aurie
           industrial: Industrial aurie
           commercial: Commercial aurie
-          lake:
-          - Loch
+          lake: Loch
           farm: Ferm
           military: Militar aurie
-          school:
-          - Schuil
-          - varsity
+          school: Schuil
+          university: varsity
           building: Signeeficant biggin
     welcome:
       title: Walcome!
@@ -942,6 +892,23 @@ sco:
   traces:
     create:
       upload_trace: Uplaid GPS Trace
+  application:
+    auth_providers:
+      google:
+        title: Login wi Google
+        alt: Login wi a Google OpenID
+      facebook:
+        title: Login wi Facebook
+        alt: Login wi a Facebook Accoont
+      microsoft:
+        title: Login wi Windows Live
+        alt: Login wi a Windows Live Accoont
+      github:
+        title: Login wi GitHub
+        alt: Login wi a GitHub Account
+      wikipedia:
+        title: Login wi Wikipedia
+        alt: Login wi a Wikipedia Accoont
   users:
     show:
       edits: Eedits
@@ -988,7 +955,7 @@ sco:
         stay_roundabout_without_exit: Stay on roondaboot - %{name}
         start_without_exit: Stairt at end o %{name}
         destination_without_exit: Reak destination
-        against_oneway_without_exit: Gae against ane-wey on %{name}
+        against_oneway_without_exit: Gae agin ane-wey on %{name}
         end_oneway_without_exit: End o ane-wey on %{name}
         roundabout_with_exit: At roondaboot tak exit %{exit} ontae %{name}
         unnamed: unnamed road

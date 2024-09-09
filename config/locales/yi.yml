@@ -65,8 +65,6 @@ yi:
       show:
         cancel: אַנולירן
   browse:
-    created: געשאַפֿן
-    closed: געשלאסן
     version: ווערסיע
     anonymous: אַנאנים
     no_comment: (קיין הערות)
@@ -78,6 +76,12 @@ yi:
   changesets:
     changeset_paging_nav:
       showing_page: בלאַט %{page}
+    index:
+      feed:
+        created: געשאַפֿן
+        closed: געשלאסן
+    show:
+      hide_comment: באַהאַלטן
   geocoder:
     search_osm_nominatim:
       prefix:
@@ -153,9 +157,6 @@ yi:
       confirm: באַשטעטיקן
     revoke:
       confirm: באַשטעטיקן
-  user_blocks:
-    blocks:
-      showing_page: בלאַט %{page}
   notes:
     show:
       hide: באַהאַלטן
@@ -172,9 +173,6 @@ yi:
       short_url: קורץ URL
       center_marker: צענטרירן מאפע אויף מארקירונג
       view_larger_map: באקוקן גרעסערע מאפע
-    changesets:
-      show:
-        hide_comment: באַהאַלטן
     context:
       show_address: ווײַזן אדרעס
 ...

@@ -124,13 +124,6 @@ arz:
         لمذكره تأكيد العنوان الإلكترونى الجديد.
       success: تم تحديث معلومات المستخدم بنجاح.
   browse:
-    changeset:
-      title: 'حزمه التغييرات: %{id}'
-      changesetxml: حزمه التغييرات إكس إم إل
-      osmchangexml: osmChange XML
-      feed:
-        title: حزمه التغييرات %{id}
-        title_comment: حزمه التغييرات %{id} - %{comment}
     relation_member:
       entry_role_html: '%{type} %{name} كــ %{role}'
       type:
@@ -161,15 +154,16 @@ arz:
       anonymous: مجهول
       no_edits: (لا تعديلات)
       view_changeset_details: اعرض تفاصيل حزمه التغييرات
-    changesets:
-      id: المعرّف
-      saved_at: حُفظ في
-      user: المستخدم
-      comment: التعليق
-      area: منطقة
     index:
       title: حزم التغييرات
       title_user: حزم التغييرات بواسطه %{user}
+      feed:
+        title: حزمه التغييرات %{id}
+        title_comment: حزمه التغييرات %{id} - %{comment}
+    show:
+      title: 'حزمه التغييرات: %{id}'
+      changesetxml: حزمه التغييرات إكس إم إل
+      osmchangexml: osmChange XML
   dashboards:
     contact:
       km away: على بعد %{count}كم
@@ -194,6 +188,7 @@ arz:
       new: مدخله يوميه جديدة
       new_title: اكتب مدخله يوميه جديده فى يوميتك
       no_entries: لا يوجد مدخلات يومية
+    page:
       recent_entries: 'المدخلات اليوميه الحديثة:'
       older_entries: المدخلات الأقدم
       newer_entries: المدخلات الأحدث
@@ -596,16 +591,12 @@ arz:
     gps_traces: آثار جى بى أس
     gps_traces_tooltip: اتحكم فى اثار GPS
     user_diaries: يوميات المستخدمين
-    user_diaries_tooltip: اعرض يوميات المستخدمين
     tag_line: ويكى خريطه العالم الحرة
     osm_offline: حاليًا قاعده بيانات خريطه الشارع المفتوحه مغلقه بينما يتم الانتهاء
       من أعمال الصيانه الأساسيه لقاعده البيانات.
     osm_read_only: حاليًا قاعده بيانات خريطه الشارع المفتوحه فى وضع القراءه بينما
       يتم الانتهاء من أعمال الصيانه الأساسيه لقاعده البيانات.
     donate: ادعم خريطه الشارع المفتوحه ب%{link} لتمويل ترقيه العتاد.
-    make_a_donation:
-      title: ادعم خريطه الشارع المفتوحه بهبه نقدية
-      text: تبرع
   user_mailer:
     diary_comment_notification:
       subject: '[خريطه الشارع المفتوحة] %{user} أضاف تعليقًا على مدخلتك فى اليومية'
@@ -655,13 +646,14 @@ arz:
   messages:
     inbox:
       title: الوارد
-      my_inbox: الوارد
-      from: من
-      subject: الموضوع
-      date: التاريخ
       no_messages_yet_html: لا يوجد لديك رسائل بعد. لماذا لا تقوم بالاتصال مع بعض
         %{people_mapping_nearby_link}؟
       people_mapping_nearby: مخططون فى جواري
+    messages_table:
+      from: من
+      to: إلى
+      subject: الموضوع
+      date: التاريخ
     message_summary:
       unread_button: علّم كغير مقروءة
       read_button: علّم كمقروءة
@@ -677,9 +669,6 @@ arz:
         قبل أن تحاول إرسال المزيد.
     outbox:
       title: صندوق الصادر
-      to: إلى
-      subject: الموضوع
-      date: التاريخ
       no_sent_messages_html: لا يوجد لديك رسائل مرسله بعد. لماذا لا تقوم بالاتصال
         مع بعض %{people_mapping_nearby_link}؟
       people_mapping_nearby: مخططون فى جواري
@@ -689,28 +678,28 @@ arz:
       unread_button: علّم كغير مقروءة
     sent_message_summary:
       destroy_button: احذف
+    heading:
+      my_inbox: الوارد
     mark:
       as_read: عُلّمت الرساله مقروءة
       as_unread: عُلّمت الرساله كغير مقروءة
     destroy:
       destroyed: حُذفت الرسالة
   passwords:
-    lost_password:
+    new:
       title: نسيان كلمه المرور
       heading: أنسيت كلمه المرور؟
       email address: 'عنوان البريد الإلكتروني:'
       new password button: إعاده ضبط كلمه المرور
       help_text: أدخل عنوان البريد الإلكترونى الذى استخدمته للتسجيل ، وسوف نرسل عليه
         رابط يمكنك استخدامه لإعاده تعيين كلمه المرور.
-      notice email on way: نأسف لأنك أضعتها :-( ولكن هناك رساله إلكترونيه فى طريقها
-        إليك ستمكنك من إعاده تعيينها قريبًا.
-      notice email cannot find: تعذّر إيجاد عنوان البريد الإلكترونى، نحن آسفون.
-    reset_password:
+    edit:
       title: إعاده ضبط كلمه المرور
       heading: إعاده تعيين كلمه المرور %{user}
       reset: إعاده ضبط كلمه المرور
-      flash changed: كلمه المرور الخاصه بك قد تغيرت.
       flash token bad: لم تجد تلك المعلومات، تحقق من الرابط ربما؟
+    update:
+      flash changed: كلمه المرور الخاصه بك قد تغيرت.
   profiles:
     edit:
       home location: 'موقع المنزل:'
@@ -719,7 +708,7 @@ arz:
   sessions:
     new:
       title: ولوج
-      heading: ولوج
+      tab_title: ولوج
       email or username: 'عنوان البريد الإلكترونى أو اسم المستخدم:'
       password: 'كلمه المرور:'
       lost password link: أنسيت كلمه المرور؟
@@ -729,8 +718,6 @@ arz:
     index:
       js_1: أنت إما تستخدم متصفح لا يدعم جافا سكريبت، أو أنك عطلت استعمال جافا سكريبت.
       js_2: خريطه الشارع المفتوحه تستخدم جافا سكريبت لخريطتها المنزلقه.
-      permalink: وصله دائمة
-      shortlink: وصله قصيرة
     edit:
       not_public: لم تقم بتعيين تعديلاتك لتظهر بشكل علنى.
       not_public_description_html: أنت لم تعد قادر على تعديل الخريطه إلا إذا قمت بذلك.
@@ -738,23 +725,8 @@ arz:
       user_page_link: صفحه مستخدم
       anon_edits_link_text: ابحث عن السبب لماذا هو هذا الحال.
     export:
-      area_to_export: المنطقه المطلوب تصديرها
       manually_select: اختر يدويًا منطقه أخرى
-      format_to_export: الهيئه المطلوب تصديرها
-      osm_xml_data: معطيات خريطه الطريق المفتوح بنسق إكس أم أل
-      embeddable_html: HTML مضمن
       licence: الرخصة
-      options: خيارات
-      format: الهيئة
-      scale: القياس
-      max: الأقصى
-      image_size: حجم الصورة
-      zoom: تكبير
-      add_marker: أضف علامه على الخريطة
-      latitude: 'خط العرض:'
-      longitude: 'خط الطول:'
-      output: الخرج
-      paste_html: ألصق HTML لتضمينه فى موقع ما
       export_button: صدِّر
     sidebar:
       search_results: نتائج البحث
@@ -778,30 +750,21 @@ arz:
           footway: طريق مشاة
           rail: سكه حديدية
           subway: قطار الأنفاق
-          tram:
-          - ترام
-          - ترام
-          runway:
-          - مدرج مطار للإقلاع/الهبوط
-          - مدرج مطار لمناورات الطائرات
-          apron:
-          - ساحه مطار
-          - صاله مطار
+          runway: مدرج مطار للإقلاع/الهبوط
+          taxiway: مدرج مطار لمناورات الطائرات
+          apron: ساحه مطار
           admin: حدود إدارية
           forest: غابة
           wood: غابة
           golf: ملعب غولف
           park: منتزه
+          common: شائع
           resident: منطقه سكنية
-          common:
-          - شائع
-          - مرج
           retail: منطقه بيع بالمفرق
           industrial: منطقه صناعية
           commercial: منطقه تجارية
-          lake:
-          - بحيرة
-          - خزان
+          lake: بحيرة
+          reservoir: خزان
           farm: أرض زراعية
           cemetery: مقبرة
           allotments: حصص سكنية
@@ -809,14 +772,12 @@ arz:
           centre: مركز رياضي
           reserve: محميه طبيعية
           military: منطقه عسكرية
-          school:
-          - مدرسة
-          - جامعة
+          school: مدرسة
+          university: جامعة
           building: مبنى كبير
           station: محطه قطار
-          summit:
-          - قمة
-          - ذروة
+          summit: قمة
+          peak: ذروة
           private: استخدام خصوصي
           construction: الطرق تحت الإنشاء
   traces:
@@ -868,8 +829,6 @@ arz:
       edit_map: عدّل الخريطة
       public: عام
       private: خاص
-      by: بواسطة
-      in: في
     index:
       public_traces: آثار جى بى إس عمومية
       public_traces_from: آثار جى بى إس عموميه من %{user}
@@ -890,52 +849,6 @@ arz:
     setup_user_auth:
       blocked: لقد تم عرقله وصولك إلى الـ API. يرجى تسجيل الدخول من صفحه الموقع لمعرفه
         المزيد.
-  oauth:
-    authorize:
-      request_access_html: التطبيق %{app_name} يطلب الوصول إلى حسابك. يرجى التحقق
-        ما إذا كنت تريد أن يكون للتطبيق هذه القدرات. يمكن أن تختار ما تشاء.
-      allow_to: 'اسمح للتطبيق بأن:'
-      allow_read_prefs: يقرأ تفضيلات المستخدم.
-      allow_write_prefs: عدّل تفضيلات المستخدم.
-      allow_write_diary: إنشاء مدخلات يوميه، تعليقات وإضافه أصدقاء.
-      allow_write_api: يعدّل الخريطه.
-      allow_read_gpx: قراءه آثار جى بى أس الخاصه بك.
-      allow_write_gpx: ارفع آثار GPS.
-  oauth_clients:
-    new:
-      title: سجِّل تطبيق جديد
-    edit:
-      title: عدّل تطبيقك
-    show:
-      title: تفاصيل OAuth للتطبيق %{app_name}
-      url: 'رابط الطلب:'
-      authorize_url: 'رابط التصريح:'
-      support_notice: نحن ندعم HMAC-SHA1 (مستحسن) وكذلك النص العادى فى وضع ssl.
-      edit: عدّل التفاصيل
-      requests: 'طلب الصلاحيات التاليه من المستخدم:'
-    index:
-      title: تفاصيل OAuth الخاص بي
-      my_tokens: تطبيقاتى المصرحة
-      list_tokens: 'التصاريح الصادره باسمك للتطبيقات التالية:'
-      application: اسم التطبيق
-      issued_at: أُصدِر في
-      revoke: ابطل!
-      my_apps: تطبيقاتي
-      no_apps_html: هل لديك تطبيق تود أن تسجله للاستخدام معنا من خلال %{oauth} القياسي؟
-        يجب عليك أن تسجل تطبيق الويب الخاص قبل أن يتمكن من تقديم طلبات OAuth لهذه
-        الخدمه.
-      registered_apps: 'لديك التطبيقات المسجله التالية:'
-      register_new: سجِّل تطبيقك
-    form:
-      requests: 'اطلب الصلاحيات التاليه من المستخدم:'
-    not_found:
-      sorry: عذرًا، لم يتم العثور على تلك %{type}.
-    create:
-      flash: تم تسجيل المعلومات بنجاح
-    update:
-      flash: تم تحديث معلومات العميل بنجاح
-    destroy:
-      flash: دمّر تسجيل التطبيق
   users:
     new:
       title: اعمل حساب
@@ -993,15 +906,11 @@ arz:
       heading: تأكيد منح الدور
       are_you_sure: هل أنت متأكد من أنك تريد منح الدور `%{role}' إلى المستخدم `%{name}'؟
       confirm: أكّد
-      fail: لا يمكن منح الدور '%{role}' للمستخدم '%{name}'. يرجى التحقق من أن المستخدم
-        والدور كلاهما صحيحين.
     revoke:
       title: تأكيد إلغاء الدور
       heading: تأكيد إلغاء الدور
       are_you_sure: هل أنت متأكد من أنك تريد إبطال الدور `%{role}' من المستخدم `%{name}'؟
       confirm: أكّد
-      fail: لا يمكن إبطال الدور '%{role}' من المستخدم '%{name}'. يرجى التحقق من أن
-        المستخدم والدور كلاهما صحيحين.
   user_blocks:
     model:
       non_moderator_update: يجب أن تكون وسيط لإنشاء أو تحديث عرقله.
@@ -1013,15 +922,11 @@ arz:
       title: إنشاء عرقله على %{name}
       heading_html: إنشاء عرقله على %{name}
       period: ماهى المده بدءًا من الآن، سيتم عرقله المستخدم من الـ API.
-      back: اعرض كل العرقلات
     edit:
       title: تعديل العرقله على %{name}
       heading_html: تعديل العرقله على %{name}
       period: ماهى المده بدءًا من الآن، سيتم عرقله المستخدم من الـ API.
-      show: اعرض هذه العرقلة
-      back: اعرض كل العرقلات
     filter:
-      block_expired: العرقله قد انتهت ولا يمكن تعديلها.
       block_period: فتره العرقله يجب أن تكون واحده من القيم الاختياريه فى القائمه
         المنسدله.
     create:
@@ -1033,14 +938,6 @@ arz:
       title: عرقلات المستخدم
       heading: لائحه بعرقلات المستخدم
       empty: لم يتم إنشاء عرقلات حتى الآن.
-    revoke:
-      title: إبطال العرقله على %{block_on}
-      heading_html: إبطال العرقله على %{block_on} بواسطه %{block_by}
-      time_future: هذه العرقله ستنتهى فى %{time}.
-      past: هذه العرقله انتهت منذ %{time} ولا يمكن إبطالها الآن.
-      confirm: هل أنت متأكد أنك ترغب فى إبطال هذه العرقله ؟
-      revoke: ابطل!
-      flash: تم إبطال هذه العرقله.
     helper:
       time_future_html: ينتهى فى %{time}.
       until_login: نشط حتى يقوم المستخدم بتسجيل الدخول.
@@ -1065,17 +962,14 @@ arz:
       status: الحالة
       show: اعرض
       edit: عدّل
-      revoke: ابطل!
       confirm: هل أنت متأكد؟
       reason: 'سبب العرقلة:'
-      back: اعرض كل العرقلات
       revoker: 'المبطل:'
       needs_view: المستخدم يحتاج لتسجيل الدخول قبل أن يتم مسح هذه العرقله.
     block:
       not_revoked: (لم تلغ)
       show: اعرض
       edit: عدّل
-      revoke: ابطل!
     blocks:
       display_name: مستخدم معرقل
       creator_name: المنشئ

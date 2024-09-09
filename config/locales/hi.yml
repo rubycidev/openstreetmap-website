@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Abijeet Patro
+# Author: Abijeet Patro - Normal
 # Author: Ansumang
 # Author: AnupamM
 # Author: Bhatakati aatma
@@ -151,7 +152,6 @@ hi:
         auth_provider: प्रमाणीकरण प्रदाता
         auth_uid: प्रमाणीकरण यूआईडी
         email: ई-मेल
-        email_confirmation: ईमेल पुष्टिकरण
         new_email: नया ई-मेल पता
         active: सक्रिय
         display_name: प्रदर्शन नाम
@@ -215,8 +215,8 @@ hi:
         one: '%{count} महीने पहले'
         other: '%{count} महीने पहले'
       x_years:
-        one: '%{count} साल पहले'
-        other: '%{count} साल पहले'
+        one: '%{count} वर्ष पहले'
+        other: '%{count} वर्ष पहले'
   editor:
     default: डिफ़ॉल्ट (currently %{name})
     id:
@@ -228,7 +228,6 @@ hi:
   auth:
     providers:
       none: कुछ नहीं
-      openid: OpenID
       google: गूगल
       facebook: फेसबुक
       microsoft: विन्डोज़ लाइव
@@ -281,8 +280,6 @@ hi:
         link text: यह क्या है?
       save changes button: बदलाव सहेजें
   browse:
-    created: बनाया गया
-    closed: बंद किया गया
     version: संस्करण
     in_changeset: Changeset
     anonymous: अनामक
@@ -298,25 +295,6 @@ hi:
     view_history: इतिहास देखें
     view_details: जानकारी देखें
     location: 'स्थान:'
-    changeset:
-      title: 'Changeset: %{id}'
-      belongs_to: लेखक
-      node: बिंदु (%{count})
-      node_paginated: नोड (%{count} का %{x}-%{y})
-      way: रेखाएं (%{count})
-      way_paginated: रास्तें (%{count} का %{x}-%{y})
-      relation: सम्बन्ध (%{count})
-      relation_paginated: सम्बन्ध (%{count} के %{x}-%{y})
-      comment: जवाब (%{count})
-      changesetxml: Changeset XML
-      osmchangexml: osmChange XML
-      feed:
-        title: 'Changeset: %{id}'
-        title_comment: Changeset %{id} - %{comment}
-      join_discussion: चर्चा में भाग लेने के लिए लॉग इन करें
-      discussion: चर्चा
-      still_open: चेंजसेट अभी भी खुला - चेंजसेट के एक बार बंद होने के पश्चात चर्चा
-        होगी।
     node:
       title_html: 'बिंदु: %{name}'
       history_title_html: 'नोड इतिहास: %{name}'
@@ -393,6 +371,19 @@ hi:
       introduction: आस-पास की सुविधाओं के लिए नक़्शे पर क्लिक करें
       nearby: आस-पास की सुविधाएँ
       enclosing: पास की सुविधाएँ
+  changeset_comments:
+    feeds:
+      comment:
+        comment: '%{author} द्वारा #%{changeset_id} पर नया कमेंट'
+        commented_at_by_html: '%{user} द्वारा %{when} को अपडेट किया गया'
+      comments:
+        comment: '%{author} द्वारा चेंजसेट %{changeset_id} पर नया कमेंट'
+      show:
+        title_all: ओपनस्ट्रीटमैप चेंजसेट चर्चा
+        title_particular: ओपनस्ट्रीटमैप चेंजसेट %{changeset_id} चर्चा
+      timeout:
+        sorry: माफ़ कीजिए, जिन चेंजसेट कमेंटों की आपने अनुरोध की थी उन्हें लाने में
+          कुछ ज़्यादा ही वक्त लग गया।
   changesets:
     changeset_paging_nav:
       showing_page: पृष्ठ %{page}
@@ -402,12 +393,6 @@ hi:
       anonymous: अनाम
       no_edits: (कोई सम्पादन नहीं है)
       view_changeset_details: इस changeset के विवरण देखे
-    changesets:
-      id: आईडी
-      saved_at: समय जब सुरक्षित किया गया
-      user: सदस्य
-      comment: टिप्पणी
-      area: क्षेत्र
     index:
       title: चेंजसेट
       title_user: '%{user} द्वारा चेंजसेट'
@@ -420,21 +405,31 @@ hi:
       no_more_area: इस इलाके में और कोई चेंजसेट नहीं है।
       no_more_user: इस सदस्य द्वारा कोई चेंजसेट नहीं है।
       load_more: और पढ़ें
+      feed:
+        title: 'Changeset: %{id}'
+        title_comment: Changeset %{id} - %{comment}
+        created: बनाया गया
+        closed: बंद किया गया
+        belongs_to: लेखक
+    show:
+      title: 'Changeset: %{id}'
+      discussion: चर्चा
+      join_discussion: चर्चा में भाग लेने के लिए लॉग इन करें
+      still_open: चेंजसेट अभी भी खुला - चेंजसेट के एक बार बंद होने के पश्चात चर्चा
+        होगी।
+      comment: जवाब देना
+      changesetxml: Changeset XML
+      osmchangexml: osmChange XML
+    paging_nav:
+      nodes: बिंदु (%{count})
+      nodes_paginated: नोड (%{count} का %{x}-%{y})
+      ways: रेखाएं (%{count})
+      ways_paginated: रास्तें (%{count} का %{x}-%{y})
+      relations: सम्बन्ध (%{count})
+      relations_paginated: सम्बन्ध (%{count} के %{x}-%{y})
     timeout:
       sorry: माफ़ कीजिए, जिन चेंजसेट की आपने अनुरोध की थी उन्हें लाने में कुछ ज़्यादा
         ही वक्त लग गया।
-  changeset_comments:
-    comment:
-      comment: '%{author} द्वारा #%{changeset_id} पर नया कमेंट'
-      commented_at_by_html: '%{user} द्वारा %{when} को अपडेट किया गया'
-    comments:
-      comment: '%{author} द्वारा चेंजसेट %{changeset_id} पर नया कमेंट'
-    index:
-      title_all: ओपनस्ट्रीटमैप चेंजसेट चर्चा
-      title_particular: ओपनस्ट्रीटमैप चेंजसेट %{changeset_id} चर्चा
-    timeout:
-      sorry: माफ़ कीजिए, जिन चेंजसेट कमेंटों की आपने अनुरोध की थी उन्हें लाने में
-        कुछ ज़्यादा ही वक्त लग गया।
   dashboards:
     popup:
       friend: दोस्त
@@ -456,6 +451,7 @@ hi:
       new_title: अपने डायरी में एक नया एंट्री जोड़ें
       my_diary: मेरी डायरी
       no_entries: कोई डायरी एंट्री नहीं है
+    page:
       recent_entries: 'नई डायरी एंट्रियाँ:'
       older_entries: पुरानी प्रविष्टियाँ
       newer_entries: नवीनतम प्रविष्टियाँ
@@ -465,6 +461,7 @@ hi:
     show:
       title: '%{user} की डायरी | %{title}'
       user_title: '%{user}''s की डायरी'
+      discussion: चर्चा
       leave_a_comment: अपने विचार व्यक्त करें
       login_to_leave_a_comment_html: सत्रारंभ यहाँ %{login_link}, एक टिप्पणी लिखिने
         के लिए
@@ -505,7 +502,8 @@ hi:
       all:
         title: ओपनस्ट्रीटमैप डायरी एंट्री
         description: ओपनस्ट्रीटमैप के सदस्यों से नई डायरी एंट्रियाँ
-    comments:
+  diary_comments:
+    page:
       post: पोस्ट
       when: कब
       comment: टिप्पणी
@@ -887,6 +885,14 @@ hi:
     index:
       title: समस्याएँ
       search: ढूंडें
+    page:
+      reported_user: रिपोर्ट किया गया उपयोगकर्ता
+      states:
+        ignored: अनदेखी की गई
+        open: खोलें
+        resolved: समाधान-प्राप्त
+      older_issues: पुरानी समस्याएं
+      newer_issues: नए मुद्दे
     show:
       resolve: समाधान करें
       ignore: अंदेखा करें
@@ -930,10 +936,10 @@ hi:
     destroy:
       destroyed: संदेश खात्मा
   passwords:
-    lost_password:
+    new:
       title: lost password
       new password button: Send me a new password
-    reset_password:
+    edit:
       title: reset password
   profiles:
     edit:
@@ -944,6 +950,10 @@ hi:
       home location: घर का स्थान
       show: दिखाएँ
       delete: हटाएँ
+  sessions:
+    new:
+      password: पासवर्ड
+      or: या
   site:
     about:
       legal_1_1_terms_of_use: उपयोग की शर्तें
@@ -954,9 +964,7 @@ hi:
         contributors_title_html: हमारे योगदानकर्ता
         contributors_rs_serbia: सर्बिया
     export:
-      area_to_export: क्षेत्र निर्यात करने के लिए
       manually_select: कृपया, आप एक अलग क्षेत्र चुनिए
-      format_to_export: स्वरूप निर्यात करने के लिए
       licence: लाइसेंस
     fixthemap:
       how_to_help:
@@ -983,26 +991,27 @@ hi:
           footway: पगडंडी
           rail: रेलवे
           subway: उपमार्ग
-          cable:
-          - केबल कार
-          runway:
-          - एयरपोर्ट रनवे
+          bus: बस
+          cable_car: केबल कार
+          runway: एयरपोर्ट रनवे
           forest: वन
           wood: लकड़ी
+          grass: घास
+          sand: रेत
           golf: गोल्फ मैदान
           park: पार्क
           resident: रिहायशी क्षेत्र
           industrial: औद्योगिक क्षेत्र
-          lake:
-          - झील
+          lake: झील
           farm: खेत
           cemetery: कब्रिस्तान
           allotments: आवंटन
-          school:
-          - पाठशाला
-          - विश्वविद्यालय
+          school: पाठशाला
+          university: विश्वविद्यालय
+          hospital: अस्पताल
           building: महत्वपूर्ण भवन
           station: रेलवे स्टेशन
+          stop: रोकें
   traces:
     new:
       visibility_help: इसका क्या मतलब है?
@@ -1011,9 +1020,9 @@ hi:
     show:
       tags: Tags
       visibility: दृष्टता
-  oauth_clients:
-    show:
-      key: उपभोक्ता कुंजी
+  application:
+    auth_providers:
+      openid_login_button: जारी रखें
   oauth2_applications:
     index:
       name: नाम
@@ -1026,13 +1035,16 @@ hi:
       deny: मना
   users:
     new:
+      tab_title: साइन अप करें
       support: सहायता
+      or: या
     index:
       title: सदस्य
       heading: सदस्य
+      empty: ऐसे कोई सदस्य नहीं मिले
+    page:
       confirm: इन सदस्यों को चुनें
       hide: इन सदस्यों को न दिखाएं
-      empty: ऐसे कोई सदस्य नहीं मिले
     suspended:
       title: खाता निलंबित
       heading: खाता निलंबित
@@ -1071,9 +1083,6 @@ hi:
   javascripts:
     site:
       createnote_disabled_tooltip: नोट जोड़ने के लिए जूम इन करें
-    changesets:
-      show:
-        comment: जवाब देना
     directions:
       directions: रास्ता
       distance: दूरी

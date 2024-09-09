@@ -69,7 +69,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   # The user creation page loads
   def test_new_view
     get user_new_path
-    assert_response :redirect
     assert_redirected_to user_new_path(:cookie_test => "true")
 
     get user_new_path, :params => { :cookie_test => "true" }
@@ -83,7 +82,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
         assert_select "div#content", :count => 1 do
           assert_select "form[action='/user/new'][method='post']", :count => 1 do
             assert_select "input[id='user_email']", :count => 1
-            assert_select "input[id='user_email_confirmation']", :count => 1
             assert_select "input[id='user_display_name']", :count => 1
             assert_select "input[id='user_pass_crypt'][type='password']", :count => 1
             assert_select "input[id='user_pass_crypt_confirmation'][type='password']", :count => 1
@@ -98,29 +96,19 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     session_for(create(:user))
 
     get user_new_path
-    assert_response :redirect
     assert_redirected_to root_path
 
     get user_new_path, :params => { :referer => "/test" }
-    assert_response :redirect
     assert_redirected_to "/test"
   end
 
   def test_new_success
     user = build(:user, :pending)
 
-    assert_no_difference "User.count" do
-      assert_no_difference "ActionMailer::Base.deliveries.size" do
-        perform_enqueued_jobs do
-          post user_new_path, :params => { :user => user.attributes }
-        end
-      end
-    end
-
     assert_difference "User.count", 1 do
       assert_difference "ActionMailer::Base.deliveries.size", 1 do
         perform_enqueued_jobs do
-          post user_save_path, :params => { :read_ct => 1, :read_tou => 1 }
+          post user_new_path, :params => { :user => user.attributes }
         end
       end
     end
@@ -154,55 +142,14 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_select "form > div > input.is-invalid#user_email"
   end
 
-  def test_save_duplicate_email
+  def test_new_duplicate_email_uppercase
     user = build(:user, :pending)
-
-    # Set up our user as being half-way through registration
-    assert_no_difference "User.count" do
-      assert_no_difference "ActionMailer::Base.deliveries.size" do
-        perform_enqueued_jobs do
-          post user_new_path, :params => { :user => user.attributes }
-        end
-      end
-    end
-
-    # Now create another user with that email
-    create(:user, :email => user.email)
-
-    # Check that the second half of registration fails
-    assert_no_difference "User.count" do
-      assert_no_difference "ActionMailer::Base.deliveries.size" do
-        perform_enqueued_jobs do
-          post user_save_path, :params => { :read_ct => 1, :read_tou => 1 }
-        end
-      end
-    end
-
-    assert_response :success
-    assert_template "new"
-    assert_select "form > div > input.is-invalid#user_email"
-  end
-
-  def test_save_duplicate_email_uppercase
-    user = build(:user, :pending)
-
-    # Set up our user as being half-way through registration
-    assert_no_difference "User.count" do
-      assert_no_difference "ActionMailer::Base.deliveries.size" do
-        perform_enqueued_jobs do
-          post user_new_path, :params => { :user => user.attributes }
-        end
-      end
-    end
-
-    # Now create another user with that email, but uppercased
     create(:user, :email => user.email.upcase)
 
-    # Check that the second half of registration fails
     assert_no_difference "User.count" do
       assert_no_difference "ActionMailer::Base.deliveries.size" do
         perform_enqueued_jobs do
-          post user_save_path, :params => { :read_ct => 1, :read_tou => 1 }
+          post user_new_path, :params => { :user => user.attributes }
         end
       end
     end
@@ -212,26 +159,14 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_select "form > div > input.is-invalid#user_email"
   end
 
-  def test_save_duplicate_name
+  def test_new_duplicate_name
     user = build(:user, :pending)
-
-    # Set up our user as being half-way through registration
-    assert_no_difference "User.count" do
-      assert_no_difference "ActionMailer::Base.deliveries.size" do
-        perform_enqueued_jobs do
-          post user_new_path, :params => { :user => user.attributes }
-        end
-      end
-    end
-
-    # Now create another user with that display name
     create(:user, :display_name => user.display_name)
 
-    # Check that the second half of registration fails
     assert_no_difference "User.count" do
       assert_no_difference "ActionMailer::Base.deliveries.size" do
         perform_enqueued_jobs do
-          post user_save_path, :params => { :read_ct => 1, :read_tou => 1 }
+          post user_new_path, :params => { :user => user.attributes }
         end
       end
     end
@@ -241,26 +176,14 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_select "form > div > input.is-invalid#user_display_name"
   end
 
-  def test_save_duplicate_name_uppercase
+  def test_new_duplicate_name_uppercase
     user = build(:user, :pending)
-
-    # Set up our user as being half-way through registration
-    assert_no_difference "User.count" do
-      assert_no_difference "ActionMailer::Base.deliveries.size" do
-        perform_enqueued_jobs do
-          post user_new_path, :params => { :user => user.attributes }
-        end
-      end
-    end
-
-    # Now create another user with that display_name, but uppercased
     create(:user, :display_name => user.display_name.upcase)
 
-    # Check that the second half of registration fails
     assert_no_difference "User.count" do
       assert_no_difference "ActionMailer::Base.deliveries.size" do
         perform_enqueued_jobs do
-          post user_save_path, :params => { :read_ct => 1, :read_tou => 1 }
+          post user_new_path, :params => { :user => user.attributes }
         end
       end
     end
@@ -270,17 +193,8 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_select "form > div > input.is-invalid#user_display_name"
   end
 
-  def test_save_blocked_domain
+  def test_new_blocked_domain
     user = build(:user, :pending, :email => "user@example.net")
-
-    # Set up our user as being half-way through registration
-    assert_no_difference "User.count" do
-      assert_no_difference "ActionMailer::Base.deliveries.size" do
-        perform_enqueued_jobs do
-          post user_new_path, :params => { :user => user.attributes }
-        end
-      end
-    end
 
     # Now block that domain
     create(:acl, :domain => "example.net", :k => "no_account_creation")
@@ -289,7 +203,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_no_difference "User.count" do
       assert_no_difference "ActionMailer::Base.deliveries.size" do
         perform_enqueued_jobs do
-          post user_save_path, :params => { :read_ct => 1, :read_tou => 1 }
+          post user_new_path, :params => { :user => user.attributes }
         end
       end
     end
@@ -301,45 +215,16 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   def test_save_referer_params
     user = build(:user, :pending)
 
-    # Set up our user as being half-way through registration
-    assert_no_difference "User.count" do
-      assert_no_difference "ActionMailer::Base.deliveries.size" do
-        perform_enqueued_jobs do
-          post user_new_path, :params => { :user => user.attributes, :referer => "/edit?editor=id#map=1/2/3" }
-        end
-      end
-    end
-
     assert_difference "User.count", 1 do
       assert_difference "ActionMailer::Base.deliveries.size", 1 do
-        perform_enqueued_jobs do
-          post user_save_path, :params => { :read_ct => 1, :read_tou => 1 }
-        end
+        post user_new_path, :params => { :user => user.attributes, :referer => "/edit?editor=id#map=1/2/3" }
+        assert_enqueued_with :job => ActionMailer::MailDeliveryJob,
+                             :args => proc { |args| args[3][:args][2] == welcome_path(:editor => "id", :zoom => 1, :lat => 2, :lon => 3) }
+        perform_enqueued_jobs
       end
     end
-
-    assert_equal welcome_path(:editor => "id", :zoom => 1, :lat => 2, :lon => 3),
-                 User.find_by(:email => user.email).tokens.order("id DESC").first.referer
 
     ActionMailer::Base.deliveries.clear
-  end
-
-  def test_terms_new_user
-    user = build(:user, :pending)
-
-    # Set up our user as being half-way through registration
-    assert_no_difference "User.count" do
-      assert_no_difference "ActionMailer::Base.deliveries.size" do
-        perform_enqueued_jobs do
-          post user_new_path, :params => { :user => user.attributes }
-        end
-      end
-    end
-
-    get user_terms_path
-
-    assert_response :success
-    assert_template :terms
   end
 
   def test_terms_agreed
@@ -348,7 +233,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     session_for(user)
 
     get user_terms_path
-    assert_response :redirect
     assert_redirected_to edit_account_path
   end
 
@@ -362,7 +246,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_template :terms
 
     post user_save_path, :params => { :user => { :consider_pd => true }, :read_ct => 1, :read_tou => 1 }
-    assert_response :redirect
     assert_redirected_to edit_account_path
     assert_equal "Thanks for accepting the new contributor terms!", flash[:notice]
 
@@ -383,7 +266,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_template :terms
 
     post user_save_path, :params => { :user => { :consider_pd => true }, :referer => "/test", :read_ct => 1, :read_tou => 1 }
-    assert_response :redirect
     assert_redirected_to "/test"
     assert_equal "Thanks for accepting the new contributor terms!", flash[:notice]
 
@@ -401,7 +283,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     session_for(user)
 
     get edit_account_path
-    assert_response :redirect
     assert_redirected_to :controller => :users, :action => :terms, :referer => "/account/edit"
   end
 
@@ -417,7 +298,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
     post user_go_public_path
 
-    assert_response :redirect
     assert_redirected_to edit_account_path
     assert User.find(user.id).data_public
   end
@@ -426,7 +306,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   # information for the user
   def test_show
     # Test a non-existent user
-    get user_path(:display_name => "unknown")
+    get user_path("unknown")
     assert_response :not_found
 
     # Test a normal user
@@ -444,9 +324,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       assert_select "a[href='/user/#{ERB::Util.u(user.display_name)}/blocks_by']", 0
       assert_select "a[href='/blocks/new/#{ERB::Util.u(user.display_name)}']", 0
     end
-
-    # Friends shouldn't be visible as we're not logged in
-    assert_select "div#friends-container", :count => 0
 
     # Test a user who has been blocked
     blocked_user = create(:user)
@@ -554,13 +431,11 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     # Now try as a normal user
     session_for(user)
     post set_status_user_path(user), :params => { :event => "confirm" }
-    assert_response :redirect
     assert_redirected_to :controller => :errors, :action => :forbidden
 
     # Finally try as an administrator
     session_for(create(:administrator_user))
     post set_status_user_path(user), :params => { :event => "confirm" }
-    assert_response :redirect
     assert_redirected_to :action => :show, :display_name => user.display_name
     assert_equal "confirmed", User.find(user.id).status
   end
@@ -575,13 +450,11 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     # Now try as a normal user
     session_for(user)
     delete user_path(user)
-    assert_response :redirect
     assert_redirected_to :controller => :errors, :action => :forbidden
 
     # Finally try as an administrator
     session_for(create(:administrator_user))
     delete user_path(user)
-    assert_response :redirect
     assert_redirected_to :action => :show, :display_name => user.display_name
 
     # Check that the user was deleted properly
@@ -611,21 +484,18 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
     # Shouldn't work when not logged in
     get users_path
-    assert_response :redirect
     assert_redirected_to login_path(:referer => users_path)
 
     session_for(user)
 
     # Shouldn't work when logged in as a normal user
     get users_path
-    assert_response :redirect
     assert_redirected_to :controller => :errors, :action => :forbidden
 
     session_for(moderator_user)
 
     # Shouldn't work when logged in as a moderator
     get users_path
-    assert_response :redirect
     assert_redirected_to :controller => :errors, :action => :forbidden
 
     session_for(administrator_user)
@@ -635,19 +505,19 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     get users_path
     assert_response :success
     assert_template :index
-    assert_select "table#user_list tr", :count => 7 + 1
+    assert_select "table#user_list tbody tr", :count => 7
 
     # Should be able to limit by status
     get users_path, :params => { :status => "suspended" }
     assert_response :success
     assert_template :index
-    assert_select "table#user_list tr", :count => 1 + 1
+    assert_select "table#user_list tbody tr", :count => 1
 
     # Should be able to limit by IP address
     get users_path, :params => { :ip => "1.2.3.4" }
     assert_response :success
     assert_template :index
-    assert_select "table#user_list tr", :count => 1 + 1
+    assert_select "table#user_list tbody tr", :count => 1
   end
 
   def test_index_get_paginated
@@ -661,22 +531,55 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
     # 100 examples, an administrator, and a granter for the admin.
     assert_equal 102, User.count
+    next_path = users_path
 
-    get users_path
+    get next_path
     assert_response :success
     assert_template :index
-    assert_select "table#user_list tr", :count => 51
+    assert_select "table#user_list tbody tr", :count => 50
+    check_no_page_link "Newer Users"
+    next_path = check_page_link "Older Users"
 
-    get users_path, :params => { :page => 2 }
+    get next_path
     assert_response :success
     assert_template :index
-    assert_select "table#user_list tr", :count => 51
+    assert_select "table#user_list tbody tr", :count => 50
+    check_page_link "Newer Users"
+    next_path = check_page_link "Older Users"
 
-    get users_path, :params => { :page => 3 }
+    get next_path
     assert_response :success
     assert_template :index
-    assert_select "table#user_list tr", :count => 3
+    assert_select "table#user_list tbody tr", :count => 2
+    check_page_link "Newer Users"
+    check_no_page_link "Older Users"
   end
+
+  def test_index_get_invalid_paginated
+    session_for(create(:administrator_user))
+
+    %w[-1 0 fred].each do |id|
+      get users_path(:before => id)
+      assert_redirected_to :controller => :errors, :action => :bad_request
+
+      get users_path(:after => id)
+      assert_redirected_to :controller => :errors, :action => :bad_request
+    end
+  end
+
+  private
+
+  def check_no_page_link(name)
+    assert_select "a.page-link", { :text => /#{Regexp.quote(name)}/, :count => 0 }, "unexpected #{name} page link"
+  end
+
+  def check_page_link(name)
+    assert_select "a.page-link", { :text => /#{Regexp.quote(name)}/ }, "missing #{name} page link" do |buttons|
+      return buttons.first.attributes["href"].value
+    end
+  end
+
+  public
 
   def test_index_post_confirm
     inactive_user = create(:user, :pending)
@@ -697,7 +600,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_no_difference "User.active.count" do
       post users_path, :params => { :confirm => 1, :user => { inactive_user.id => 1, suspended_user.id => 1 } }
     end
-    assert_response :redirect
     assert_redirected_to :controller => :errors, :action => :forbidden
     assert_equal "pending", inactive_user.reload.status
     assert_equal "suspended", suspended_user.reload.status
@@ -708,7 +610,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_no_difference "User.active.count" do
       post users_path, :params => { :confirm => 1, :user => { inactive_user.id => 1, suspended_user.id => 1 } }
     end
-    assert_response :redirect
     assert_redirected_to :controller => :errors, :action => :forbidden
     assert_equal "pending", inactive_user.reload.status
     assert_equal "suspended", suspended_user.reload.status
@@ -719,7 +620,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_difference "User.active.count", 2 do
       post users_path, :params => { :confirm => 1, :user => { inactive_user.id => 1, suspended_user.id => 1 } }
     end
-    assert_response :redirect
     assert_redirected_to :action => :index
     assert_equal "confirmed", inactive_user.reload.status
     assert_equal "confirmed", suspended_user.reload.status
@@ -744,7 +644,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_no_difference "User.active.count" do
       post users_path, :params => { :hide => 1, :user => { normal_user.id => 1, confirmed_user.id => 1 } }
     end
-    assert_response :redirect
     assert_redirected_to :controller => :errors, :action => :forbidden
     assert_equal "active", normal_user.reload.status
     assert_equal "confirmed", confirmed_user.reload.status
@@ -755,7 +654,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_no_difference "User.active.count" do
       post users_path, :params => { :hide => 1, :user => { normal_user.id => 1, confirmed_user.id => 1 } }
     end
-    assert_response :redirect
     assert_redirected_to :controller => :errors, :action => :forbidden
     assert_equal "active", normal_user.reload.status
     assert_equal "confirmed", confirmed_user.reload.status
@@ -766,7 +664,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_difference "User.active.count", -2 do
       post users_path, :params => { :hide => 1, :user => { normal_user.id => 1, confirmed_user.id => 1 } }
     end
-    assert_response :redirect
     assert_redirected_to :action => :index
     assert_equal "deleted", normal_user.reload.status
     assert_equal "deleted", confirmed_user.reload.status
@@ -774,15 +671,12 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   def test_auth_failure_callback
     get auth_failure_path
-    assert_response :redirect
     assert_redirected_to login_path
 
     get auth_failure_path, :params => { :origin => "/" }
-    assert_response :redirect
     assert_redirected_to root_path
 
     get auth_failure_path, :params => { :origin => "http://www.google.com" }
-    assert_response :redirect
     assert_redirected_to login_path
   end
 end

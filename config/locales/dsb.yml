@@ -13,14 +13,24 @@ dsb:
     formats:
       friendly: '%e. %B %Y  %H:%M'
   helpers:
+    file:
+      prompt: Dataju wubraś
     submit:
       diary_comment:
-        create: Składowaś
+        create: Komentěrowaś
+      diary_entry:
+        create: Wózjawiś
+        update: Aktualizěrowaś
+      issue_comment:
+        create: Komentar pśidaś
       message:
         create: Pósłaś
       client_application:
         create: Registrěrowaś
-        update: Wobźěłaś
+        update: Aktualizěrowaś
+      oauth2_application:
+        create: Registrěrowaś
+        update: Aktualizěrowaś
       redaction:
         create: Redakciju napóraś
         update: Redakciju składowaś
@@ -106,7 +116,8 @@ dsb:
         description: Wopisanje
         home_lat: 'Šyrina:'
         home_lon: 'Dlinina:'
-        languages: Rěcy
+        languages: Preferěrowane rěcy
+        preferred_editor: Preferěrowany editor
         pass_crypt: Gronidło
     help:
       trace:
@@ -146,6 +157,10 @@ dsb:
       entry:
         comment: Komentar
         full: Dopołna pokazka
+  account:
+    deletions:
+      show:
+        cancel: Pśetergnuś
   accounts:
     edit:
       title: Konto wobźěłaś
@@ -177,8 +192,6 @@ dsb:
         e-mail z napominanim, twóju e-mailowu adresu wobkšuśiś.
       success: Wužywarske informacije wuspěšnje zaktualizěrowane.
   browse:
-    created: Napórany
-    closed: Zacynjony
     version: Wersija
     in_changeset: Sajźba změnow
     anonymous: anonymny
@@ -188,20 +201,6 @@ dsb:
     view_history: Historiju pokazaś
     view_details: Drobnostki pokazaś
     location: 'Městno:'
-    changeset:
-      title: 'Sajźba změnow: %{id}'
-      belongs_to: Awtor
-      node: Suki (%{count})
-      node_paginated: Suki (%{x}-%{y} z %{count})
-      way: Puśe (%{count})
-      way_paginated: Puśe (%{x}-%{y} z %{count})
-      relation: Relacije (%{count})
-      relation_paginated: Relacije (%{x}-%{y} z %{count})
-      changesetxml: Sajźbu změnow XML
-      osmchangexml: osmChange XML
-      feed:
-        title: Sajźba změnow %{id}
-        title_comment: Sajźba změnow %{id} - %{comment}
     node:
       title_html: 'Suk: %{name}'
       history_title_html: 'Sukowa historija: %{name}'
@@ -272,12 +271,6 @@ dsb:
       anonymous: Anonymny
       no_edits: (žedne změny)
       view_changeset_details: Drobnostki sajźbow změnow pokazaś
-    changesets:
-      id: ID
-      saved_at: Datum składowanja
-      user: Wužywaŕ
-      comment: Komentar
-      area: Wurězk
     index:
       title: Sajźby změnow
       title_user: Sajźby změnow wót %{user}
@@ -290,17 +283,37 @@ dsb:
       no_more_area: Žedne dalšne sajźby změnow w toś tom wobcerku.
       no_more_user: Žedne dalšne sajźby změnow wót toś togo wužywarja.
       load_more: Wěcej zacytaś
+      feed:
+        title: Sajźba změnow %{id}
+        title_comment: Sajźba změnow %{id} - %{comment}
+        created: Napórany
+        closed: Zacynjony
+        belongs_to: Awtor
+    show:
+      title: 'Sajźba změnow: %{id}'
+      comment: Reagěrowaś
+      changesetxml: Sajźbu změnow XML
+      osmchangexml: osmChange XML
+    paging_nav:
+      nodes: Suki (%{count})
+      nodes_paginated: Suki (%{x}-%{y} z %{count})
+      ways: Puśe (%{count})
+      ways_paginated: Puśe (%{x}-%{y} z %{count})
+      relations: Relacije (%{count})
+      relations_paginated: Relacije (%{x}-%{y} z %{count})
     timeout:
       sorry: Bóžko jo pśedłujko trało, kupki změnow, kótarež  sy póžedał, wótwołaś.
   dashboards:
     contact:
       km away: '%{count} km zdalony'
       m away: '%{count} m zdalony'
+      latest_edit_html: 'Nejnowša změna %{ago}:'
     popup:
       your location: Twójo městno
       nearby mapper: Kartěrowaŕ w bliskosći
       friend: Pśijaśel
     show:
+      title: Mój pśeglědowy bok
       no friends: Hyšći njejsy žednych pśijaśelow pśidał.
       nearby users: Druge wužywarje w bliskosći
       no nearby users: Hyšći njejsu žedne wužywarje, kótarež kartěruju w bliskosći.
@@ -323,6 +336,7 @@ dsb:
       new: Nowy zapisk dnjownika
       new_title: Nowy zapisk w twójom dnjowniku spisaś
       no_entries: Žedne zapiski dnjownika
+    page:
       recent_entries: Nejnowše zapiski dnjownika
       older_entries: Starše zapiski
       newer_entries: Nowše zapiski
@@ -371,7 +385,8 @@ dsb:
       all:
         title: Zapiski dnjownika OpenStreetMap
         description: Nejnowše zapiski dnjownika wót wužywarjow OpenStreetMap
-    comments:
+  diary_comments:
+    page:
       post: Powěsć
       when: Cas
       comment: Komentar
@@ -865,15 +880,12 @@ dsb:
     gps_traces: GPS-slědy
     gps_traces_tooltip: GPS-slědy zastojaś
     user_diaries: Dnjowniki
-    user_diaries_tooltip: Wužywarske dnjowniki cytaś
     edit_with: Z %{editor} wobźěłaś
     tag_line: Licha wikikórta swěta
     intro_header: Witaj k OpenStreetMap!
     intro_text: OpenStreetMap jó kórta swěta, napórana wót luźi ako ty a dajo se licho
       pód wótwórjoneju licencu wužywaś.
     intro_2_create_account: Załož wužywarske konto
-    partners_ucl: z UCL VR Centre
-    partners_bytemark: Bytemark Hosting
     partners_partners: partnerow
     osm_offline: Datowa banka OpenStreetMap jo tuchylu offline, dokulaž se wažne źěło
       za wótglědowanje datoweje banki pśewjedujo.
@@ -883,12 +895,10 @@ dsb:
     help: Pomoc
     about: Wó
     copyright: Awtorske pšawo
+    communities: Zgromadnosći
     community: Zgromaźeństwo
     community_blogs: Blogi zgromaźeństwa
     community_blogs_title: Blogi cłonkow zgromaźeństwa OpenStreetMap
-    make_a_donation:
-      title: Pódprěj OpenStreetMap z pjenjezneju pósćiwanku
-      text: Pósćiś
     learn_more: Dalšne informacije
     more: Wěcej
   user_mailer:
@@ -989,7 +999,6 @@ dsb:
   messages:
     inbox:
       title: Post
-      my_inbox: Mój post
       messages: Maš %{new_messages} a %{old_messages}
       new_messages:
         few: '%{count} nowe powěsći'
@@ -1001,12 +1010,14 @@ dsb:
         one: '%{count} stara powěsć'
         two: '%{count} starej powěsći'
         other: '%{count} starych powěsćow'
-      from: Wót
-      subject: Temowe nadpismo
-      date: Datum
       no_messages_yet_html: Hyšći njamaš powěsći. Cogodla njestajaš se z %{people_mapping_nearby_link}
         do zwiska?
       people_mapping_nearby: Luźe, kótarež kartěruju w bliskosći
+    messages_table:
+      from: Wót
+      to: Komu
+      subject: Temowe nadpismo
+      date: Datum
     message_summary:
       unread_button: Ako njepśecytany markěrowaś
       read_button: Ako pśecytany markěrowaś
@@ -1031,9 +1042,6 @@ dsb:
         one: Sy %{count} powěsć pósłał
         two: Sy %{count} powěsći pósłał
         other: Sy %{count} powěsćow pósłał
-      to: Komu
-      subject: Temowe nadpismo
-      date: Datum
       no_sent_messages_html: Hyšći njejsy powěsći rozpósłał. Cogodla njestajaš se
         z jadnym z %{people_mapping_nearby_link}, do zwiska?
       people_mapping_nearby: luźe, kótarež kartěruju w bliskosći
@@ -1051,30 +1059,45 @@ dsb:
         se ako korektny wužywaŕ, aby ju cytał.
     sent_message_summary:
       destroy_button: Lašowaś
+    heading:
+      my_inbox: Mój post
     mark:
       as_read: Powěsć jo se markěrowała ako pśecytana
       as_unread: Powěsć jo se markěrowała ako njepśecytana
     destroy:
       destroyed: Powěsć wulašowana
   passwords:
-    lost_password:
+    new:
       title: Zabyte gronidło
       heading: Sy gronidło zabył?
       email address: 'E-mailowa adresa:'
       new password button: Gronidło slědk stajiś
       help_text: Zapódaj e-mailowu adresu, kótaruž sy za registrěrowanje wužył, pósćelomy
         wótkaz na nju, kótaryž móžoš wužywaś, aby swójo gronidło slědk stajił.
-      notice email on way: Bóžko sy jo zabył :-(, ale e-mail jo k tebje ducy, tak
-        až móžoš jo skóro slědk stajiś.
-      notice email cannot find: Bóžko ta e-mailowa adresa njejo se namakała.
-    reset_password:
+    edit:
       title: Gronidło slědk stajiś
       heading: Gronidło za %{user} slědk stajiś
       reset: Gronidło slědk stajiś
-      flash changed: Twójo gronidło jo se změniło.
       flash token bad: Njejo móžno było ten token namakaś, pšosym pśekontrolěruj URL.
+    update:
+      flash changed: Twójo gronidło jo se změniło.
+  preferences:
+    show:
+      title: Móje preference
+      preferred_editor: Preferěrowany editor
+      preferred_languages: Preferěrowane rěcy
+      edit_preferences: Preference wobźěłaś
+    edit:
+      title: Preference wobźěłaś
+      save: Preference aktualizěrowaś
+      cancel: Pśetergnuś
+    update:
+      failure: Preference njedaju se aktualizěrowaś.
+    update_success_flash:
+      message: Preference su se zaktualizěrowali.
   profiles:
     edit:
+      cancel: Pśetergnuś
       image: 'Wobraz:'
       gravatar:
         gravatar: Gravatar wužywaś
@@ -1089,17 +1112,14 @@ dsb:
   sessions:
     new:
       title: Pśizjawjenje
-      heading: Pśizjawjenje
+      tab_title: Pśizjawjenje
       email or username: 'E-mailowa adresa abo wužywarske mě:'
       password: 'Gronidło:'
-      openid_html: '%{logo} OpenID:'
       remember: Spomnjeś se
       lost password link: Sy swójo gronidło zabył?
       login_button: Pśizjawiś se
       register now: Něnto registrěrowaś
-      no account: Njamaš wužywarske konto?
       auth failure: Bóžko, pśizjawjenje z toś tymi datami njejo móžno.
-      openid_logo_alt: Z OpenID se pśizjawiś
     destroy:
       title: Wótzjawiś se
       heading: Z OpenStreetMap se wótzjawiś
@@ -1120,6 +1140,7 @@ dsb:
       open_data_title: Zjawne daty
       partners_title: Partnarje
     copyright:
+      title: Awtorske pšawo a licenca
       foreign:
         title: Wó toś tom pśełožku
         html: W paźe konflikta mjazy pśełožonym bokom a %{english_original_link},
@@ -1132,7 +1153,6 @@ dsb:
         native_link: dolnoserbskej wersiji
         mapping_link: kartěrowanje zachopiś
       legal_babble:
-        title_html: Awtorske pšawo a licenca
         credit_title_html: Kak naspomnjeś awtorstwo OpenStreetMap
         credit_1_html: Pominamy se, až  pódawaš sobustatkujucych &ldquo;&copy; OpenStreetMap&rdquo;.
         attribution_example:
@@ -1154,9 +1174,6 @@ dsb:
       js_1: Pak wužywaš wobglědowak, kótaryž njepódpěra JavaScript, pak sy znjemóžnił
         JavaScript.
       js_2: OpenStreetMap wužywa JavaScript za suwatu kórtu.
-      permalink: Trajny wótkaz
-      shortlink: Krotki wótkaz
-      createnote: Pokaz pśidaś
       license:
         copyright: Copyright OpenStreetMap a sobustatkujuce, pód wótewrjoneju licencu
       remote_failed: Wobźěłowanje njejo se raźiło - pśeznań se, lěc JOSM jo zacytany
@@ -1168,16 +1185,9 @@ dsb:
       user_page_link: wužywarskem boku
       anon_edits_link_text: Wuslěź, cogodla tomu tak jo.
       id_not_configured: iD njejo se konfigurěrował
-      no_iframe_support: Twój wobglědowak njepódpěrujo HTML-elementy iframe, kótarež
-        su trěbne za toś tu funkciju.
     export:
       title: Eksportěrowaś
-      area_to_export: Wurězk za eksport
       manually_select: Drugi wurězk manuelnje wubraś
-      format_to_export: Format za eksport
-      osm_xml_data: XML-daty OpenStreetMap
-      map_image: Kórtowy wobraz (pokazujo standardnu rowninu)
-      embeddable_html: Zasajźujobny HTML
       licence: Licenca
       too_large:
         advice: 'Jolic górni eksport se njeraźi, pšosym rozwaž, lěc wužywaš jadnu
@@ -1200,17 +1210,6 @@ dsb:
         other:
           title: Druge žrědła
           description: Pśidatne žrědła nalicone wikiju OpenStreetMap
-      options: Opcije
-      format: 'Format:'
-      scale: Měritko
-      max: maks.
-      image_size: 'Wobrazowa wjelikosć:'
-      zoom: Skalěrowanje
-      add_marker: Kórśe marku pśidaś
-      latitude: 'Šyrina:'
-      longitude: 'Dlinina:'
-      output: Wudaśe
-      paste_html: HTML kopěrowaś, aby se zasajźił do websedła
       export_button: Eksport
     fixthemap:
       title: Problem k wěsći daś / Kórtu pópšawiś
@@ -1233,10 +1232,12 @@ dsb:
         title: Witaj k OSM
         description: Zachop z toś tym spěšnym rozpokazanim, kótarež wopsímujo zakłady
           OpenStreetMap.
-      help:
-        title: help.openstreetmap.org
-        description: Pšašaj se něcogo abo pytaj za wótegronami na boku pšašanjow a
-          wótegronow OpenStreetMap.
+      community:
+        description: Zgromadne městno, źož móžośo za pomocu pytaś a se wó OpenStreetMap
+          rozgranjaś.
+      welcomemat:
+        description: Z organizaciju plany za OpenStreetMap cyniś? Wuslěźćo na boku
+          wuwitanja, což musyśo wěźeś.
       wiki:
         title: wiki.openstreetmap.org
         description: Pśepytaj wiki za nadrobneju OSM-dokumentaciju
@@ -1264,34 +1265,24 @@ dsb:
           footway: Drožka
           rail: Zeleznica
           subway: Pódzemska
-          tram:
-          - Měsćańska zeleznica
-          - elektriska
-          cable:
-          - Kablowa elektriska
-          - sedłowy lift
-          runway:
-          - Pśizemjeńska cera
-          - lětadłowa cera
-          apron:
-          - Pśedpólo lětanišća
-          - terminal
+          cable_car: Kablowa elektriska
+          chair_lift: sedłowy lift
+          runway: Pśizemjeńska cera
+          taxiway: lětadłowa cera
+          apron: Pśedpólo lětanišća
           admin: Zastojnstwowa granica
           forest: Góla
           wood: Lěs
           golf: Golfowišćo
           park: Park
+          common: Powšykny
           resident: Bydleński wobcerk
-          common:
-          - Powšykny
-          - łuka
           retail: Nakupowanišćo
           industrial: Industrijowy wobcerk
           commercial: Źěłarstwowy wobcerk
           heathland: Wrjosate strony
-          lake:
-          - Jazor
-          - gaśeński jazor
+          lake: Jazor
+          reservoir: gaśeński jazor
           farm: Farma
           brownfield: Industrijowe lědo
           cemetery: Kjarchob
@@ -1300,14 +1291,12 @@ dsb:
           centre: Sportowy centrum
           reserve: Strony šćitaneje pśirody
           military: Militarny wobcerk
-          school:
-          - Šula
-          - uniwersita
+          school: Šula
+          university: uniwersita
           building: Pśesegajuce twarjenje
           station: Dwórnišćo, zeleznicowa stacija
-          summit:
-          - Wjerch
-          - špica
+          summit: Wjerch
+          peak: špica
           tunnel: Smužkowane wobcerjenje = tunel
           bridge: Carne wobcerjenje = móst
           private: Priwatny pśistup
@@ -1330,6 +1319,13 @@ dsb:
         title: Njamaš chyle za wobźěłowanje? Pśidaj pokazku!
         para_1: Jolic coš jano drobnosć korigěrowaś a njamaš chyle, aby se zregistrěrował
           a wuknuł, kak se wobźěłujo, móžoš jadnorje pokazku pśidaś.
+    communities:
+      title: Zgromadnosći
+      local_chapters:
+        title: Lokalne zwězki
+        list_text: 'Slědujuce zgromadnosći su oficielnje ako lokalne zwězki zregistrěrowane:'
+      other_groups:
+        title: Druge kupki
   traces:
     visibility:
       private: Priwatny (jano źělony ako anonymne, njezrědowane dypki)
@@ -1352,6 +1348,7 @@ dsb:
           nagrate, nježli až nagrajoš dalšne, až njeby cakański rěd blokěrował za
           drugich wužywarjow.
     edit:
+      cancel: Pśetergnuś
       title: Wobźěłujo se slěd %{name}
       heading: Wobźěłujo se slěd %{name}
       visibility_help: Co to groni?
@@ -1376,9 +1373,6 @@ dsb:
       delete_trace: Toś tu ceru wulašowaś
       trace_not_found: Slěd njejo se namakał!
       visibility: 'Widobnosć:'
-    trace_paging_nav:
-      older: Starše slědy
-      newer: Nowše slědy
     trace:
       pending: Njedocynjony
       count_points: '%{count} dypkow'
@@ -1390,14 +1384,15 @@ dsb:
       identifiable: IDENTIFICĚRUJOBNY
       private: PRIWATNY
       trackable: SLĚDUJOBNY
-      by: wót
-      in: w
     index:
       public_traces: Zjawne GPS-slědy
       public_traces_from: Zjawne GPS-slědy wót %{user}
       description: Nejnowše nagraśa GPS-cerow pśepytaś
       tagged_with: '   wobznamjenjony pśez %{tags}'
       upload_trace: Slěd nagraś
+    page:
+      older: Starše slědy
+      newer: Nowše slědy
     destroy:
       scheduled_for_deletion: Za wulašowanje pśedwiźona cera
     make_public:
@@ -1426,70 +1421,6 @@ dsb:
       need_to_see_terms: Twój pśistup na API jo nachylu wusajźony. Pšosym pśizjaw
         se k webpówjerchoju, aby se wužywarske wuměnjenja woglědał. Njetrjebaš zwóliś
         do nich, musyš se je jano woglědaś.
-  oauth:
-    authorize:
-      title: Pśistup na twójo konto awtorizěrowaś
-      request_access_html: Aplikacija %{app_name} pšosy wó pśistup na twójo konto,
-        %{user}. Pšosym pśeglědaj, lěc aplikacija móžo slědujuce pšawa měś. Móžoš
-        ze slědujucych pšawow jadne pšawo abo teke někotare z nich wubraś.
-      allow_to: 'Dowól aplikaciji:'
-      allow_read_prefs: twóje wužywarske nastajenja cytaś.
-      allow_write_prefs: twóje wužywarske nastajenja změniś
-      allow_write_diary: zapiski dnjownika a komentary spisaś a pśijaśelow zapisaś
-      allow_write_api: kórtu změniś.
-      allow_read_gpx: twóje priwatne GPS-slědy cytaś.
-      allow_write_gpx: GPS-slědy nagraś.
-      allow_write_notes: pokazki změniś.
-    authorize_success:
-      title: Awtorizěrowańske napšašowanje dowólone
-      allowed_html: Sy pśistup nałoženja %{app_name} na twójo konto dowólił.
-      verification: Pśeglědowański kode jo %{code}
-    authorize_failure:
-      title: Awtorizěrowańske napšašowanje njejo se raźiło
-      denied: Sy pśistup nałoženja %{app_name} na twójo konto wótpokazał.
-      invalid: Awtorizěrowański token njejo płaśiwy.
-    revoke:
-      flash: Sy token za %{application} anulěrował.
-  oauth_clients:
-    new:
-      title: Nowu aplikaciju registrěrowaś
-    edit:
-      title: Twóju aplikaciju wobźěłaś
-    show:
-      title: OAuth-drobnostki za %{app_name}
-      key: 'Kluc pśetrjebowarja:'
-      secret: 'Pótajmnosć pśetrjebowarja:'
-      url: 'URL za napšašowański token:'
-      access_url: 'URL pśistupnego tokena:'
-      authorize_url: 'URL awtorizěrowaś:'
-      support_notice: Pódpěramy HMAC-SHA1 (pórucujo se) a signatury RSA_SH1.
-      edit: Drobnostki wobźěłaś
-      delete: Klient wulašowaś
-      confirm: Sy se wěsty?
-      requests: 'Pominaju se slědujuce pšawa wót wužywarja:'
-    index:
-      title: Móje OAuth-drobnostiki
-      my_tokens: Móje awtorizěrowane aplikacije
-      list_tokens: 'Slědujuce tokeny su se wustajili za aplikacije w twójom mjenju:'
-      application: Mě aplikacije
-      issued_at: Wustajony
-      revoke: Wótpóraś!
-      my_apps: Móje aplikacije
-      no_apps_html: Maš aplikaciju, kótaruž coš registrěrowaś, aby ju ze standardom
-        %{oauth} wužywał? Musyš swóju webaplikaciju registrěrowaś, nježli až móžoš
-        toś tej słužbje OAuth-napšašowanja pósłaś.
-      registered_apps: 'Sy slědujuce aplikacije zregistrěrował:'
-      register_new: Twóju aplikaciju registrěrowaś
-    form:
-      requests: 'Pominaj slědujuce pšawa wót wužywarja:'
-    not_found:
-      sorry: Bóžko toś ten %{type} njejo se namakał.
-    create:
-      flash: Jo informacije wuspěšnje zregistrěrował.
-    update:
-      flash: Informacije wó klienśe wuspěšnje zaktualizěrowane
-    destroy:
-      flash: Registrěrowanje aplikacije znicone
   users:
     new:
       title: Registrěrowaś
@@ -1528,6 +1459,8 @@ dsb:
       my profile: Mój profil
       my settings: Móje nastajenja
       my comments: Móje komentary
+      my_preferences: Móje preference
+      my_dashboard: Mój pśeglědowy bok
       blocks on me: Dostane blokowanja
       blocks by me: Dane blokěrowanja
       send message: Powěsć pósłaś
@@ -1541,7 +1474,6 @@ dsb:
       ct status: 'Wuměnjenja za sobustatkujucych:'
       ct undecided: Njerozsuźony
       ct declined: Wótpokazany
-      latest edit: 'Nejnowša změna %{ago}:'
       email address: 'E-mailowa adresa:'
       created from: 'Napórany z:'
       status: 'Status:'
@@ -1570,14 +1502,12 @@ dsb:
     index:
       title: Wužywarje
       heading: Wužywarje
-      showing:
-        one: Bok %{page} (%{first_item} z %{items})
-        other: Bok %{page} (%{first_item}-%{last_item} z %{items})
       summary_html: '%{name} wót %{ip_address} dnja %{date} napórany'
       summary_no_ip_html: '%{name} dnja %{date} napórany'
+      empty: Žedne wótpowědujuce wužywarje namakane
+    page:
       confirm: Wubranych wužywarjow wobkšuśiś
       hide: Wubranych wužywarjow schowaś
-      empty: Žedne wótpowědujuce wužywarje namakane
     suspended:
       title: Konto wupowěźone
       heading: Konto wupowěźone
@@ -1591,15 +1521,11 @@ dsb:
       heading: Rozdaśe role wobkšuśiś
       are_you_sure: Coš napšawdu wužywarjeju "%{name}" rolu "%{role}" daś?
       confirm: Wobkšuśiś
-      fail: Wužywaŕ "%{name}" njejo mogał rolu "%{role}" dostaś. Pšosym pśeglědaj,
-        lěc wužywaŕ a rola stej płaśiwej.
     revoke:
       title: Zajmjeśe role wobkšuśiś
       heading: Zajmjeśe role wobkšuśiś
       are_you_sure: Coš napšawdu wužywarjeju "%{name}" rolu "%{role}" zajmjeś?
       confirm: Wobkšuśiś
-      fail: Njejo móžno było wužwyarjeju  "%{name}" rolu "%{role}" zajmjeś. Pšosym
-        pśeglědaj, lěc wužywaŕ a rola stej płaśiwej.
   user_blocks:
     model:
       non_moderator_update: Musy moderator byś, aby blokěrowanje wuźělił abo aktualizěrował.
@@ -1611,15 +1537,11 @@ dsb:
       title: Wuźělujo se blokěrowanje pśeśiwo %{name}
       heading_html: Wuźělujo se blokěrowanje pśeśiwo %{name}
       period: Kak dłujko, wótněnta, wužywaŕ buźo se za API blokěrowaś.
-      back: Wšykne blokěrowanja pokazaś
     edit:
       title: Wobźěłujo se blokěrowanje pśeśiwo %{name}
       heading_html: Wobźěłujo se blokěrowanje pśeśiwo %{name}
       period: Kak dłujko, wótněnta, wužywaŕ buźo se za API blokěrowaś.
-      show: Toś to blokěrowanje pokazaś
-      back: Wšykne blokěrowanja pokazaś
     filter:
-      block_expired: Blokěrowanje jo južo pśepadnuło a njedajo se wobźěłaś.
       block_period: Cas blokěrowanja musy jadna z gódnotow byś, kótarež daju se z
         padajuceje lisćiny wubraś.
     create:
@@ -1632,14 +1554,6 @@ dsb:
       title: Wužywarske blokěrowanja
       heading: Lisćina wužywarskich blokěrowanjow
       empty: Blokěrowanja hyšći njejsu se wuźělili.
-    revoke:
-      title: Wótpórajo se blokěrowanje pśeśiwo %{block_on}
-      heading_html: Wótpórajo se blokěrowanje pśeśiwo %{block_on} wót %{block_by}
-      time_future: Toś to blokěrowanje skóńcyjo se %{time}.
-      past: Toś to blokěrowanje jo se %{time} skóńcyło a njedajo se něnto wótpóraś.
-      confirm: Coš napšawdu toś to blokěrowanje wótpóraś?
-      revoke: Wótpóraś!
-      flash: Toś to blokěrowanje jo se wótpórało.
     helper:
       time_future_html: Kóńcy se %{time}.
       until_login: Aktiwny, až wužywaŕ se njepśizjawja.
@@ -1664,26 +1578,20 @@ dsb:
       status: Status
       show: Pokazaś
       edit: Wobźěłaś
-      revoke: Wótpóraś!
       confirm: Sy se wěsty?
       reason: 'Pśicyna za blokěrowanje:'
-      back: Wše blokěrowanja pokazaś
       revoker: 'Anulěrowaŕ:'
       needs_view: Wužywaŕ musy se pśizjawiś, nježli blokěrowanje se wótpórajo.
     block:
       not_revoked: (nic wótpórany)
       show: Pokazaś
       edit: Wobźěłaś
-      revoke: Wótpóraś!
     blocks:
       display_name: Zablokěrowany wužywaŕ
       creator_name: Blokěrowaŕ
       reason: Pśicyna za blokěrowanje
       status: Status
       revoker_name: Wótpórany wót
-      showing_page: Bok %{page}
-      next: Pśiducy »
-      previous: « Pjerwjejšny
   notes:
     index:
       title: Pokazki, kótarež su se wót %{user} dali abo komentěrowali
@@ -1761,9 +1669,6 @@ dsb:
       createnote_disabled_tooltip: Powětšyś, aby kórśe pokazku pśidało
       map_notes_zoom_in_tooltip: Powětš kórtu,  aby pokazki wiźeł
       map_data_zoom_in_tooltip: Powětš kórtu, aby daty wiźeł
-    changesets:
-      show:
-        comment: Reagěrowaś
     edit_help: Pśesuń kórtu do městna, kótarež coš wobźěłaś, powětš tam a klikni pótom
       how.
     directions:

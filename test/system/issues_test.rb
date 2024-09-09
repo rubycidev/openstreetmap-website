@@ -19,7 +19,7 @@ class IssuesTest < ApplicationSystemTestCase
     sign_in_as(create(:moderator_user))
 
     visit issues_path
-    assert_content I18n.t("issues.index.issues_not_found")
+    assert_content I18n.t("issues.page.issues_not_found")
   end
 
   def test_view_issues
@@ -80,23 +80,23 @@ class IssuesTest < ApplicationSystemTestCase
     # No issues against the user
     visit issues_path
     fill_in "search_by_user", :with => good_user.display_name
-    click_button "Search"
-    assert_no_content I18n.t("issues.index.user_not_found")
-    assert_content I18n.t("issues.index.issues_not_found")
+    click_on "Search"
+    assert_no_content I18n.t("issues.page.user_not_found")
+    assert_content I18n.t("issues.page.issues_not_found")
 
     # User doesn't exist
     visit issues_path
     fill_in "search_by_user", :with => "Nonexistent User"
-    click_button "Search"
-    assert_content I18n.t("issues.index.user_not_found")
-    assert_content I18n.t("issues.index.issues_not_found")
+    click_on "Search"
+    assert_content I18n.t("issues.page.user_not_found")
+    assert_no_content I18n.t("issues.page.issues_not_found")
 
     # Find Issue against bad_user
     visit issues_path
     fill_in "search_by_user", :with => bad_user.display_name
-    click_button "Search"
-    assert_no_content I18n.t("issues.index.user_not_found")
-    assert_no_content I18n.t("issues.index.issues_not_found")
+    click_on "Search"
+    assert_no_content I18n.t("issues.page.user_not_found")
+    assert_no_content I18n.t("issues.page.issues_not_found")
   end
 
   def test_commenting
@@ -106,7 +106,7 @@ class IssuesTest < ApplicationSystemTestCase
     visit issue_path(issue)
 
     fill_in :issue_comment_body, :with => "test comment"
-    click_button "Add Comment"
+    click_on "Add Comment"
     assert_content I18n.t("issue_comments.create.comment_created")
     assert_content "test comment"
 
@@ -123,7 +123,7 @@ class IssuesTest < ApplicationSystemTestCase
 
     fill_in :issue_comment_body, :with => "reassigning to moderators"
     check :reassign
-    click_button "Add Comment"
+    click_on "Add Comment"
 
     assert_content "and the issue was reassigned"
     assert_current_path issues_path(:status => "open")
@@ -140,7 +140,7 @@ class IssuesTest < ApplicationSystemTestCase
 
     fill_in :issue_comment_body, :with => "reassigning to moderators"
     check :reassign
-    click_button "Add Comment"
+    click_on "Add Comment"
 
     assert_content "and the issue was reassigned"
     assert_current_path issue_path(issue)
@@ -158,7 +158,50 @@ class IssuesTest < ApplicationSystemTestCase
 
     visit issues_path
 
-    assert_link I18n.t("issues.index.reports_count", :count => issue1.reports_count), :href => issue_path(issue1)
-    assert_link I18n.t("issues.index.reports_count", :count => issue2.reports_count), :href => issue_path(issue2)
+    assert_link I18n.t("issues.page.reports_count", :count => issue1.reports_count), :href => issue_path(issue1)
+    assert_link I18n.t("issues.page.reports_count", :count => issue2.reports_count), :href => issue_path(issue2)
+  end
+
+  def test_issues_pagination
+    1.upto(8).each do |n|
+      user = create(:user, :display_name => "extra_#{n}")
+      create(:issue, :reportable => user, :reported_user => user, :assigned_role => "administrator")
+    end
+
+    sign_in_as(create(:administrator_user))
+
+    visit issues_path(:limit => 5)
+
+    # First Page
+    assert_no_content I18n.t("issues.page.user_not_found")
+    assert_no_content I18n.t("issues.page.issues_not_found")
+    4.upto(8).each do |n|
+      assert_content(/extra_#{n}[^\d]/i, :count => 2)
+    end
+    1.upto(3).each do |n|
+      assert_no_content(/extra_#{n}[^\d]/i)
+    end
+
+    # Second Page
+    click_on I18n.t("issues.page.older_issues")
+    assert_no_content I18n.t("issues.page.user_not_found")
+    assert_no_content I18n.t("issues.page.issues_not_found")
+    4.upto(8).each do |n|
+      assert_no_content(/extra_#{n}[^\d]/i)
+    end
+    1.upto(3).each do |n|
+      assert_content(/extra_#{n}[^\d]/i, :count => 2)
+    end
+
+    # Back to First Page
+    click_on I18n.t("issues.page.newer_issues")
+    assert_no_content I18n.t("issues.page.user_not_found")
+    assert_no_content I18n.t("issues.page.issues_not_found")
+    4.upto(8).each do |n|
+      assert_content(/extra_#{n}[^\d]/i, :count => 2)
+    end
+    1.upto(3).each do |n|
+      assert_no_content(/extra_#{n}[^\d]/i)
+    end
   end
 end

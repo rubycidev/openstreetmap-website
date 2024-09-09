@@ -1,8 +1,11 @@
 # Messages for Portuguese (português)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Andrekowacs
 # Author: AntMadeira
 # Author: Athena in Wonderland
+# Author: B3rnas
+# Author: Caiofernandes
 # Author: Crazymadlover
 # Author: Danieldegroot2
 # Author: Eduardo Addad de Oliveira
@@ -29,6 +32,7 @@
 # Author: Malafaya
 # Author: Mansil
 # Author: Mansil alfalb
+# Author: Matheusgomesms
 # Author: McDutchie
 # Author: MokaAkashiyaPT
 # Author: Nemo bis
@@ -66,8 +70,8 @@ pt-PT:
         create: Registar
         update: Atualizar
       redaction:
-        create: Criar supressão
-        update: Gravar supressão
+        create: Criar redação
+        update: Gravar redação
       trace:
         create: Enviar
         update: Gravar alterações
@@ -79,6 +83,11 @@ pt-PT:
       messages:
         invalid_email_address: não parece ser um endereço de correio eletrónico válido
         email_address_not_routable: não é atingível
+        display_name_is_user_n: não pode ser user_n a não ser que n seja a tua id
+          de utilizador
+      models:
+        user_mute:
+          is_already_muted: já está silenciado
     models:
       acl: Aceder à lista de controlo
       changeset: Conjunto de alterações
@@ -105,9 +114,9 @@ pt-PT:
       relation_tag: Etiqueta da relação
       report: Denúncia
       session: Sessão
-      trace: Trajeto
-      tracepoint: Ponto do trajeto
-      tracetag: Etiqueta do trajeto
+      trace: Rota
+      tracepoint: Ponto de Rota
+      tracetag: Etiqueta de Rota
       user: Utilizador
       user_preference: Preferências do utilizador
       user_token: Token do utilizador
@@ -171,7 +180,6 @@ pt-PT:
         auth_provider: Provedor de autenticação
         auth_uid: UID de autenticação
         email: E-mail
-        email_confirmation: E-mail de confirmação
         new_email: Novo e-mail
         active: Ativo
         display_name: Nome visualizado
@@ -249,7 +257,6 @@ pt-PT:
   auth:
     providers:
       none: Nenhuma
-      openid: OpenID
       google: Google
       facebook: Facebook
       microsoft: Microsoft
@@ -268,6 +275,7 @@ pt-PT:
         reopened_at_by_html: Reaberto %{when} por %{user}
       rss:
         title: Notas OpenStreetMap
+        description_all: Uma lista de notas denunciadas, comentadas ou fechadas.
         description_area: Lista de notas reportadas, comentadas ou resolvidas na tua
           área [(%{min_lat}|%{min_lon}) -- (%{max_lat}|%{max_lon})]
         description_item: Um feed RSS para a nota %{id} reportada
@@ -303,6 +311,8 @@ pt-PT:
         retain_changeset_discussions: Se existirem, as tuas discussões nos conjuntos
           de edições serão mantidas.
         retain_email: O teu endereço eletrónico será mantido.
+        recent_editing_html: Como você editou recentemente, sua conta não pode ser
+          excluída no momento. A exclusão será possível em %{time}.
         confirm_delete: Tens a certeza?
         cancel: Cancelar
   accounts:
@@ -352,15 +362,10 @@ pt-PT:
     destroy:
       success: Conta apagada.
   browse:
-    created: Criado
-    closed: Fechado
-    created_ago_html: Criado há %{time_ago}
-    closed_ago_html: Fechado há %{time_ago}
-    created_ago_by_html: Criado há %{time_ago} por %{user}
-    closed_ago_by_html: Fechado há %{time_ago} por %{user}
-    deleted_ago_by_html: Eliminado há %{time_ago} por %{user}
-    edited_ago_by_html: Editado há %{time_ago} por %{user}
+    deleted_ago_by_html: Eliminado %{time_ago} por %{user}
+    edited_ago_by_html: Editado %{time_ago} por %{user}
     version: Versão
+    redacted_version: Versão reduzida
     in_changeset: Conjunto de alterações
     anonymous: anónimo
     no_comment: (sem comentário)
@@ -373,29 +378,11 @@ pt-PT:
       other: '%{count} vias'
     download_xml: Transferir XML
     view_history: Ver histórico
+    view_unredacted_history: Ver histórico não editado
     view_details: Ver detalhes
+    view_redacted_data: Ver dados reduzidos
+    view_redaction_message: Ver mensagem de redação
     location: 'Localização:'
-    changeset:
-      title: 'Conjunto de alterações: %{id}'
-      belongs_to: Autor
-      node: Nós (%{count})
-      node_paginated: Nós (%{x}-%{y} of %{count})
-      way: Linhas (%{count})
-      way_paginated: Linhas (%{x}-%{y} de %{count})
-      relation: Relações (%{count})
-      relation_paginated: Relações (%{x}-%{y} of %{count})
-      comment: Comentários (%{count})
-      hidden_comment_by_html: Comentário ocultado por %{user} há %{time_ago}
-      comment_by_html: Comentário de %{user} há %{time_ago}
-      changesetxml: XML do conjunto de alterações
-      osmchangexml: XML no formato osmChange
-      feed:
-        title: Conjunto de alterações %{id}
-        title_comment: Conjunto de alterações %{id} - %{comment}
-      join_discussion: Inicia sessão para te juntares à discussão
-      discussion: Discussão
-      still_open: O conjunto de alterações continua aberto. A discussão será iniciada
-        assim que o conjunto de alterações for fechado.
     node:
       title_html: 'Nó: %{name}'
       history_title_html: 'Histórico do Nó: %{name}'
@@ -455,8 +442,8 @@ pt-PT:
         relation: relação
     start_rjs:
       feature_warning: A carregar %{num_features} elementos. Isto poderá deixar o
-        navegador lento ou sem resposta. Tens a certeza de que queres ver estes elementos
-        todos?
+        navegador lento ou sem resposta. Tens a certeza de que queres mostrar estes
+        dados?
       load_data: Carregar Dados
       loading: A carregar…
     tag_details:
@@ -475,6 +462,31 @@ pt-PT:
       introduction: Clica no mapa para descobrir elementos próximos.
       nearby: Elementos próximos
       enclosing: Elementos delimitadores
+  old_nodes:
+    not_found:
+      sorry: 'Desculpe, o nó #%{id} versão %{version} não foi encontrado.'
+  old_ways:
+    not_found:
+      sorry: 'Desculpe, não foi possível encontrar #%{id} versão %{version}.'
+  old_relations:
+    not_found:
+      sorry: 'Desculpe, a relação #%{id} versão %{version} não foi encontrada.'
+  changeset_comments:
+    feeds:
+      comment:
+        comment: Novo comentário sobre o conjunto de alterações n.º %{changeset_id}
+          de %{author}
+        commented_at_by_html: Atualizado %{when} por %{user}
+      comments:
+        comment: Novo comentário sobre o conjunto de alterações n.º %{changeset_id}
+          de %{author}
+      show:
+        title_all: Discussão sobre conjunto de alterações do OpenStreetMap
+        title_particular: Discussão sobre o conjunto de alterações n.º %{changeset_id}
+          do OpenStreetMap
+      timeout:
+        sorry: Lamentamos, a lista de comentários sobre conjuntos de alterações que
+          pediste demorou demasiado tempo a ser obtida.
   changesets:
     changeset_paging_nav:
       showing_page: Página %{page}
@@ -484,12 +496,6 @@ pt-PT:
       anonymous: Anónimo
       no_edits: (sem edições)
       view_changeset_details: Ver detalhes do conjunto de alterações
-    changesets:
-      id: ID
-      saved_at: Gravado em
-      user: Utilizador
-      comment: Comentário
-      area: Área
     index:
       title: Conjuntos de alterações
       title_user: Conjuntos de alterações de %{user}
@@ -503,28 +509,62 @@ pt-PT:
       no_more_area: Não há mais conjuntos de alterações nesta área.
       no_more_user: Não há mais conjuntos de alterações deste utilizador.
       load_more: Ver mais
+      feed:
+        title: Conjunto de alterações %{id}
+        title_comment: Conjunto de alterações %{id} - %{comment}
+        created: Criado
+        closed: Fechado
+        belongs_to: Autor
+    subscribe:
+      heading: Deseja subscrever à seguinte discussão do conjunto de mudanças?
+      button: Inscreva-se na discussão
+    unsubscribe:
+      heading: Cancelar a inscrição na seguinte discussão do conjunto de alterações?
+      button: Cancelar inscrição da discussão
+    heading:
+      title: Conjunto de alterações %{id}
+      created_by_html: Criado por %{link_user} em %{created}.
+    no_such_entry:
+      title: Não existe tal conjunto de alterações
+      heading: 'Nenhuma entrada com o id: %{id}'
+      body: Desculpe, não há conjunto de alterações com o id %{id}. Verifique a ortografia,
+        ou talvez o link em que clicou esteja errado.
+    show:
+      title: 'Conjunto de alterações: %{id}'
+      created: 'Criado: %{when}'
+      closed: 'Fechado: %{when}'
+      created_ago_html: Criado %{time_ago}
+      closed_ago_html: Fechado %{time_ago}
+      created_ago_by_html: Criado %{time_ago} por %{user}
+      closed_ago_by_html: Fechado %{time_ago} por %{user}
+      discussion: Discussão
+      join_discussion: Inicia sessão para te juntares à discussão
+      still_open: O conjunto de alterações continua aberto. A discussão será iniciada
+        assim que o conjunto de alterações for fechado.
+      subscribe: Subscrever
+      unsubscribe: Anular subscrição
+      comment_by_html: Comentário de %{user} %{time_ago}
+      hidden_comment_by_html: Comentário ocultado por %{user} %{time_ago}
+      hide_comment: ocultar
+      unhide_comment: desocultar
+      comment: Comentar
+      changesetxml: XML do conjunto de alterações
+      osmchangexml: XML no formato osmChange
+    paging_nav:
+      nodes: Nós (%{count})
+      nodes_paginated: Nós (%{x}-%{y} of %{count})
+      ways: Linhas (%{count})
+      ways_paginated: Linhas (%{x}-%{y} de %{count})
+      relations: Relações (%{count})
+      relations_paginated: Relações (%{x}-%{y} of %{count})
     timeout:
       sorry: Lamentamos, mas a lista de conjuntos de alterações que pediste excedeu
         o tempo limite de resposta.
-  changeset_comments:
-    comment:
-      comment: Novo comentário sobre o conjunto de alterações n.º %{changeset_id}
-        de %{author}
-      commented_at_by_html: Atualizado %{when} por %{user}
-    comments:
-      comment: Novo comentário sobre o conjunto de alterações n.º %{changeset_id}
-        de %{author}
-    index:
-      title_all: Discussão sobre conjunto de alterações do OpenStreetMap
-      title_particular: Discussão sobre o conjunto de alterações n.º %{changeset_id}
-        do OpenStreetMap
-    timeout:
-      sorry: Lamentamos, a lista de comentários sobre conjuntos de alterações que
-        pediste demorou demasiado tempo a ser obtida.
   dashboards:
     contact:
       km away: '%{count} km de distância'
       m away: '%{count} m de distância'
+      latest_edit_html: 'Última edição (%{ago}):'
     popup:
       your location: A tua localização
       nearby mapper: Mapeador próximo de ti
@@ -559,6 +599,7 @@ pt-PT:
       new_title: Escrever uma nova publicação no meu diário de utilizador
       my_diary: O meu diário
       no_entries: Diário sem publicações
+    page:
       recent_entries: Publicações recentes em diários
       older_entries: Publicações mais antigas
       newer_entries: Publicações mais recentes
@@ -568,6 +609,9 @@ pt-PT:
     show:
       title: Diário de %{user} | %{title}
       user_title: Diário de %{user}
+      discussion: Discussão
+      subscribe: Subscrever
+      unsubscribe: Cancelar subscrição
       leave_a_comment: Deixar um comentário
       login_to_leave_a_comment_html: '%{login_link} para deixar um comentário'
       login: Iniciar sessão
@@ -612,21 +656,61 @@ pt-PT:
       all:
         title: Publicações no diário de mapeadores do OpenStreetMap
         description: Publicações recentes no diário OpenStreetMap
-    comments:
+    subscribe:
+      heading: Pretendes acompanhar a seguinte discussão sobre a entrada no diário?
+      button: Acompanhar discussão
+    unsubscribe:
+      heading: Pretendes deixar de acompanhar a seguinte discussão sobre a entrada
+        no diário?
+      button: Deixar de acompanhar a discussão
+  diary_comments:
+    index:
       title: Comentários no Diário feitos por %{user}
       heading: Comentários no Diário de %{user}
       subheading_html: Comentários no Diário feitos por %{user}
       no_comments: Sem comentários no diário
+    page:
       post: Publicação
       when: Quando
       comment: Comentário
       newer_comments: Comentários mais recentes
       older_comments: Comentários mais antigos
+    new:
+      heading: Adicionar um comentário à seguinte discussão de entrada no diário?
   doorkeeper:
+    errors:
+      messages:
+        account_selection_required: O servidor de autorização requer seleção de conta
+          de utilizador final
+        consent_required: O servidor de autorização requer o consentimento do utilizador
+          final
+        interaction_required: O servidor de autorização requer interação com o utilizador
+          final
+        login_required: O servidor de autorização requer autenticação do utilizador
+          final
     flash:
       applications:
         create:
           notice: Aplicação registada.
+    openid_connect:
+      errors:
+        messages:
+          auth_time_from_resource_owner_not_configured: Falha devido a ausência de
+            configuração de Doorkeeper::OpenidConnect.configure.auth_time_from_resource_owner.
+          reauthenticate_resource_owner_not_configured: Falha devido a ausência de
+            configuração de Doorkeeper::OpenidConnect.configure.reauthenticate_resource_owner.
+          resource_owner_from_access_token_not_configured: Falha devido a ausência
+            de configuração de Doorkeeper::OpenidConnect.configure.resource_owner_from_access_token.
+          select_account_for_resource_owner_not_configured: Falha devido a ausência
+            de configuração de Doorkeeper::OpenidConnect.configure.select_account_for_resource_owner.
+          subject_not_configured: Falha na geração de token ID devido a ausência de
+            configuração de Doorkeeper::OpenidConnect.configure.subject.
+    scopes:
+      address: Ver o teu endereço físico
+      email: Ver o teu endereço eletrónico
+      openid: Autenticar a tua conta
+      phone: Ver o teu número de telefone
+      profile: Ver a tua informação de perfil
   errors:
     contact:
       contact_url_title: Vários canais de contacto explicados
@@ -634,6 +718,10 @@ pt-PT:
       contact_the_community_html: Fique à vontade para %{contact_link} a comunidade
         OpenStreetMap caso tenha encontrado uma ligação inativa ou um erro. Deixe
         uma nota da URL exata da sua solicitação.
+    bad_request:
+      title: Pedido inválido
+      description: A operação solicitada no servidor OpenStreetMap não é válida (HTTP
+        400)
     forbidden:
       title: Proibido
       description: A operação solicitada no servidor do OpenStreetMap só está disponível
@@ -830,6 +918,7 @@ pt-PT:
           college: Edifício de faculdade
           commercial: Edifício comercial
           construction: Edifício em construção
+          cowshed: Vacaria
           detached: Casa isolada
           dormitory: Dormitório
           duplex: Casa dupla
@@ -859,6 +948,7 @@ pt-PT:
           shed: Barracão
           stable: Estábulo
           static_caravan: Caravana
+          sty: Pocilga
           temple: Edíficio de templo
           terrace: Edifício geminado
           train_station: Edifício de estação dos comboios
@@ -1454,30 +1544,38 @@ pt-PT:
       not_updated: Não atualizado
       search: Pesquisar
       search_guidance: 'Pesquisar problemas:'
+      link_to_reports: Ver denúncias
+      states:
+        ignored: Ignorado
+        open: Abertos
+        resolved: Resolvidos
+    page:
       user_not_found: O utilizador não existe
       issues_not_found: Não se encontraram problemas desse tipo
+      reported_user: Utilizador Denunciado
       status: Estado
       reports: Denúncias
       last_updated: Última atualização
       last_updated_time_ago_user_html: Há %{time_ago} por %{user}
-      link_to_reports: Ver denúncias
       reports_count:
         one: '%{count} denúncia'
         other: '%{count} denúncias'
       reported_item: Elemento denunciado
       states:
-        ignored: Ignorado
-        open: Abertos
-        resolved: Resolvidos
+        ignored: Ignorada
+        open: Aberta
+        resolved: Resolvida
+      older_issues: Problemas antigos
+      newer_issues: Problemas recentes
     show:
       title: '%{status} Denúncia #%{issue_id}'
       reports:
         one: '%{count} denúncia'
         other: '%{count} denúncias'
       no_reports: Sem denúncias
-      report_created_at: Denunciado pela primeira vez em %{datetime}
-      last_resolved_at: Resolvido pela última vez em %{datetime}
-      last_updated_at: Atualizado pela última vez em %{datetime} por %{displayname}
+      report_created_at_html: Denunciado pela primeira vez em %{datetime}
+      last_resolved_at_html: Resolvido pela última vez em %{datetime}
+      last_updated_at_html: Atualizado pela última vez em %{datetime} por %{displayname}
       resolve: Resolver
       ignore: Ignorar
       reopen: Reabrir
@@ -1559,24 +1657,23 @@ pt-PT:
     gps_traces: Rotas GPS
     gps_traces_tooltip: Gerir rotas GPS
     user_diaries: Diários dos Utilizadores
-    user_diaries_tooltip: Ver diários do utilizador
     edit_with: Editar com %{editor}
     tag_line: O mapa mundial livre e editável
     intro_header: Bem-vind@ ao OpenStreetMap!
     intro_text: O OpenStreetMap é um mapa do mundo, criado por pessoas como tu e de
       uso livre sob uma licença aberta.
     intro_2_create_account: Cria uma conta de utilizador
-    hosting_partners_html: O alojamento é suportado por %{ucl}, %{fastly}, %{bytemark}
+    hosting_partners_2024_html: O alojamento é suportado por %{fastly}, %{corpmembers}
       e outros %{partners}.
-    partners_ucl: UCL
     partners_fastly: Fastly
-    partners_bytemark: Bytemark Hosting
+    partners_corpmembers: membros corporativos OSMF
     partners_partners: parceiros
     tou: Condições de utilização
     osm_offline: A base de dados do OpenStreetMap está indisponível devido a trabalhos
       de manutenção.
     osm_read_only: A base de dados do OpenStreetMap encontra-se em modo de leitura
       devido a trabalhos de manutenção.
+    nothing_to_preview: Nada para pré-visualizar.
     donate: Apoia o OpenStreetMap %{link} para o Fundo de Atualização do Hardware.
     help: Ajuda
     about: Sobre
@@ -1585,13 +1682,11 @@ pt-PT:
     community: Comunidade
     community_blogs: Blogues da comunidade
     community_blogs_title: Blogues de membros da comunidade OpenStreetMap
-    make_a_donation:
-      title: Apoia o OpenStreetMap com um donativo monetário
-      text: Fazer donativo
     learn_more: Mais informações
     more: Mais
   user_mailer:
     diary_comment_notification:
+      description: 'Entrada no Diário OpenStreetMap #%{id}'
       subject: '[OpenStreetMap] %{user} comentou uma publicação de diário'
       hi: Olá, %{to_user}.
       header: '%{from_user} comentou a publicação de diário OpenStreetMap com o assunto
@@ -1602,6 +1697,8 @@ pt-PT:
         ou enviar uma mensagem ao autor em %{replyurl}
       footer_html: Também podes ler o comentário em %{readurl} e comentar em %{commenturl}
         ou enviar uma mensagem ao autor em %{replyurl}
+      footer_unsubscribe: Podes deixar de acompanhar a discussão em %{unsubscribeurl}
+      footer_unsubscribe_html: Podes deixar de acompanhar a discussão em %{unsubscribeurl}
     message_notification:
       subject: '[OpenStreetMap] %{message_title}'
       hi: Olá, %{to_user}.
@@ -1620,15 +1717,21 @@ pt-PT:
       see_their_profile: Podes ver o perfil dele em %{userurl}.
       see_their_profile_html: Podes ver o seu perfil em %{userurl}.
       befriend_them: Também podes adicioná-lo como amigo em %{befriendurl}.
-      befriend_them_html: Também os podes adicionar como amigos em %{befriendurl}.
+      befriend_them_html: Também podes adicionar este utilizador como amigo em %{befriendurl}.
     gpx_description:
+      description_with_tags: 'Parece que o teu ficheiro GPX %{trace_name} com a descrição
+        %{trace_description} e as seguintes etiquetas: %{tags}'
       description_with_tags_html: 'Parece que o teu ficheiro GPX %{trace_name} com
         a descrição %{trace_description} e as etiquetas: %{tags}'
+      description_with_no_tags: Parece que o teu ficheiro GPX %{trace_name} com a
+        descrição %{trace_description} e sem etiquetas
       description_with_no_tags_html: Parece que o teu ficheiro GPX %{trace_name} com
         a descrição %{trace_description} e sem etiquetas
     gpx_failure:
       hi: Olá, %{to_user}.
       failed_to_import: 'falhou na importação. Eis o erro:'
+      more_info: Podes encontrar mais informações sobre falhas de importação de ficheiros
+        GPX e como as evitar em %{url}.
       more_info_html: Podes encontrar mais informações sobre falhas de importação
         GPX e como evitá-las em %{url}.
       import_failures_url: https://wiki.openstreetmap.org/wiki/GPX_Import_Failures?uselang=pt
@@ -1638,6 +1741,11 @@ pt-PT:
       loaded:
         one: carregado com sucesso com %{trace_points} de %{count} point possível.
         other: carregado com sucesso com %{trace_points} de %{count} pontos possíveis.
+      trace_location: A tua rota está disponível em %{trace_url}
+      all_your_traces: Todas as tuas rotas GPX enviadas com sucesso podem ser encontradas
+        em %{url}
+      all_your_traces_html: Todas as rotas GPX que enviaste podem ser encontradas
+        em %{url}.
       subject: '[OpenStreetMap] Importação de GPX bem-sucedida'
     signup_confirm:
       subject: '[OpenStreetMap] Bem-vind@ ao OpenStreetMap'
@@ -1662,6 +1770,7 @@ pt-PT:
       click_the_link: Se foste tu, clica na ligação seguinte para criares uma nova
         palavra-passe.
     note_comment_notification:
+      description: Nota OpenStreetMap n.º %{id}
       anonymous: Um utilizador anónimo
       greeting: Olá,
       commented:
@@ -1697,9 +1806,10 @@ pt-PT:
           perto de %{place}.'
         commented_note_html: '%{commenter} reabriu uma nota comentada por ti. A nota
           fica perto de %{place}.'
-      details: Podes ver mais detalhes sobre a nota em %{url}.
-      details_html: Podes ver mais detalhes sobre a nota em %{url}.
+      details: Responde ou descobre mais sobre a nota em %{url}.
+      details_html: Responde ou descobre mais sobre a nota em %{url}.
     changeset_comment_notification:
+      description: Conjunto de alterações n.º %{id}
       hi: Olá, %{to_user}.
       greeting: Olá,
       commented:
@@ -1718,14 +1828,12 @@ pt-PT:
         partial_changeset_with_comment: com o comentário '%{changeset_comment}'
         partial_changeset_with_comment_html: com o comentário '%{changeset_comment}'
         partial_changeset_without_comment: sem comentários
-      details: Podes encontrar mais informações sobre o conjunto de alterações em
-        %{url}.
-      details_html: Podes encontrar mais informações sobre o conjunto de alterações
+      details: Responde ou descobre mais sobre o conjunto de alterações em %{url}.
+      details_html: Responde ou descobre mais sobre o conjunto de alterações em %{url}.
+      unsubscribe: Podes deixar de acompanhar as atualizações deste conjunto de alterações
         em %{url}.
-      unsubscribe: Para deixares de receber atualizações sobre este conjunto de alterações,
-        visita %{url} e clica em "Anular subscrição".
-      unsubscribe_html: Para deixares de receber atualizações sobre este conjunto
-        de alterações, visita %{url} e clica em "Anular subscrição".
+      unsubscribe_html: Podes deixar de acompanhar as atualizações deste conjunto
+        de alterações em %{url}.
   confirmations:
     confirm:
       heading: Consulta o teu e-mail!
@@ -1759,8 +1867,6 @@ pt-PT:
   messages:
     inbox:
       title: Caixa de Entrada
-      my_inbox: Caixa de entrada
-      my_outbox: Caixa de saída
       messages: Tens %{new_messages} e %{old_messages}
       new_messages:
         one: '%{count} mensagem nova'
@@ -1768,17 +1874,21 @@ pt-PT:
       old_messages:
         one: '%{count} mensagem antiga'
         other: '%{count} mensagens antigas'
-      from: De
-      subject: Assunto
-      date: Data
       no_messages_yet_html: Ainda não tens mensagens. Porque não entras em contacto
         com algumas %{people_mapping_nearby_link}?
       people_mapping_nearby: pessoas que mapeiam perto de ti
+    messages_table:
+      from: De
+      to: Para
+      subject: Assunto
+      date: Data
+      actions: Ações
     message_summary:
       unread_button: Marcar como não lida
       read_button: Marcar como lida
       reply_button: Responder
       destroy_button: Eliminar
+      unmute_button: Mover para caixa de entrada
     new:
       title: Enviar mensagem
       send_message_to_html: Enviar uma nova mensagem para %{name}
@@ -1793,17 +1903,18 @@ pt-PT:
       body: Lamentamos, não existe nenhuma mensagem com esse identificador (id).
     outbox:
       title: Caixa de saída
-      my_inbox: Caixa de entrada
-      my_outbox: Caixa de saída
+      actions: Ações
       messages:
         one: Tens %{count} mensagem enviada
         other: Tens %{count} mensagens enviadas
-      to: Para
-      subject: Assunto
-      date: Data
       no_sent_messages_html: Ainda não tens mensagens enviadas. Porque não entras
         em contacto com algumas %{people_mapping_nearby_link}?
       people_mapping_nearby: pessoas que mapeiam perto de ti
+    muted:
+      title: Mensagens Silenciadas
+      messages:
+        one: '%{count} mensagem silenciada'
+        other: Tens %{count} mensagens silenciadas
     reply:
       wrong_user: Estás autenticado como `%{user}', mas a mensagem a que pretendes
         responder não foi enviada para esse utilizador. Por favor, entra na conta
@@ -1819,29 +1930,38 @@ pt-PT:
         correta para poderes ler a mensagem.
     sent_message_summary:
       destroy_button: Eliminar
+    heading:
+      my_inbox: Caixa de entrada
+      my_outbox: Caixa de saída
+      muted_messages: Mensagens silenciadas
     mark:
       as_read: Mensagem marcada como lida
       as_unread: Mensagem marcada como não lida
+    unmute:
+      notice: A mensagem foi movida para a caixa de entrada
+      error: A mensagem não pôde ser movida para a caixa de entrada.
     destroy:
       destroyed: Mensagem eliminada
   passwords:
-    lost_password:
+    new:
       title: Palavra-passe esquecida
       heading: Esqueceste a palavra-passe?
-      email address: 'Endereço eletrónico:'
+      email address: Endereço de correio eletrónico
       new password button: Repor palavra-passe
       help_text: Introduz o endereço de correio eletrónico que usaste para criar a
         conta. Enviar-te-emos uma ligação que poderás usar para repor a palavra-passe.
-      notice email on way: Lamentamos que a tenhas perdido :-( mas já te enviámos
-        um e-mail para que possas repô-la em breve.
-      notice email cannot find: Lamentamos, mas não foi possível encontrar esse endereço
-        eletrónico.
-    reset_password:
+    create:
+      send_paranoid_instructions: Se o teu endereço de correio eletrónico existir
+        na nossa base de dados, receberás uma ligação de recuperação de palavra-passe
+        nesse mesmo endereço dentro de minutos.
+    edit:
       title: Repor palavra-passe
       heading: Repor palavra-passe para %{user}
       reset: Repor palavra-passe
-      flash changed: A tua palavra-passe foi alterada.
       flash token bad: Não encontrámos esse token. Confere o URL, por favor.
+    update:
+      flash changed: A tua palavra-passe foi alterada.
+      flash token bad: O token não foi encontrado. Talvez devas conferir o URL?
   preferences:
     show:
       title: Preferências
@@ -1885,43 +2005,17 @@ pt-PT:
   sessions:
     new:
       title: Entrar
-      heading: Iniciar Sessão
-      email or username: 'E-mail ou nome de utilizador:'
-      password: 'Palavra-passe:'
-      openid_html: '%{logo} OpenID:'
+      tab_title: Iniciar sessão
+      login_to_authorize_html: Inicia sessão no OpenStreetMap para acederes a %{client_app_name}.
+      email or username: 'E-mail ou Nome de utilizador:'
+      password: Palavra-passe
       remember: Ficar autenticado entre sessões
       lost password link: Perdeste a tua palavra-passe?
       login_button: Iniciar sessão
       register now: Regista-te agora
-      with external: 'Em alternativa, podes iniciar sessão com um serviço externo:'
-      no account: Não tens uma conta?
+      with external: ou inicia sessão com uma aplicação de terceiros
+      or: ou
       auth failure: Lamentamos, mas não foi possível iniciar sessão com os dados fornecidos.
-      openid_logo_alt: Iniciar sessão com um OpenID
-      auth_providers:
-        openid:
-          title: Iniciar sessão com OpenID
-          alt: Iniciar sessão com um URL do OpenID
-        google:
-          title: Iniciar sessão com Google
-          alt: Iniciar sessão com um OpenID do Google
-        facebook:
-          title: Iniciar sessão com o Facebook
-          alt: Iniciar sessão com uma conta do Facebook
-        microsoft:
-          title: Iniciar sessão com Microsoft
-          alt: Iniciar sessão com uma conta Microsoft
-        github:
-          title: Iniciar sessão com GitHub
-          alt: Iniciar sessão com uma conta GitHub
-        wikipedia:
-          title: Iniciar sessão através da Wikipédia
-          alt: Iniciar a sessão com uma conta da Wikipédia
-        wordpress:
-          title: Iniciar sessão com Wordpress
-          alt: Iniciar sessão com um OpenID do Wordpress
-        aol:
-          title: Iniciar sessão com AOL
-          alt: Iniciar sessão com um OpenID da AOL
     destroy:
       title: Sair
       heading: Encerrar sessão no OpenStreetMap
@@ -1932,7 +2026,7 @@ pt-PT:
       support: apoio
   shared:
     markdown_help:
-      heading_html: Analisado com %{kramdown_link}
+      heading_html: Processado com %{kramdown_link}
       headings: Títulos
       heading: Cabeçalho
       subheading: Subtítulo
@@ -1945,9 +2039,11 @@ pt-PT:
       image: Imagem
       alt: Texto alternativo
       url: URL
+      codeblock: Bloco de código
     richtext_field:
       edit: Editar
       preview: Pré-visualizar
+      help: Ajuda
   site:
     about:
       next: Seguinte
@@ -1994,6 +2090,7 @@ pt-PT:
       legal_2_2_registered_trademarks: marcas registadas da OSMF
       partners_title: Parceiros
     copyright:
+      title: Licença e Direitos de Autor
       foreign:
         title: Sobre Esta Tradução
         html: Se houver um conflito entre esta página traduzida e %{english_original_link},
@@ -2006,7 +2103,6 @@ pt-PT:
         native_link: Versão em português europeu
         mapping_link: começar a mapear
       legal_babble:
-        title_html: Licença e Direitos de Autor
         introduction_1_html: O OpenStreetMap%{registered_trademark_link} é composto
           por %{open_data}, licenciados sob %{odc_odbl_link} (ODbL) pela %{osm_foundation_link}
           (OSMF).
@@ -2026,9 +2122,9 @@ pt-PT:
         credit_title_html: Como creditar o OpenStreetMap
         credit_1_html: 'Onde usar dados do OpenStreetMap, é necessário fazer as duas
           coisas seguintes:'
-        credit_2_1: Forneça os devidos créditos ao OpenStreetMap exibindo o nosso
+        credit_2_1: Fornecer os devidos créditos ao OpenStreetMap, exibindo o nosso
           aviso de direitos de autor.
-        credit_2_2: Deixe claro que os dados estão disponíveis sob a Licença de Base
+        credit_2_2: Deixar claro que os dados estão disponíveis sob a Licença de Base
           de Dados Abertos.
         credit_3_html: Para o aviso de direitos de autor, temos vários requisitos
           para a sua exibição, dependendo da forma como usa os nossos dados. Por exemplo,
@@ -2077,6 +2173,11 @@ pt-PT:
           de Recursos Naturais do Canadá) e StatCan (Divisão de Geografia, Estatísticas
           do Canadá).'
         contributors_ca_canada: Canadá
+        contributors_cz_credit_html: '%{czechia}: contém dados da Administração Estatal
+          de Topografia e Cadastro sob licença %{cc_licence_link}'
+        contributors_cz_czechia: Chéquia
+        contributors_cz_cc_licence: Atribuição Creative Commons 4.0 Licença Internacional
+          (CC BY 4.0)
         contributors_fi_credit_html: '%{finland}: Contém dados do Serviço Topográfico
           Nacional da Base de Dados Topográfica da Finlândia e outros conjuntos de
           dados, sob a %{nlsfi_license_link}.'
@@ -2085,6 +2186,12 @@ pt-PT:
         contributors_fr_credit_html: '%{france}: contém dados provenientes da Direção
           Geral de Impostos.'
         contributors_fr_france: França
+        contributors_hr_credit_html: |-
+          %{croatia}: Contém dados de %{dgu_link} e %{open_data_portal}
+          (informação pública da Croácia).
+        contributors_hr_croatia: Croácia
+        contributors_hr_dgu: Administração Geodésica Estatal da Croácia
+        contributors_hr_open_data_portal: Portal Nacional de Dados Abertos
         contributors_nl_credit_html: '%{netherlands}: Contém &copy; e dados, 2007
           (%{and_link})'
         contributors_nl_netherlands: Países Baixos
@@ -2147,9 +2254,6 @@ pt-PT:
       js_1: Está a usar um navegador de Internet que não suporta JavaScript ou tem
         o JavaScript desativado.
       js_2: É necessário ter o JavaScript ativado para visualizar mapas no OpenStreetMap.
-      permalink: Ligação permanente
-      shortlink: Atalho
-      createnote: Adicionar nota
       license:
         copyright: Direitos de autor do OpenStreetMap e seus contribuidores, sob uma
           licença aberta
@@ -2162,18 +2266,11 @@ pt-PT:
       user_page_link: página de utilizador
       anon_edits_link_text: Descobre a que se deve isto.
       id_not_configured: O editor iD não foi configurado
-      no_iframe_support: O teu navegador de Internet não suporta iframes HTML, que
-        são necessárias para esta funcionalidade.
     export:
       title: Exportar
-      area_to_export: Área a exportar
       manually_select: Selecionar manualmente outra área
-      format_to_export: Formato a exportar
-      osm_xml_data: Dados XML do OpenStreetMap
-      map_image: Imagem do mapa (mostra a camada padrão)
-      embeddable_html: HTML integrável
       licence: Licença
-      licence_details_html: Os dados do OpenStreetMap são licenciados sob %{odbl_link}
+      licence_details_html: Os dados do OpenStreetMap são licenciados sob a %{odbl_link}
         (ODbL).
       odbl: Licença de Base de Dados Aberta de Open Data Commons
       too_large:
@@ -2197,17 +2294,6 @@ pt-PT:
         other:
           title: Outras fontes
           description: Fontes adicionais listadas na wiki do OpenStreetMap
-      options: Opções
-      format: Formato
-      scale: Escala
-      max: máx
-      image_size: Tamanho da imagem
-      zoom: Zoom
-      add_marker: Adicionar marcador no mapa
-      latitude: 'Lat:'
-      longitude: 'Lon:'
-      output: Resultado
-      paste_html: Cole o HTML para incorporar no website
       export_button: Exportar
     fixthemap:
       title: Reportar um problema / Corrigir o mapa
@@ -2242,17 +2328,13 @@ pt-PT:
         url: https://wiki.openstreetmap.org/wiki/Pt:Beginners%27_guide
         title: Guia para Principiantes
         description: Guia para principiantes atualizado pela comunidade.
-      help:
-        title: Fórum de Ajuda
-        description: Faz uma pergunta ou procura respostas no fórum de perguntas e
-          respostas do OpenStreetMap.
+      community:
+        title: Ajuda e Fórum da Comunidade
+        description: Um local partilhado para procurar ajuda e conversar sobre o OpenStreetMap.
       mailing_lists:
         title: Listas de E-mail
         description: Faz uma pergunta ou debate temas interessantes numa vasta gama
           de listas de e-mail temáticas ou regionais.
-      community:
-        title: Fórum da comunidade
-        description: Um local partilhado para conversas sobre o OpenStreetMap.
       irc:
         title: IRC
         description: Sala de discussão IRC em várias línguas e sobre muitos tópicos.
@@ -2306,67 +2388,83 @@ pt-PT:
           primary: Estrada primária
           secondary: Estrada secundária
           unclassified: Estrada sem classificação
+          pedestrian: Caminho pedestre
           track: Estrada florestal ou agrícola
           bridleway: Via equestre
           cycleway: Ciclovia
           cycleway_national: Ciclovia nacional
           cycleway_regional: Ciclovia regional
           cycleway_local: Ciclovia local
+          cycleway_mtb: Rota de bicicleta de montanha
           footway: Via pedonal
           rail: Ferrovia
+          train: Comboio
           subway: Metropolitano
-          tram:
-          - Metropolitano de superfície
-          - elétrico
-          cable:
-          - Teleférico
-          - telecadeira
-          runway:
-          - Pista de aviação
-          - Via de circulação
-          apron:
-          - Estacionamento de aviões
-          - terminal de aeroporto
+          ferry: Ferry
+          light_rail: Comboio ligeiro
+          tram: Elétrico
+          trolleybus: Troleicarro
+          bus: Autocarro
+          cable_car: Teleférico
+          chair_lift: Teleférico
+          runway: Pista de aviação
+          taxiway: Via de circulação
+          apron: Estacionamento de aviões
           admin: Fronteira administrativa
+          capital: Capital
+          city: Cidade
+          orchard: Pomar
+          vineyard: Vinha
           forest: Floresta gerida
           wood: Bosque
+          farmland: Terreno agrícola
+          grass: Relva
+          meadow: Prado
+          bare_rock: Rocha exposta
+          sand: Areia
           golf: Campo de golfe
           park: Parque público
+          common: Terrenos comunitários
+          built_up: Zona edificada
           resident: Área residencial
-          common:
-          - Terrenos comunitários
-          - prado
-          - Jardim
           retail: Área de retalho
           industrial: Área industrial
           commercial: Área comercial
           heathland: Charneca
-          lake:
-          - Lago
-          - reservatório hidrográfico
+          scrubland: Matagal
+          lake: Lago
+          reservoir: Reservatório
+          intermittent_water: Corpo de água intermitente
+          glacier: Glaciar
+          reef: Recife
+          wetland: Zona húmida
           farm: Quinta
           brownfield: Baldio industrial
           cemetery: Cemitério
           allotments: Hortas urbanas
           pitch: Campo desportivo
           centre: Centro desportivo
+          beach: Praia
           reserve: Reserva natural
           military: Área militar
-          school:
-          - Escola
-          - universidade
+          school: Escola
+          university: Universidade
+          hospital: Hospital
           building: Edifício importante
           station: Estação ferroviária
-          summit:
-          - Cume
-          - pico
+          summit: Cume
+          peak: Pico
           tunnel: Linha tracejada = túnel
           bridge: Linha cheia = ponte
           private: Acesso privado
           destination: Acesso explícito ao local
           construction: Estradas em construção
+          bus_stop: Paragem de autocarro
+          stop: Paragem
           bicycle_shop: Loja de bicicletas
+          bicycle_rental: Aluguer de bicicletas
           bicycle_parking: Estacionamento de bicicletas
+          bicycle_parking_small: Estacionamento para bicicletas
           toilets: Casas de banho
     welcome:
       title: Bem-vind@!
@@ -2407,6 +2505,7 @@ pt-PT:
         imports: Importações
         automated_edits: Edições automáticas
       start_mapping: Começar a mapear
+      continue_authorization: Continuar autorização
       add_a_note:
         title: Sem tempo para editar? Adiciona uma nota!
         para_1: Se pretendes que seja feita uma pequena correção, mas não tens disponibilidade
@@ -2497,9 +2596,6 @@ pt-PT:
       trace_not_found: Rota não encontrada!
       visibility: 'Visibilidade:'
       confirm_delete: Eliminar esta rota?
-    trace_paging_nav:
-      older: Rotas GPS mais antigas
-      newer: Rotas GPS mais recentes
     trace:
       pending: PENDENTE
       count_points:
@@ -2513,8 +2609,8 @@ pt-PT:
       identifiable: IDENTIFICÁVEL
       private: PRIVADO
       trackable: RASTREÁVEL
-      by: por
-      in: em
+      details_with_tags_html: '%{time_ago} por %{user} em %{tags}'
+      details_without_tags_html: '%{time_ago} por %{user}'
     index:
       public_traces: Rotas de GPS Públicas
       my_gps_traces: As minhas rotas GPS
@@ -2531,6 +2627,9 @@ pt-PT:
       my_traces: As Minhas Rotas
       traces_from: Rotas Públicas de %{user}
       remove_tag_filter: Eliminar filtro de etiqueta
+    page:
+      older: Rotas GPS mais antigas
+      newer: Rotas GPS mais recentes
     destroy:
       scheduled_for_deletion: Rota programada para eliminação
     make_public:
@@ -2552,8 +2651,6 @@ pt-PT:
     require_cookies:
       cookies_needed: Parece que tens os "cookies" desativados - por favor, ativa-os
         no teu navegador de Internet antes de continuar.
-    require_admin:
-      not_an_admin: Tens de ser um administrador para realizar essa operação.
     setup_user_auth:
       blocked_zero_hour: Tens uma mensagem urgente no website do OpenStreetMap. Terás
         de ler a mensagem antes de poderes gravar as tuas edições.
@@ -2564,38 +2661,35 @@ pt-PT:
         Não precisas de aceitar os termos, mas tens de os ver.
     settings_menu:
       account_settings: Definições
-      oauth1_settings: Definições OAuth 1
       oauth2_applications: Aplicações OAuth 2
       oauth2_authorizations: Autorizações OAuth 2
+      muted_users: Utilizadores Silenciados
+    auth_providers:
+      openid_url: URL OpenID
+      openid_login_button: Continuar
+      openid:
+        title: Iniciar sessão com OpenID
+        alt: Logótipo OpenID
+      google:
+        title: Iniciar sessão com Google
+        alt: Logótipo Google
+      facebook:
+        title: Iniciar sessão com Facebook
+        alt: Logótipo Facebook
+      microsoft:
+        title: Iniciar sessão com Microsoft
+        alt: Logótipo Microsoft
+      github:
+        title: Iniciar sessão com GitHub
+        alt: Logótipo GitHub
+      wikipedia:
+        title: Iniciar sessão com a Wikipédia
+        alt: Logótipo Wikipédia
   oauth:
-    authorize:
-      title: Autorizar Acesso À Tua Conta
-      request_access_html: A aplicação %{app_name} está a pedir acesso à tua conta,
-        %{user}. Por favor, confere se queres dar à aplicação as seguintes funcionalidades.
-        Podes escolher as que quiseres e quantas quiseres.
-      allow_to: 'Dar permissão à aplicação:'
-      allow_read_prefs: para ler as tuas preferências de utilizador.
-      allow_write_prefs: para alterar as tuas preferências de utilizador.
-      allow_write_diary: para criar publicações no diário, comentários e adicionar
-        amigos.
-      allow_write_api: para modificar o mapa.
-      allow_read_gpx: para ler as tuas rotas de GPS privadas.
-      allow_write_gpx: para enviar rotas GPS.
-      allow_write_notes: para modificar notas.
-      grant_access: Dar acesso
-    authorize_success:
-      title: Pedido de autorização permitido
-      allowed_html: Concedeste à aplicação %{app_name} acesso à tua conta.
-      verification: O código de verificação é %{code}.
-    authorize_failure:
-      title: O pedido de autorização falhou
-      denied: Negaste o acesso da aplicação %{app_name} à tua conta.
-      invalid: O token de autorização não é válido.
-    revoke:
-      flash: O token para a aplicação %{application} foi cancelado
     permissions:
       missing: Não deste permissão à aplicação para aceder a este serviço
     scopes:
+      openid: Iniciar sessão com OpenStreetMap
       read_prefs: Ler preferências de utilizador
       write_prefs: Modificar preferências de utilizador
       write_diary: Criar entradas de diário, comentar e fazer amigos
@@ -2603,49 +2697,13 @@ pt-PT:
       read_gpx: Ler rotas GPS privadas
       write_gpx: Enviar rotas GPS
       write_notes: Modificar notas
+      write_redactions: Rever dados do mapa
       read_email: ‎Ler e-mail de utilizador
+      consume_messages: Ler, atualizar estado e apagar mensagens de utilizadores
+      send_messages: Enviar mensagens privadas a outros utilizadores
       skip_authorization: Aprovar a aplicação automaticamente
-  oauth_clients:
-    new:
-      title: Registar uma nova aplicação
-    edit:
-      title: Edita a tua aplicação
-    show:
-      title: Detalhes do OAuth de %{app_name}
-      key: 'Chave de consumidor:'
-      secret: 'Segredo de consumidor:'
-      url: 'URL do token de pedido:'
-      access_url: 'URL do token de acesso:'
-      authorize_url: 'URL de autorização:'
-      support_notice: Suportamos assinaturas HMAC-SHA1 (recomendada) e RSA-SHA1.
-      edit: Editar detalhes
-      delete: Eliminar cliente
-      confirm: Tens a certeza?
-      requests: 'A pedir as seguintes permissões ao utilizador:'
-    index:
-      title: Os Meus Dados OAuth
-      my_tokens: Aplicações autorizadas
-      list_tokens: 'Os seguintes tokens foram emitidos a aplicações em teu nome:'
-      application: Nome da aplicação
-      issued_at: Emitido em
-      revoke: Anular!
-      my_apps: As minhas aplicações autorizadas
-      no_apps_html: Tens uma aplicação que queiras registar para ser utilizada com
-        o OpenStreetMap utilizando o padrão %{oauth}? Tens de registar a aplicação
-        web antes de poderes fazer solicitações OAuth a este serviço.
-      oauth: OAuth
-      registered_apps: 'Tens as seguintes aplicações registadas:'
-      register_new: Regista a tua aplicação
-    form:
-      requests: 'Pedir as seguintes permissões do utilizador:'
-    not_found:
-      sorry: Lamentamos, não foi possível encontrar esse %{type}.
-    create:
-      flash: As informações foram registadas com sucesso
-    update:
-      flash: A atualização dos dados do cliente foi feita com sucesso
-    destroy:
-      flash: O registo da aplicação foi eliminado
+    for_roles:
+      moderator: Esta permissão é para ações disponíveis apenas para moderadores
   oauth2_applications:
     index:
       title: As minhas aplicações de cliente
@@ -2691,6 +2749,7 @@ pt-PT:
       title: As minhas aplicações autorizadas
       application: Aplicação
       permissions: Permissões
+      last_authorized: Última autorização
       no_applications_html: Não autorizaste nenhuma aplicação %{oauth2}.
     application:
       revoke: Revogar Acesso
@@ -2698,33 +2757,46 @@ pt-PT:
   users:
     new:
       title: Criar conta
+      tab_title: Registar
+      signup_to_authorize_html: Inicia sessão no OpenStreetMap para acederes a %{client_app_name}.
       no_auto_account_create: Infelizmente, e de momento, não é possível criar uma
         conta automaticamente.
       please_contact_support_html: Por favor, contacta %{support_link} para pedir
         a criação de uma conta - tentaremos tratar do pedido o mais rapidamente possível.
       support: apoio
       about:
-        header: Livre e editável
+        header: Gratuito e editável.
         paragraph_1: Ao contrário de outros mapas, o OpenStreetMap é completamente
           criado por pessoas como tu, e qualquer pessoa o pode corrigir, transferir
           e usar de forma gratuita.
-        paragraph_2: Regista-te para começares a contribuir. Iremos enviar um e-mail
-          para confirmar a tua conta.
+        paragraph_2: Regista-te para começares a contribuir.
+        welcome: Bem-vind@ ao OpenStreetMap
+      duplicate_social_email: Se já tens uma conta OpenStreetMap e desejas utilizar
+        um provedor de identidade externo, inicia sessão com a tua palavra-passe e
+        modifica as definições da tua conta.
       display name description: O nome de utilizador ficará visível publicamente.
         Poderás alterar o nome posteriormente nas configurações do teu perfil.
+      by_signing_up:
+        html: Ao registares-te, aceitas os nossos %{tou_link}, %{privacy_policy_link}
+          e %{contributor_terms_link}.
+        privacy_policy: política de privacidade
+        privacy_policy_title: Política de privacidade da OSMF incluindo secção sobre
+          endereços de correio eletrónico
+        contributor_terms: Termos de Contribuidor
+      tou: Termos de Utilização
       external auth: 'Autenticação por terceiros:'
-      use external auth: Em alternativa, utiliza um serviço externo para iniciares
-        sessão
-      auth no password: Com a autenticação através de terceiros, não é necessário
-        introduzir a palavra-passe, mas certos servidores ou ferramentas poderão precisar
-        de uma.
       continue: Criar conta
       terms accepted: Obrigado por aceitares os novos termos de contribuidor!
-      email_confirmation_help_html: O seu endereço não é mostrado publicamente. Consulte
-        a nossa %{privacy_policy_link} para mais informações.
-      privacy_policy: política de privacidade
-      privacy_policy_title: Política de privacidade da OSMF incluindo secção sobre
-        endereços de correio eletrónico
+      email_help:
+        privacy_policy: política de privacidade
+        privacy_policy_title: Política de privacidade da OSMF incluindo seção sobre
+          endereços de email
+        html: O seu endereço não é mostrado publicamente. Consulte a nossa %{privacy_policy_link}
+          para mais informações.
+      consider_pd_html: Considero que as minhas contribuições estão no %{consider_pd_link}.
+      consider_pd: domínio público
+      or: ou
+      use external auth: ou regista-te com um serviço externo
     terms:
       title: Termos
       heading: Termos
@@ -2781,6 +2853,8 @@ pt-PT:
       my_dashboard: Painel de Controlo
       blocks on me: Quem me bloqueou
       blocks by me: Os meus bloqueios
+      create_mute: Silenciar este utilizador
+      destroy_mute: Ativar este utilizador
       edit_profile: Editar Perfil
       send message: Enviar mensagem
       diary: Diário
@@ -2790,10 +2864,12 @@ pt-PT:
       remove as friend: Remover amigo
       add as friend: Adicionar aos amigos
       mapper since: 'A mapear desde:'
+      last map edit: 'Última edição do mapa:'
+      no activity yet: Ainda sem atividade
+      uid: 'Id de utilizador:'
       ct status: 'Termos do Contribuidor:'
       ct undecided: Por decidir
       ct declined: Rejeitado
-      latest edit: 'Última edição (%{ago}):'
       email address: 'E-mail:'
       created from: 'Criado de:'
       status: 'Estado:'
@@ -2801,14 +2877,18 @@ pt-PT:
       role:
         administrator: Este utilizador é um administrador
         moderator: Este utilizador é um moderador
+        importer: Este utilizador é importador
         grant:
           administrator: Dar acesso de administrador
           moderator: Dar acesso de moderador
+          importer: Conceder acesso de importador
         revoke:
           administrator: Retirar acesso de administrador
           moderator: Retirar acesso de moderador
+          importer: Revogar acesso de importador
       block_history: Bloqueios ativos
       moderator_history: Bloqueios aplicados
+      revoke_all_blocks: Revogar todos os bloqueios
       comments: Comentários
       create_block: Bloquear este utilizador
       activate_user: Ativar este utilizador
@@ -2826,14 +2906,17 @@ pt-PT:
     index:
       title: Utilizadores
       heading: Utilizadores
-      showing:
-        one: Página %{page} (%{first_item} de %{items})
-        other: Página %{page} (%{first_item}-%{last_item} de %{items})
       summary_html: '%{name} criado com o ip %{ip_address} em %{date}'
       summary_no_ip_html: '%{name} criado em %{date}'
+      empty: Não foram encontrados utilizadores correspondentes
+    page:
+      older: Utilizadores mais antigos
+      newer: Utilizadores mais recentes
+      found_users:
+        one: '%{count} utilizador encontrado'
+        other: '%{count} utilizadores encontrados'
       confirm: Confirmar utilizadores selecionados
       hide: Ocultar utilizadores selecionados
-      empty: Não foram encontrados utilizadores correspondentes
     suspended:
       title: Conta suspensa
       heading: Conta Suspensa
@@ -2853,8 +2936,9 @@ pt-PT:
       heading: O teu ID ainda não está associado a uma conta do OpenStreetMap.
       option_1: Se ainda não tens conta no OpenStreetMap, por favor, preenche o seguinte
         formulário.
-      option_2: Se já tiveres conta, podes iniciar sessão utilizando o teu nome de
-        utilizador e palavra-passe e associar a conta ao teu ID nas definições.
+      option_2: Se já tiveres uma conta, podes iniciar sessão na tua conta usando
+        o teu nome de utilizador e a palavra-passe e, em seguida, associar a conta
+        ao teu ID nas tuas definições de utilizador.
   user_role:
     filter:
       not_a_role: A expressão `%{role}' não é um cargo válido.
@@ -2868,16 +2952,12 @@ pt-PT:
       are_you_sure: Tens a certeza de que pretendes conceder o cargo `%{role}' ao
         utilizador `%{name}'?
       confirm: Confirmar
-      fail: Não foi possível conceder o cargo `%{role}' ao utilizador `%{name}'. Por
-        favor, verifica se o utilizador e o cargo são válidos.
     revoke:
       title: Confirmar revogação de cargo
       heading: Confirmar revogação de cargo
       are_you_sure: Tens a certeza de que pretendes retirar o cargo `%{role}' ao utilizador
         `%{name}'?
       confirm: Confirmar
-      fail: Não foi possível retirar o cargo `%{role}' ao utilizador `%{name}'. Por
-        favor, verifica se o utilizador e o cargo são válidos.
   user_blocks:
     model:
       non_moderator_update: Tens de ser um moderador para criar ou atualizar um bloqueio.
@@ -2890,16 +2970,13 @@ pt-PT:
       heading_html: A criar um bloqueio em %{name}
       period: Por quanto tempo, com início agora, o utilizador será bloqueado na utilização
         da API.
-      back: Ver todos os bloqueios
     edit:
       title: A editar o bloqueio em %{name}
       heading_html: A editar o bloqueio em %{name}
       period: Por quanto tempo, com início agora, o utilizador será bloqueado na utilização
         da API.
-      show: Ver este bloqueio
-      back: Ver todos os bloqueios
+      revoke: Revogar bloqueio
     filter:
-      block_expired: Este bloqueio já expirou e não pode ser editado.
       block_period: O período de bloqueio tem de corresponder a um dos valores selecionáveis
         da lista.
     create:
@@ -2907,19 +2984,27 @@ pt-PT:
     update:
       only_creator_can_edit: Este bloqueio só pode ser editado pelo moderador que
         o criou.
+      only_creator_can_edit_without_revoking: Só o moderador que criou este bloqueio
+        é que o pode editar sem o revogar.
+      only_creator_or_revoker_can_edit: Só os moderadores que criaram ou revogaram
+        este bloqueio é que o podem editar.
+      inactive_block_cannot_be_reactivated: Este bloqueio está inativo e não pode
+        ser reativado.
       success: Bloqueio atualizado.
     index:
       title: Bloqueios do utilizador
       heading: Lista de bloqueios do utilizador
       empty: Ainda não foram feitos bloqueios.
-    revoke:
+    revoke_all:
       title: A retirar o bloqueio de %{block_on}
-      heading_html: A retirar o bloqueio de %{block_on} por %{block_by}
-      time_future: Este bloqueio terminará em %{time}.
-      past: Este bloqueio terminou a %{time} e já não pode ser revogado.
-      confirm: Tens a certeza de que queres revogar este bloqueio?
+      heading_html: A retirar o bloqueio de %{block_on}
+      empty: '%{name} não tem bloqueios ativos.'
+      confirm: Tens a certeza de que queres revogar %{active_blocks}?
+      active_blocks:
+        one: '%{count} bloqueio ativo'
+        other: '%{count} bloqueios ativos'
       revoke: Revogar!
-      flash: Este bloqueio foi revogado.
+      flash: Todos os bloqueios ativos foram revogados.
     helper:
       time_future_html: Termina em %{time}.
       until_login: Ativo até o utilizador iniciar sessão.
@@ -2958,33 +3043,63 @@ pt-PT:
       status: 'Estado:'
       show: Mostrar
       edit: Editar
-      revoke: Revogar!
       confirm: Tens a certeza?
       reason: 'Razão do bloqueio:'
-      back: Ver todos os bloqueios
       revoker: 'Quem revogou:'
       needs_view: O utilizador tem de iniciar sessão antes de este bloqueio terminar.
     block:
       not_revoked: (não revogado)
       show: Mostrar
       edit: Editar
-      revoke: Revogar!
     blocks:
       display_name: Utilizador Bloqueado
       creator_name: Criador
       reason: Motivo do bloqueio
       status: Estado
       revoker_name: Revogado por
-      showing_page: Página %{page}
-      next: Seguinte »
-      previous: « Anterior
+      older: Blocos mais antigos
+      newer: Blocos mais recentes
+    navigation:
+      all_blocks: Todos os bloqueios
+      blocks_on_me: Quem me bloqueou
+      blocks_on_user: Bloqueios a %{user}
+      blocks_by_me: Os meus bloqueios
+      blocks_by_user: Bloqueios de %{user}
+      block: 'Bloqueio #%{id}'
+      new_block: Novo Bloqueio
+  user_mutes:
+    index:
+      title: Utilizadores Silenciados
+      my_muted_users: Os meus utilizadores silenciados
+      you_have_muted_n_users:
+        one: Silenciaste %{count} utilizador
+        other: Silenciaste %{count} utilizadores
+      user_mute_explainer: As mensagens de utilizadores silenciados são movidas para
+        uma caixa de entrada separada e não receberás notificações por e-mail.
+      user_mute_admins_and_moderators: Podes silenciar administradores e moderadores,
+        mas as suas mensagens não serão silenciadas.
+      table:
+        thead:
+          muted_user: Utilizador Silenciado
+          actions: Ações
+        tbody:
+          unmute: Ativar
+          send_message: Enviar mensagem
+    create:
+      notice: Silenciaste %{name}.
+      error: |-
+        %{name} não pôde ser silenciado.
+        %{full_message}.
+    destroy:
+      notice: Ativaste %{name}.
+      error: O utilizador não pôde ser silenciado. Por favor, tenta novamente.
   notes:
     index:
       title: Notas submetidas ou comentadas por %{user}
       heading: Notas de %{user}
       subheading_html: Notas %{submitted} ou %{commented} por %{user}
-      subheading_submitted: enviada
-      subheading_commented: comentada em
+      subheading_submitted: enviadas
+      subheading_commented: comentadas em
       no_notes: Sem notas
       id: Id
       creator: Criador
@@ -2997,15 +3112,15 @@ pt-PT:
       open_title: Nota não resolvida n.º %{note_name}
       closed_title: Nota resolvida n.º %{note_name}
       hidden_title: Nota oculta n.º %{note_name}
-      event_opened_by_html: Criada por %{user} há %{time_ago}
-      event_opened_by_anonymous_html: Criada por anónimo há %{time_ago}
-      event_commented_by_html: Comentada por %{user} há %{time_ago}
-      event_commented_by_anonymous_html: Comentada por anónimo há %{time_ago}
-      event_closed_by_html: Resolvida por %{user} há %{time_ago}
-      event_closed_by_anonymous_html: Resolvida por anónimo há %{time_ago}
-      event_reopened_by_html: Reativada por %{user} há %{time_ago}
-      event_reopened_by_anonymous_html: Reativada por anónimo há %{time_ago}
-      event_hidden_by_html: Escondida por %{user} há %{time_ago}
+      event_opened_by_html: Criada por %{user} %{time_ago}
+      event_opened_by_anonymous_html: Criada por anónimo %{time_ago}
+      event_commented_by_html: Comentada por %{user} %{time_ago}
+      event_commented_by_anonymous_html: Comentada por anónimo %{time_ago}
+      event_closed_by_html: Resolvida por %{user} %{time_ago}
+      event_closed_by_anonymous_html: Resolvida por anónimo %{time_ago}
+      event_reopened_by_html: Reativada por %{user} %{time_ago}
+      event_reopened_by_anonymous_html: Reativada por anónimo %{time_ago}
+      event_hidden_by_html: Escondida por %{user} %{time_ago}
       report: denunciar esta nota
       anonymous_warning: Esta nota inclui comentários de utilizadores anónimos que
         devem ser confirmados por fonte independente.
@@ -3014,6 +3129,7 @@ pt-PT:
       reactivate: Reabrir
       comment_and_resolve: Comentar e resolver
       comment: Comentar
+      log_in_to_comment: Inicia sessão para comentar esta nota
       report_link_html: Se esta nota contiver informações sensíveis que precisem de
         ser removidas, poderás %{link}.
       other_problems_resolve: Para qualquer outro problema com a nota, resolve-a pessoalmente
@@ -3026,6 +3142,10 @@ pt-PT:
         o mais pormenorizada possível sobre o que pretendes ver alterado no mapa,
         para que outros mapeadores te possam ajudar. Posiciona o marcador no local
         correto e escreve uma nota que explique o problema.
+      anonymous_warning_html: Não tens sessão iniciada. Por favor, %{log_in} ou %{sign_up}
+        se quiseres receber atualizações sobre a tua nota.
+      anonymous_warning_log_in: inicia sessão
+      anonymous_warning_sign_up: regista-te
       advice: 'Lembra-te: a tua nota é pública e poderá ser usada para atualizar o
         mapa, portanto, não introduzas informações pessoais, dados de mapas ou catálogos
         protegidos por direitos de autor.'
@@ -3044,14 +3164,15 @@ pt-PT:
       custom_dimensions: Definir dimensões
       format: 'Formato:'
       scale: 'Escala:'
-      image_dimensions: A imagem mostrará a camada padrão com %{width} x %{height}
+      image_dimensions: A imagem mostrará a camada %{layer} com %{width} x %{height}
       download: Transferir
       short_url: URL curto
       include_marker: Incluir marcador
       center_marker: Centrar o mapa no marcador
       paste_html: Colar HTML para incorporar na página web
       view_larger_map: Ver mapa maior
-      only_standard_layer: Só a camada padrão pode ser exportada como imagem
+      only_standard_layer: Só as camadas Padrão, de Ciclismo e de Transporte é que
+        podem ser exportadas como imagem
     embed:
       report_problem: Reportar um problema
     key:
@@ -3072,11 +3193,10 @@ pt-PT:
           other: Estás a menos de %{count} pés deste ponto
       base:
         standard: Mapa Padrão
-        cyclosm: CyclOSM
         cycle_map: Mapa de Ciclismo
         transport_map: Transportes Públicos
+        tracestracktop_topo: Tracestrack Topo
         hot: Humanitário
-        opnvkarte: ÖPNVKarte
       layers:
         header: Camadas do mapa
         notes: Notas no mapa
@@ -3091,8 +3211,7 @@ pt-PT:
       osm_france: OpenStreetMap França
       thunderforest_credit: Mosaicos cortesia de %{thunderforest_link}
       andy_allan: Andy Allan
-      opnvkarte_credit: Mosaicos cortesia de %{memomaps_link}
-      memomaps: MeMoMaps
+      tracestrack_credit: Mosaicos cortesia de %{tracestrack_link}
       hotosm_credit: Estilo de mosaicos por %{hotosm_link} hospedado por %{osm_france_link}
       hotosm_name: Equipa Humanitária do OpenStreetMap
     site:
@@ -3104,13 +3223,8 @@ pt-PT:
       map_data_zoom_in_tooltip: Amplia para veres os dados do mapa
       queryfeature_tooltip: Consultar elementos em redor
       queryfeature_disabled_tooltip: Amplia para consultares elementos
-    changesets:
-      show:
-        comment: Comentar
-        subscribe: Subscrever
-        unsubscribe: Anular subscrição
-        hide_comment: ocultar
-        unhide_comment: desocultar
+      embed_html_disabled: A incorporação de HTML não está disponível para esta camada
+        do mapa
     edit_help: Move o mapa, amplia-o no local que pretendes editar e clica aqui.
     directions:
       ascend: Ascenção
@@ -3122,7 +3236,7 @@ pt-PT:
         graphhopper_car: Carro (GraphHopper)
         graphhopper_foot: A pé (GraphHopper)
         fossgis_valhalla_bicycle: Bicicleta (Valhalla)
-        fossgis_valhalla_car: Automóvel (Valhalla)
+        fossgis_valhalla_car: Carro (Valhalla)
         fossgis_valhalla_foot: Pé (Valhalla)
       descend: Descida
       directions: Direções

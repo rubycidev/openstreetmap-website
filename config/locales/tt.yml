@@ -137,7 +137,6 @@ tt:
         auth_provider: Аутентификация провайдеры
         auth_uid: Аутентификациянең UID коды
         email: Электрон почтасы
-        email_confirmation: E-mail раслау
         new_email: Яңа электрон почта адресы
         active: Актив
         display_name: Күрсәтелүче исем
@@ -215,7 +214,6 @@ tt:
   auth:
     providers:
       none: Юк
-      openid: OpenID
       google: Google
       facebook: Facebook
       github: GitHub
@@ -314,12 +312,6 @@ tt:
     destroy:
       success: Хисапъязма бетерелде.
   browse:
-    created: Төзелгән
-    closed: Ябык
-    created_ago_html: 'Күпме вакыт элек ясалды: %{time_ago}'
-    closed_ago_html: 'Күпме вакыт элек ябылды: %{time_ago}'
-    created_ago_by_html: 'Күпме вакыт элек ясалды: %{time_ago}, кем тарафыннан: %{user}'
-    closed_ago_by_html: 'Күпме вакыт элек ябылды: %{time_ago}, кем тарафыннан: %{user}'
     deleted_ago_by_html: 'Күпме вакыт элек бетерелде: %{time_ago}, кем тарафыннан:
       %{user}'
     edited_ago_by_html: 'Күпме вакыт элек үзгәртелде: %{time_ago}, кем тарафыннан:
@@ -339,27 +331,6 @@ tt:
     view_history: Тарихын карау
     view_details: Тулырак мәгълүмат
     location: 'Урын:'
-    changeset:
-      title: 'Үзгәртүләр өеме: %{id}'
-      belongs_to: Автор
-      node: Нокталар (%{count})
-      node_paginated: Нокталар (%{count} ноктадан %{x}-%{y})
-      way: Сызыклар (%{count})
-      way_paginated: Сызыклар (%{count} сызыктан %{x}-%{y})
-      relation: Мөнәсәбәтләр (%{count})
-      relation_paginated: Мөнәсәбәтләр (%{count} мөнәсәбәттән %{x}-%{y})
-      comment: Шәрехләр (%{count})
-      hidden_comment_by_html: '%{user} исемле кулланучыдан яшерен шәрех %{time_ago}'
-      comment_by_html: '%{user} исемле кулланучыдан шәрех %{time_ago}'
-      changesetxml: Үзгәртүләр өеменең XMLы
-      osmchangexml: osmChange XML
-      feed:
-        title: '%{id} үзгәртүләр өеме'
-        title_comment: '%{id} үзгәртүләр өеме  -  %{comment}'
-      join_discussion: Бәхәстә катнашу өчен хисапъязмагызга керегез
-      discussion: Фикер алышу
-      still_open: Үзгәртүләр өеме әлегә ачык. Ул ябылгач бәхәскә шунда ук керергә
-        мөмкин булыр.
     node:
       title_html: 'Нокта: %{name}'
       history_title_html: 'Нокта тарихы: %{name}'
@@ -421,15 +392,42 @@ tt:
     changeset:
       anonymous: Аноним
       no_edits: (төзәтмәләр юк)
-    changesets:
-      id: ID
-      user: Кулланучы
-      comment: Шәрех
-      area: Өлкә
     index:
       title: Үзгәрешләр пакетлары
       load_more: Күбрәк төяү
+      feed:
+        title: '%{id} үзгәртүләр өеме'
+        title_comment: '%{id} үзгәртүләр өеме  -  %{comment}'
+        created: Төзелгән
+        closed: Ябык
+        belongs_to: Автор
+    show:
+      title: 'Үзгәртүләр өеме: %{id}'
+      created_ago_html: 'Күпме вакыт элек ясалды: %{time_ago}'
+      closed_ago_html: 'Күпме вакыт элек ябылды: %{time_ago}'
+      created_ago_by_html: 'Күпме вакыт элек ясалды: %{time_ago}, кем тарафыннан:
+        %{user}'
+      closed_ago_by_html: 'Күпме вакыт элек ябылды: %{time_ago}, кем тарафыннан: %{user}'
+      discussion: Фикер алышу
+      join_discussion: Бәхәстә катнашу өчен хисапъязмагызга керегез
+      still_open: Үзгәртүләр өеме әлегә ачык. Ул ябылгач бәхәскә шунда ук керергә
+        мөмкин булыр.
+      comment_by_html: '%{user} исемле кулланучыдан шәрех %{time_ago}'
+      hidden_comment_by_html: '%{user} исемле кулланучыдан яшерен шәрех %{time_ago}'
+      hide_comment: яшерү
+      unhide_comment: күрсәтү
+      changesetxml: Үзгәртүләр өеменең XMLы
+      osmchangexml: osmChange XML
+    paging_nav:
+      nodes: Нокталар (%{count})
+      nodes_paginated: Нокталар (%{count} ноктадан %{x}-%{y})
+      ways: Сызыклар (%{count})
+      ways_paginated: Сызыклар (%{count} сызыктан %{x}-%{y})
+      relations: Мөнәсәбәтләр (%{count})
+      relations_paginated: Мөнәсәбәтләр (%{count} мөнәсәбәттән %{x}-%{y})
   dashboards:
+    contact:
+      latest_edit_html: 'Соңгы төзәтмә (%{ago}):'
     popup:
       friend: Дус
     show:
@@ -454,7 +452,8 @@ tt:
       location: 'Урын:'
       view: Карау
       edit: Төзәтмә
-    comments:
+  diary_comments:
+    page:
       when: Кайчан
       comment: Шәрех
       newer_comments: Яңарак шәрехләр
@@ -772,10 +771,11 @@ tt:
   issues:
     index:
       search: Эзләү
-      status: Халәт
-      last_updated: Соңгы яңарту
       states:
         open: Ачык
+    page:
+      status: Халәт
+      last_updated: Соңгы яңарту
     show:
       ignore: Игътибарсыз калдыру
   reports:
@@ -800,9 +800,6 @@ tt:
     user_diaries: Кулланучылар көндәлекләре
     help: Ярдәм
     about: Проект турында
-    make_a_donation:
-      title: OpenStreetMap'ка иганә бирегез
-      text: Иганә кертү
   user_mailer:
     diary_comment_notification:
       hi: Сәлам, %{to_user},
@@ -830,6 +827,7 @@ tt:
         other: '%{count} яңа хәбәрегез'
       old_messages:
         other: '%{count} иске хәбәрегез'
+    messages_table:
       from: 'Кемнән:'
       subject: Тема
       date: Вакыт
@@ -838,7 +836,7 @@ tt:
     new:
       title: Хәбәр җибәрү
   passwords:
-    lost_password:
+    new:
       email address: 'Электрон почта адресы:'
   profiles:
     edit:
@@ -847,7 +845,7 @@ tt:
   sessions:
     new:
       title: Керү
-      heading: Керү
+      tab_title: Керү
       password: 'Серсүз:'
       login_button: Керү
       register now: Теркәлегезче
@@ -860,17 +858,6 @@ tt:
       too_large:
         planet:
           title: OSM планетасы
-      options: Көйләнмәләр
-      format: Формат
-      scale: Масштаб
-      max: макс.
-      image_size: Сурәт зурлыгы
-      zoom: Якынайтырга
-      add_marker: Харитада маркер куярга
-      latitude: 'Киңлек:'
-      longitude: 'Озынлык:'
-      output: Нәтиҗә
-      paste_html: Сайт эченә салу өчен HTML-код
       export_button: Чыгару
     sidebar:
       search_results: Эзләү нәтиҗәләре
@@ -890,34 +877,24 @@ tt:
           cycleway: Әйләнаяк юлы
           rail: Тимер юл
           subway: Метро
-          tram:
-          - Җиңел рельслы т/ю транспорты
-          - трамвай
-          cable:
-          - Канат юлы
-          apron:
-            1: терминал
+          cable_car: Канат юлы
           admin: Административ чик
           forest: Урман
           wood: Агачлык
           park: Парк
           resident: Торак районы
-          common:
-            1: болын
           industrial: Сәнәгый район
           heathland: Буш җир
-          lake:
-          - Күл
-          - сусаклагыч
+          lake: Күл
+          reservoir: сусаклагыч
           farm: Ферма
           cemetery: Зират
           pitch: Спорт мәйданчыгы
           centre: Спорт үзәге
           reserve: Тыюлык
           military: Хәрби зона
-          school:
-          - Мәктәп
-          - университет
+          school: Мәктәп
+          university: университет
           station: Тимер юл станциясе
           toilets: Бәдрәф
   traces:
@@ -941,7 +918,6 @@ tt:
       send message: Хәбәр җибәрү
       diary: Көндәлек
       edits: Төзәтмәләр
-      latest edit: 'Соңгы төзәтмә (%{ago}):'
       email address: 'Электрон почта адресы:'
       status: 'Халәт:'
       confirm: Раслау
@@ -980,8 +956,6 @@ tt:
     blocks:
       creator_name: Төзүче
       status: Халәт
-      next: Киләсе »
-      previous: « Алдагы
   notes:
     index:
       creator: Төзүче
@@ -1009,10 +983,6 @@ tt:
         standard: Стандарт
       layers:
         title: Катламнар
-    changesets:
-      show:
-        hide_comment: яшерү
-        unhide_comment: күрсәтү
     directions:
       ascend: Менү
       engines:

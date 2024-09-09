@@ -136,7 +136,6 @@ pnb:
         auth_provider: تصدیق دیݨ والا
         auth_uid: تصدیق یوآئی‌ڈی
         email: ای‌میل
-        email_confirmation: ای‌میل پکا کرن
         new_email: نواں ای‌میل دا پتہ
         active: سرگرم
         display_name: عوام ناں
@@ -194,7 +193,6 @@ pnb:
         one: ایہہ اِکّ سال پہلاں
         other: ایہہ %{count} سالاں پہلاں
   printable_name:
-    with_version: ایہہ %{id}، ورژن نمبر %{version}
     with_name_html: '%{name} (نمبر %{id})'
   editor:
     default: مول (مَوجودہ %{name})
@@ -277,8 +275,6 @@ pnb:
     destroy:
       success: کھاتہ مٹایا۔
   browse:
-    created: 'بݨاؤݨ:'
-    closed: 'بند کرن:'
     version: ورژن
     in_changeset: تبدیلیاں
     anonymous: بے پچاݨ
@@ -296,23 +292,6 @@ pnb:
     location: 'ستھتی:'
     common_details:
       coordinates_html: '%{latitude}; %{longitude}'
-    changeset:
-      title: 'تبدیلیاں: %{id}'
-      belongs_to: لیکھک
-      node: نوڈ (⁠%{count}⁠)
-      node_paginated: نوڈ (⁠%{count} وچ %{x} توں %{y}⁠)
-      way: راہ (⁠%{count}⁠)
-      way_paginated: راہ (⁠%{count} وچ %{x} توں %{y}⁠)
-      relation: سمبندھ (⁠%{count}⁠)
-      relation_paginated: سمبندھ (⁠%{count} وچ %{x} توں %{y}⁠)
-      comment: ٹپݨیاں (⁠%{count}⁠)
-      changesetxml: تبدیلیاں لئی سروت دی فائل
-      osmchangexml: تبدیلیاں لئی سروت دی فائل فارماٹ
-      feed:
-        title: 'تبدیلیاں: %{id}'
-        title_comment: تبدیلیاں نمبر %{id} • %{comment}
-      join_discussion: ایہہ گل بات جوڑن لئی تسیں لوگ‌این کر سکدیو
-      discussion: گل بات
     node:
       title_html: 'نوڈ: %{name}'
       history_title_html: 'نوڈ دا اتیت: %{name}'
@@ -384,6 +363,18 @@ pnb:
       title: نقشاں لئی پرشن
       introduction: اِتھے نقشے تے نقش لبھیو
       nearby: نقشاں لبے
+  changeset_comments:
+    feeds:
+      comment:
+        comment: تبدیلیاں نمبر %{changeset_id} تے %{author} ناوں ٹپݨی کیٹا
+        commented_at_by_html: '%{when} %{user} نواں کیتا'
+      comments:
+        comment: تبدیلیاں نمبر %{changeset_id} تے %{author} نواں ٹپݨی کیتی کئی اے۔
+      show:
+        title_all: تبدیلیاں تے گل بات
+        title_particular: تبدیلیاں نمبر %{changeset_id} تے گل بات
+      timeout:
+        sorry: افسوس، تبدیلیاں دیاں ٹپݨیاں نہیں لبھ سکیاں، ٹائم آؤٹ ہوگیا سی۔
   changesets:
     changeset_paging_nav:
       showing_page: ورقہ %{page}
@@ -393,12 +384,6 @@ pnb:
       anonymous: انام
       no_edits: (کوئی سودھ نہیں)
       view_changeset_details: تبدیلیاں وروے ویکھو
-    changesets:
-      id: آئی‌ڈی ایڈیٹر
-      saved_at: سانبھیئے
-      user: ورتنوالا
-      comment: ٹپݨی
-      area: علاقہ
     index:
       title: تبدیلیاں
       title_user: '%{user} دیاں تبدیلیاں'
@@ -411,23 +396,35 @@ pnb:
       no_more_area: اِتھے تبدیلیاں ہور نہیں اے۔
       no_more_user: ورتنوالے دیاں تبدیلیاں ہور نہیں لبھیاں۔
       load_more: ہور لوڈ کرو
+      feed:
+        title: 'تبدیلیاں: %{id}'
+        title_comment: تبدیلیاں نمبر %{id} • %{comment}
+        created: 'بݨاؤݨ:'
+        closed: 'بند کرن:'
+        belongs_to: لیکھک
+    show:
+      title: 'تبدیلیاں: %{id}'
+      discussion: گل بات
+      join_discussion: ایہہ گل بات جوڑن لئی تسیں لوگ‌این کر سکدیو
+      hide_comment: لُکاؤ
+      unhide_comment: نہیں لُکاؤ
+      comment: ٹپݨی کرو
+      changesetxml: تبدیلیاں لئی سروت دی فائل
+      osmchangexml: تبدیلیاں لئی سروت دی فائل فارماٹ
+    paging_nav:
+      nodes: نوڈ (⁠%{count}⁠)
+      nodes_paginated: نوڈ (⁠%{count} وچ %{x} توں %{y}⁠)
+      ways: راہ (⁠%{count}⁠)
+      ways_paginated: راہ (⁠%{count} وچ %{x} توں %{y}⁠)
+      relations: سمبندھ (⁠%{count}⁠)
+      relations_paginated: سمبندھ (⁠%{count} وچ %{x} توں %{y}⁠)
     timeout:
       sorry: افسوس، تبدیلیاں دیاں لڑیاں نہیں لبھ سکیاں، ٹائم آؤٹ ہوگیا سی۔
-  changeset_comments:
-    comment:
-      comment: تبدیلیاں نمبر %{changeset_id} تے %{author} ناوں ٹپݨی کیٹا
-      commented_at_by_html: '%{when} %{user} نواں کیتا'
-    comments:
-      comment: تبدیلیاں نمبر %{changeset_id} تے %{author} نواں ٹپݨی کیتی کئی اے۔
-    index:
-      title_all: تبدیلیاں تے گل بات
-      title_particular: تبدیلیاں نمبر %{changeset_id} تے گل بات
-    timeout:
-      sorry: افسوس، تبدیلیاں دیاں ٹپݨیاں نہیں لبھ سکیاں، ٹائم آؤٹ ہوگیا سی۔
   dashboards:
     contact:
       km away: ایہہ %{count} کیلو میٹر پرھاں
       m away: ایہہ %{count} میٹر پرھاں
+      latest_edit_html: پچھلی سودھ (%{ago})
     popup:
       your location: تہاڈیاں ستھتی
       nearby mapper: نیڑے تیڑے دا نقشہ والا
@@ -461,6 +458,7 @@ pnb:
       new_title: میرے روزنامچے وچ نواں لیکھ لکھو
       my_diary: میرا روزنامچہ
       no_entries: روزنامچے وچ لیکھ نہیں اے
+    page:
       recent_entries: حالیہ روزنامچے دے لیکھ
       older_entries: پُراݨے لیکھ
       newer_entries: نویں لیکھ
@@ -514,11 +512,13 @@ pnb:
       all:
         title: نقشے بارے وچ روزنامچے دے لیکھ
         description: حالیہ نقشے بارے وچ روزنامچے دے لیکھ
-    comments:
+  diary_comments:
+    index:
       title: ایہہ روزنامچے وچ «%{user}» دیاں ٹپݨیاں پائیاں
       heading: روزنامچے وچ «%{user}» دیاں ٹپݨیاں
       subheading_html: ایہہ روزنامچے وچ «%{user}» دیاں ٹپݨیاں پائیاں
       no_comments: روزنامچے وچ ٹپݨیاں نہیں اے
+    page:
       post: لیکھ
       when: کدوں
       comment: ٹپݨی
@@ -1119,29 +1119,30 @@ pnb:
       not_updated: نہیں نواں کیتا
       search: کھوجو
       search_guidance: 'مسئلے لئی کھوجیو:'
+      link_to_reports: رپورٹاں ویکھیو
+      states:
+        ignored: نظر انداز کیتے گئے
+        open: کھولھ
+        resolved: حل شدہ
+    page:
       user_not_found: ورتنوالا نہیں ہوگیا سی
       issues_not_found: کجھ مسئلے نہیں لبھیئے
       status: حالت
       reports: رپورٹاں
       last_updated: حالیہ سودھ دی تریخ
-      link_to_reports: رپورٹاں ویکھیو
       reports_count:
         one: اِکّ رپورٹ
         other: '%{count} رپورٹاں'
       reported_item: رپورٹ دی چیز
-      states:
-        ignored: نظر انداز کیتے گئے
-        open: کھولھ
-        resolved: حل شدہ
     show:
       title: '[%{status}] مسئلہ: %{issue_id}'
       reports:
         other: zeroرپورٹ نہیں
         one: اِکّ رپورٹ
-      report_created_at: '%{datetime} رپورٹ بھیجی سی۔'
-      last_resolved_at: '%{datetime} مسئلہ بند کیتا سی۔'
-      last_updated_at: '%{datetime} مسئلے تے «%{displayname}» نویں کاݨکاری پائی گئی
-        سی۔'
+      report_created_at_html: '%{datetime} رپورٹ بھیجی سی۔'
+      last_resolved_at_html: '%{datetime} مسئلہ بند کیتا سی۔'
+      last_updated_at_html: '%{datetime} مسئلے تے «%{displayname}» نویں کاݨکاری پائی
+        گئی سی۔'
       resolve: حل کڈھو
       ignore: نظر انداز کرو
       reopen: ولدا کھُلھو
@@ -1209,14 +1210,11 @@ pnb:
     gps_traces: کھرے کھوجاں
     gps_traces_tooltip: کھرے کھوجاں ورتاؤ
     user_diaries: روزنامچے
-    user_diaries_tooltip: ایہہ لیکھ ویکھو
     edit_with: '%{editor} نال سودھو'
     tag_line: آزاد نقشہ جو جہڑے جہڑے سودھ سکدے اے
     intro_header: اوپن سٹریٹ میپ تے سواگت اے!
     intro_2_create_account: ورتنوالے دا کھاتہ بݨاؤݨ
-    partners_ucl: یو سی ایل
     partners_fastly: فَیستلی
-    partners_bytemark: بائیٹمارک ہوستِنگ
     partners_partners: جوڑیدار
     tou: ورتن شرطاں
     help: مدد
@@ -1226,8 +1224,6 @@ pnb:
     community: بھائیچارا
     community_blogs: بھائچارک بلاگ
     community_blogs_title: اوپن سٹریٹ مَیپ بھائیچارے دے جیاں ولّوں بلاگ
-    make_a_donation:
-      text: دان کریو
     learn_more: ہور سکھو
     more: ہور
   user_mailer:
@@ -1337,8 +1333,6 @@ pnb:
   messages:
     inbox:
       title: اینباکس
-      my_inbox: اینباکس
-      my_outbox: میرا آؤٹباکس
       messages: تہاڈے %{new_messages} تے %{old_messages} اے
       new_messages:
         one: '%{count} نویں سنیہا'
@@ -1346,12 +1340,14 @@ pnb:
       old_messages:
         one: '%{count} پراݨا سنیہا'
         other: '%{count} پراݨے سنیہے'
-      from: ولّوں
-      subject: وشا
-      date: تریخ
       no_messages_yet_html: حالاں کوئی سنیہے نہیں اے۔ %{people_mapping_nearby_link}
         ویکھ سکیو۔
       people_mapping_nearby: نیڑے تیڑے دے نقشے والے
+    messages_table:
+      from: ولّوں
+      to: ول
+      subject: وشا
+      date: تریخ
     message_summary:
       unread_button: اݨ پڑھا نشان لاؤ
       read_button: پڑھا نشان لاؤ
@@ -1368,14 +1364,9 @@ pnb:
       body: ایہہ سنیہا نہیں لبھیا۔
     outbox:
       title: آؤٹباکس
-      my_inbox: اینباکس
-      my_outbox: میرا آؤٹباکس
       messages:
         one: تہاڈے %{count} بھیجݨ سنیہا اے
         other: تہاڈے  %{count} بھیجݨ سنیہے اے
-      to: ول
-      subject: وشا
-      date: تریخ
       people_mapping_nearby: نیڑے تیڑے دے نقشے والے
     show:
       title: مُنیہا پڑھو
@@ -1385,25 +1376,27 @@ pnb:
       back: پچھے
     sent_message_summary:
       destroy_button: مٹاؤ
+    heading:
+      my_inbox: اینباکس
+      my_outbox: میرا آؤٹباکس
     mark:
       as_read: سنیہا پڑھا نشان لایا گیا
       as_unread: سنیہا اݨ پڑھا نشان لایا گیا
     destroy:
       destroyed: سُنیہا مٹائا گیا
   passwords:
-    lost_password:
+    new:
       title: پاس‌ورڈ گُم گیا
       heading: پچھاݨ شبد بھّل گیا؟
       email address: 'ای‌میل پتہ:'
       new password button: پاس‌ورڈ فیر بݨایو
       help_text: تہاڈے ای‌میل دا پتہ جو پاس‌ورڈ فیر بݨاؤݨ دی کڑی بھیج سکاں‌گی اے۔
-      notice email on way: اچھا، ای‌میل تے مدد دی کڑی بھیجاں‌گی اے
-      notice email cannot find: افسوس، اوہ ای‌میل دا پتہ نہیں لبھ سکیا
-    reset_password:
+    edit:
       title: پاس‌ورڈ فیر بݨایو
       reset: پاس‌ورڈ فیر بݨایو
-      flash changed: تہاڈے پاس‌ورڈ تبدیلی کیتی گئی سی۔
       flash token bad: ٹوکن نہیں لبھیا، خبر کڑی دا پتہ ویکھیو؟
+    update:
+      flash changed: تہاڈے پاس‌ورڈ تبدیلی کیتی گئی سی۔
   preferences:
     show:
       title: ترجیحاں
@@ -1441,43 +1434,15 @@ pnb:
   sessions:
     new:
       title: لوگ‌این
-      heading: لوگ‌این کرو
+      tab_title: لوگ‌این کرو
       email or username: 'ای‌میل دا پتہ یا ورتنوالے دا ناں:'
       password: 'پاس‌ورڈ:'
-      openid_html: '%{logo} اوپن آئی‌ڈی:'
       remember: مینوں یاد رکھو
       lost password link: آپݨا پاس‌ورڈ گوا دتا؟
       login_button: لوگ‌این
       register now: ہُݨے رجِستر کرو
       with external: 'لوگ‌این کرن لئی ہور چݨ سکیو:'
-      no account: کھاتہ نہیں اے؟
       auth failure: افسوس، یہہ ویروے نال لوگ‌این کر نہیں سکدے۔
-      openid_logo_alt: اوپن آئی ڈی ورتو
-      auth_providers:
-        openid:
-          title: اوپن آئی‌ڈی نال لوگ‌این کرو
-          alt: اوپن آئی ڈی یو آر ایل ورتو
-        google:
-          title: گوگل نال لوگ‌این کرو
-          alt: گوگل ورتو
-        facebook:
-          title: فیس‌بوک نال لوگ‌این کرو
-          alt: فیسبوک ورتو
-        microsoft:
-          title: وینڈوز لائیو نال لوگ‌این کرو
-          alt: وینڈوز لائیو ورتو
-        github:
-          title: گِٹ‌ہب نال لوگ‌این کرو
-          alt: گِٹ ہب ورتو
-        wikipedia:
-          title: وِکیپیڈیا نال لوگ‌این کرو
-          alt: وِکیپیڈیا ورتو
-        wordpress:
-          title: ورڈپریس نال لوگ‌این کرو
-          alt: ورڈ پریس ورتو
-        aol:
-          title: اے او ایل نال لوگ‌این کرو
-          alt: اے او ایل ورتو
     destroy:
       title: لوگ‌آؤٹ
       heading: اِتھے لوگ‌آوٹ کرو
@@ -1512,6 +1477,7 @@ pnb:
       legal_title: کانونی
       partners_title: سانجھیدار
     copyright:
+      title: نکل حق تے لائیسنس
       foreign:
         title: ایس ترجمے بارے
         html: جے ایس پنجابی صفحے تے %{english_original_link} وکھرے اے، پچھلا انگریزی
@@ -1524,7 +1490,6 @@ pnb:
         native_link: پنجابی شاہمکھی ورژن
         mapping_link: نقشابندی شروع کرو
       legal_babble:
-        title_html: نکل حق تے لائیسنس
         credit_title_html: ایہہ نقشے لئی حوالے
         credit_1_html: 'ڈیٹا ورتݨ دے قواعد:'
         attribution_example:
@@ -1538,9 +1503,6 @@ pnb:
     index:
       js_1: تہاڈے براؤزر جاواسکرپٹ نہیں ورتیئے، یا تسیں جاواسکرپٹ بند کیتے سی۔
       js_2: ایس ویب‌سائیٹ دا نقشہ جاواسکرپٹ ورتدا۔
-      permalink: پکی کڑی
-      shortlink: چھوٹی کڑی
-      createnote: نوٹ پایو
       license:
         copyright: اوپن سٹریٹ میپ تے لیکھک لئی آزاد لائیسنس نال ویب سائیٹ چھپیا سی۔
       remote_failed: سودھ کر نہیں سکدے۔ خبرے جو اَیپ چالو تے ریموٹ کنٹرول چالو وکھیو۔
@@ -1551,16 +1513,9 @@ pnb:
       user_page_link: ورتنوالے دا صفحہ
       anon_edits_link_text: پتہ کرو کہ ماملا ایس ترھاں کیوں اے۔
       id_not_configured: آئی‌ڈی ایڈیٹر نہیں چالو ہندا سی۔
-      no_iframe_support: تہاڈے براؤزر ایچ ٹی ایم ایل فریم ویکھ نہیں سکدے اے، ایہہ
-        ورتݨے چاہیدے۔
     export:
       title: برامد کرو
-      area_to_export: برامد واسطے علاقہ
       manually_select: آپݨے آپ اِکّ وکھرا کھیتر چݨو
-      format_to_export: برامد واسطے فارماٹ
-      osm_xml_data: اوپن سٹریٹ میپ ایکس ایم ایل ڈیٹا
-      map_image: نقشے دی تصویر (میعری)
-      embeddable_html: ایچ ٹی ایم ایل ایمبیڈ
       licence: لائیسنس
       too_large:
         advice: 'جے برامد نہیں سکدا، خبرے تسیں ایہہ ہور سروت ورت سکدے:'
@@ -1578,17 +1533,6 @@ pnb:
         other:
           title: ہور سروت
           description: وِکی توں ہور سروت
-      options: چوݨاں
-      format: فارمیٹ
-      scale: پیمانہ
-      max: ودھ توں ودھ
-      image_size: تصویر دا اکار
-      zoom: وڈے چھوٹے کیتے
-      add_marker: نقشے تے کوئی نشاندیہی پایو
-      latitude: اکشانش
-      longitude: لمبکار
-      output: آؤٹپُٹ
-      paste_html: ایمبیڈ کوڈ پیسٹ کریو
       export_button: برامد کرو
     fixthemap:
       title: کسے اوکڑ دی اطلاع دیو، نقشہ دُرُست کریو
@@ -1609,14 +1553,11 @@ pnb:
       beginners_guide:
         title: شُرواتی لئی کتاب
         description: شرواتی لئی ایہہ لوک کم کردے اے۔
-      help:
-        title: مدد گل بات
-        description: سوال کریو یا جواب لبھیو
-      mailing_lists:
-        title: میل دیاں لسٹاں
       community:
         title: حالاں فورم
         description: نقشے بارے گل بات لئی تھاں
+      mailing_lists:
+        title: میل دیاں لسٹاں
       irc:
         title: آئی آر سی
         description: کئی بولیاں تے کئی چیزاں بارے وچ گل بات۔
@@ -1656,35 +1597,24 @@ pnb:
           footway: فُت‌وے
           rail: ریلوے
           subway: سبوے
-          tram:
-          - ہلکی ریلوے
-          - ٹرام‌وے
-          cable:
-          - کیبل کار
-          - کُرسی لِفٹ
-          runway:
-          - ہوائی اڈے اُڈاݨ پٹی
-          - ٹیکسی‌وے
-          apron:
-          - ہوائی اڈے دا ایپرن
-          - ٹرمینل
+          cable_car: کیبل کار
+          chair_lift: کُرسی لِفٹ
+          runway: ہوائی اڈے اُڈاݨ پٹی
+          taxiway: ٹیکسی‌وے
+          apron: ہوائی اڈے دا ایپرن
           admin: پرشاسکی سرحد
           forest: رکھّ
           wood: جنگل
           golf: گولف مَیدان
           park: پارک
+          common: شاملاٹ
           resident: رہائشی کھیتر
-          common:
-          - شاملاٹ
-          - چرگاہ
-          - باغ
           retail: پرچون کھیتر
           industrial: سناتی کھیتر
           commercial: وپارک کھیتر
           heathland: ہیتھ
-          lake:
-          - جھیل
-          - کُنڈ
+          lake: جھیل
+          reservoir: کُنڈ
           farm: کھیت
           brownfield: براؤنفیلڈ
           cemetery: شمشان
@@ -1693,14 +1623,12 @@ pnb:
           centre: کھیڈ کیندر
           reserve: کُدرتی رکھّ
           military: فَوجی کھیتر
-          school:
-          - سکول
-          - یونیورستی
+          school: سکول
+          university: یونیورستی
           building: مہتوپورن عمارت
           station: ریلوے سٹیشن
-          summit:
-          - سکھر
-          - چوٹی
+          summit: سکھر
+          peak: چوٹی
           tunnel: سُرنگ (ڈیش لائیناں)
           bridge: پُل (کالیاں لائیناں)
           private: نِجی ورتوں
@@ -1763,9 +1691,6 @@ pnb:
       trace_not_found: کھر کھوج نہیں لبھیا!
       visibility: 'دِکھ:'
       confirm_delete: ایہہ کھر کھوج مٹاؤ؟
-    trace_paging_nav:
-      older: پراݨے کھر کھوجاں
-      newer: نویں کھر کھوجاں
     trace:
       pending: لمکدا
       count_points:
@@ -1779,8 +1704,6 @@ pnb:
       identifiable: پچھاݨیوگ
       private: نجی
       trackable: پیڑ کڈھݨیوگ
-      by: لیکھک
-      in: اے۔ ایہہ ٹیگ
     index:
       public_traces: عام کھرے کھوجاں
       my_gps_traces: میرے کھرے
@@ -1792,6 +1715,9 @@ pnb:
       my_traces: میرے کھرے
       traces_from: «%{user}» دے عوام کھرے
       remove_tag_filter: فلٹر ہٹاؤ
+    page:
+      older: پراݨے کھر کھوجاں
+      newer: نویں کھر کھوجاں
     make_public:
       made_public: عام کھرے کھوجاں
     georss:
@@ -1801,20 +1727,28 @@ pnb:
   application:
     settings_menu:
       account_settings: کھاتے دیاں سیٹنگاں
-      oauth1_settings: آوتھ ورژن 1 سیٹنگاں
       oauth2_applications: آوتھ ورژن 2 اَیپ
       oauth2_authorizations: آوتھ ورژن 2 ورتݨ
+    auth_providers:
+      openid:
+        title: اوپن آئی‌ڈی نال لوگ‌این کرو
+        alt: اوپن آئی ڈی یو آر ایل ورتو
+      google:
+        title: گوگل نال لوگ‌این کرو
+        alt: گوگل ورتو
+      facebook:
+        title: فیس‌بوک نال لوگ‌این کرو
+        alt: فیسبوک ورتو
+      microsoft:
+        title: وینڈوز لائیو نال لوگ‌این کرو
+        alt: وینڈوز لائیو ورتو
+      github:
+        title: گِٹ‌ہب نال لوگ‌این کرو
+        alt: گِٹ ہب ورتو
+      wikipedia:
+        title: وِکیپیڈیا نال لوگ‌این کرو
+        alt: وِکیپیڈیا ورتو
   oauth:
-    authorize:
-      allow_write_diary: روزنامچے وچ لیکھ بݨا سکدیو، ٹپݨی کریو تے دوست جوڑیو
-      allow_write_api: نقشہ سودھ سکدا
-      allow_write_gpx: کھرے چڑھاؤݨے
-      allow_write_notes: نوٹ سودھ سکدا
-      grant_access: اِجازت دیو
-    authorize_success:
-      verification: 'پکا کرن دا کوڈ: %{code}'
-    authorize_failure:
-      invalid: اِجازت دا ٹوکن نہیں درست اے۔
     scopes:
       read_prefs: ورتنوالے دیاں ترجیحاں پڑھا سکدیاں
       write_prefs: ورتنوالے دیاں ترجیحاں سودھ سکدیاں
@@ -1823,27 +1757,6 @@ pnb:
       write_gpx: کھرے چڑھاؤݨے
       write_notes: نوٹ سودھ سکدا
       read_email: ای‌میل دے پتے پڑھاؤݨے
-  oauth_clients:
-    new:
-      title: نوان اَیپ جوڑو
-    edit:
-      title: اَیپ سودھو
-    show:
-      key: 'ورتوں دی کنجی:'
-      access_url: 'پہنچ ٹوکن دی کڑی دا پتہ:'
-      authorize_url: 'اِجازت دی کڑی:'
-      edit: وروے سودھو
-      delete: اَیپ مٹاؤ
-      confirm: تسیں پکے کیہ اے؟
-    index:
-      title: او اوتھ ویروے
-      my_tokens: میریاں اِجازت نال ایپلیکیشناں
-      application: ایپلیکیشن دا ناں
-      revoke: پرتاؤ!
-      my_apps: میرے اَیپ
-      no_apps_html: تہاڈے %{oauth} نال کجھ اَیپ جوڑنے چاہیدے؟ اِتھے ایہہ پاؤن‌گے سی۔
-      oauth: او آوتھ
-      register_new: آپݨی ارزی دا اِندراج کراؤ
   oauth2_applications:
     index:
       title: میرے اَیپ
@@ -1933,7 +1846,6 @@ pnb:
       ct status: 'لیکھک قواعد:'
       ct undecided: دچتی وچ
       ct declined: نکاری
-      latest edit: پچھلی سودھ (%{ago})
       email address: 'ای‌میل پتہ:'
       created from: 'کتھوں اُساریا:'
       status: حالت
@@ -1961,12 +1873,10 @@ pnb:
     index:
       title: ورتنوالے
       heading: ورتنوالے
-      showing:
-        one: صفحہ %{page} (%{items} وچ %{first_item})
-        other: صفحہ %{page} (%{items} وچ%{first_item}} توں %{last_item} نوں)
+      empty: کوئی میل کھاندے ورتنوالے نہیں لبھے
+    page:
       confirm: چݨے ہوۓ ورتنوالیاں دی تصدیق کرو
       hide: چݨے ہوۓ ورتنوالے لُکاؤ
-      empty: کوئی میل کھاندے ورتنوالے نہیں لبھے
     suspended:
       title: کھاتہ مواتل کیتا گیا
       heading: کھاتہ مواتل کیتا گیا
@@ -1988,21 +1898,12 @@ pnb:
   user_blocks:
     not_found:
       back: تتکرے ول واپس
-    new:
-      back: ساریاں روکاں ویکھو
-    edit:
-      show: ایہہ روک ویکھو
-      back: ساریاں روکاں ویکھو
     update:
       success: روک نویائی گئی۔
     index:
       title: ورتنوالے دے روکاں
       heading: ورتنوالیاں لئی روکاں دی لسٹ
       empty: حالاں کوئی روکاں نہیں بݨائیاں گیاں۔
-    revoke:
-      confirm: تسیں پکے، ایہہ روک پرتاؤ؟
-      revoke: پرتاؤ
-      flash: ایہہ روک پرتا دتی گئی اے۔
     helper:
       block_duration:
         hours:
@@ -2025,23 +1926,17 @@ pnb:
       status: حالت
       show: وکھاؤ
       edit: سودھو
-      revoke: پرتاؤ!
       confirm: پکے؟
-      back: ساریاں روکاں ویکھو
       revoker: 'پرتاؤݨ والا:'
     block:
       not_revoked: (نہیں پرتائی دتی گئی)
       show: وکھاؤ
       edit: سودھو
-      revoke: پرتاؤ
     blocks:
       display_name: روکیا ورتنوالا
       creator_name: لیکھک
       reason: روک دا کارن
       status: درجہ
-      showing_page: صفحہ نمبر %{page}
-      next: اگلا »
-      previous: « پچھلا
   notes:
     index:
       heading: '%{user} دے نوٹ'
@@ -2103,7 +1998,6 @@ pnb:
         cycle_map: سائیکل نقشہ
         transport_map: ٹرینسپورٹ
         hot: لوک سیوی
-        opnvkarte: ٹرینسپورٹ (اوپن کارٹ)
       layers:
         header: نقشے دیاں تہیاں
         notes: نقشے دے نوٹ
@@ -2120,11 +2014,6 @@ pnb:
       map_data_zoom_in_tooltip: ڈیٹے دکھݨ لئی وڈا کریو
       queryfeature_tooltip: نقشاں لئی پرشن
       queryfeature_disabled_tooltip: نقش دے پرشن لئی وڈا کریو
-    changesets:
-      show:
-        comment: ٹپݨی کرو
-        hide_comment: لُکاؤ
-        unhide_comment: نہیں لُکاؤ
     directions:
       engines:
         fossgis_osrm_bike: سائیکل (او ایس آر ایم)

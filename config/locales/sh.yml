@@ -127,7 +127,6 @@ sh:
       user:
         auth_provider: Davatelj autentifikacije
         email: Imejl
-        email_confirmation: Potvrda imejla
         new_email: Nova imejl adresa
         active: Aktivan
         display_name: Ime za prikaz
@@ -159,7 +158,6 @@ sh:
   auth:
     providers:
       none: Nijedan
-      openid: OpenID
       google: Google
       facebook: Facebook
       github: GitHub
@@ -250,9 +248,6 @@ sh:
         imejl za porukom za potvrdu nove adrese.
       success: Korisničke informacije su uspješno osvježene.
   browse:
-    changeset:
-      join_discussion: Prijavite se za uključivanje u raspravu
-      discussion: Razgovor
     tag_details:
       wikidata_link: '%{page} stavka na Wikidata'
       wikipedia_link: Članak o %{page} na Wikipediji
@@ -267,16 +262,15 @@ sh:
     changeset:
       anonymous: Anoniman
       no_edits: (nema izmjena)
-    changesets:
-      user: Korisnik
-      comment: Komentar
-      area: Područje
     index:
       title: Setovi promjena
       title_user: Setovi promjena od %{user}
       title_user_link_html: Setovi promjena od %{user_link}
       title_friend: Promjene mojih prijatelja
       title_nearby: Promjene obližnjih korisnika
+    show:
+      discussion: Razgovor
+      join_discussion: Prijavite se za uključivanje u raspravu
   diary_entries:
     new:
       title: Novi zapis u dnevnik
@@ -293,6 +287,7 @@ sh:
       new_title: Sročite novi zapis u vaš korisnički dnevnik
       my_diary: Moj dnevnik
       no_entries: Nema zapisa u dnevniku
+    page:
       recent_entries: Nedavni zapisi u dnevnik
       older_entries: Stariji zapisi
       newer_entries: Noviji zapisi
@@ -486,6 +481,7 @@ sh:
   issues:
     index:
       search: Pretraga
+    page:
       user_not_found: Korisnik ne postoji
       status: Status
       last_updated: Posljednja podnova
@@ -502,11 +498,7 @@ sh:
     intro_text: OpenStreetMap je karta svijeta stvorena od strane ljudi kao što ste
       vi i može se slobodno koristiti pod licencom otvorenog koda.
     intro_2_create_account: Napravi korisnički račun
-    hosting_partners_html: Hosting podržavaju %{ucl}, %{fastly}, %{bytemark} i drugi
-      %{partners}.
-    partners_ucl: UCL
     partners_fastly: Fastly
-    partners_bytemark: Bytemark Hosting
     partners_partners: partneri
     tou: Uslovi korištenja
     osm_offline: OpenStreetMap baza podataka je trenutno nedostupna dok se ne završe
@@ -521,9 +513,6 @@ sh:
     community: Zajednica
     community_blogs: Blogovi zajednice
     community_blogs_title: Blogovi članova OpenStreetMap zajednice
-    make_a_donation:
-      title: Podržite OpenStreetMap novčanom donacijom
-      text: Donirajte
     learn_more: Saznajte više
     more: Više
   user_mailer:
@@ -557,6 +546,8 @@ sh:
     confirm_email:
       heading: Potvrda promjene e-adrese
   messages:
+    messages_table:
+      to: Za
     message_summary:
       reply_button: Odgovori
       destroy_button: Izbriši
@@ -574,9 +565,6 @@ sh:
       body: Nažalost, nema poruke s tom naznakom.
     outbox:
       title: Odlazna pošta
-      to: Za
-      subject: Tema
-      date: Datum
       no_sent_messages_html: Još uvijek nemate poslanih poruka. Zašto ne biste iskontaktirali
         s nekim %{people_mapping_nearby_link}?
       people_mapping_nearby: ljudima u vašoj okolini
@@ -597,22 +585,15 @@ sh:
   sessions:
     new:
       title: Prijava
-      heading: Prijava
+      tab_title: Prijava
       email or username: 'Imejl adresa ili korisničko ime:'
       password: 'Lozinka:'
-      openid_html: '%{logo} OpenID:'
       remember: Zapamti me
       lost password link: Izgubili ste lozinku?
       login_button: Prijava
       register now: Registrirajte se sada
       with external: 'Ili koristite vanjski servis:'
-      no account: Nemate račun?
       auth failure: Žao nam je, ne možemo vas prijaviti s ovim detaljima.
-      openid_logo_alt: Prijavi se sa OpenID-om
-      auth_providers:
-        openid:
-          title: Prijavi se sa OpenID-om
-          alt: Prijavi se sa URL-om OpenID-a
     suspended_flash:
       suspended: Nažalost, vaš je račun obustavljen zbog sumnjive aktivnosti.
       contact_support_html: Molimo kontaktirajte %{support_link} ako želite razgovarati
@@ -680,9 +661,6 @@ sh:
       js_1: Ili koristite internet preglednik koji ne podržava JavaScript, ili ste
         onemogućili taj program.
       js_2: OpenStreetMap koristi JavaScript za slippy kartu.
-      permalink: Trajni link
-      shortlink: Kratki link
-      createnote: Dodaj bilješku
       license:
         copyright: Autorska prava pripadaju OpenStreetMap-u i doprinositeljima, pod
           otvorenom licencom
@@ -695,16 +673,9 @@ sh:
       user_page_link: korisničkoj stranici
       anon_edits_link_text: Otkrijte zašto je to slučaj.
       id_not_configured: Uređivački program "iD" nije konfiguriran
-      no_iframe_support: Vaš preglednik ne podržava "iOkvire" (iframes) sa HTML-om,
-        a oni su potrebni za ovu mogućnost.
     export:
       title: Izvoz
-      area_to_export: Područje za izvoz
       manually_select: Ručno izaberi drukčije područje
-      format_to_export: Format za izvoz
-      osm_xml_data: OpenStreetMap XML podaci
-      map_image: Slika karte (prikazuje standardni sloj)
-      embeddable_html: Ugradivi HTML kod
       licence: Licenca
       too_large:
         advice: 'Ako gornji izvoz podataka ne uspije, molimo pokušajte sa nekim od
@@ -730,34 +701,24 @@ sh:
           footway: Pješačka staza
           rail: Željeznica
           subway: Podzemna željeznica
-          tram:
-          - Laka željeznica
-          - tramvaj
-          cable:
-          - Kabinska žičara
-          - sedežnica
-          runway:
-          - Aerodromska pista
-          - rulna staza
-          apron:
-          - Parking za avione
-          - terminal
+          cable_car: Kabinska žičara
+          chair_lift: sedežnica
+          runway: Aerodromska pista
+          taxiway: rulna staza
+          apron: Parking za avione
           admin: Administrativna granica
           forest: Šuma
           wood: Šume (prirodne, neodržavane)
           golf: Golf teren
           park: Park
+          common: Travnjaci
           resident: Stambeno područje
-          common:
-          - Travnjaci
-          - livada
           retail: Maloprodajno područje
           industrial: Industrijsko područje
           commercial: Poslovno područje
           heathland: Vriština
-          lake:
-          - Jezero
-          - rezervoar
+          lake: Jezero
+          reservoir: rezervoar
           farm: Farma
           brownfield: Gradilište
           cemetery: Groblje
@@ -766,14 +727,12 @@ sh:
           centre: Sportski centar
           reserve: Rezervat prirode
           military: Vojno područje
-          school:
-          - Škola
-          - univerzitet
+          school: Škola
+          university: univerzitet
           building: Značajna zgrada
           station: Željeznička stanica
-          summit:
-          - Vrh
-          - vrh
+          summit: Vrh
+          peak: vrh
     welcome:
       title: Dobrodošli!
       introduction: Dobrodošli u OpenStreetMap — slobodnu i uredljivu kartu svijeta.
@@ -796,34 +755,13 @@ sh:
   application:
     settings_menu:
       account_settings: Podešavanja računa
-      oauth1_settings: OAuth 1 postavke
       oauth2_applications: OAuth 2 prilozi
       oauth2_authorizations: OAuth 2 ovlaštenja
+    auth_providers:
+      openid:
+        title: Prijavi se sa OpenID-om
+        alt: Prijavi se sa URL-om OpenID-a
   oauth:
-    authorize:
-      title: Autorizujte pristup svom računu
-      request_access_html: Izvršnik %{app_name} zahtjeva pristup vašem korisničkom
-        računu, %{user}. Odlučite se da li želite da izvršnik ima sljedeće mogućnosti.
-        Možete odabrati koliko joj pristupa želite dopustiti.
-      allow_to: 'Dozvoli klijentskoj aplikaciji da:'
-      allow_read_prefs: vam čita korisnička podešavanja.
-      allow_write_prefs: mijenja vaša korisnička podešavanja.
-      allow_write_diary: pravi unose u dnevniku, komentariše i dodaje prijatelje.
-      allow_write_api: mijenja kartu.
-      allow_read_gpx: vam čita vaše privatne GPS tragove.
-      allow_write_gpx: otprema GPS tragove.
-      allow_write_notes: mijenja bilješke.
-      grant_access: Dozvoli pristup
-    authorize_success:
-      title: Zahtjev za autorizaciju dopušten
-      allowed_html: Dali ste izvršniku %{app_name} pristup svom računu.
-      verification: Kod za potvrdu je %{code}.
-    authorize_failure:
-      title: Zahtjev za autorizaciju neuspješan
-      denied: Odbili ste izvršniku %{app_name} pristup svom računu.
-      invalid: Autorizacijski žeton nije važeći.
-    revoke:
-      flash: Opozvali ste žeton za %{application}
     permissions:
       missing: Niste dopustili pristup priloga ovom objektu
     scopes:
@@ -836,15 +774,6 @@ sh:
       write_notes: Promjena bilješki
       read_email: Čitanje korisničke imejl adrese
       skip_authorization: Automatsko odobravanje priloga
-  oauth_clients:
-    new:
-      title: Registriraj novi prilog
-    edit:
-      title: Uredi svoj prilog
-    show:
-      title: OAuth detalji za %{app_name}
-      key: 'Ključ potrošača:'
-      secret: 'Tajna potrošača:'
   users:
     new:
       title: Prijava

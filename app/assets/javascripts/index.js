@@ -12,9 +12,9 @@
 //= require leaflet.contextmenu
 //= require index/contextmenu
 //= require index/search
-//= require index/browse
+//= require index/layers/data
 //= require index/export
-//= require index/notes
+//= require index/layers/notes
 //= require index/history
 //= require index/note
 //= require index/new_note
@@ -160,12 +160,12 @@ $(document).ready(function () {
   OSM.initializeContextMenu(map);
 
   if (OSM.STATUS !== "api_offline" && OSM.STATUS !== "database_offline") {
-    OSM.initializeNotes(map);
+    OSM.initializeNotesLayer(map);
     if (params.layers.indexOf(map.noteLayer.options.code) >= 0) {
       map.addLayer(map.noteLayer);
     }
 
-    OSM.initializeBrowse(map);
+    OSM.initializeDataLayer(map);
     if (params.layers.indexOf(map.dataLayer.options.code) >= 0) {
       map.addLayer(map.dataLayer);
     }
@@ -346,14 +346,20 @@ $(document).ready(function () {
           });
         }
       });
-
-      $(".colour-preview-box").each(function () {
-        $(this).css("background-color", $(this).data("colour"));
-      });
     }
 
     page.unload = function () {
       map.removeObject();
+    };
+
+    return page;
+  };
+
+  OSM.OldBrowse = function () {
+    var page = {};
+
+    page.pushstate = page.popstate = function (path) {
+      OSM.loadSidebarContent(path);
     };
 
     return page;
@@ -373,8 +379,11 @@ $(document).ready(function () {
     "/user/:display_name/history": history,
     "/note/:id": OSM.Note(map),
     "/node/:id(/history)": OSM.Browse(map, "node"),
+    "/node/:id/history/:version": OSM.OldBrowse(),
     "/way/:id(/history)": OSM.Browse(map, "way"),
+    "/way/:id/history/:version": OSM.OldBrowse(),
     "/relation/:id(/history)": OSM.Browse(map, "relation"),
+    "/relation/:id/history/:version": OSM.OldBrowse(),
     "/changeset/:id": OSM.Changeset(map),
     "/query": OSM.Query(map)
   });
@@ -387,7 +396,7 @@ $(document).ready(function () {
   OSM.router.load();
 
   $(document).on("click", "a", function (e) {
-    if (e.isDefaultPrevented() || e.isPropagationStopped()) {
+    if (e.isDefaultPrevented() || e.isPropagationStopped() || $(e.target).data("turbo")) {
       return;
     }
 

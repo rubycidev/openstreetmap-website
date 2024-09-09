@@ -60,27 +60,32 @@ eu:
       messages:
         invalid_email_address: badirudi ez dela e-posta helbide egoki bat
         email_address_not_routable: ezin da biderik kalkulatu
+        display_name_is_user_n: ezin da user_n izan, salbu eta n zure erabiltzaile
+          ID-a bada
+      models:
+        user_mute:
+          is_already_muted: dagoeneko isilduta dago
     models:
       acl: Kontrol zerrendara sartu
-      changeset: Aldaketak
-      changeset_tag: Aldaketa Etiketa
+      changeset: Aldaketa multzoa
+      changeset_tag: Aldaketa multzoaren etiketa
       country: Herrialdea
-      diary_comment: Eguneroko iruzkina
-      diary_entry: Eguneroko sarrera
+      diary_comment: Egunerokoaren iruzkina
+      diary_entry: Egunerokoaren sarrera
       friend: Laguna
       issue: Arazoa
       language: Hizkuntza
       message: Mezua
-      node: Nodo
+      node: Nodoa
       node_tag: Nodoaren etiketa
       old_node: Nodo zaharra
       old_node_tag: Nodo etiketa zaharra
       old_relation: Erlazio zaharra
-      old_relation_member: Erlazio zaharreko kidea
-      old_relation_tag: Erlazio zaharreko etiketa
+      old_relation_member: Erlazioko kidea izandakoa
+      old_relation_tag: Erlazioko etiketa zaharra
       old_way: Bide zaharra
-      old_way_node: Nodo bide zaharra
-      old_way_tag: Bide zahar etiketa
+      old_way_node: Bideko nodo zaharra
+      old_way_tag: Bidearen etiketa zaharra
       relation: Erlazioa
       relation_member: Erlazio kidea
       relation_tag: Erlazio etiketa
@@ -136,7 +141,7 @@ eu:
         description: Deskribapena
         gpx_file: 'GPX fitxategia igo:'
         visibility: Ikusgarritasuna
-        tagstring: 'Etiketak:'
+        tagstring: Etiketak
       message:
         sender: Igorlea
         title: Gaia
@@ -152,17 +157,16 @@ eu:
         auth_provider: Autentifikazio-hornitzailea
         auth_uid: Autentikazio UID
         email: Eposta
-        email_confirmation: 'E-posta egiaztapena:'
         new_email: 'E-posta helbide berria:'
         active: Aktiboa
         display_name: Erakusteko izena
-        description: 'Profilaren deskribapena:'
+        description: Profilaren deskribapena
         home_lat: Latitudea
         home_lon: Longitudea
-        languages: Hizkuntza lehenetsiak
-        preferred_editor: 'Lehenetsitako editorea:'
+        languages: Hobetsitako hizkuntzak
+        preferred_editor: Editore hobetsia
         pass_crypt: Pasahitza
-        pass_crypt_confirmation: Pasahitza berretsi
+        pass_crypt_confirmation: 'Berretsi pasahitza:'
     help:
       doorkeeper/application:
         confidential: Bezeroaren sekretua isilpean gorde daitekeenean erabiliko da
@@ -170,12 +174,12 @@ eu:
           ez dira konfidentzialak)
         redirect_uri: Erabili lerro bat URI bakoitzeko
       trace:
-        tagstring: koma mugatua
+        tagstring: komak mugatua
       user_block:
         reason: Erabiltzailea blokaturik egoteko arrazoia. Egon ahal bezain lasai
           eta zentzudun, egoeraren inguruko xehetasun guztiak emanez, mezu hori publikoki
           ikusgai egongo dela gogoratuz. Gogoan izan erabiltzaile guztiek ez dutela
-          komunitatearen hizkera ulertzen; beraz, saiatu hitz arruntak erabiltzen.
+          komunitatearen hizkera ulertzen; beraz saiatu hitz arruntak erabiltzen.
         needs_view: Erabiltzaileak saioa hasi behar al du bloke hau garbitu aurretik?
       user:
         new_email: (inoiz ez da publikoki bistaratuko)
@@ -229,7 +233,6 @@ eu:
   auth:
     providers:
       none: Ezer
-      openid: OpenID
       google: Google
       facebook: Facebook
       microsoft: Microsoft
@@ -284,6 +287,8 @@ eu:
         retain_changeset_discussions: Zure aldaketa-multzoko eztabaidak, halakorik
           izanez gero, mantendu egingo dira.
         retain_email: Zure posta elektronikoko helbidea gordeko da.
+        recent_editing_html: Orain dela gutxi editatu duzunez zure kontua ezin da
+          ezabatu. %{time} barru ezabatzea posible izango da.
         confirm_delete: Ziur zaude?
         cancel: Utzi
   accounts:
@@ -331,12 +336,6 @@ eu:
     destroy:
       success: Kontua ezabatu da.
   browse:
-    created: Sortua
-    closed: Itxita
-    created_ago_html: Sortua orain dela %{time_ago}
-    closed_ago_html: Itxia orain dela %{time_ago}
-    created_ago_by_html: '%{user}-ek %{time_ago} sortua'
-    closed_ago_by_html: '%{user}-ek %{time_ago} itxia'
     deleted_ago_by_html: '%{user}-ek %{time_ago} ezabatua'
     edited_ago_by_html: '%{user}-ek %{time_ago} editatua'
     version: Bertsioa
@@ -354,27 +353,6 @@ eu:
     view_history: Ikusi historia
     view_details: Ikusi xehetasunak
     location: 'Kokapena:'
-    changeset:
-      title: 'Aldaketa: %{id}'
-      belongs_to: Egilea
-      node: Nodoak (%{count})
-      node_paginated: Nodoak (%{x}-%{y} %{count}-tik)
-      way: Bideak (%{count})
-      way_paginated: Bideak (%{x}-%{y} %{count}-tik)
-      relation: Erlazioak (%{count})
-      relation_paginated: Erlazioak (%{x}-%{y} %{count}-tik)
-      comment: Iruzkinak (%{count})
-      hidden_comment_by_html: '%{user} -ren ezkutuko iruzkina %{time_ago} tik'
-      comment_by_html: '%{user} -ren iruzkina orain dela %{time_ago}'
-      changesetxml: Aldaketaren XML kodea
-      osmchangexml: osmChange XML kodea
-      feed:
-        title: '%{id} aldaketak'
-        title_comment: '%{id} aldaketa - %{comment}'
-      join_discussion: Hasi saioa eztabaidan parte hartzeko
-      discussion: Eztabaida
-      still_open: Aldaketak oraindik zabalik - eztabaida aldaketak itxi ondoren irekiko
-        da.
     node:
       title_html: 'Nodoa: %{name}'
       history_title_html: 'Nodoaren historia: %{name}'
@@ -452,6 +430,29 @@ eu:
       introduction: Egin klik mapan hurbileko ezaugarriak aurkitzeko.
       nearby: Hurbileko ezaugarriak
       enclosing: Bildutako ezaugarriak
+  old_nodes:
+    not_found:
+      sorry: Barkatu, ezin izan da %{id} nodoaren %{version} bertsioa aurkitu.
+  old_ways:
+    not_found:
+      sorry: Barkatu, ezin izan da %{id} bidearen %{version} bertsioa aurkitu.
+  old_relations:
+    not_found:
+      sorry: Barkatu, ezin izan da %{id} erlazioaren %{version} bertsioa aurkitu.
+  changeset_comments:
+    feeds:
+      comment:
+        comment: '%{changeset_id} aldaketan %{author} erabiltzaileak iruzkin berria
+          egin du'
+        commented_at_by_html: '%{user} erabiltzaileak duela %{when} eguneratua'
+      comments:
+        comment: '%{changeset_id} aldaketan %{author}k iruzkin berria egin du'
+      show:
+        title_all: OpenStreetMap aldaketen eztabaida
+        title_particular: 'OpenStreetMap #%{changeset_id} aldaketen eztabaida.'
+      timeout:
+        sorry: Barkatu, zuk eskatutako aldaketen zerrenda berreskuratzeko denbora
+          gehiegi behar izan da.
   changesets:
     changeset_paging_nav:
       showing_page: '%{page} orrialdea'
@@ -461,12 +462,6 @@ eu:
       anonymous: Anonimoa
       no_edits: (aldaketarik gabe)
       view_changeset_details: Ikusi aldaketen xehetasunak
-    changesets:
-      id: ID
-      saved_at: Noiz gordeta
-      user: Erabiltzailea
-      comment: Iruzkina
-      area: Eremua
     index:
       title: Aldaketak
       title_user: '%{user}k egindako aldaketak'
@@ -480,19 +475,42 @@ eu:
       no_more_area: Inguru honetan ez dago aldaketa gehiagorik.
       no_more_user: Erabiltzaile honek ez du aldaketa gehiagorik egin.
       load_more: Gehiago kargatu
-    timeout:
-      sorry: Barkatu, zuk eskatutako aldaketen zerrenda berreskuratzeko denbora gehiegi
-        behar izan da.
-  changeset_comments:
-    comment:
-      comment: '%{changeset_id} aldaketan %{author} erabiltzaileak iruzkin berria
-        egin du'
-      commented_at_by_html: '%{user} erabiltzaileak duela %{when} eguneratua'
-    comments:
-      comment: '%{changeset_id} aldaketan %{author}k iruzkin berria egin du'
-    index:
-      title_all: OpenStreetMap aldaketen eztabaida
-      title_particular: 'OpenStreetMap #%{changeset_id} aldaketen eztabaida.'
+      feed:
+        title: '%{id} aldaketak'
+        title_comment: '%{id} aldaketa - %{comment}'
+        created: Sortua
+        closed: Itxita
+        belongs_to: Egilea
+    subscribe:
+      heading: Aldaketa multzoko eztabaida honetara harpidetu nahi duzu?
+    unsubscribe:
+      button: Eztabaidatik harpidetza kendu
+    show:
+      title: 'Aldaketa: %{id}'
+      created_ago_html: Sortua orain dela %{time_ago}
+      closed_ago_html: Itxia orain dela %{time_ago}
+      created_ago_by_html: '%{user}-ek %{time_ago} sortua'
+      closed_ago_by_html: '%{user}-ek %{time_ago} itxia'
+      discussion: Eztabaida
+      join_discussion: Hasi saioa eztabaidan parte hartzeko
+      still_open: Aldaketak oraindik zabalik - eztabaida aldaketak itxi ondoren irekiko
+        da.
+      subscribe: Harpidetu
+      unsubscribe: Harpidetza kendu
+      comment_by_html: '%{user} -ren iruzkina orain dela %{time_ago}'
+      hidden_comment_by_html: '%{user} -ren ezkutuko iruzkina %{time_ago} tik'
+      hide_comment: ezkutatu
+      unhide_comment: erakutsi
+      comment: Iruzkina
+      changesetxml: Aldaketaren XML kodea
+      osmchangexml: osmChange XML kodea
+    paging_nav:
+      nodes: Nodoak (%{count})
+      nodes_paginated: Nodoak (%{x}-%{y} %{count}-tik)
+      ways: Bideak (%{count})
+      ways_paginated: Bideak (%{x}-%{y} %{count}-tik)
+      relations: Erlazioak (%{count})
+      relations_paginated: Erlazioak (%{x}-%{y} %{count}-tik)
     timeout:
       sorry: Barkatu, zuk eskatutako aldaketen zerrenda berreskuratzeko denbora gehiegi
         behar izan da.
@@ -500,6 +518,7 @@ eu:
     contact:
       km away: '%{count} km-tara'
       m away: '%{count} m-tara'
+      latest_edit_html: 'Azken aldaketa (%{ago}):'
     popup:
       your location: Zure kokapena
       nearby mapper: Hurbileko mapeatzaileak
@@ -533,6 +552,7 @@ eu:
       new_title: Nire erabiltzaile egunerokoan sarrera berri bat sortu
       my_diary: Nire egunerokoa
       no_entries: Eguneroko sarrerarik ez
+    page:
       recent_entries: Azkenengoko eguneroko sarrerak
       older_entries: Sarrera zaharragoak
       newer_entries: Sarrera berriagoak
@@ -542,6 +562,7 @@ eu:
     show:
       title: '%{user}(r)en egunerokoa | %{title}'
       user_title: '%{user}(r)en egunerokoa'
+      discussion: Eztabaida
       leave_a_comment: Iruzkin bat utzi
       login_to_leave_a_comment_html: '%{login_link} iruzkin bat uzteko'
       login: Hasi saioa
@@ -586,21 +607,38 @@ eu:
       all:
         title: OpenStreetMap eguneroko sarrerak
         description: OpenStreetMap erabiltzaileek azkenaldian egindako eguneroko sarrerak
-    comments:
+  diary_comments:
+    index:
       title: '%{user} erabiltzaileak gehitutako egunkariko iruzkinak'
       heading: '%{user} erabiltzailearen egunkariko iruzkinak'
       subheading_html: '%{user} erabiltzaileak gehitutako egunkariko iruzkinak'
       no_comments: Ez dago egunkariko iruzkinik
+    page:
       post: Argitaratu
       when: Noiz
       comment: Iruzkina
       newer_comments: Iruzkin berriagoak
       older_comments: Iruzkin zaharragoak
   doorkeeper:
+    errors:
+      messages:
+        account_selection_required: Baimen zerbitzariak azken erabiltzailearen kontua
+          hautatzea eskatzen du
+        consent_required: Baimen zerbitzariak erabiltzailearen baimena behar du
+        interaction_required: Baimen zerbitzariak erabiltzailearen interakzioa eskatzen
+          du
+        login_required: Baimen zerbitzariak erabiltzailearen autentifikazioa behar
+          du
     flash:
       applications:
         create:
           notice: Aplikazioa erregistratu da.
+    scopes:
+      address: Zure helbide fisikoa ikusi
+      email: Ikusi zure helbide elektronikoa
+      openid: Egiaztatu zure kontua
+      phone: Zure telefono zenbakia ikusi
+      profile: Zure profileko informazioa ikusi
   errors:
     contact:
       contact_url_title: Harremanetarako hainbat kanal azalduak
@@ -638,6 +676,7 @@ eu:
     search:
       title:
         results_from_html: '%{results_link} ren emaitzak'
+        latlon: Barnekoa
     search_osm_nominatim:
       prefix:
         aerialway:
@@ -1132,7 +1171,7 @@ eu:
           reef: Arrezifea
           ridge: Gailurra
           rock: Arroka
-          saddle: Jarlekua
+          saddle: Mendi-lepoa
           sand: Harea
           scree: Pilaketa
           scrub: Sasiak
@@ -1425,29 +1464,31 @@ eu:
       not_updated: Eguneratu gabea
       search: Bilatu
       search_guidance: 'Arazoak bilatu:'
+      link_to_reports: Reporteak ikusi
+      states:
+        ignored: Ezikusia
+        open: Ireki
+        resolved: Konponduta
+    page:
       user_not_found: Erabiltzailea ez da existitzen
       issues_not_found: Ez da halako arazorik aurkitu
       status: Egoera
       reports: Reporteak
       last_updated: Azken eguneratzea
-      link_to_reports: Reporteak ikusi
+      last_updated_time_ago_user_html: Duela %{time_ago} %{user} erabiltzaileak
       reports_count:
         one: txosten %{count}
         other: '%{count} txosten'
       reported_item: Salatutako elementua
-      states:
-        ignored: Ezikusia
-        open: Ireki
-        resolved: Konponduta
     show:
       title: '%{status} %{issue_id} arazoa'
       reports:
         one: '%{count} report'
         other: '%{count} jakinarazpen'
       no_reports: Ez dago txostenik
-      report_created_at: Lehenengoz %{datetime} egunean berri emanda
-      last_resolved_at: Azkenekoz %{datetime} egunean konponduta
-      last_updated_at: Azkenekoz %{displayname}-(e)k %{datetime} egunean eguneratua
+      report_created_at_html: Lehenengoz %{datetime} egunean berri emanda
+      last_resolved_at_html: Azkenekoz %{datetime} egunean konponduta
+      last_updated_at_html: Azkenekoz %{displayname}-(e)k %{datetime} egunean eguneratua
       resolve: Konpondu
       ignore: Ezikusi
       reopen: Berrireki
@@ -1529,18 +1570,13 @@ eu:
     gps_traces: GPS Aztarnak
     gps_traces_tooltip: GPS aztarnak kudeatu
     user_diaries: Erabiltzaileen egunerokoak
-    user_diaries_tooltip: Erabiltzaile egunerokoak ikusi
     edit_with: '%{editor}rekin editatu'
     tag_line: Doako Wiki Mundu Mapa
     intro_header: Ongi etorri OpenStreetMap-era!
     intro_text: OpenStreetMap munduko mapa da, zu bezalako jendeak sortutakoa eta
       doako lizentzia irekiarekin erabiltzeko dagoena.
     intro_2_create_account: Erabiltzaile kontua sortu
-    hosting_partners_html: Ostatatzea %{ucl}, %{fastly}, %{bytemark} eta beste %{partners}
-      babestua.
-    partners_ucl: UCLa
     partners_fastly: Fastly
-    partners_bytemark: Bytemark Ostatua
     partners_partners: bazkideak
     tou: Erabilera-baldintzak
     osm_offline: OpenStreetMap datu-basea orain konexiorik gabe dago funtsezko datu-basearen
@@ -1556,9 +1592,6 @@ eu:
     community: Komunitatea
     community_blogs: Komunitateko blogak
     community_blogs_title: OpenStreetMap komunitateko kideen blogak
-    make_a_donation:
-      title: Diru laguntza batekin OpenStreetMap lagundu
-      text: Dohaintza egin
     learn_more: Ikasi gehiago
     more: Gehiago
   user_mailer:
@@ -1606,6 +1639,11 @@ eu:
       subject: '[OpenStreetMap] GPX Inportazioan porrota'
     gpx_success:
       hi: Kaixo %{to_user},
+      loaded:
+        one: behar bezala kargatu dira %{trace_points} %{count} puntu posibletatik.
+        other: '%{trace_points} %{count} puntu posibletatik arrakastaz kargatu da.'
+      all_your_traces_html: Arrakastaz kargatutako zure GPX arrasto guztiak %{url}
+        helbidean aurki daitezke.
       subject: '[OpenStreetMap] GPX Inportazioan arrakasta'
     signup_confirm:
       subject: '[OpenStreetMap] Ongi etorri OpenStreetMap-era'
@@ -1727,8 +1765,6 @@ eu:
   messages:
     inbox:
       title: Sarrera-ontzia
-      my_inbox: Nire sarrera-ontzia
-      my_outbox: Nire Irteera-Ontzia
       messages: '%{new_messages} eta %{old_messages} dituzu'
       new_messages:
         one: '%Mezu berri {count}'
@@ -1736,17 +1772,21 @@ eu:
       old_messages:
         one: mezu zahar %{count}
         other: '%{count} mezu zahar'
-      from: Igorlea
-      subject: Gaia
-      date: Data
       no_messages_yet_html: Ez duzu mezurik jaso oraindik. Zergatik ez konektatuan
         jarri %{people_mapping_nearby_link} batzuekin?
       people_mapping_nearby: kartografiatzen ari diren hurbileko pertsonak
+    messages_table:
+      from: Igorlea
+      to: Hartzailea
+      subject: Gaia
+      date: Data
+      actions: Ekintzak
     message_summary:
       unread_button: Markatu irakurri gabekotzat
       read_button: Markatu irakurritzat
       reply_button: Erantzun
       destroy_button: Ezabatu
+      unmute_button: Mugitu Sarrera-ontzira
     new:
       title: Bidali mezua
       send_message_to_html: '%{name}ri mezu berri bat bidali'
@@ -1761,17 +1801,18 @@ eu:
       body: Barkatu baina id horrekin ez dago mezurik.
     outbox:
       title: Irteerako ontzia
-      my_inbox: Nire sarrera-ontzia
-      my_outbox: Nire Irteera-Ontzia
+      actions: Ekintzak
       messages:
         one: '%{count} Mezua bidali duzu'
         other: ' %{count} Mezuak bidali dituzu'
-      to: Hartzailea
-      subject: Gaia
-      date: Data
       no_sent_messages_html: Ez duzu mezurik bidali oraindik. Zergatik ez konektatuan
         jarri %{people_mapping_nearby_link} batzuekin?
       people_mapping_nearby: kartografiatzen ari diren hurbileko pertsonak
+    muted:
+      title: Isildutako mezuak
+      messages:
+        one: "Isildutako mezu \n%{count}"
+        other: Isildutako %{count} mezu berri
     reply:
       wrong_user: '''%{user}'' bezala saioa hasi duzu baina erantzuteko eskatu duzun
         mezua ez da erabiltzaile horri bidali. Hasi saioa erabiltzaile zuzenarekin
@@ -1787,28 +1828,34 @@ eu:
         zuzenarekin irakurtzeko.'
     sent_message_summary:
       destroy_button: Ezabatu
+    heading:
+      my_inbox: Nire sarrera-ontzia
+      my_outbox: Nire Irteera-Ontzia
+      muted_messages: Isildutako mezuak
     mark:
       as_read: Mezua irakurrita gisa markatu da
       as_unread: Mezua irakurri gabe gisa markatu da
+    unmute:
+      notice: Mezua Sarrera-ontzira eraman dugu
+      error: Mezua ezin izan da postontzira eraman.
     destroy:
       destroyed: Mezua ezabatuta
   passwords:
-    lost_password:
+    new:
       title: Ahaztutako pasahitza
       heading: Pasahitza ahaztuta?
-      email address: 'Eposta helbidea:'
+      email address: Eposta helbidea
       new password button: Pasahitza berrezarri
       help_text: Sartu saioa hastean erabiltzen zenuen helbide elektronikoa, zure
         pasahitza berrezarri ahal izateko erabil dezakezu bidaliko dizugun esteka.
-      notice email on way: Sentitzen duzu hau galdu izatea :-( baina posta elektronikoa
-        bidaltzen ari zaizu laster berrabiarazi dezakezun.
-      notice email cannot find: Eposta helbide hori ezin izan dugu aurkitu, barkatu.
-    reset_password:
+    edit:
       title: Pasahitza berrezarri
       heading: '%{user}-ren pasahitza berrezarri'
       reset: Pasahitza berrezarri
-      flash changed: Zure pasahitza aldatu da.
       flash token bad: Token hori ez da aurkitu, URL egiaztatu beharbada?
+    update:
+      flash changed: Zure pasahitza aldatu da.
+      flash token bad: Ez dut token hori aurkitu, egiaztatu dezakezu URLa agian?
   preferences:
     show:
       title: Nire hobespenak
@@ -1852,43 +1899,15 @@ eu:
   sessions:
     new:
       title: Saio-hasiera
-      heading: Saio-hasiera
-      email or username: 'Eposta helbidea edo Erabiltzaile izena:'
-      password: 'Pasahitza:'
-      openid_html: '%{logo} OpenID:'
+      tab_title: Saio-hasiera
+      email or username: 'Eposta helbide edo erabiltzaile izena:'
+      password: Pasahitza
       remember: Gogora nazazu
       lost password link: Pasahitza ahaztu duzu?
       login_button: Saioa hasi
       register now: Erregistratu orain
       with external: 'Bestela, erabili hirugarrenen bat saioa hasteko:'
-      no account: Ez al duzu konturik?
       auth failure: Barkatu, ezin izan da saioa hasi xehetasun horiekin.
-      openid_logo_alt: ID irekiarekin saioa hasi
-      auth_providers:
-        openid:
-          title: ID irekiarekin saioa hasi
-          alt: Hasi saioa ID irekia duen URL batekin
-        google:
-          title: Saioa hasi Googlekin
-          alt: Google ID irekiarekin saioa hasi
-        facebook:
-          title: Saioa hasi Facebookekin
-          alt: Saioa hasi Facebookekin
-        microsoft:
-          title: Saioa hasi Microsoftekin
-          alt: Microsoft kontu batekin saioa hasi
-        github:
-          title: GitHub-rekin saioa hasi
-          alt: GitHub kontuarekin saioa hasi
-        wikipedia:
-          title: Saioa hasi Wikipediarekin
-          alt: Wikipedia kontuarekin saioa hasi
-        wordpress:
-          title: Wordpress bidez saioa hasi
-          alt: Wordpress ID irekiarekin saioa hasi
-        aol:
-          title: AOL erabiliz saioa hasi
-          alt: AOL ID irekiarekin saioa hasi
     destroy:
       title: Saio-itxiera
       heading: OpenStreetMap-etik saioa itxi
@@ -1913,6 +1932,7 @@ eu:
       image: Irudia
       alt: Ordezko testua
       url: URL
+      codeblock: Kode blokea
     richtext_field:
       edit: Aldatu
       preview: Aurreikuspena
@@ -1930,11 +1950,25 @@ eu:
         aireko irudiak erabiltzen dituzte, GPS gailuak eta teknologia baxuko eremuko
         mapak OSMrako egiaztapen zehatza eta eguneratua egiteko.
       community_driven_title: Komunitatearen Ahotsa
+      community_driven_1_html: |-
+        OpenStreetMap-en komunitatea anitza eta sutsua da eta egunero hazten ari da.
+        Gure kolaboratzaileen artean mapatzaile amorratuak, GIS profesionalak,
+        OSM zerbitzariak zuzentzen dituzten ingeniariak, hondamendiak eragindako eremuak mapatzen dituzten laguntzaileak
+        eta askoz gehiago gaude.
+
+        Komunitateari buruz gehiago jakiteko, ikusi %{osm_blog_link},
+        %{user_diaries_link}, %{community_blogs_link} eta
+        %{osm_foundation_link} webgunea.
       community_driven_osm_blog: OpenStreetMap bloga
       community_driven_user_diaries: Erabiltzaileen egunerokoak
       community_driven_community_blogs: Komunitateko blogak
       community_driven_osm_foundation: OSM Fundazioa
       open_data_title: Datu Irekiak
+      open_data_1_html: 'OpenStreetMap %{open_data} da: edozein gauzarako erabil dezakezu
+        betiere OpenStreetMap eta bere kolaboratzaileek aipatzen badituzu. Moduren
+        batean datuen gainean edukia eraiki edo eraldatzen baduzu, lizentzia beraren
+        azpian bakarrik partekatu ahal izango duzu emaitza. Ikus %{copyright_license_link}
+        xehetasun gehiago lortzeko.'
       open_data_open_data: Datu Irekiak
       open_data_copyright_license: Copyright eta lizentzia orria
       legal_title: Legala
@@ -1946,6 +1980,7 @@ eu:
       legal_2_2_registered_trademarks: OSMFren marka erregistratuak
       partners_title: Parte-hartzaileak
     copyright:
+      title: Egile-eskubideak eta lizentzia
       foreign:
         title: Itzulpen honi buruz
         html: Itzulitako orrialde hau eta %{english_original_link} arteko gatazka
@@ -1959,7 +1994,6 @@ eu:
         native_link: Euskara version
         mapping_link: kartografiarekin hasi
       legal_babble:
-        title_html: Egile-eskubideak eta lizentzia
         introduction_1_open_data: Datu Irekiak
         introduction_1_odc_odbl: Open Data Commons Open Database Lizentzia
         introduction_1_osm_foundation: OpenStreetMap Fundazioa
@@ -2046,9 +2080,6 @@ eu:
       js_1: Javascript onartzen ez duen arakatzailea erabiltzen ari zara edo JavaScript
         desgaitu duzu.
       js_2: OpenStreetMap-ek Javascript erabiltzen du bere mapa irriztagarrirako.
-      permalink: Esteka iraunkorra
-      shortlink: Esteka laburra
-      createnote: Gehitu oharra
       license:
         copyright: OpenStreetMap eta laguntzaileen Copyright-a erabili, lizentzia
           irekiaren babespean
@@ -2061,16 +2092,9 @@ eu:
       user_page_link: Lankide orria
       anon_edits_link_text: Aurkitu zergatik hau kasua den.
       id_not_configured: iD-a ez da konfiguratu
-      no_iframe_support: Zure nabigatzaileak ez ditu onartzen HTML iframe-ak, funtzio
-        honetarako ezinbestekoak direnak.
     export:
       title: Esportatu
-      area_to_export: Esportatu beharreko eremua
       manually_select: Aukeratu eskuz eremu ezberdin bat
-      format_to_export: Esportatzeko formatua
-      osm_xml_data: OpenStreetMap XML Datuak
-      map_image: Maparen irudia (geruza estandarra erakusten du)
-      embeddable_html: HTML kapsulagarria
       licence: Lizentzia
       licence_details_html: OpenStreetMap datuak %{odbl_link} (ODbL) lizentziapean
         daude.
@@ -2095,17 +2119,6 @@ eu:
         other:
           title: Bestelako Iturriak
           description: OpenStreetMap wikian zerrendatutako iturri osagarriak
-      options: Aukerak
-      format: Formatua
-      scale: Eskala
-      max: max
-      image_size: Irudiaren tamaina
-      zoom: Zooma
-      add_marker: Mapari markatzailea gehitu
-      latitude: 'Lat:'
-      longitude: 'Lon:'
-      output: Irteera
-      paste_html: Itsatsi HTMLa webgunean kapsulatzeko
       export_button: Esportatu
     fixthemap:
       title: Arazo baten berri eman / Mapa zuzendu
@@ -2133,16 +2146,14 @@ eu:
         url: http://wiki.openstreetmap.org/wiki/Eu:Beginners%27_guide
         title: Hasiberrientzako gida
         description: Hasiberrientzako mantentze-gida komunitarioa.
-      help:
-        title: Laguntza foroa
-        description: Egin galdera bat edo begiratu OSMn galdera-eta-erantzun gunean.
+      community:
+        title: Laguntza eta Komunitatearen foroa
+        description: OpenStreetMapi buruz laguntza bilatu eta elkarrizketarako leku
+          partekatua.
       mailing_lists:
         title: Posta Bidaltze Zerrendak
         description: Galdera bat egin edo eztabaidatu gai interesgarriak gaikako edo
           eskualdekako posta zerrendetan.
-      community:
-        title: Komunitatearen ataria
-        description: OpenStreetMapi buruzko elkarrizketetarako leku partekatua.
       irc:
         title: IRC
         description: Hizkuntza eta gai askotako hizketaldi interaktiboa.
@@ -2174,6 +2185,7 @@ eu:
         galderak egiteko eta erantzuteko, eta elkarrekin eztabaidatzeko eta mapa-gaiak dokumentatzeko.
         %{help_link}. Erakunderen batekin OpenStreetMap-erako planak egiten? %{welcome_mat_link}.
       get_help_here: Lortu laguntza hemen
+      welcome_mat: Begiratu ongi etorria emateko txartelak.
     sidebar:
       search_results: Bilaketaren emaitzak
       close: Itxi
@@ -2196,67 +2208,81 @@ eu:
           primary: Lehen mailako errepidea
           secondary: Bigarren mailako errepidea
           unclassified: Sailkatu gabeko errepidea
+          pedestrian: Oinezkoen bidea
           track: Pista
           bridleway: Oinezkoen gunea
           cycleway: Bidegorria
           cycleway_national: Bizikleta bide nazionala
           cycleway_regional: Eskualde bizikleta bidea
           cycleway_local: Bizikleta bide lokala
+          cycleway_mtb: Mendiko bizikletarako ibilbidea
           footway: Oinezkoen bidea
           rail: Trenbidea
+          train: Trena
           subway: Metroa
-          tram:
-          - Tren arina
-          - tranbia
-          cable:
-          - Funikularra
-          - teleaulkia
-          runway:
-          - Aireportuko Pista
-          - taxi bidea
-          apron:
-          - Aireportu plataforma
-          - terminala
+          ferry: Ferrya
+          light_rail: Trenbide arina
+          tram: Tranbia
+          trolleybus: Trolebusa
+          bus: Autobusa
+          cable_car: Funikularra
+          chair_lift: Teleaulkia
+          runway: Aireportuko Pista
+          taxiway: Taxi-bidea
+          apron: Aireportu plataforma
           admin: Muga administratiboa
+          capital: Hiriburua
+          city: Hiria
+          orchard: Baratzea
+          vineyard: Mahastia
           forest: Baso
           wood: Basoa
+          farmland: Nekazaritza-lurrak
+          grass: Belardia
+          meadow: Larrea
+          bare_rock: Harkaitz biluzia
+          sand: Harea
           golf: Golf-zelai
           park: Parke
+          common: Arrunta
           resident: Etxebizitza ingurua
-          common:
-          - Arrunta
-          - belardia
-          - lorategia
           retail: Txikizkako azalera
           industrial: Industrialdea
           commercial: Merkataritza eremua
           heathland: Txilardia
-          lake:
-          - Aintzira
-          - urtegia
+          scrubland: Sastrakadiak
+          lake: Aintzira
+          reservoir: Urtegia
+          glacier: Glaziarra
+          reef: Arrezifea
+          wetland: Hezegunea
           farm: Baserria
           brownfield: Landarik gabeko gunea
           cemetery: Hilerri
           allotments: Alokatutako Baratzeak
           pitch: Kirolgunea
           centre: Kiroldegi
+          beach: Hondartza
           reserve: Natura-erreserba
           military: Eremu militarra
-          school:
-          - Eskola
-          - unibertsitate
+          school: Eskola
+          university: Unibertsitatea
+          hospital: Ospitalea
           building: Eraikin garrantzitsua
           station: Tren geltokia
-          summit:
-          - Tontorra
-          - gailurra
+          summit: Tontorra
+          peak: Gailurra
           tunnel: Marratxodun estalkia = tunela
           bridge: Estalki beltza = zubia
           private: Sarbide pribatua
           destination: Helmuga sarbidea
           construction: Eraikitzen ari diren errepideak
+          bus_stop: Autobus geltokia
+          stop: Geltokia
           bicycle_shop: Bizikleta-denda
+          bicycle_rental: Bizikleta alokairua
           bicycle_parking: Bizikleta-aparkalekua
+          bicycle_parking_small: Bizikleten aparkaleku txikia
           toilets: Komunak
     welcome:
       title: Ongi etorri!
@@ -2272,6 +2298,7 @@ eu:
           diren zenbait hitz gako.
         editor: editorea
         node: nodoa
+        way: bidea
         tag: etiketa
       rules:
         title: Arauak!
@@ -2361,9 +2388,6 @@ eu:
       trace_not_found: Ez da aztarnarik aurkitu!
       visibility: 'Ikusgarritasuna:'
       confirm_delete: Aztarna hau ezabatu?
-    trace_paging_nav:
-      older: Aztarna zaharragoak
-      newer: Aztarna berriagoak
     trace:
       pending: PRIBATUA
       count_points:
@@ -2377,8 +2401,6 @@ eu:
       identifiable: IDENTIFIKAGARRIA
       private: PRIBATUA
       trackable: JARRAIGARRIA
-      by: 'honen arabera:'
-      in: barruan
     index:
       public_traces: GPS aztarna publikoak
       my_gps_traces: Nire GPS Arrastoak
@@ -2395,6 +2417,9 @@ eu:
       my_traces: Nire aztarnak
       traces_from: '%{user} erabiltzailearen GPS aztarna publikoak'
       remove_tag_filter: Kendu etiketa-iragazkia
+    page:
+      older: Aztarna zaharragoak
+      newer: Aztarna berriagoak
     destroy:
       scheduled_for_deletion: Ezabatzear dauden aztarnak
     make_public:
@@ -2416,8 +2441,6 @@ eu:
     require_cookies:
       cookies_needed: Cookieak desgaituta dituzu - gaitu cookie-ak zure nabigatzailean
         jarraitu aurretik mesedez.
-    require_admin:
-      not_an_admin: Ekintza hori burutzeko administratzaile izan behar duzu.
     setup_user_auth:
       blocked_zero_hour: OpenStreetMap webguneko premiazko mezu bat duzu. Zure aldaketak
         gorde ahal izango dituzu mezua irakurri eta gero.
@@ -2428,34 +2451,28 @@ eu:
         behar dituzu.
     settings_menu:
       account_settings: Kontu ezarpenak
-      oauth1_settings: OAuth 1 ezarpenak
       oauth2_applications: OAuth 2 aplikazioak
       oauth2_authorizations: OAuth 2 baimenak
+    auth_providers:
+      openid:
+        title: ID irekiarekin saioa hasi
+        alt: Hasi saioa ID irekia duen URL batekin
+      google:
+        title: Saioa hasi Googlekin
+        alt: Google ID irekiarekin saioa hasi
+      facebook:
+        title: Saioa hasi Facebookekin
+        alt: Saioa hasi Facebookekin
+      microsoft:
+        title: Saioa hasi Microsoftekin
+        alt: Microsoft kontu batekin saioa hasi
+      github:
+        title: GitHub-rekin saioa hasi
+        alt: GitHub kontuarekin saioa hasi
+      wikipedia:
+        title: Saioa hasi Wikipediarekin
+        alt: Wikipedia kontuarekin saioa hasi
   oauth:
-    authorize:
-      title: Zure kontuan sartzeko baimena eman
-      request_access_html: '%{app_name} aplikazioak zure konturako sarbidea eskatzen
-        du, %{user}. Egiaztatu eskaera hurrengo gaitasunak izatea nahi duzula. Nahi
-        dituzun edo ez bezalakoak aukeratu ditzakezu.'
-      allow_to: 'Baimendu bezeroaren aplikazioa:'
-      allow_read_prefs: Irakurri zure erabiltzaile hobespenak
-      allow_write_prefs: aldatu zure erabiltzaile hobespenak.
-      allow_write_diary: sortu eguroko sarreak, iruzkinak eta lagunak egin.
-      allow_write_api: mapa aldatu.
-      allow_read_gpx: irakurri zure GPS aztarna pribatuak.
-      allow_write_gpx: GPS aztarnak igo.
-      allow_write_notes: Oharrak aldatu.
-      grant_access: Baimena Eman
-    authorize_success:
-      title: Baimen eskaera onartua
-      allowed_html: '%{app_name} aplikazioari zure kontura sartzeko baimena eman diozu.'
-      verification: Egiaztapen kodea %{code} da.
-    authorize_failure:
-      title: Baimen eskaerak kale egin du
-      denied: '%{app_name} aplikazioari zure kontura sartzeko baimena kendu diozu.'
-      invalid: Baimen token-a ez du balio.
-    revoke:
-      flash: '%{application}-rako token-a ezeztatu egin duzu'
     permissions:
       missing: Ez duzu aplikaziorako sarbidea baimendu instalazio honetan
     scopes:
@@ -2468,47 +2485,6 @@ eu:
       write_notes: Aldatu oharrak
       read_email: Irakurri erabiltzailearen posta elektronikoko helbidea
       skip_authorization: Onartu automatikoki aplikazioa
-  oauth_clients:
-    new:
-      title: Aplikazio berri bat erregistratu
-    edit:
-      title: Zure aplikazioa editatu
-    show:
-      title: '%{app_name}rako OAuth xehetasunak'
-      key: 'Kontsumitzaile Giltza:'
-      secret: 'Kontsumitzaile Sekretua:'
-      url: 'Token URLa eskatu:'
-      access_url: Token URLra sartu
-      authorize_url: 'URLa baimendu:'
-      support_notice: HMAC-SHA1 (gomendatua) eta RSA-SHA1 sinadurak onartzen ditugu.
-      edit: Editatu xehetasunak
-      delete: Ezabatu bezeroa
-      confirm: Ziur zaude?
-      requests: 'Erabiltzaile honen ondorengo baimenak eskatu:'
-    index:
-      title: Nire OAuth xehetasunak
-      my_tokens: Nire Baimendutako Aplikazioak
-      list_tokens: 'Honako tokenak zure izenean dituzun aplikazioetara igorri dira:'
-      application: Aplikazioaren izena
-      issued_at: Hor emandakoa
-      revoke: Ezeztatu!
-      my_apps: Nire Bezero Aplikazioak
-      no_apps_html: Gurekin erabiltzeko erregistratu nahi duzun aplikazio bat duzu
-        %{oauth} estandarraren bidez? Zure web aplikazioa erregistratu behar duzu
-        OAuth zerbitzurako eskaera egin aurretik.
-      oauth: OAuth
-      registered_apps: 'Ondorengo bezero aplikazio erregistratuak dituzu:'
-      register_new: Zure aplikazio erregistratu
-    form:
-      requests: 'Erabiltzaile honen ondorengo baimenak eskatu:'
-    not_found:
-      sorry: Barkatu, %{type} hori ezin izan da aurkitu.
-    create:
-      flash: Informazioa arrakastaz erregistratu da
-    update:
-      flash: Bezero informazioa arrakastaz eguneratu da
-    destroy:
-      flash: Bezeroaren eskaera erregistroa suntsitua
   oauth2_applications:
     index:
       title: Nire Bezero Aplikazioak
@@ -2572,18 +2548,17 @@ eu:
           dizugu zure kontua berresteko.
       display name description: Zuk publikoki erakutsitako erabiltzaile izena. Hau
         geroago alda dezakezu hobespenetan.
+      by_signing_up:
+        privacy_policy: pribatutasun politika
+        privacy_policy_title: OSMF pribatutasun-politika helbide elektronikoei buruzko
+          atala barne
       external auth: 'Hirugarrenen Autentifikazioa:'
-      use external auth: Bestela, erabili hirugarrenen bat saioa hasteko
-      auth no password: Hirugarrenen autentifikazioarekin pasahitza ez da beharrezkoa,
-        baina zenbait tresna edo zerbitzari gehigarri batek oraindik ere behar izatea
-        gerta daiteke.
       continue: Eman izena
       terms accepted: Eskerrik asko laguntzaileen termino berriak onartzeagatik!
-      email_confirmation_help_html: Zure helbidea ez da publikoki bistaratzen, ikusi
-        gure %{privacy_policy_link} informazio gehiago lortzeko.
-      privacy_policy: pribatutasun politika
-      privacy_policy_title: OSMF pribatutasun-politika helbide elektronikoei buruzko
-        atala barne
+      email_help:
+        html: Zure helbidea ez da publikoki bistaratzen, ikusi gure %{privacy_policy_link}
+          informazio gehiago lortzeko.
+      use external auth: Bestela, erabili hirugarrenen bat saioa hasteko
     terms:
       title: Baldintzak
       heading: Baldintzak
@@ -2648,7 +2623,6 @@ eu:
       ct status: 'Kolaboratzaile terminoak:'
       ct undecided: Erabakigabea
       ct declined: Ez da onartu
-      latest edit: 'Azken aldaketa (%{ago}):'
       email address: 'Eposta helbidea:'
       created from: 'Hemendik sortua:'
       status: 'Egoera:'
@@ -2681,14 +2655,12 @@ eu:
     index:
       title: Erabiltzaileak
       heading: Erabiltzaileak
-      showing:
-        one: '%{page} orria (%{items}n %{first_item})'
-        other: '%{page} orria (%{items}ko %{first_item}-%{last_item})'
       summary_html: '%{date}n %{ip_address}tik %{name} sortu da'
       summary_no_ip_html: '%{name} %{date} datan sortua'
+      empty: No matching users found
+    page:
       confirm: Berretsi Hautatutako Erabiltzaileak
       hide: Ezkutatu Hautatutako Erabiltzaileak
-      empty: No matching users found
     suspended:
       title: Kontua bertan behera geratu da
       heading: Kontua bertan behera geratu da
@@ -2725,15 +2697,11 @@ eu:
       heading: Berretsi eginkizuna ematea
       are_you_sure: Ziur zaude `%{role}' rola eman nahi diozula`%{name}' erabiltzaileari?
       confirm: Berretsi
-      fail: Ezin izan da "%{role} rola esleitu `%{name}' erabiltzailearentzat. Egiaztatu
-        erabiltzaile eta rola baliagarriak direla.
     revoke:
       title: Berretsi eginkizuna kentzea
       heading: Berretsi eginkizuna kentzea
       are_you_sure: Ziur zaude `%{role}' rola kendu nahi diozula`%{name}' erabiltzaileari?
       confirm: Berretsi
-      fail: '%{name} erabiltzaileari ezin izan zaio %{role} rola ezeztatu. Egiaztatu
-        erabiltzailea eta rola balio duten mesedez.'
   user_blocks:
     model:
       non_moderator_update: Moderatzailea izan behar du blokeo bat sortu edo eguneratzeko.
@@ -2745,15 +2713,11 @@ eu:
       title: '%{name}n blokeoa sortzen'
       heading_html: '%{name}n blokeoa sortzen'
       period: Zenbat denbora, orain hasita, erabiltzaileak APIan blokeoa jasoko duen.
-      back: Ikusi bloke guztiak
     edit:
       title: '%{name}n blokeoa editatzen'
       heading_html: '%{name}n blokeoa editatzen'
       period: Zenbat denbora, orain hasita, erabiltzaileak APIan blokeoa jasoko duen.
-      show: Ikusi bloke hau
-      back: Ikusi bloke guztiak
     filter:
-      block_expired: Blokea dagoeneko iraungi da eta ezin da editatu.
       block_period: Blokeoaren iraupena goitibeherako zerrendan hautatutako balioetariko
         bat izan behar da.
     create:
@@ -2765,14 +2729,6 @@ eu:
       title: Erabiltzaile blokeak
       heading: Erabiltzaile blokeen zerrenda
       empty: Blokeorik ez da egin oraindik.
-    revoke:
-      title: '%{block_on} blokeoa ezeztatzen'
-      heading_html: '%{block_by} erabiltzaileak egindako %{block_on} blokeoa ezeztatzen'
-      time_future: Blokeo hau %{time}-n bukatuko da.
-      past: Blokeo hau %{time} bukatu da eta ezin da orain ezeztatu.
-      confirm: Blokeo hau ezeztatu nahi duzula argi daukazu?
-      revoke: Ezeztatu!
-      flash: Blokeo hau ezeztatu da.
     helper:
       time_future_html: '%{time}n bukatzen du'
       until_login: Erabiltzaileak saioa hasi arte aktiboa.
@@ -2811,26 +2767,20 @@ eu:
       status: 'Egoera:'
       show: Erakutsi
       edit: Aldatu
-      revoke: Ezeztatu!
       confirm: Ziur zaude?
       reason: 'Blokeatzeko arrazoia:'
-      back: Blokeo guztiak ikusi
       revoker: 'Ezeztatu duena:'
       needs_view: Erabiltzaileak saioa hasi behar du blokeoa kendu baino lehen.
     block:
       not_revoked: (ez da ezeztatu)
       show: Erakutsi
       edit: Aldatu
-      revoke: Ezeztatu!
     blocks:
       display_name: Blokeatutako Erabiltzailea
       creator_name: Egilea
       reason: Blokeatzeko arrazoia
       status: Egoera
       revoker_name: -k ezeztatua
-      showing_page: '%{page} orria'
-      next: Hurrengoa »
-      previous: « Aurrekoa
   notes:
     index:
       title: '%{user}k igotako edo iruzkinak utzitako oharrak'
@@ -2912,11 +2862,9 @@ eu:
           other: Puntu honetatik %{count} oinetara zaude
       base:
         standard: Arrunta
-        cyclosm: CyclOSM
         cycle_map: Bizikletentzako mapa
         transport_map: Garraioen mapa
         hot: Humanitarioa
-        opnvkarte: ÖPNVKarte
       layers:
         header: Maparen geruzak
         notes: Maparen oharrak
@@ -2929,7 +2877,6 @@ eu:
       website_and_api_terms: Webgunearen eta APIaren baldintzak
       osm_france: OpenStreetMap Frantzia
       andy_allan: Andy Allan
-      memomaps: MeMoMaps
       hotosm_name: OpenStreetMap Talde humanitarioa
     site:
       edit_tooltip: Editatu mapa
@@ -2940,13 +2887,6 @@ eu:
       map_data_zoom_in_tooltip: Handiagotu mapa datuak ikusteko
       queryfeature_tooltip: Eskaera ezaugarriak
       queryfeature_disabled_tooltip: Handiagotu ezaugarriak eskatzeko
-    changesets:
-      show:
-        comment: Iruzkina
-        subscribe: Harpidetu
-        unsubscribe: Harpidetza kendu
-        hide_comment: ezkutatu
-        unhide_comment: erakutsi
     edit_help: Mugitu mapa eta zooma editatu nahi duzun kokaleku batean erabili, gero
       klik hemen egin.
     directions:

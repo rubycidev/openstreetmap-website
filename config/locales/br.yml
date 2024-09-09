@@ -15,6 +15,7 @@
 # Author: McDutchie
 # Author: Nemo bis
 # Author: Shirayuki
+# Author: Troer56
 # Author: Y-M D
 ---
 br:
@@ -56,6 +57,11 @@ br:
       messages:
         invalid_email_address: ne ziskouez ket bezañ ur chomlec'h postel mat
         email_address_not_routable: n'haller ket routañ
+        display_name_is_user_n: n'hall ket bezañ user_n nemet hag e vefe "n" ho kod
+          anaout implijer
+      models:
+        user_mute:
+          is_already_muted: a zo bet kuzhet dija
     models:
       acl: Listenn kontroll moned
       changeset: Hollad cheñchamantoù
@@ -148,7 +154,6 @@ br:
         auth_provider: Pourchaser gwiriekadur
         auth_uid: UID an dilesadur
         email: Postel
-        email_confirmation: Kadarnaat ar postel
         new_email: Chomlec'h postel nevez
         active: Oberiant
         display_name: Anv diskouezet
@@ -255,7 +260,6 @@ br:
   auth:
     providers:
       none: Hini ebet
-      openid: OpenID
       google: Google
       facebook: Facebook
       microsoft: Microsoft
@@ -304,6 +308,8 @@ br:
         retain_traces: Ar roudoù ho peus enporzhiet, ma'z eus anezho, a vo dalc'het.
         retain_diary_entries: Hoc'h enmonedoù hag evezhiadennoù en deiz-levr, ma'z
           eus anezho, a vo miret met kuzhet e vint.
+        retain_notes: Ho notennoù kartenn hag evezhiadennoù an notennoù, ma'z eus
+          anezho, a vo miret met kuzhet e vint.
         retain_changeset_discussions: Ho kaozeadennoù, ma'z eus anezho, a vo miret.
         retain_email: Ho chomlec'h postel a vo miret.
         confirm_delete: Sur oc'h?
@@ -345,12 +351,6 @@ br:
     destroy:
       success: Kont dilamet.
   browse:
-    created: Krouet
-    closed: Serret
-    created_ago_html: Krouet %{time_ago}
-    closed_ago_html: Serret %{time_ago}
-    created_ago_by_html: Bet krouet %{time_ago} gant %{user}
-    closed_ago_by_html: Bet serret %{time_ago} gant %{user}
     deleted_ago_by_html: Bet dilamet %{time_ago} gant %{user}
     edited_ago_by_html: Bet aozet %{time_ago} gant %{user}
     version: Stumm
@@ -374,27 +374,6 @@ br:
     view_history: Gwelet an istor
     view_details: ↓Gwelet ar munudoù
     location: 'Lec''hiadur:'
-    changeset:
-      title: 'Hollad cheñchamantoù: %{id}'
-      belongs_to: Aozer
-      node: Skoulmoù (%{count})
-      node_paginated: Skoulmoù (%{x}-%{y} diwar %{count})
-      way: Hentoù (%{count})
-      way_paginated: Hentoù (%{x}-%{y} diwar %{count})
-      relation: Darempredoù (%{count})
-      relation_paginated: Darempredoù (%{x}-%{y} diwar %{count})
-      comment: Evezhiadennoù (%{count})
-      hidden_comment_by_html: Kemennadenn kuzhet gant %{user} %{time_ago}
-      comment_by_html: Kemennadenn skrivet gant %{user} %{time_ago}
-      changesetxml: Hollad cheñchamantoù XML
-      osmchangexml: Cheñchoùosm XML
-      feed:
-        title: Hollad cheñchamantoù %{id}
-        title_comment: Hollad cheñchamantoù %{id} - %{comment}
-      join_discussion: Kevreit evit mont er gaozeadenn
-      discussion: Kaozeadenn
-      still_open: Hollad cheñchamantoù digor - an diviz a zigoro ur wech ma vo serret
-        an hollad cheñchamantoù.
     node:
       title_html: 'Skoulm: %{name}'
       history_title_html: 'Istor ar skoulm: %{name}'
@@ -479,6 +458,32 @@ br:
       introduction: Klikit war ar gartenn evit kavout arc'hweladurioù e-kichen.
       nearby: Arc'hweladurioù e-kichen
       enclosing: Arc'hweladurioù enklozañ
+  old_nodes:
+    not_found:
+      sorry: 'Hon digarezit, n''eo ket bet kavet ar stumm %{version} eus ar skoulm
+        #%{id}.'
+  old_ways:
+    not_found:
+      sorry: 'Hon digarezit, n''eo ket bet kavet ar stumm %{version} eus ar roudenn
+        #%{id}.'
+  old_relations:
+    not_found:
+      sorry: 'Hon digarezit, n''eo ket bet kavet ar stumm %{version} eus an darempred
+        #%{id}.'
+  changeset_comments:
+    feeds:
+      comment:
+        comment: 'Evezhiadenn nevez diwar-benn an hollad cheñchamantoù #%{changeset_id}
+          gant %{author}'
+        commented_at_by_html: Hizivaet %{when} gant %{user}
+      comments:
+        comment: Evezhiadenn nevez war an hollad cheñchamantoù %{changeset_id} gant
+          %{author}
+      show:
+        title_all: Kaozeadenn hollad cheñchamantoù OpenStreetMap
+        title_particular: 'Kaozeadenn hollad cheñchamantoù #%{changeset_id} OpenStreetMap'
+      timeout:
+        sorry: Ho tigarez, re hir eo adtapout ar roll evezhiadennoù ho peus goulennet.
   changesets:
     changeset_paging_nav:
       showing_page: Pajenn %{page}
@@ -488,12 +493,6 @@ br:
       anonymous: Dizanv
       no_edits: (aozadenn ebet)
       view_changeset_details: Gwelet munudoù an hollad cheñchamantoù
-    changesets:
-      id: ID
-      saved_at: Enrollet an/ar
-      user: Implijer
-      comment: Evezhiadenn
-      area: Takad
     index:
       title: Hollad cheñchamantoù
       title_user: Hollad cheñchamantoù %{user}
@@ -507,25 +506,57 @@ br:
       no_more_area: Hollad cheñchamant ouzhpenn ebet ken en takad-mañ.
       no_more_user: Hollad cheñchamant ouzhpenn ebet ken gant an implijer-mañ.
       load_more: Kargañ muioc'h
+      feed:
+        title: Hollad cheñchamantoù %{id}
+        title_comment: Hollad cheñchamantoù %{id} - %{comment}
+        created: Krouet
+        closed: Serret
+        belongs_to: Aozer
+    subscribe:
+      button: Koumanantiñ ouzh ar gaozeadenn
+    unsubscribe:
+      button: Digoumanantiñ diouzh ar gaozeadenn
+    heading:
+      title: Hollad cheñchamantoù %{id}
+      created_by_html: Bet krouet gant %{link_user} d'an %{created}.
+    no_such_entry:
+      title: N'eus ket eus an hollad cheñchamantoù-mañ
+      heading: 'Enmont ebet gant an id: %{id}'
+    show:
+      title: 'Hollad cheñchamantoù: %{id}'
+      created: 'Krouet: %{when}'
+      closed: 'Serret: %{when}'
+      created_ago_html: Krouet %{time_ago}
+      closed_ago_html: Serret %{time_ago}
+      created_ago_by_html: Bet krouet %{time_ago} gant %{user}
+      closed_ago_by_html: Bet serret %{time_ago} gant %{user}
+      discussion: Kaozeadenn
+      join_discussion: Kevreit evit mont er gaozeadenn
+      still_open: Hollad cheñchamantoù digor - an diviz a zigoro ur wech ma vo serret
+        an hollad cheñchamantoù.
+      subscribe: Koumanantiñ
+      unsubscribe: Digoumanantiñ
+      comment_by_html: Kemennadenn skrivet gant %{user} %{time_ago}
+      hidden_comment_by_html: Kemennadenn kuzhet gant %{user} %{time_ago}
+      hide_comment: kuzhat
+      unhide_comment: diskouez
+      comment: Embann
+      changesetxml: Hollad cheñchamantoù XML
+      osmchangexml: Cheñchoùosm XML
+    paging_nav:
+      nodes: Skoulmoù (%{count})
+      nodes_paginated: Skoulmoù (%{x}-%{y} diwar %{count})
+      ways: Hentoù (%{count})
+      ways_paginated: Hentoù (%{x}-%{y} diwar %{count})
+      relations: Darempredoù (%{count})
+      relations_paginated: Darempredoù (%{x}-%{y} diwar %{count})
     timeout:
       sorry: Ho tigarez, re hir eo adtapout ar roll cheñchamantoù hoc'h eus goulennet.
-  changeset_comments:
-    comment:
-      comment: 'Evezhiadenn nevez diwar-benn an hollad cheñchamantoù #%{changeset_id}
-        gant %{author}'
-      commented_at_by_html: Hizivaet %{when} gant %{user}
-    comments:
-      comment: Evezhiadenn nevez war an hollad cheñchamantoù %{changeset_id} gant
-        %{author}
-    index:
-      title_all: Kaozeadenn hollad cheñchamantoù OpenStreetMap
-      title_particular: 'Kaozeadenn hollad cheñchamantoù #%{changeset_id} OpenStreetMap'
-    timeout:
-      sorry: Ho tigarez, re hir eo adtapout ar roll evezhiadennoù ho peus goulennet.
   dashboards:
     contact:
       km away: war-hed %{count} km
       m away: war-hed %{count} m
+      latest_edit_html: 'Kemm diwezhañ (%{ago}) :'
     popup:
       your location: Ho lec'hiadur
       nearby mapper: Kartennour en ardremez
@@ -559,6 +590,7 @@ br:
       new_title: Ouzhpennañ un enmont nevez d'ho teizlevr
       my_diary: Ma deizlevr
       no_entries: Enmont ebet en ho teizlevr
+    page:
       recent_entries: 'Enmontoù nevez en deizlevr:'
       older_entries: Enmont koshañ
       newer_entries: Enmont nevesañ
@@ -568,6 +600,9 @@ br:
     show:
       title: Deizlevr %{user} | %{title}
       user_title: Deizlevr %{user}
+      discussion: Kaozeadenn
+      subscribe: Koumanantiñ
+      unsubscribe: Digoumanantiñ
       leave_a_comment: Skrivañ un evezhiadenn
       login_to_leave_a_comment_html: '%{login_link} evit skrivañ un evezhiadenn'
       login: Kevreañ
@@ -616,11 +651,17 @@ br:
       all:
         title: Enmontoù en deizlevr OpenStreetMap
         description: Enmontoù nevez en deizlevr gant implijerien OpenStreetMap
-    comments:
+    subscribe:
+      button: Koumanantiñ ouzh ar gaozeadenn
+    unsubscribe:
+      button: Digoumanantiñ diouzh ar gaozeadenn
+  diary_comments:
+    index:
       title: Kemennadennoù skrivet en deizlevr gant %{user}
       heading: Kemennadennoù-deizlevr %{user}
       subheading_html: Kemennadennoù skrivet en deizlevr gant %{user}
       no_comments: Kemennadenn deizlevr ebet
+    page:
       post: Embann
       when: Pegoulz
       comment: Evezhiadenn
@@ -640,6 +681,8 @@ br:
   errors:
     contact:
       contact: darempred
+    bad_request:
+      title: Reked fall
     forbidden:
       title: Difennet
     internal_server_error:
@@ -775,6 +818,7 @@ br:
           ranger_station: Post gward-koad
           recycling: Lec'h adaozañ
           restaurant: Preti
+          sanitary_dump_station: Savlec'h pompañ an dourioù lous
           school: Skol
           shelter: Gwasked
           shower: Strinkadenn
@@ -851,6 +895,7 @@ br:
           roof: Toenn
           ruins: Savadur dismantret
           school: Savadur skol
+          semidetached_house: Ti stag
           service: Savadur servij
           shed: Lochenn
           stable: Marchosi
@@ -862,6 +907,7 @@ br:
           warehouse: Sanailh
           "yes": Savadur
         club:
+          scout: Diazlec'h ur strollad skout
           sport: Kleub sport
           "yes": Klub
         craft:
@@ -873,6 +919,7 @@ br:
           confectionery: Koñfizerezh
           dressmaker: Kemener
           electrician: Tredanour
+          electronics_repair: Dreser dafar tredanek
           gardener: Liorzhour
           glaziery: Gweraerezh
           handicraft: Artizanerezh
@@ -1446,13 +1493,18 @@ br:
       not_updated: Nann hizvivaet
       search: Klask
       search_guidance: 'Kudennoù enklask :'
+      link_to_reports: Gwelet an danevelloù
+      states:
+        ignored: Lezet a-gostez
+        open: Digor
+        resolved: Diskoulmet
+    page:
       user_not_found: N'eus ket eus an implijer
       issues_not_found: N'eus bet kavet kudenn ebet
       status: Statud
       reports: Danevelloù
       last_updated: Hizivaet da ziwezhañ
       last_updated_time_ago_user_html: '%{time_ago} gant %{user}'
-      link_to_reports: Gwelet an danevelloù
       reports_count:
         one: 1 danevell
         two: 2 zanevell
@@ -1460,10 +1512,6 @@ br:
         many: '%{count} danevell'
         other: '%{count} danevell'
       reported_item: Elfenn disklêriet
-      states:
-        ignored: Lezet a-gostez
-        open: Digor
-        resolved: Diskoulmet
     show:
       title: '%{status} Kudenn #%{issue_id}'
       reports:
@@ -1473,9 +1521,9 @@ br:
         many: '%{count} danevell'
         other: '%{count} danevell'
       no_reports: Danevell ebet
-      report_created_at: Disklêriet evit ar wech kentañ %{datetime}
-      last_resolved_at: Diskêriadur diwezhañ d'an %{datetime}
-      last_updated_at: Diskêriadur diwezhañ d'an %{datetime} gant %{displayname}
+      report_created_at_html: Disklêriet evit ar wech kentañ %{datetime}
+      last_resolved_at_html: Diskêriadur diwezhañ d'an %{datetime}
+      last_updated_at_html: Diskêriadur diwezhañ d'an %{datetime} gant %{displayname}
       resolve: Diskoulmañ
       ignore: Lezel a-gostez
       reopen: Addigeriñ
@@ -1556,18 +1604,13 @@ br:
     gps_traces: Roudoù GPS
     gps_traces_tooltip: Merañ ar roudoù GPS
     user_diaries: Deizlevrioù an implijer
-    user_diaries_tooltip: Gwelet deizlevrioù an implijerien
     edit_with: Kemmañ gant %{editor}
     tag_line: Kartenn digoust eus ar bed Wiki
     intro_header: Donemat en OpenStreetMap !
     intro_text: Ur gartenn eus ar bed eo OprenStreetMap, krouet gant tud eveldoc'h
       ha frank hec'h implij dindan un aotre-implij digor.
     intro_2_create_account: Krouiñ ur gont implijer
-    hosting_partners_html: Kemeret eo an herberc'hiañ e karg gant %{ucl}, %{fastly},
-      %{bytemark}, ha %{partners} all.
-    partners_ucl: ↓"Universiy College" Londrez
     partners_fastly: Fastly
-    partners_bytemark: ↓Herberc'hiañ Bytemark
     partners_partners: Kevelourien
     tou: Termenoù implijout
     osm_offline: Ezlinenn eo diaz roadennoù OpenStreetMap evit bremañ e-pad ma pleder
@@ -1582,9 +1625,6 @@ br:
     community: Kumuniezh
     community_blogs: Blogoù ar gumuniezh
     community_blogs_title: Blogoù izili kumuniezh OpenStreetMap
-    make_a_donation:
-      title: Skoazellañ OpenStreetMap gant ur road arc'hant
-      text: Ober un donezon
     learn_more: Gouzout hiroc'h
     more: Muioc'h
   user_mailer:
@@ -1600,6 +1640,9 @@ br:
         war %{commenturl} pe respont war %{replyurl}
       footer_html: Gallout a rit ivez lenn ar gemennadenn war %{readurl}, lezel addisplegoù
         war %{commenturl} pe respont war %{replyurl}
+      footer_unsubscribe: Gallout a rit digoumanantiñ diouzh ar gaozeadenn e %{unsubscribeurl}
+      footer_unsubscribe_html: Gallout a rit digoumanantiñ diouzh ar gaozeadenn e
+        %{unsubscribeurl}
     message_notification:
       subject: '[OpenStreetMap] %{message_title}'
       hi: Demat %{to_user},
@@ -1650,6 +1693,7 @@ br:
       click_the_link: Ma'z eo c'hwi, klikit war al liamm amañ dindan, mar plij, evit
         adderaouekaat ho ker-tremen.
     note_comment_notification:
+      description: 'Notenn OpenStreetMap #%{id}'
       anonymous: Un implijer dizanv
       greeting: Demat,
       commented:
@@ -1694,6 +1738,7 @@ br:
       details: Munudoù ouzhpenn diwar-benn an notenn a c'hall bezañ kavet e %{url}.
       details_html: Munudoù ouzhpenn diwar-benn an notenn a c'hall bezañ kavet e %{url}.
     changeset_comment_notification:
+      description: 'Hollad cheñchamantoù OpenStreetMap #%{id}'
       hi: Demat %{to_user},
       greeting: Demat,
       commented:
@@ -1716,10 +1761,10 @@ br:
         partial_changeset_without_comment: Hep evezhiadenn
       details: Muioc'h a ditouroù war an holl cheñchamantoù e %{url}.
       details_html: Muioc'h a ditouroù war an holl cheñchamantoù e %{url}.
-      unsubscribe: Evit digoumanantiñ diouzh hizivadurioù an holl gemmoù, gweladennit
-        %{url} ha klikit war « Digoumanantiñ ».
-      unsubscribe_html: Evit digoumanantiñ diouzh hizivadurioù an holl gemmoù, gweladennit
-        %{url} ha klikit war "Digoumanantiñ".
+      unsubscribe: Gallout a rit digoumanantiñ diouzh hizivadurioù an hollad cheñchamantoù-mañ
+        e %{url}.
+      unsubscribe_html: Gallout a rit digoumanantiñ diouzh hizivadurioù an hollad
+        cheñchamantoù-mañ e %{url}.
   confirmations:
     confirm:
       heading: Taolit ur sell ouzh ho posteloù !
@@ -1747,8 +1792,6 @@ br:
   messages:
     inbox:
       title: Boest resev
-      my_inbox: Ma boest resev
-      my_outbox: Ma boest kas
       messages: '%{new_messages} ha %{old_messages} zo evidoc''h'
       new_messages:
         one: '%{count} gemennadenn nevez'
@@ -1756,17 +1799,21 @@ br:
       old_messages:
         one: '%{count} gemennadenn gozh'
         other: '%{count} kemennadenn gozh'
-      from: A-berzh
-      subject: Danvez
-      date: Deiziad
       no_messages_yet_html: N'hoc'h eus kemennadenn ebet c'hoazh. Ha ma'z afec'h e
         darempred gant darn eus an %{people_mapping_nearby_link}?
       people_mapping_nearby: tud o kartennañ en ardremez
+    messages_table:
+      from: A-berzh
+      to: Da
+      subject: Danvez
+      date: Deiziad
+      actions: Oberoù
     message_summary:
       unread_button: Merkañ evel anlennet
       read_button: Merkañ evel lennet
       reply_button: Respont
       destroy_button: Dilemel
+      unmute_button: Dilec'hiañ d'ar voest resev
     new:
       title: Kas ur gemennadenn
       send_message_to_html: Kas ur gemennadenn nevez da %{name}
@@ -1781,17 +1828,15 @@ br:
       body: Ho tigarez, n'eus kemennadenn ebet gant an id-se.
     outbox:
       title: Boest kas
-      my_inbox: Ma boest degemer
-      my_outbox: Ma boest kas
+      actions: Oberoù
       messages:
         one: Kaset hoc'h eus %{count} gemennadenn
         other: Kaset hoc'h eus %{count} kemennadenn
-      to: Da
-      subject: Danvez
-      date: Deiziad
       no_sent_messages_html: N'hoc'h eus kaset kemennadenn ebet c'hoazh. Ha ma'z afec'h
         a darempred gant darn eus an %{people_mapping_nearby_link}?
       people_mapping_nearby: tud o kartennañ en ardremez
+    muted:
+      title: Kemennadennoù kuzhet
     reply:
       wrong_user: Kevreet oc'h evel "%{user}", met ar gemennadenn a fell deoc'h respont
         outi n'eo ket bet kaset d'an implijer-se. Mar plij kevreit gant ar gont reizh
@@ -1807,28 +1852,34 @@ br:
         reizh evit gellout lenn anezhi.
     sent_message_summary:
       destroy_button: Dilemel
+    heading:
+      my_inbox: Ma boest resev
+      my_outbox: Ma boest kas
+      muted_messages: Kemennadennoù kuzhet
     mark:
       as_read: Kemennadenn merket evel lennet
       as_unread: Merkañ evel anlennet
+    unmute:
+      notice: Dilec'hiet eo bet ar gemennadenn d'ar voest resev
+      error: Ne c'haller ket dilec'hiañ ar gemennadenn d'ar voest resev.
     destroy:
       destroyed: Kemennadenn dilamet
   passwords:
-    lost_password:
+    new:
       title: Ger-tremen kollet
       heading: Ankouaet hoc'h eus ho ker-tremen ?
-      email address: 'Chomlec''h postel :'
+      email address: Chomlec'h postel
       new password button: Adderaouekaat ar ger-tremen
       help_text: Ebarzhit ar chomlec'h postel ho poa implijet evit en em enskrivañ,
         kaset e vo deoc'h ul liamm a c'hallot implijout evit adderaouekaat ho ker-tremen.
-      notice email on way: Kaset ez eus bet ur postel deoc'h evit adderaouekaat ho
-        ker-tremen.
-      notice email cannot find: Ho tigarez, n'eo ket bet kavet ar chomlec'h postel-se.
-    reset_password:
+    edit:
       title: Adderaouekaat ar ger-tremen
       heading: Adderaouekaat ar ger-tremen evit %{user}
       reset: Adderaouekaat ar ger-tremen
-      flash changed: Cheñchet eo bet ho ker-tremen.
       flash token bad: N'eo ket bet kavet ar jedouer-se, gwiriañ an URL marteze ?
+    update:
+      flash changed: Cheñchet eo bet ho ker-tremen.
+      flash token bad: N'eo ket bet kavet ar jedouer-se, gwiriit an URL mar plij.
   preferences:
     show:
       title: Ma fenndibaboù
@@ -1873,44 +1924,17 @@ br:
   sessions:
     new:
       title: Kevreañ
-      heading: Kevreañ
-      email or username: 'Chomlec''h postel pe anv implijer :'
-      password: 'Ger-tremen :'
-      openid_html: '%{logo} OpenID :'
+      tab_title: Kevreañ
+      email or username: Chomlec'h postel pe anv implijer
+      password: Ger-tremen
       remember: Derc'hel soñj ac'hanon
       lost password link: Ankouaet ho ker-tremen ganeoc'h ?
       login_button: Kevreañ
       register now: En em enskrivañ bremañ
-      with external: 'Mod all, implijit un tredeour evit kevreañ :'
-      no account: N'hoc'h eus kont ebet ?
+      with external: 'pe kevreit gant un tredeour:'
+      or: pe
       auth failure: Ho tigarez, met n'eus ket bet gallet hoc'h anavezout gant an titouroù
         pourchaset.
-      openid_logo_alt: Kevreañ gant un OpenID
-      auth_providers:
-        openid:
-          title: Kevreañ ouzh OpenID
-          alt: Kevreañ ouzh un URL OpenID
-        google:
-          title: Kevreañ ouzh Google
-          alt: Kevreañ ouzh OpenID Google
-        facebook:
-          title: Kevreañ ouzh Facebook
-          alt: Kevreañ ouzh ur gont facebook
-        microsoft:
-          title: Kevreañ ouzh Microsoft
-          alt: Kevreañ ouzh ur gont Microsoft
-        github:
-          title: Kevreañ dre GitHub
-          alt: Kevreañ gant ur gont GitHub
-        wikipedia:
-          title: Kevreañ dre Wikipedia
-          alt: Kevreañ gant ur gont Wikipedia
-        wordpress:
-          title: Kevreañ ouzh Wordpress
-          alt: Kevreañ ouzh OpenID Wordpress
-        aol:
-          title: Kevreañ ouzh AOL
-          alt: Kevreañ ouzh AOL OpenID
     destroy:
       title: Digevreañ
       heading: Kuitaat OpenStreetMap
@@ -1934,6 +1958,7 @@ br:
       image: Skeudenn
       alt: Testenn all
       url: URL
+      codeblock: Bloc'had kod
     richtext_field:
       edit: Aozañ
       preview: Rakwelet
@@ -1974,8 +1999,12 @@ br:
       legal_1_1_terms_of_use: Termenoù implij
       legal_1_1_privacy_policy: Politikerezh prevezded
       legal_2_1_contact_the_osmf: mont e darempred gant diazezadur OSM
+      legal_2_2_html: OpenStreetMap, al logo gant al loupenn hag ar State of the Map
+        a zo %{registered_trademarks_link}.
+      legal_2_2_registered_trademarks: merkoù marilhet an OSMF
       partners_title: Kevelerien
     copyright:
+      title: Gwirioù oberour hag aotre-implijout
       foreign:
         title: Diwar-benn an droidigezh-mañ
         html: Ma vez digendalc'h etre ar bajenn troet-mañ hag %{english_original_link}
@@ -1988,7 +2017,9 @@ br:
         native_link: Stumm brezhonek
         mapping_link: kregiñ da gemer perzh
       legal_babble:
-        title_html: Gwirioù oberour hag aotre-implijout
+        introduction_1_html: OpenStreetMap%{registered_trademark_link} a zo %{open_data},
+          dindan an aotre-implijout %{odc_odbl_link} (ODbL) gant %{osm_foundation_link}
+          (OSMF).
         introduction_1_open_data: roadennoù digor
         introduction_1_osm_foundation: Diazezadur OpenStreetMap
         introduction_2_legal_code: testenn lezennel
@@ -2033,6 +2064,7 @@ br:
         contributors_fr_credit_html: '%{france}: Ennañ roadennoù eus Renerezh Hollek
           an Tailhoù.'
         contributors_fr_france: Bro-C'hall
+        contributors_hr_croatia: Kroatia
         contributors_nl_netherlands: Izelvroioù
         contributors_nz_new_zealand: Zeland Nevez
         contributors_nz_linz_data_service: Servij roadennoù LINZ
@@ -2055,14 +2087,13 @@ br:
           Degas a reomp da soñj da genlabourerien OSM ne zleont morse lakaat roadennoù a zeu
           eus mammennoù dindan wirioù (da sk. : Google Maps pe kartennoù moullet) hep aotre
           ezpleg ar re zo ar gwirioù-aozer ganto.
+        infringement_2_1_online_filing_page: pajenn danevelliñ enlinenn
+        trademarks_title: Merkoù marilhet
         trademarks_1_1_trademark_policy: Politikerezh e-keñver ar merkoù
     index:
       js_1: Pe emaoc'h oc'h implijout ur merdeer ha ne skor ket JavaScript, pe hoc'h
         eus diweredekaet JavaScript.
       js_2: OpenStreetMap a implij JavaScript evit e gartenn risklus.
-      permalink: Peurliamm
-      shortlink: Liamm berr
-      createnote: Ouzhpennañ un notenn
       license:
         copyright: Gwir-eilañ gant OpenStreetMap hag ar genlabourerien, dindan un
           aotre-implijout digor
@@ -2076,16 +2107,9 @@ br:
       user_page_link: pajenn implijer
       anon_edits_link_text: Kavit perak.
       id_not_configured: N'eo ket bet kefluniet an ID
-      no_iframe_support: N'eo ket ho merdeer evit ober gant iframmoù HTML, hag ezhomm
-        zo eus ar re-se evit an arc'hweladur-mañ.
     export:
       title: Ezporzhiañ
-      area_to_export: Takad da ezporzhiañ
       manually_select: Diuzañ un takad disheñvel gant an dorn
-      format_to_export: Furmad da ezporzhiañ
-      osm_xml_data: Roadennoù XML OpenStreetMap
-      map_image: Skeudenn gartenn (diskouez ur gwiskad boutin)
-      embeddable_html: HTML enkorfadus
       licence: Aotre-implijout
       licence_details_html: Roadennoù OpenStreetMap a zo dindan an aotre-implijout
         %{odbl_link} (ODbL).
@@ -2109,17 +2133,6 @@ br:
         other:
           title: Tarzhioù all
           description: Mammennoù all a gaver o roll er wiki OpenStreetMap
-      options: Dibarzhioù
-      format: Furmad
-      scale: Skeuliad
-      max: d'ar muiañ
-      image_size: Ment ar skeudenn
-      zoom: Zoum
-      add_marker: Ouzhpennañ ur merker d'ar gartenn
-      latitude: 'Led. :'
-      longitude: 'Hed. :'
-      output: Er-maez
-      paste_html: Pegañ HTML evit bezañ enkorfet en ul lec'hienn web
       export_button: Ezporzhiañ
     fixthemap:
       title: ' Diskouez ez eus ur gudenn / Reizhañ ar gartenn'
@@ -2147,17 +2160,13 @@ br:
         url: http://wiki.openstreetmap.org/wiki/FR:Sturlevr an deraouidi
         title: Sturlevr evit deraouidi
         description: Sturlevr evit an deraouidi dalc'het gant ar gumuniezh
-      help:
-        title: Forom skoazellañ
-        description: Ober ur goulenn pe klask respontoù e lec'hienn goulennoù-respontoù
-          OpenStreetMap
+      community:
+        title: Forom ar gumuniezh ha skoazell
+        description: Ul lec'h boutin evit goulenn sikour ha kaozeal diwar-benn OpenStreetMap.
       mailing_lists:
         title: Roll skignañ
         description: Sevel ur goulenn pe divizout diwar-benn goulennoù dedennus war
           un niver bras a demoù pe diwar-benn rolloù skignañ rannvroel.
-      community:
-        title: Forom ar gumuniezh
-        description: Ul lec'h boutin evit kaozeal diwar-benn OpenStreetMap.
       irc:
         title: IRC
         description: Flap etreoberiat e meur a yezh disheñvel ha diwar-benn danvezioù
@@ -2168,7 +2177,7 @@ br:
           e OpenStreetMap, hervez ar c'hartennoù hag ar servijoù all.
       welcomemat:
         title: Evit an aozadurioù
-        description: Gant un aoazadur a ra tresoù evit OpenStreetMap ? Kavit ar pezh
+        description: Gant un aozadur a ra tresoù evit OpenStreetMap? Kavit ar pezh
           ho peus ezhomm da c'houzout en tapis degemer.
       wiki:
         title: Wiki OpenStreetMap
@@ -2180,12 +2189,13 @@ br:
     any_questions:
       title: Traoù da c'houlenn ?
       get_help_here: Kaout skoazell amañ
+      welcome_mat: Kit da welet ar Welcome Mat
     sidebar:
       search_results: Disoc'hoù enklask
       close: Serriñ
     search:
       search: Klask
-      get_directions: Kaout an tuioù
+      get_directions: Kaout an durc'hadurioù
       get_directions_title: Kavit an hentoù etre an daou boent
       from: Eus
       to: Da
@@ -2203,67 +2213,82 @@ br:
           primary: Hent bras
           secondary: Hent bihan
           unclassified: Hent n'eo ket rummet
+          pedestrian: Hent evit an dud war-droad
           track: Roudenn
           bridleway: Hent evit kezeg
           cycleway: Roudenn divrodegoù
           cycleway_national: roudenn vroadel evit an divrodegoù
           cycleway_regional: Roudenn divrodegoù rannvroel
           cycleway_local: roudenn lec'hel evit an divrodegoù
+          cycleway_mtb: Hent MTB
           footway: Hent evit an dud war droad
           rail: Hent-houarn
+          train: Tren
           subway: Linenn vetro
-          tram:
-          - tramgarr
-          - tramgarr
-          cable:
-          - Teleferik
-          - fungador
-          runway:
-          - Roudenn evit an taksioù
-          - Roudenn evit an taksioù
-          apron:
-          - Roudenn aerborzh
-          - termenva
+          ferry: Karrlistri
+          light_rail: Metro skañv
+          tram: Tramgarr
+          trolleybus: Trollebus
+          bus: Karr-boutin
+          cable_car: Teleferik
+          chair_lift: Fungador
+          runway: Roudenn evit an taksioù
+          taxiway: Hent evit an taksioù
+          apron: Roudenn aerborzh
           admin: Bevenn velestradurel
+          capital: Kêr-benn
+          city: Kêr
+          orchard: Gwerje
+          vineyard: Gwinieg
           forest: Koad
           wood: Koad
+          farmland: Tachenn labour-douar
+          grass: Geot
+          meadow: Prad
+          bare_rock: Roc'h noazh
+          sand: Traezh
           golf: Tachenn golf
           park: Park
+          common: prad
+          built_up: Takad savet
           resident: Takad annez
-          common:
-          - prad
-          - prad
-          - liorzh
           retail: Takad kenwerzh
           industrial: Takad greantel
           commercial: Takad kenwerzhel
           heathland: Lanneier
-          lake:
-          - Lenn
-          - mirlec'h
+          scrubland: Strouezheg
+          lake: Lenn
+          reservoir: Mirlenn
+          glacier: Skorneg
+          reef: Karreg
+          wetland: Takad gleborek
           farm: Ti-feurm
           brownfield: Takad greanterezh
           cemetery: Bered
           allotments: Lodennaouegoù
           pitch: Tachenn sport
           centre: Kreizenn sport
+          beach: Traezhenn
           reserve: Gwarezva natur
           military: Takad milourel
-          school:
-          - Skol
-          - skol-veur
+          school: Skol
+          university: Skol-veur
+          hospital: Ospital
           building: Savadur pouezus
           station: Porzh-houarn
-          summit:
-          - Lein
-          - pikern
+          summit: Lein
+          peak: Pikern
           tunnel: Bord poentoùigoù = riboul
           bridge: Bord du = pont
           private: Moned prevez
           destination: Moned d'ar pal
           construction: Hentoù war ar stern
+          bus_stop: Arsav karr-boutin
+          stop: Arsav
           bicycle_shop: Stal varc'hoù-houarn
+          bicycle_rental: Stal feurmiñ marc'hoù-houarn
           bicycle_parking: Parklec'h belioù
+          bicycle_parking_small: Parklec'h marc'hoù-houarn bihan
           toilets: Privezioù
     welcome:
       title: Deuet-mat oc'h !
@@ -2272,6 +2297,10 @@ br:
         Setu amañ un nebeud displegadennoù diwar-benn an traoù pouezusañ da c'houzout.
       whats_on_the_map:
         title: Petra zo war ar gartenn
+        on_the_map_html: |-
+          OpenStreetMap zo ul lec'h evit kartennaouiñ traoù %{real_and_current} war un dro
+          -
+          Ennañ ez eus milionoù a savadurioù, a hentoù, hag a vunudoù all diwar-benn lec'hioù. Gallout a rit kartennaouiñ forzh peseurt tra eus ar bed gwirion hag a zedenn ac'hanoc'h.
         real_and_current: gwir hag a-vremañ
         off_the_map_html: Ar pezh %{doesnt} avat eo ar roadennoù evit notennoù roet
           gant an dud, elfennoù istorel pe martezeüs, hag ar roadennoù a zo dindan
@@ -2298,6 +2327,7 @@ br:
         imports: Enporzhiadurioù
         automated_edits: Kemmoù emgefre
       start_mapping: Kregiñ da gartennaouiñ
+      continue_authorization: Kenderc'hel gant an aotre
       add_a_note:
         title: N'ho peus ket amzer da aozañ ? Ouzhpennit un notenn !
         para_1: Ma fell deoc'h ober ur reizhadennig hepken ha ma n'ho peus ket amzer
@@ -2368,9 +2398,6 @@ br:
       trace_not_found: N'eo ket bet kavet ar roud !
       visibility: 'Gwelusted :'
       confirm_delete: Diverkañ ar roudenn-mañ
-    trace_paging_nav:
-      older: ↓Roudoù kozh
-      newer: ↓Roudoù nevez
     trace:
       pending: WAR C'HORTOZ
       count_points:
@@ -2387,8 +2414,8 @@ br:
       identifiable: ANAVEZADUS
       private: PREVEZ
       trackable: HEULIADUS
-      by: gant
-      in: e-barzh
+      details_with_tags_html: '%{time_ago} gant %{user} e-barzh %{tags}'
+      details_without_tags_html: '%{time_ago} gant %{user}'
     index:
       public_traces: Roudoù GPS foran
       my_gps_traces: Ma Roudoù GPS
@@ -2405,6 +2432,9 @@ br:
       my_traces: Ma roudoù
       traces_from: Roudoù GPS foran gant %{user}
       remove_tag_filter: Lemel ar sil tikedennoù
+    page:
+      older: ↓Roudoù kozh
+      newer: ↓Roudoù nevez
     destroy:
       scheduled_for_deletion: Roudenn da vezañ dilamet
     make_public:
@@ -2426,8 +2456,6 @@ br:
     require_cookies:
       cookies_needed: Diweredekaet eo an toupinoù ganeoc'h war a seblant - gweredekait
         an toupinoù en ho merdeer a-raok mont pelloc'h, mar plij.
-    require_admin:
-      not_an_admin: Ret eo deoc'h bezañ merour evit kas an ober-mañ da benn.
     setup_user_auth:
       blocked_zero_hour: Ur gemennadenn vallus zo war lec'hienn OpenStreetMap evidoc'h.
         Ret eo deoc'h he lenn a-raok gallout enrollañ ho kemmoù.
@@ -2438,34 +2466,30 @@ br:
         a-du ganto met ret eo deoc'h bezañ lennet anezho.
     settings_menu:
       account_settings: Arventennoù ar gont
-      oauth1_settings: Arventennoù OAuth 1
       oauth2_applications: Arloadoù OAuth 2
       oauth2_authorizations: Aotreoù OAuth 2
+      muted_users: Implijerien kuzhet
+    auth_providers:
+      openid_login_button: Kenderc'hel
+      openid:
+        title: Kevreañ gant OpenID
+        alt: Logo OpenID
+      google:
+        title: Kevreañ gant Google
+        alt: Logo Google
+      facebook:
+        title: Kevreañ gant Facebook
+        alt: Logo Facebook
+      microsoft:
+        title: Kevreañ gant Microsoft
+        alt: Logo Microsoft
+      github:
+        title: Kevreañ gant GitHub
+        alt: Logo GitHub
+      wikipedia:
+        title: Kevreañ gant Wikipedia
+        alt: Logo Wikipedia
   oauth:
-    authorize:
-      title: Aotren mont d'ho kont
-      request_access_html: Emañ an arload %{app_name} o c'houlenn mont d'ho kont,
-        %{user}. Gwiriit hag-eñ hoc'h eus c'hoant e vefe ar barregezhioù-mañ gant
-        hoc'h arloadoù. Gallout a rit dibab kement ha ma karit.
-      allow_to: 'Lezel an arload arval da :'
-      allow_read_prefs: lenn ho penndibaboù implijer.
-      allow_write_prefs: kemmañ ho penndibaboù implijer.
-      allow_write_diary: krouiñ enmonedoù en deizlevr, addisplegoù ha kavout mignoned.
-      allow_write_api: kemmañ ar gartenn.
-      allow_read_gpx: lenn ho roudoù GPS prevez.
-      allow_write_gpx: kas roudoù GPS.
-      allow_write_notes: kemmañ notennoù
-      grant_access: Grataat ar monet
-    authorize_success:
-      title: Reked aotre roet
-      allowed_html: Aotreet ho peus an arload %{app_name} da vont d'ho kont.
-      verification: Ar c'hod gwiriekaat zo %{code}.
-    authorize_failure:
-      title: C'hwitet eo ar goulenn aotre
-      denied: Miret ho peus ouzh an arload %{app_name} da vont d'ho kont.
-      invalid: Ar jedouer aotren n'eo ket reizh.
-    revoke:
-      flash: Torret hoc'h eus ar jedouer evit %{application}
     permissions:
       missing: N'eo ket bet aotreet an arload ganeoc'h d'ober gan an arc'hwel-mañ
     scopes:
@@ -2478,47 +2502,6 @@ br:
       write_gpx: Enporzhiañ ar roudoù GPS
       write_notes: Kemmañ an notennoù
       read_email: Lenn chomlec'h postel an implijer
-  oauth_clients:
-    new:
-      title: Marilhañ un arload nevez
-    edit:
-      title: Aozañ hoc'h arload
-    show:
-      title: Munudoù OAuth evit %{app_name}
-      key: 'Alc''hwez implijer :'
-      secret: 'Sekred an implijer :'
-      url: 'URL ar jedouer reked :'
-      access_url: 'URL ar jedouer moned :'
-      authorize_url: 'URL aotren :'
-      support_notice: Degemer a reomp ar sinadurioù HMAC-SHA1 (erbedet) ha RSA-SHA1.
-      edit: Aozañ ar munudoù
-      delete: Diverkañ an arval
-      confirm: Ha sur oc'h ?
-      requests: 'O c''houlenn an aotreoù-mañ digant an implijer :'
-    index:
-      title: Ma munudoù OAuth
-      my_tokens: Ma arloadoù aotreet
-      list_tokens: 'Ar jedoueroù-mañ zo bet skignet d''an arloadoù en hoc''h anv :'
-      application: Anv an arload
-      issued_at: Kaset da
-      revoke: Disteuler !
-      my_apps: Ma arloadoù arvalien
-      no_apps_html: Ha bez' hoc'h eus un arload ho pefe c'hoant da varilhañ evit implijout
-        ar standard %{oauth} ganimp ? Ret eo deoc'h marilhañ hoc'h arload web a-raok
-        dezhi ober rekedoù d'ar servij-mañ.
-      oauth: OAuth
-      registered_apps: 'Marilhet eo an arloadoù arvalien-mañ ganeoc''h :'
-      register_new: Marilhañ hoc'h arload
-    form:
-      requests: 'Goulenn an aotreoù-mañ digant an implijer :'
-    not_found:
-      sorry: Ho tigarez, an %{type}-mañ n'eo ket bet kavet.
-    create:
-      flash: Marilhet eo bet an titouroù
-    update:
-      flash: Hizivaet eo bet titouroù an arval
-    destroy:
-      flash: Distrujet eo bet marilhadur an arload arval
   oauth2_applications:
     index:
       new: Marilhañ un arload nevez
@@ -2547,6 +2530,7 @@ br:
   oauth2_authorizations:
     new:
       title: Rekis eo bezañ aotreet
+      introduction: Aotren %{application} da haeziñ ho kont gant an aotreoù-se?
       authorize: Aotren
       deny: Nac'hañ
     error:
@@ -2558,6 +2542,7 @@ br:
       title: Ma sevenidigezhioù aotreet
       application: Sevenidigezh
       permissions: Aotreoù
+      last_authorized: Aotreet da ziwezhañ
       no_applications_html: N'ho peus ket aotreet goulenn %{oauth2} ebet c'hoazh.
     application:
       revoke: Nullañ ar moned
@@ -2565,26 +2550,36 @@ br:
   users:
     new:
       title: Kevreañ
+      tab_title: En em enskrivañ
       no_auto_account_create: Siwazh n'omp ket evit krouiñ ur gont evidoc'h ent emgefreek.
       please_contact_support_html: Kit e darempred gant ar %{support_link}, mar plij,
         evit ma krouo ur gont evidoc'h - klask a raimp plediñ gant ho koulenn kerkent
         ha ma vo tu.
       support: skor
       about:
-        header: Digoust hag aozadus
+        header: Digoust hag aozadus.
+        paragraph_1: E-skoaz ar c'hartennoù all eo savet OpenStreetMap penn-da-benn
+          gant tud eveldoc'h ha tu zo da bep hini reizhañ, hizivaat, pellgargañ hag
+          implijout e gartennoù.
+        paragraph_2: Lakait hoc'h anv ha stagit da gemer perzh.
+        welcome: Degemer mat en OpenStreetMap
       display name description: Emañ hoc'h anv implijer a-wel d'an holl. Se a c'hallit
         cheñch diwezhatoc'h en ho penndibaboù.
+      by_signing_up:
+        privacy_policy: reolennoù prevezded
+        contributor_terms: reolennoù ar genlabourerien
+      tou: Termenoù implijout
       external auth: 'Dilesadur trede :'
-      use external auth: 'Mod all, implijit un tredeour evit kevreañ :'
-      auth no password: Gant dilesadur un tredeour n'eus ket ezhomm d'ober gant ur
-        ger-tremen, met evit binvioù ouzhpenn pe evit ur servijer e c'haller bepred
-        goulenn unan diganeco'h.
       continue: En em enskrivañ
       terms accepted: Trugarez deoc'h evit bezañ asantet da ziferadennoù nevez ar
         c'henlabourer !
-      email_confirmation_help_html: Ho chomlec'h ne vo ket hewel d'an holl, sellit
-        ouzh %{privacy_policy_link} evit gouzout hiroc'h.
-      privacy_policy: reolennoù prevezded
+      email_help:
+        privacy_policy: Politikerezh prevezded
+        html: Ho chomlec'h ne vo ket hewel d'an holl, sellit ouzh %{privacy_policy_link}
+          evit gouzout hiroc'h.
+      consider_pd: domani foran
+      or: pe
+      use external auth: 'pe kevreit gant un tredeour:'
     terms:
       title: Termenoù
       heading: Termenoù
@@ -2614,18 +2609,20 @@ br:
         mat, pe marteze hoc'h eus kliket war ul liamm fall.
       deleted: dilamet
     show:
-      my diary: ma deizlevr
-      my edits: ma aozadennoù
-      my traces: ma roudoù
-      my notes: ma notennoù
+      my diary: Ma deizlevr
+      my edits: Ma c'hemmoù
+      my traces: Ma roudoù
+      my notes: Ma notennoù
       my messages: Ma c'hemennadennoù
       my profile: Ma frofil
       my settings: Ma arventennoù
-      my comments: ma evezhiadennoù
+      my comments: Ma evezhiadennoù
       my_preferences: Ma fenndibaboù
       my_dashboard: Ma zaolenn-vourzh
       blocks on me: Stankadurioù evidon
       blocks by me: stankadurioù graet ganin
+      create_mute: Kuzhat an implijer-mañ
+      destroy_mute: Diguzhat an implijer-mañ
       edit_profile: Aozañ ar profil
       send message: Kas ur gemennadenn
       diary: deizlevr
@@ -2635,11 +2632,11 @@ br:
       remove as friend: Lemel eus ar vignoned
       add as friend: Ouzhpennañ d'ar vignoned
       mapper since: 'Kartennour abaoe :'
+      last map edit: 'Kemm diwezhañ ar gartenn:'
       uid: 'Kod anaout an implijer:'
       ct status: 'Diferadennoù ar c''henlabourer :'
       ct undecided: En entremar
       ct declined: Nac'het
-      latest edit: 'Kemm diwezhañ (%{ago}) :'
       email address: 'Chomlec''h postel :'
       created from: 'Krouet diwar :'
       status: 'Statud :'
@@ -2647,12 +2644,15 @@ br:
       role:
         administrator: Ur merour eo an implijer-mañ
         moderator: Un habaskaer eo an implijer-mañ
+        importer: Un enporzhier/ez eo an implijer/ez-mañ
         grant:
           administrator: Reiñ ar moned merour
           moderator: Reiñ ar moned habaskaer
+          importer: Grataat gwirioù enporzhiañ
         revoke:
           administrator: Disteurel ar moned merour
           moderator: Disteurel ar moned habaskaer
+          importer: Lemel ar gwirioù enporzhiañ
       block_history: stankadurioù oberiant
       moderator_history: Stankadurioù roet
       comments: evezhiadennoù
@@ -2672,14 +2672,20 @@ br:
     index:
       title: Implijerien
       heading: Implijerien
-      showing:
-        one: Pajenn %{page} (%{first_item} diwar %{items})
-        other: Pajenn %{page} (%{first_item}-%{last_item} diwar %{items})
       summary_html: '%{name} krouet eus %{ip_address} d''an %{date}'
       summary_no_ip_html: '%{name} krouet d''an %{date}'
+      empty: N'eo bet kavet implijer klotaus ebet !
+    page:
+      older: Implijerien goshoc'h
+      newer: Implijerien nevesoc'h
+      found_users:
+        one: '%{count} implijer kavet'
+        two: '%{count} implijer kavet'
+        few: '%{count} implijer kavet'
+        many: '%{count} implijer kavet'
+        other: '%{count} implijer'
       confirm: Kadarnaat an implijerien diuzet
       hide: Kuzhat an implijerien diuzet
-      empty: N'eo bet kavet implijer klotaus ebet !
     suspended:
       title: Kont arsavet
       heading: Kont arsavet
@@ -2697,8 +2703,8 @@ br:
       heading: N'eo ket kevredet ho ID ouzh ur gont OpenStreetMap.
       option_1: Ma'z oc'h un den nevez en OpenStreetMap, krouit ur gont nevez, mar
         plij, war-bouez ar furmskrid amañ dindan.
-      option_2: M'ho pez ur gont dija e c'hallit kevreañ outi en ur implijout hoc'h
-        anv implijer hag ho ker-tremen, ha goude-se kevrediñ ho kont gant hoc'h ID
+      option_2: M'ho peus ur gont dija e c'hallit kevreañ outi en ur implijout hoc'h
+        anv implijer hag ho ker-tremen, ha goude-se liammañ ho kont ouzh hoc'h ID
         en ho tibaboù implijer.
   user_role:
     filter:
@@ -2713,16 +2719,12 @@ br:
       are_you_sure: Ha sur oc'h hoc'h eus c'hoant da reiñ ar roll "%{role}" d'an implijer
         "%{name}" ?
       confirm: Kadarnaat
-      fail: N'eus ket bet gallet grataat ar roll « %{role} » d'an implijer « %{name}
-        ». Gwiriit hag-eñ eo reizh an implijer hag ar roll.
     revoke:
       title: Kadarnaat torridigezh ar roll
       heading: Kadarnaat torridigezh ar roll
       are_you_sure: Ha sur oc'h hoc'h eus c'hoant da lemel ar roll "%{role}" digant
         an implijer "%{name}" ?
       confirm: Kadarnaat
-      fail: N'eus ket bet gallet lemel ar roll « %{role} » digant an implijer « %{name}
-        ». Gwiriit hag-eñ eo reizh an implijer hag ar roll.
   user_blocks:
     model:
       non_moderator_update: Ret eo deoc'h bezañ habaskaer evit krouiñ pe hizivaat
@@ -2735,15 +2737,11 @@ br:
       title: O krouiñ ur stankadur evit %{name}
       heading_html: Krouiñ ur stankadur evit %{name}
       period: Pegeit, adalek bremañ, e vo stanket an implijer war an API.
-      back: Gwelet an holl stankadurioù
     edit:
       title: Oc'h aozañ ur stankadur evit %{name}
       heading_html: Oc'h aozañ ur stankadur evit %{name}
       period: Pegeit, adalek bremañ, e vo stanket an implijer war an API.
-      show: Gwelet ar stankadur-mañ
-      back: Gwelet an holl stankadurioù
     filter:
-      block_expired: Aet eo ar stankadur d'e dermen dija ha ne c'hall ket bezañ aozet.
       block_period: Ar prantad stankañ a rank bezañ unan eus an talvoudoù a c'haller
         dibab ar roll disac'hañ.
     create:
@@ -2756,15 +2754,10 @@ br:
       title: Stankadurioù an implijer
       heading: Roll stankadurioù an implijer
       empty: N'eus bet graet stankadur ebet c'hoazh.
-    revoke:
-      title: O tisteurel ur stankadur evit %{block_on}
-      heading_html: O lemel ur stankadur war %{block_on} gant %{block_by}
-      time_future: Echu e vo ar stankadur-mañ a-benn %{time}.
-      past: Aet eo ar stankadur-mañ d'e dermen d'an %{time} ha ne c'hall ket bezañ
-        torret bremañ.
-      confirm: Ha sur oc'h hoc'h eus c'hoant da derriñ ar stankadur-mañ ?
-      revoke: Disteuler !
-      flash: Torret eo bet ar stankadur-mañ.
+    revoke_all:
+      title: Disteurel an holl stankadurioù evit %{block_on}
+      heading_html: O tisteurel an holl stankadurioù evit %{block_on}
+      revoke: Disteuler!
     helper:
       time_future_html: Echuiñ a ray a-benn %{time}.
       until_login: Oberiant betek ma kevre an implijer.
@@ -2818,26 +2811,50 @@ br:
       status: 'Statud:'
       show: Diskouez
       edit: Aozañ
-      revoke: Disteuler !
       confirm: Ha sur oc'h ?
       reason: 'Abeg ar stankadur :'
-      back: Gwelet an holl stankadurioù
       revoker: 'Torrer :'
       needs_view: Ret eo d'an implijer kevreañ a-raok ma vefe diverket ar stankadur-mañ.
     block:
       not_revoked: (n'eo ket torret)
       show: Diskouez
       edit: Aozañ
-      revoke: Disteuler !
     blocks:
       display_name: Implijer stanket
       creator_name: Krouer
       reason: Abeg evit stankañ
       status: Statud
       revoker_name: Torret gant
-      showing_page: Page %{page}
-      next: ↓War-lerc'h »
-      previous: ↓« Kent
+      older: Stankadurioù koshoc'h
+      newer: Stankadurioù nevesañ
+    navigation:
+      all_blocks: An holl stankadurioù
+      blocks_on_me: Stankadurioù evidon
+      blocks_on_user: Stankadurioù evit %{user}
+      blocks_by_me: Stankadurioù graet ganin
+      blocks_by_user: Stankadurioù gant %{user}
+      block: 'Stankadur #%{id}'
+  user_mutes:
+    index:
+      title: Implijerien kuzhet
+      my_muted_users: Ma implijerien kuzhet
+      you_have_muted_n_users:
+        one: Kuzhet ho peus %{count} implijer·ez
+        two: Kuzhet ho peus %{count} implijer·ez
+        few: Kuzhet ho peus %{count} implijer·ez
+        many: Kuzhet ho peus %{count} implijer·ez
+        other: Kuzhet ho peus %{count} implijer·ez
+      user_mute_explainer: Kemennadennoù an implijerien kuzhet a zo kaset d'ur voest-resev
+        disheñvel ha n'ho po kemenn ebet a-zivout o fosteloù.
+      table:
+        thead:
+          muted_user: Implijer·ez kuzhet
+          actions: Oberoù
+        tbody:
+          send_message: Kas ur gemennadenn
+    create:
+      notice: Kuzhet ho peus %{name}.
+      error: Ne c'haller ket kuzhat %{name}. %{full_message}.
   notes:
     index:
       title: Notennoù kaset pe addispleget gant %{user}
@@ -2875,12 +2892,15 @@ br:
       reactivate: Adweredekaat
       comment_and_resolve: Addisplegañ & Diskoulmañ
       comment: Evezhiadenn
+      log_in_to_comment: Kevreit evit skrivañ war an notenn-mañ
       other_problems_resolved: Evit an holl gudennoù all ez eo a-walc'h d'o diskoulmañ.
     new:
       title: Notenn nevez
       intro: Gwelet ho peus ur fazi pe un dra a vank ? Roit an dra-se da c'houzout
         d'ar gartennaouerien all evit ma vo renket. Lakait ar merker el lec'h mat
         ha skrivit un notenn da zisplegañ ar gudenn.
+      anonymous_warning_log_in: kevreañ
+      anonymous_warning_sign_up: en em enskrivañ
       advice: Foran eo ho notenn ha ne c'hall ket bezañ implijet evit hizivaat ar
         gartenn. Setu perak eo arabat ebarzhiñ titouroù personel pe titouroù o tont
         eus kartennoù gwarezet na endalc'hioù rolloù.
@@ -2935,11 +2955,10 @@ br:
           other: Emaoc'h dindan %{count} troad diouzh ar poent-mañ
       base:
         standard: Standard
-        cyclosm: CyclOSM
         cycle_map: Kelc'hiad kartenn
         transport_map: Kartenn treuzdougen
+        tracestracktop_topo: Tracestrack Topo
         hot: Denegour
-        opnvkarte: ÖPNVKarte
       layers:
         header: Gwiskadoù kartenn
         notes: Notennoù kartenn
@@ -2953,8 +2972,6 @@ br:
       osm_france: OpenStreetMap Frañs
       thunderforest_credit: Teol pourchaset gant %{thunderforest_link}
       andy_allan: Andy Allan
-      opnvkarte_credit: Teol pourchaset gant %{memomaps_link}
-      memomaps: MeMoMaps
       tracestrack_credit: Teol pourchaset gant %{tracestrack_link}
     site:
       edit_tooltip: Kemmañ ar gartenn
@@ -2965,13 +2982,6 @@ br:
       map_data_zoom_in_tooltip: Zoumiñ evit gwelet roadennoù ar gartenn
       queryfeature_tooltip: Arc'hweladurioù enklask
       queryfeature_disabled_tooltip: Zoumañ evit an arc'hweladurioù enklask
-    changesets:
-      show:
-        comment: Embann
-        subscribe: Koumanantiñ
-        unsubscribe: Digoumanantiñ
-        hide_comment: kuzhat
-        unhide_comment: diskouez
     edit_help: Dilec'hiit ar gartenn ha zoumit war ul lec'h a fell deoc'h aozañ, ha
       neuze klikit amañ.
     directions:
@@ -2987,7 +2997,7 @@ br:
         fossgis_valhalla_car: Karr (Valhalla)
         fossgis_valhalla_foot: War droad (Valhalla)
       descend: Diskenn
-      directions: Tuioù
+      directions: Durc'hadurioù
       distance: Hed
       distance_m: '%{distance}m'
       distance_km: '%{distance}km'

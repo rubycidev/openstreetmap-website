@@ -96,8 +96,7 @@
 
 .ideditor input[type="checkbox"],
 .ideditor input[type="radio"] {
-    -webkit-box-sizing: border-box;
-            box-sizing: border-box; /* 1 */
+    box-sizing: border-box; /* 1 */
     padding: 0; /* 2 */
 }
 
@@ -109,8 +108,7 @@
 
 .ideditor input[type="search"] {
     -webkit-appearance: none; /* 1 */
-    -webkit-box-sizing: border-box;
-            box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 /*
@@ -181,8 +179,7 @@
 /* No interactivity except what we specifically allow */
 .ideditor .data-layer.osm *,
 .ideditor .data-layer.notes *,
-.ideditor .data-layer.keepRight *,
-.ideditor .data-layer.improveOSM * {
+.ideditor .data-layer.keepRight * {
     pointer-events: none;
 }
 
@@ -404,7 +401,6 @@
     font-size: 12px;
     font-weight: bold;
     fill: #333;
-    -webkit-transition: opacity 100ms linear;
     transition: opacity 100ms linear;
 }
 
@@ -443,12 +439,14 @@
 
 
 /* Wikidata-tagged */
-.ideditor g.point.tag-wikidata path.stroke {
+.ideditor g.point.tag-wikidata path.stroke,
+.ideditor g.vertex.tag-wikidata circle.stroke {
     stroke-width: 2px;
     stroke: #666;
     fill: #eee;
 }
-.ideditor g.point.tag-wikidata .icon {
+.ideditor g.point.tag-wikidata .icon,
+.ideditor g.vertex.tag-wikidata .icon {
     color: #666;
 }
 
@@ -1184,6 +1182,7 @@
 .ideditor path.line.shadow.tag-highway-cycleway,
 .ideditor path.line.shadow.tag-highway-bridleway,
 .ideditor path.line.shadow.tag-highway-corridor,
+.ideditor path.line.shadow.tag-highway-ladder,
 .ideditor path.line.shadow.tag-highway-steps {
     stroke-width: 16;
 }
@@ -1192,6 +1191,7 @@
 .ideditor path.line.casing.tag-highway-cycleway,
 .ideditor path.line.casing.tag-highway-bridleway,
 .ideditor path.line.casing.tag-highway-corridor,
+.ideditor path.line.casing.tag-highway-ladder,
 .ideditor path.line.casing.tag-highway-steps {
     stroke-width: 5;
 }
@@ -1200,6 +1200,7 @@
 .ideditor path.line.stroke.tag-highway-cycleway,
 .ideditor path.line.stroke.tag-highway-bridleway,
 .ideditor path.line.stroke.tag-highway-corridor,
+.ideditor path.line.stroke.tag-highway-ladder,
 .ideditor path.line.stroke.tag-highway-steps {
     stroke-width: 3;
 }
@@ -1237,6 +1238,7 @@
 .ideditor .low-zoom path.line.shadow.tag-highway-cycleway,
 .ideditor .low-zoom path.line.shadow.tag-highway-bridleway,
 .ideditor .low-zoom path.line.shadow.tag-highway-corridor,
+.ideditor .low-zoom path.line.shadow.tag-highway-ladder,
 .ideditor .low-zoom path.line.shadow.tag-highway-steps {
     stroke-width: 12;
 }
@@ -1245,6 +1247,7 @@
 .ideditor .low-zoom path.line.casing.tag-highway-cycleway,
 .ideditor .low-zoom path.line.casing.tag-highway-bridleway,
 .ideditor .low-zoom path.line.casing.tag-highway-corridor,
+.ideditor .low-zoom path.line.casing.tag-highway-ladder,
 .ideditor .low-zoom path.line.casing.tag-highway-steps {
     stroke-width: 3;
 }
@@ -1253,6 +1256,7 @@
 .ideditor .low-zoom path.line.stroke.tag-highway-cycleway,
 .ideditor .low-zoom path.line.stroke.tag-highway-bridleway,
 .ideditor .low-zoom path.line.stroke.tag-highway-corridor,
+.ideditor .low-zoom path.line.stroke.tag-highway-ladder,
 .ideditor .low-zoom path.line.stroke.tag-highway-steps {
     stroke-width: 1;
 }
@@ -1496,27 +1500,34 @@
 }
 
 /* steps */
-.ideditor .preset-icon .icon.tag-highway-steps {
+.ideditor .preset-icon .icon.tag-highway-steps,
+.ideditor .preset-icon .icon.tag-highway-ladder {
     color: #81d25c;
     fill: #fff;
 }
-.ideditor path.line.stroke.tag-highway-steps {
+.ideditor path.line.stroke.tag-highway-steps,
+.ideditor path.line.stroke.tag-highway-ladder {
     stroke-linecap: butt;
     stroke-dasharray: 3, 3;
 }
-.ideditor .low-zoom path.line.stroke.tag-highway-steps {
+.ideditor .low-zoom path.line.stroke.tag-highway-steps,
+.ideditor .low-zoom path.line.stroke.tag-highway-ladder {
     stroke-dasharray: 2, 2;
 }
-.ideditor path.line.casing.tag-highway-steps {
+.ideditor path.line.casing.tag-highway-steps,
+.ideditor path.line.casing.tag-highway-ladder {
     stroke: #fff;
     stroke-linecap: round;
     stroke-dasharray: none;
 }
 .ideditor path.line.stroke.tag-highway-steps,
-.ideditor .preset-icon-container path.line.casing.tag-highway-steps {
+.ideditor path.line.stroke.tag-highway-ladder,
+.ideditor .preset-icon-container path.line.casing.tag-highway-steps,
+.ideditor .preset-icon-container path.line.casing.tag-highway-ladder {
     stroke: #81d25c;
 }
-.ideditor .preset-icon-container path.line.stroke.tag-highway-steps {
+.ideditor .preset-icon-container path.line.stroke.tag-highway-steps,
+.ideditor .preset-icon-container path.line.stroke.tag-highway-ladder {
     stroke: #fff;
 }
 
@@ -1569,6 +1580,7 @@
 /* highway midpoints */
 .ideditor g.midpoint.tag-highway-corridor .fill,
 .ideditor g.midpoint.tag-highway-steps .fill,
+.ideditor g.midpoint.tag-highway-ladder .fill,
 .ideditor g.midpoint.tag-highway-path .fill,
 .ideditor g.midpoint.tag-highway-footway .fill,
 .ideditor g.midpoint.tag-highway-cycleway .fill,
@@ -1801,24 +1813,37 @@
 
 
 /* wide waterways (river) */
-.ideditor path.line.shadow.tag-waterway-river {
+.ideditor path.line.shadow.tag-waterway-river,
+.ideditor path.line.shadow.tag-waterway-flowline {
     stroke-width: 20;
 }
-.ideditor path.line.casing.tag-waterway-river {
+.ideditor path.line.casing.tag-waterway-river,
+.ideditor path.line.casing.tag-waterway-flowline {
     stroke-width: 10;
 }
-.ideditor path.line.stroke.tag-waterway-river {
+.ideditor path.line.stroke.tag-waterway-river,
+.ideditor path.line.stroke.tag-waterway-flowline {
     stroke-width: 8;
 }
 
-.ideditor .low-zoom path.line.shadow.tag-waterway-river {
+.ideditor .low-zoom path.line.shadow.tag-waterway-river,
+.ideditor .low-zoom path.line.shadow.tag-waterway-flowline {
     stroke-width: 16;
 }
-.ideditor .low-zoom path.line.casing.tag-waterway-river {
+.ideditor .low-zoom path.line.casing.tag-waterway-river,
+.ideditor .low-zoom path.line.casing.tag-waterway-flowline {
     stroke-width: 7;
 }
-.ideditor .low-zoom path.line.stroke.tag-waterway-river {
+.ideditor .low-zoom path.line.stroke.tag-waterway-river,
+.ideditor .low-zoom path.line.stroke.tag-waterway-flowline {
     stroke-width: 5;
+}
+
+.ideditor path.line.stroke.tag-waterway-flowline {
+    stroke-opacity: 0.5;
+}
+.ideditor path.line.casing.tag-waterway-flowline {
+    display: none;
 }
 
 
@@ -1837,6 +1862,8 @@
 .ideditor path.line.shadow.tag-golf-cartpath,
 .ideditor path.line.shadow.tag-man_made-pipeline,
 .ideditor path.line.shadow.tag-natural-tree_row,
+.ideditor path.line.shadow.tag-roller_coaster-track,
+.ideditor path.line.shadow.tag-roller_coaster-support,
 .ideditor path.line.shadow.tag-piste {
     stroke-width: 16;
 }
@@ -1846,6 +1873,8 @@
 .ideditor path.line.casing.tag-golf-cartpath,
 .ideditor path.line.casing.tag-man_made-pipeline,
 .ideditor path.line.casing.tag-natural-tree_row,
+.ideditor path.line.casing.tag-roller_coaster-track,
+.ideditor path.line.casing.tag-roller_coaster-support,
 .ideditor path.line.casing.tag-piste {
     stroke-width: 7;
 }
@@ -1855,6 +1884,8 @@
 .ideditor path.line.stroke.tag-golf-cartpath,
 .ideditor path.line.stroke.tag-man_made-pipeline,
 .ideditor path.line.stroke.tag-natural-tree_row,
+.ideditor path.line.stroke.tag-roller_coaster-track,
+.ideditor path.line.stroke.tag-roller_coaster-support,
 .ideditor path.line.stroke.tag-piste {
     stroke-width: 5;
 }
@@ -1865,6 +1896,8 @@
 .ideditor .low-zoom path.line.shadow.tag-golf-cartpath,
 .ideditor .low-zoom path.line.shadow.tag-man_made-pipeline,
 .ideditor .low-zoom path.line.shadow.tag-natural-tree_row,
+.ideditor .low-zoom path.line.shadow.tag-roller_coaster-track,
+.ideditor .low-zoom path.line.shadow.tag-roller_coaster-support,
 .ideditor .low-zoom path.line.shadow.tag-piste {
     stroke-width: 12;
 }
@@ -1874,6 +1907,8 @@
 .ideditor .low-zoom path.line.casing.tag-golf-cartpath,
 .ideditor .low-zoom path.line.casing.tag-man_made-pipeline,
 .ideditor .low-zoom path.line.casing.tag-natural-tree_row,
+.ideditor .low-zoom path.line.casing.tag-roller_coaster-track,
+.ideditor .low-zoom path.line.casing.tag-roller_coaster-support,
 .ideditor .low-zoom path.line.casing.tag-piste {
     stroke-width: 5;
 }
@@ -1883,6 +1918,8 @@
 .ideditor .low-zoom path.line.stroke.tag-golf-cartpath,
 .ideditor .low-zoom path.line.stroke.tag-man_made-pipeline,
 .ideditor .low-zoom path.line.stroke.tag-natural-tree_row,
+.ideditor .low-zoom path.line.stroke.tag-roller_coaster-track,
+.ideditor .low-zoom path.line.stroke.tag-roller_coaster-support,
 .ideditor .low-zoom path.line.stroke.tag-piste {
     stroke-width: 3;
 }
@@ -1946,6 +1983,23 @@
 }
 .ideditor path.line.casing.tag-attraction-water_slide {
     stroke: #3d6c71;
+}
+
+.ideditor path.line.stroke.tag-roller_coaster-track {
+    stroke: #dddddd;
+    stroke-width: 3;
+    stroke-dasharray: 5, 1;
+    stroke-linecap: butt;
+}
+.ideditor path.line.casing.tag-roller_coaster-track {
+    stroke: #707070;
+}
+
+.ideditor path.line.stroke.tag-roller_coaster-support {
+    stroke: #707070;
+}
+.ideditor path.line.casing.tag-roller_coaster-support {
+    visibility: hidden;
 }
 
 
@@ -2089,6 +2143,7 @@
 .ideditor path.line.shadow.tag-highway-service.tag-bridge,
 .ideditor path.line.shadow.tag-highway-track.tag-bridge,
 .ideditor path.line.shadow.tag-highway-steps.tag-bridge,
+.ideditor path.line.shadow.tag-highway-ladder.tag-bridge,
 .ideditor path.line.shadow.tag-highway-footway.tag-bridge,
 .ideditor path.line.shadow.tag-highway-cycleway.tag-bridge,
 .ideditor path.line.shadow.tag-highway-bridleway.tag-bridge {
@@ -2102,6 +2157,7 @@
 .ideditor path.line.casing.tag-highway-service.tag-bridge,
 .ideditor path.line.casing.tag-highway-track.tag-bridge,
 .ideditor path.line.casing.tag-highway-steps.tag-bridge,
+.ideditor path.line.casing.tag-highway-ladder.tag-bridge,
 .ideditor path.line.casing.tag-highway-footway.tag-bridge,
 .ideditor path.line.casing.tag-highway-cycleway.tag-bridge,
 .ideditor path.line.casing.tag-highway-bridleway.tag-bridge {
@@ -2116,6 +2172,7 @@
 .ideditor .low-zoom path.line.shadow.tag-highway-service.tag-bridge,
 .ideditor .low-zoom path.line.shadow.tag-highway-track.tag-bridge,
 .ideditor .low-zoom path.line.shadow.tag-highway-steps.tag-bridge,
+.ideditor .low-zoom path.line.shadow.tag-highway-ladder.tag-bridge,
 .ideditor .low-zoom path.line.shadow.tag-highway-footway.tag-bridge,
 .ideditor .low-zoom path.line.shadow.tag-highway-cycleway.tag-bridge,
 .ideditor .low-zoom path.line.shadow.tag-highway-bridleway.tag-bridge {
@@ -2129,6 +2186,7 @@
 .ideditor .low-zoom path.line.casing.tag-highway-service.tag-bridge,
 .ideditor .low-zoom path.line.casing.tag-highway-track.tag-bridge,
 .ideditor .low-zoom path.line.casing.tag-highway-steps.tag-bridge,
+.ideditor .low-zoom path.line.casing.tag-highway-ladder.tag-bridge,
 .ideditor .low-zoom path.line.casing.tag-highway-footway.tag-bridge,
 .ideditor .low-zoom path.line.casing.tag-highway-cycleway.tag-bridge,
 .ideditor .low-zoom path.line.casing.tag-highway-bridleway.tag-bridge {
@@ -2144,7 +2202,7 @@
 }
 .ideditor path.line.casing.tag-tunnel,
 .ideditor path.line.casing.tag-location-underground,
-.ideditor path.line.stroke.tag-location-underwater {
+.ideditor path.line.casing.tag-location-underwater {
     stroke-opacity: 0.5;
     stroke-linecap: butt;
     stroke-dasharray: none;
@@ -2257,14 +2315,18 @@
 .ideditor path.line.shadow.tag-highway.tag-status.tag-status-construction.tag-construction-footway,
 .ideditor path.line.shadow.tag-highway.tag-status.tag-status-construction.tag-construction-cycleway,
 .ideditor path.line.shadow.tag-highway.tag-status.tag-status-construction.tag-construction-bridleway,
-.ideditor path.line.shadow.tag-highway.tag-status.tag-status-construction.tag-construction-steps {
+.ideditor path.line.shadow.tag-highway.tag-status.tag-status-construction.tag-construction-corridor,
+.ideditor path.line.shadow.tag-highway.tag-status.tag-status-construction.tag-construction-steps,
+.ideditor path.line.shadow.tag-highway.tag-status.tag-status-construction.tag-construction-ladder {
     stroke-width: 15;
 }
 .ideditor path.line.casing.tag-highway.tag-status.tag-status-construction.tag-construction-path,
 .ideditor path.line.casing.tag-highway.tag-status.tag-status-construction.tag-construction-footway,
 .ideditor path.line.casing.tag-highway.tag-status.tag-status-construction.tag-construction-cycleway,
 .ideditor path.line.casing.tag-highway.tag-status.tag-status-construction.tag-construction-bridleway,
-.ideditor path.line.casing.tag-highway.tag-status.tag-status-construction.tag-construction-steps {
+.ideditor path.line.casing.tag-highway.tag-status.tag-status-construction.tag-construction-corridor,
+.ideditor path.line.casing.tag-highway.tag-status.tag-status-construction.tag-construction-steps,
+.ideditor path.line.casing.tag-highway.tag-status.tag-status-construction.tag-construction-ladder {
     stroke-width: 5;
     stroke-linecap: butt;
     stroke-dasharray: none
@@ -2273,7 +2335,9 @@
 .ideditor path.line.stroke.tag-highway.tag-status.tag-status-construction.tag-construction-footway,
 .ideditor path.line.stroke.tag-highway.tag-status.tag-status-construction.tag-construction-cycleway,
 .ideditor path.line.stroke.tag-highway.tag-status.tag-status-construction.tag-construction-bridleway,
-.ideditor path.line.stroke.tag-highway.tag-status.tag-status-construction.tag-construction-steps {
+.ideditor path.line.stroke.tag-highway.tag-status.tag-status-construction.tag-construction-corridor,
+.ideditor path.line.stroke.tag-highway.tag-status.tag-status-construction.tag-construction-steps,
+.ideditor path.line.stroke.tag-highway.tag-status.tag-status-construction.tag-construction-ladder {
     stroke-width: 4;
     stroke-linecap: butt;
     stroke-dasharray: 10, 10;
@@ -2284,28 +2348,32 @@
 .ideditor path.line.shadow.tag-highway.tag-status.tag-status-proposed.tag-proposed-footway,
 .ideditor path.line.shadow.tag-highway.tag-status.tag-status-proposed.tag-proposed-cycleway,
 .ideditor path.line.shadow.tag-highway.tag-status.tag-status-proposed.tag-proposed-bridleway,
-.ideditor path.line.shadow.tag-highway.tag-status.tag-status-proposed.tag-proposed-steps {
+.ideditor path.line.shadow.tag-highway.tag-status.tag-status-proposed.tag-proposed-steps,
+.ideditor path.line.shadow.tag-highway.tag-status.tag-status-proposed.tag-proposed-ladder {
     stroke-width: 15;
 }
 .ideditor path.line.casing.tag-highway.tag-status.tag-status-proposed.tag-proposed-path,
 .ideditor path.line.casing.tag-highway.tag-status.tag-status-proposed.tag-proposed-footway,
 .ideditor path.line.casing.tag-highway.tag-status.tag-status-proposed.tag-proposed-cycleway,
 .ideditor path.line.casing.tag-highway.tag-status.tag-status-proposed.tag-proposed-bridleway,
-.ideditor path.line.casing.tag-highway.tag-status.tag-status-proposed.tag-proposed-steps {
+.ideditor path.line.casing.tag-highway.tag-status.tag-status-proposed.tag-proposed-steps,
+.ideditor path.line.casing.tag-highway.tag-status.tag-status-proposed.tag-proposed-ladder {
     stroke-width: 4.5;
 }
 .ideditor path.line.casing.tag-highway.tag-bridge.tag-status.tag-status-proposed.tag-proposed-path,
 .ideditor path.line.casing.tag-highway.tag-bridge.tag-status.tag-status-proposed.tag-proposed-footway,
 .ideditor path.line.casing.tag-highway.tag-bridge.tag-status.tag-status-proposed.tag-proposed-cycleway,
 .ideditor path.line.casing.tag-highway.tag-bridge.tag-status.tag-status-proposed.tag-proposed-bridleway,
-.ideditor path.line.casing.tag-highway.tag-bridge.tag-status.tag-status-proposed.tag-proposed-steps {
+.ideditor path.line.casing.tag-highway.tag-bridge.tag-status.tag-status-proposed.tag-proposed-steps,
+.ideditor path.line.casing.tag-highway.tag-bridge.tag-status.tag-status-proposed.tag-proposed-ladder {
     stroke-width: 10;
 }
 .ideditor path.line.stroke.tag-highway.tag-status.tag-status-proposed.tag-proposed-path,
 .ideditor path.line.stroke.tag-highway.tag-status.tag-status-proposed.tag-proposed-footway,
 .ideditor path.line.stroke.tag-highway.tag-status.tag-status-proposed.tag-proposed-cycleway,
 .ideditor path.line.stroke.tag-highway.tag-status.tag-status-proposed.tag-proposed-bridleway,
-.ideditor path.line.stroke.tag-highway.tag-status.tag-status-proposed.tag-proposed-steps {
+.ideditor path.line.stroke.tag-highway.tag-status.tag-status-proposed.tag-proposed-steps,
+.ideditor path.line.stroke.tag-highway.tag-status.tag-status-proposed.tag-proposed-ladder {
     stroke-width: 3;
 }
 
@@ -2452,11 +2520,24 @@
 .ideditor .turn circle {
     cursor: pointer;
 }
+/* legend */
+.ideditor li.list-item-photos.active:after {
+    display: block;
+    content: "";
+    height: 100%;
+    position: absolute;
+    right: 0;
+    width: 8px;
+}
+.ideditor[dir='rtl'] li.list-item-photos.active:after {
+    right: auto;
+    left: 0;
+}
+
 /* photo viewer div */
 .ideditor .photoviewer {
     position: relative;
-    -ms-flex-negative: 0;
-        flex-shrink: 0;
+    flex-shrink: 0;
     margin-bottom: 10px;
     width: 330px;
     height: 250px;
@@ -2484,6 +2565,15 @@
     padding: 5px;
     position: absolute;
     right: 5px;
+    top: 5px;
+    z-index: 50;
+}
+
+.ideditor .photoviewer button.set-photo-from-viewer {
+    border-radius: 0;
+    padding: 5px;
+    position: absolute;
+    left: 5px;
     top: 5px;
     z-index: 50;
 }
@@ -2536,9 +2626,13 @@
     width: 100%;
     font-size: 10px;
     text-align: right;
-    line-height: 1.1em;
-    padding: 4px 2px;
+    line-height: 150%;
+    padding: 4px 8px;
     z-index: 10;
+}
+.ideditor .photo-attribution-dual {
+    display: flex;
+    justify-content: space-between;
 }
 
 .ideditor .photo-attribution a,
@@ -2546,6 +2640,7 @@
 .ideditor .photo-attribution span {
     padding: 4px 2px;
     color: #fff;
+    text-wrap: nowrap;
 }
 
 /* markers and sequences */
@@ -2611,15 +2706,13 @@
 }
 
 .ideditor .viewfield-group.currentView .viewfield-scale {
-    -webkit-transform: scale(2,2);
-        -ms-transform: scale(2,2);
-            transform: scale(2,2);
+    transform: scale(2,2);
 }
 
 .ideditor .sequence {
     fill: none;
     stroke-width: 2;
-    stroke-opacity: 0.4;
+    stroke-opacity: 0.6;
 }
 .ideditor .sequence.highlighted,
 .ideditor .sequence.currentView {
@@ -2629,6 +2722,9 @@
 
 
 /* Streetside Image Layer */
+.ideditor li.list-item-photos.list-item-streetside.active:after {
+    background-color: #0fffc4;
+}
 .ideditor .layer-streetside-images {
     pointer-events: none;
 }
@@ -2641,19 +2737,25 @@
 }
 
 /* Vegbilder Image Layer */
+.ideditor li.list-item-photos.list-item-vegbilder.active:after {
+    background-color: #ed1c2e;
+}
 .ideditor .layer-vegbilder {
     pointer-events: none;
 }
 .ideditor .layer-vegbilder .viewfield-group * {
-    fill: #ed9300;
+    fill: #ed1c2e;
 }
 .ideditor .layer-vegbilder .sequence {
-    stroke: #ed9300;
+    stroke: #ed1c2e;
     stroke-opacity: 0.85;  /* bump opacity - only one per road */
 }
 
 
 /* Mapillary Image Layer */
+.ideditor li.list-item-photos.list-item-mapillary.active:after {
+    background-color: #55ff22;
+}
 .ideditor .layer-mapillary {
     pointer-events: none;
 }
@@ -2701,6 +2803,9 @@
 
 
 /* KartaView Image Layer */
+.ideditor li.list-item-photos.list-item-kartaview.active:after {
+    background-color: #20c4ff;
+}
 .ideditor .layer-kartaview {
     pointer-events: none;
 }
@@ -2713,6 +2818,9 @@
 
 
 /* Mapilio Image Layer */
+.ideditor li.list-item-photos.list-item-mapilio.active:after {
+    background-color: #0056f1;
+}
 .ideditor .layer-mapilio {
     pointer-events: none;
 }
@@ -2726,15 +2834,9 @@
     stroke: #0056f1;
 }
 .ideditor .photo-controls-mapilio {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    align-items: center;
+    justify-content: center;
     gap: 4px;
 }
 .ideditor .photo-controls-mapilio button {
@@ -2754,37 +2856,83 @@
 .ideditor #ideditor-viewer-mapilio-simple {
     width: 100%;
     height: 100%;
-    -webkit-transform-origin: 0 0;
-        -ms-transform-origin: 0 0;
-            transform-origin: 0 0;
+    transform-origin: 0 0;
 }
 .ideditor #ideditor-viewer-mapilio-simple img {
     width: 100%;
     height: 100%;
     -o-object-fit: cover;
        object-fit: cover;
-    overflow: hidden
+    overflow: hidden;
+}
+
+/* panoramax Image Layer */
+.ideditor li.list-item-photos.list-item-panoramax.active:after {
+    background-color: #ff6f00;
+}
+.ideditor .layer-panoramax {
+    pointer-events: none;
+}
+.ideditor .layer-panoramax .viewfield-group * {
+    fill: #ff6f00;
+    stroke: #ffffff;
+    stroke-opacity: .6;
+    fill-opacity: .6;
+}
+.ideditor .layer-panoramax .sequence {
+    stroke: #ff6f00;
+}
+.ideditor .photo-controls-panoramax {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+.ideditor .photo-controls-panoramax button {
+    padding:0 6px;
+    pointer-events: initial;
+}
+
+.ideditor label.panoramax-hd {
+    float: left;
+    cursor: pointer;
+}
+.ideditor .panoramax-hd span {
+    margin-top: 2px;
+}
+.ideditor .panoramax-hd input[type="checkbox"] {
+    width: 12px;
+    height: 12px;
+    margin: 0 2px;
+}
+
+.ideditor .slider-wrap {
+    display: inline-block;  
+}
+
+.ideditor .year-datalist {
+    display: flex;
+    justify-content: space-between;
+}
+
+.ideditor .list-option-date-slider{
+    direction: rtl
 }
 
 
 /* Streetside Viewer (pannellum) */
+.ideditor .ms-wrapper .photo-attribution {
+    line-height: 1.1em;
+    padding: 4px 2px;
+}
 .ideditor .ms-wrapper .photo-attribution .image-link {
     display: block;
 }
 .ideditor .ms-wrapper .photo-attribution .attribution-row {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-flow: row nowrap;
-            flex-flow: row nowrap;
-    -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
     padding: 0 5px;
 }
 .ideditor .ms-wrapper .photo-attribution .image-view-link {
@@ -2805,7 +2953,8 @@
 }
 
 .ideditor .ms-wrapper .pnlm-compass.pnlm-control,
-.ideditor .vegbilder-wrapper  .pnlm-compass.pnlm-control {
+.ideditor .vegbilder-wrapper  .pnlm-compass.pnlm-control,
+.ideditor .panoramax-wrapper  .pnlm-compass.pnlm-control {
     width: 26px;
     height: 26px;
     left: 4px;
@@ -2842,25 +2991,21 @@
 }
 
 .ideditor .mly-wrapper .mapillary-attribution-container {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    align-items: center;
 }
 
 .ideditor .mly-wrapper .mapillary-attribution-container .mapillary-attribution-icon-container {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    align-items: center;
+}
+
+.ideditor .mapillary-attribution-image-container {
+  height: auto;
 }
 
 .ideditor .mly-wrapper .mapillary-attribution-container .mapillary-attribution-username {
-    display: none;
+    padding: 0px 8px 0 6px;
 }
 
 .ideditor .mly-wrapper .mapillary-attribution-container .mapillary-attribution-date {
@@ -2896,32 +3041,27 @@
 .ideditor .kartaview-image-wrap {
     width: 100%;
     height: 100%;
-    -webkit-transform-origin: 0 0;
-        -ms-transform-origin: 0 0;
-            transform-origin: 0 0;
+    transform-origin: 0 0;
 }
 
 .ideditor .photo-wrapper {
     position: relative;
     background-color: #000;
-}
-
-.ideditor .photoviewer .plane-frame {
-    display: block;
-    overflow: hidden;
-    height: 100%;
-    width: 100%;
     background-image: url(<%= asset_path("iD/img/loader-black.gif") %>);
     background-position: center;
     background-repeat: no-repeat;
 }
 
-.ideditor .photoviewer .plane-frame > img.plane-photo{
+.ideditor .photoviewer .plane-frame {
+    height: 100%;
+    width: 100%;
+    transform-origin: 0 0;
+}
+
+.ideditor .photoviewer .plane-frame > img.plane-photo {
     width: auto;
     height: 100%;
-    -webkit-transform-origin: 0 0;
-        -ms-transform-origin: 0 0;
-            transform-origin: 0 0;
+    transform-origin: 0 0;
 }
 
 /* photo-controls (step forward, back, rotate) */
@@ -2974,8 +3114,6 @@
     fill: #ed00d9;
 }
 .ideditor .local-photos {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
 }
 .ideditor .local-photos > div {
@@ -2993,18 +3131,17 @@
        see https://stackoverflow.com/a/39554003 */
     margin-left: -100px;
     padding-left: 100px;
+    margin-top: -20px;
+    padding-top: 20px;
+    min-height: 100px;
 }
 .ideditor .list-local-photos::-webkit-scrollbar {
     border-left: none;
 }
 .ideditor .list-local-photos li {
     list-style: none;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
+    justify-content: space-between;
     height: 30px;
 }
 .ideditor .list-local-photos span.filename {
@@ -3035,9 +3172,6 @@
 .ideditor .list-local-photos li:last-child button.remove {
     border-bottom-right-radius: 4px;
 }
-.ideditor .list-local-photos li.invalid span.filename {
-    color: #ccc;
-}
 .ideditor .list-local-photos li.invalid button.zoom-to-data {
     display: none;
 }
@@ -3046,6 +3180,7 @@
 }
 .ideditor .list-local-photos li.invalid button.no-geolocation {
     display: block;
+    color: red;
 }
 .ideditor .list-local-photos .placeholder div {
     display: block;
@@ -3055,8 +3190,7 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-image: url(<%= asset_path("iD/img/loader-black.gif") %>);
-    -webkit-filter: invert(1);
-            filter: invert(1);
+    filter: invert(1);
 }
 .ideditor .local-photos label.button {
     background: #7092ff;
@@ -3069,11 +3203,12 @@
     border-radius: 4px;
     cursor: pointer;
 }
+
+
 /* OSM Notes and QA Layers */
 
 .ideditor .qa-header-icon .qaItem-fill,
 .ideditor .layer-keepRight .qaItem .qaItem-fill,
-.ideditor .layer-improveOSM .qaItem .qaItem-fill,
 .ideditor .layer-osmose .qaItem .qaItem-fill {
     stroke: #333;
     stroke-width: 1.3px;  /* NOTE: likely a better way to scale the icon stroke */
@@ -3119,15 +3254,9 @@
     left: auto;
 }
 .ideditor .qa-header-icon {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Keep Right Issues
@@ -3201,30 +3330,6 @@
 .ideditor .keepRight.itemType-120,    
 .ideditor .keepRight.itemType-400 {   /* geometry / turn angles */
     color: #c35;
-}
-
-/* ImproveOSM Issues
-------------------------------------------------------- */
-
-.ideditor .improveOSM.itemType-ow {   /* missing one way */
-    color: #1E90FF;
-}
-
-.ideditor .improveOSM.itemType-mr-road {   /* missing road */
-    color: #B452CD;
-}
-.ideditor .improveOSM.itemType-mr-path {   /* missing path */
-    color: #A0522D;
-}
-.ideditor .improveOSM.itemType-mr-parking {   /* missing parking */
-    color: #EEEE00;
-}
-.ideditor .improveOSM.itemType-mr-both {   /* missing road+parking */
-    color: #FFA500;
-}
-
-.ideditor .improveOSM.itemType-tr {   /* missing turn restriction */
-    color: #EC1C24;
 }
 
 /* Custom Map Data (geojson, gpx, kml, vector tile) */
@@ -3418,45 +3523,32 @@
         sans-serif;
     color: #333;
 
-    -ms-touch-action: none;
-
-        touch-action: none;
+    touch-action: none;
     -ms-user-select: none;
     -ms-content-zooming: none;
 }
 .ideditor div {
     /* disable pinch-to-zoom of the UI on touch devices */
-    -ms-touch-action: pan-x pan-y;
-        touch-action: pan-x pan-y;
+    touch-action: pan-x pan-y;
 }
 
 .ideditor .main-content {
     position: relative;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    flex-direction: column;
     overflow: hidden;
     height: 100%;
-    -ms-touch-action: none;
-        touch-action: none;
+    touch-action: none;
 }
 
 .ideditor .main-content.active {
-    -webkit-filter: none !important;
-            filter: none !important;
-    -webkit-transition-duration: 200ms;
-            transition-duration: 200ms;
+    filter: none !important;
+    transition-duration: 200ms;
 }
 
 .ideditor .main-content.inactive {
-    -webkit-filter: grayscale(80%) brightness(80%);
-            filter: grayscale(80%) brightness(80%);
-    -webkit-transition-duration: 200ms;
-            transition-duration: 200ms;
+    filter: grayscale(80%) brightness(80%);
+    transition-duration: 200ms;
 }
 
 .ideditor #ideditor-defs {
@@ -3467,8 +3559,7 @@
 }
 
 .ideditor div, .ideditor textarea, .ideditor label, .ideditor input, .ideditor form, .ideditor span, .ideditor ul, .ideditor li, .ideditor ol, .ideditor a, .ideditor button, .ideditor h1, .ideditor h2, .ideditor h3, .ideditor h4, .ideditor h5, .ideditor p, .ideditor img {
-    -webkit-box-sizing: border-box;
-            box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .ideditor a, .ideditor button, .ideditor input, .ideditor textarea {
@@ -3526,22 +3617,7 @@
     outline-style: none;
 }
 
-.ideditor ::-webkit-input-placeholder {
-    color: #aaa;
-    opacity: 1; /* Firefox */
-}
-
 .ideditor ::-moz-placeholder {
-    color: #aaa;
-    opacity: 1; /* Firefox */
-}
-
-.ideditor :-ms-input-placeholder {
-    color: #aaa;
-    opacity: 1; /* Firefox */
-}
-
-.ideditor ::-ms-input-placeholder {
     color: #aaa;
     opacity: 1; /* Firefox */
 }
@@ -3591,8 +3667,7 @@
     margin: 0 2px;
     border-bottom-color: #bbb;
     border-radius: 3px;
-    -webkit-box-shadow: inset 0 -1px 0 #bbb;
-            box-shadow: inset 0 -1px 0 #bbb;
+    box-shadow: inset 0 -1px 0 #bbb;
 }
 
 .ideditor code {
@@ -3669,19 +3744,7 @@
     margin-right: 0;
 }
 
-.ideditor input.mixed::-webkit-input-placeholder, .ideditor textarea.mixed::-webkit-input-placeholder {
-    font-style: italic;
-}
-
 .ideditor input.mixed::-moz-placeholder, .ideditor textarea.mixed::-moz-placeholder {
-    font-style: italic;
-}
-
-.ideditor input.mixed:-ms-input-placeholder, .ideditor textarea.mixed:-ms-input-placeholder {
-    font-style: italic;
-}
-
-.ideditor input.mixed::-ms-input-placeholder, .ideditor textarea.mixed::-ms-input-placeholder {
     font-style: italic;
 }
 
@@ -3767,8 +3830,7 @@
     color: #a9a9a9;
 }
 .ideditor .content {
-    -webkit-box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.25);
-            box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.25);
+    box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.25);
 }
 .ideditor .loading {
     background: url(<%= asset_path("iD/img/loader_bg.gif") %>);
@@ -3951,6 +4013,12 @@
     vertical-align: baseline;
 }
 
+.ideditor button.loading .icon {
+    background-image: url(<%= asset_path("iD/img/mini-loader.gif") %>);
+    background-position: 0 0;
+    background-size: auto;
+}
+
 
 /* Toolbar / Persistent UI Elements
 ------------------------------------------------------- */
@@ -3959,16 +4027,9 @@
     z-index: 101;
 }
 .ideditor .top-toolbar {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-flow: row nowrap;
-            flex-flow: row nowrap;
-    -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
+    flex-flow: row nowrap;
+    justify-content: space-between;
     padding: 10px 0 0 0;
     overflow-x: auto;
     overflow-y: hidden;
@@ -3983,34 +4044,16 @@
     display: none; /* Chrome, Safari, Opera */
 }
 .ideditor .top-toolbar .toolbar-item {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-flex: 0;
-        -ms-flex: 0 1 auto;
-            flex: 0 1 auto;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-flow: column wrap;
-            flex-flow: column wrap;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    flex: 0 1 auto;
+    flex-flow: column wrap;
+    justify-content: center;
 }
 .ideditor .top-toolbar .toolbar-item .item-content {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-flex: 0;
-        -ms-flex: 0 1 auto;
-            flex: 0 1 auto;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-flow: row nowrap;
-            flex-flow: row nowrap;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    flex: 0 1 auto;
+    flex-flow: row nowrap;
+    justify-content: center;
     height: 40px;
     width: auto;
     margin: 0 5px;
@@ -4039,51 +4082,32 @@
 }
 .ideditor .top-toolbar .toolbar-item.spacer {
     width: 100%;
-    -webkit-box-flex: 2;
-        -ms-flex-positive: 2;
-            flex-grow: 2;
+    flex-grow: 2;
 }
 .ideditor .top-toolbar .toolbar-item:first-child {
-    -webkit-box-pack: start;
-        -ms-flex-pack: start;
-            justify-content: flex-start;
+    justify-content: flex-start;
 }
 .ideditor .top-toolbar .toolbar-item:last-child {
-    -webkit-box-pack: end;
-        -ms-flex-pack: end;
-            justify-content: flex-end;
+    justify-content: flex-end;
 }
 .ideditor .top-toolbar .toolbar-item:empty:not(.spacer) {
     display: none;
 }
 .ideditor button.bar-button {
-    -webkit-box-flex: 0;
-        -ms-flex: 0 0 auto;
-            flex: 0 0 auto;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-flow: row nowrap;
-            flex-flow: row nowrap;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    flex: 0 0 auto;
+    flex-flow: row nowrap;
+    align-items: center;
     padding: 0 10px;
     min-width: 30px;
     white-space: nowrap;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
     font-weight: bold;
 }
 .ideditor button.bar-button .icon {
-    -webkit-box-flex: 0;
-        -ms-flex: 0 0 20px;
-            flex: 0 0 20px;
+    flex: 0 0 20px;
 }
 .ideditor button.bar-button .label {
-    -webkit-box-flex: 0;
-        -ms-flex: 0 1 auto;
-            flex: 0 1 auto;
+    flex: 0 1 auto;
     padding: 0 5px;
 }
 
@@ -4141,11 +4165,8 @@
     border-radius: 100%;
 }
 .ideditor[dir='rtl'] .spinner img {
-    -webkit-transform: scaleX(-1);
-        -ms-transform: scaleX(-1);
-            transform: scaleX(-1);
-    -webkit-filter: FlipH;
-            filter: FlipH;
+    transform: scaleX(-1);
+    filter: FlipH;
     -ms-filter: "FlipH";
 }
 
@@ -4172,18 +4193,10 @@
     border-bottom: 1px solid #ccc;
     padding: 20px 40px;
     position: relative;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    -webkit-box-flex: 0;
-        -ms-flex: 0 0 auto;
-            flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
 }
 
 .ideditor .header h3 {
@@ -4259,24 +4272,15 @@
     width: 100%;
     height: 2.5em;
     z-index: 1;
-    -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
-    -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
     list-style: none;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
 }
 
 .ideditor .footer > a {
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    justify-content: center;
 }
 
 /* Hide/Toggle collapsible sections (aka Disclosure)
@@ -4325,7 +4329,6 @@
     /* disable drag-to-select */
     -webkit-user-select: none;
        -moz-user-select: none;
-        -ms-user-select: none;
             user-select: none;
 }
 .ideditor[dir='rtl'] .sidebar-resizer {
@@ -4351,19 +4354,15 @@
     left: 0;
     bottom: 0;
     right: 0;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    flex-direction: column;
 }
 
 .ideditor .sidebar-component .body {
     width: 100%;
     height: 100%;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
     position: relative;
 }
 
@@ -4379,13 +4378,8 @@
     width: 50%;
     top: 0;
     bottom: 2.5em;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    flex-direction: column;
 }
 
 .ideditor .pane:first-child {
@@ -4396,13 +4390,8 @@
     right: 0;
 }
 .ideditor .feature-list-pane {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    flex-direction: column;
     height: 100%;
 }
 
@@ -4422,9 +4411,7 @@
     overflow-x: hidden;
     position: relative;
     height: 100%;
-    -webkit-box-flex: 1;
-        -ms-flex: 1 1 100%;
-            flex: 1 1 100%;
+    flex: 1 1 100%;
 }
 .ideditor .entity-editor {
     padding: 20px;
@@ -4437,9 +4424,7 @@
 .ideditor .sidebar .search-header {
     position: relative;
     overflow: hidden;
-    -webkit-box-flex: 0;
-        -ms-flex: 0 0 auto;
-            flex: 0 0 auto;
+    flex: 0 0 auto;
 }
 .ideditor .sidebar .search-header .icon {
     display: inline-block;
@@ -4496,8 +4481,6 @@
 }
 
 .ideditor .feature-list-item {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
 }
 .ideditor .feature-list-item .label {
@@ -4506,9 +4489,7 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-    -webkit-box-flex: 1;
-        -ms-flex: 1 1 auto;
-            flex: 1 1 auto;
+    flex: 1 1 auto;
 }
 .ideditor[dir='rtl'] .feature-list-item .label {
     text-align: right;
@@ -4585,8 +4566,6 @@
 
 .ideditor .preset-list-button-wrap {
     min-height: 62px;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -4596,12 +4575,8 @@
     width: 100%;
     height: 100%;
     position: relative;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    align-items: center;
 }
 
 .ideditor .preset-list.filtered .preset-list-item:first-child .preset-list-button {
@@ -4613,25 +4588,15 @@
     width: 60px;
     height: 60px;
     text-align: center;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    -webkit-box-flex: 0;
-        -ms-flex: 0 0 auto;
-            flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
 }
 .ideditor .preset-icon-container.small {
     width: 40px;
     height: 40px;
-    -webkit-box-flex: 0;
-        -ms-flex: 0 0 auto;
-            flex: 0 0 auto;
+    flex: 0 0 auto;
 }
 .ideditor .preset-icon-container img.image-icon {
     width: 50px;
@@ -4729,74 +4694,46 @@
     right: 0;
     width: 100%;
     height: 100%;
-    -webkit-transform: scale(0.48);
-        -ms-transform: scale(0.48);
-            transform: scale(0.48);
+    transform: scale(0.48);
 }
 .ideditor .preset-icon-container.small .preset-icon.point-geom .icon {
-    -webkit-transform: translateY(-7%) scale(0.27);
-        -ms-transform: translateY(-7%) scale(0.27);
-            transform: translateY(-7%) scale(0.27);
+    transform: translateY(-7%) scale(0.27);
 }
 .ideditor .preset-icon-container.small .preset-icon.point-geom.preset-icon-iD .icon {
-    -webkit-transform: translateY(-9%) scale(0.5);
-        -ms-transform: translateY(-9%) scale(0.5);
-            transform: translateY(-9%) scale(0.5);
+    transform: translateY(-9%) scale(0.5);
 }
 .ideditor .preset-icon.framed .icon {
-    -webkit-transform: scale(0.4);
-        -ms-transform: scale(0.4);
-            transform: scale(0.4);
+    transform: scale(0.4);
 }
 .ideditor .preset-icon.framed.line-geom:not(.category) .icon,
 .ideditor .preset-icon.framed.route-geom .icon {
     top: 20%;
-    -webkit-transform: translateY(-30%) scale(0.4);
-        -ms-transform: translateY(-30%) scale(0.4);
-            transform: translateY(-30%) scale(0.4);
+    transform: translateY(-30%) scale(0.4);
 }
 .ideditor .preset-icon-iD .icon {
-    -webkit-transform: scale(1);
-        -ms-transform: scale(1);
-            transform: scale(1);
+    transform: scale(1);
 }
 .ideditor .preset-icon-iD.framed .icon {
-    -webkit-transform: scale(0.74);
-        -ms-transform: scale(0.74);
-            transform: scale(0.74);
+    transform: scale(0.74);
 }
 .ideditor .preset-icon-iD.framed.line-geom:not(.category) .icon,
 .ideditor .preset-icon-iD.framed.route-geom .icon {
-    -webkit-transform: translateY(-30%) scale(0.74);
-        -ms-transform: translateY(-30%) scale(0.74);
-            transform: translateY(-30%) scale(0.74);
+    transform: translateY(-30%) scale(0.74);
 }
 .ideditor .preset-icon-container.fallback .preset-icon .icon {
-    -webkit-transform: scale(0.5) !important;
-        -ms-transform: scale(0.5) !important;
-            transform: scale(0.5) !important;
+    transform: scale(0.5) !important;
 }
 
 .ideditor .preset-list-button .label {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-flow: row wrap;
-            flex-flow: row wrap;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    flex-flow: row wrap;
+    align-items: center;
     background: #f6f6f6;
     text-align: left;
     padding: 5px 10px;
     border-left: 1px solid rgba(0, 0, 0, .1);
-    -webkit-box-flex: 1;
-        -ms-flex: 1 1 100%;
-            flex: 1 1 100%;
-    -ms-flex-item-align: stretch;
-        align-self: stretch;
+    flex: 1 1 100%;
+    align-self: stretch;
 }
 .ideditor[dir='rtl'] .preset-list-button .label {
     text-align: right;
@@ -4847,9 +4784,7 @@
 
 .ideditor .preset-list-button-wrap button.tag-reference-button {
     width: 32px;
-    -webkit-box-flex: 0;
-        -ms-flex: 0 0 auto;
-            flex: 0 0 auto;
+    flex: 0 0 auto;
 }
 .ideditor .preset-list-button-wrap button.tag-reference-button:not(:hover):not(:active):not(:focus) {
     background: #f6f6f6;
@@ -4870,8 +4805,6 @@
     opacity: .5;
 }
 .ideditor .preset-list-button-wrap .accessory-buttons {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
 }
 
@@ -4922,16 +4855,9 @@
 /* Quick links
 ------------------------------------------------------- */
 .ideditor .quick-links {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-flow: row wrap;
-            flex-flow: row wrap;
-    -webkit-box-pack: end;
-        -ms-flex-pack: end;
-            justify-content: flex-end;
+    flex-flow: row wrap;
+    justify-content: flex-end;
     padding: 5px 0 0 0;
 }
 .ideditor .quick-link {
@@ -4973,16 +4899,10 @@
 */
 
 .ideditor .form-field {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-flow: row wrap;
-            flex-flow: row wrap;
+    flex-flow: row wrap;
     margin-bottom: 10px;
     width: 100%;
-    -webkit-transition: margin-bottom 200ms;
     transition: margin-bottom 200ms;
 }
 
@@ -4993,16 +4913,9 @@
 
 /* A `label` element that wraps the top section */
 .ideditor .field-label {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-flow: row nowrap;
-            flex-flow: row nowrap;
-    -webkit-box-flex: 1;
-        -ms-flex: 1 1 100%;
-            flex: 1 1 100%;
+    flex-flow: row nowrap;
+    flex: 1 1 100%;
     position: relative;
     font-weight: bold;
     color: #333;
@@ -5014,15 +4927,13 @@
 .ideditor .field-label .label-text {
     overflow: hidden;
     text-overflow: ellipsis;
-    -webkit-box-flex: 1;
-        -ms-flex: 1 1 auto;
-            flex: 1 1 auto;
+    flex: 1 1 auto;
     padding: 5px 0 4px 10px;
 }
 .ideditor[dir='rtl'] .field-label .label-text {
     padding: 5px 10px 4px 0;
 }
-.ideditor .field-label .label-text span {
+.ideditor .field-label .label-text {
     white-space: nowrap;
 }
 
@@ -5036,9 +4947,7 @@
 }
 
 .ideditor .field-label button {
-    -webkit-box-flex: 0;
-        -ms-flex: 0 0 auto;
-            flex: 0 0 auto;
+    flex: 0 0 auto;
     border-left: 1px solid #ccc;
     width: 32px;
     border-radius: 0;
@@ -5068,17 +4977,10 @@
 
 /* A `div` element that wraps the bottom section */
 .ideditor .form-field-input-wrap {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-flow: row nowrap;
-            flex-flow: row nowrap;
+    flex-flow: row nowrap;
     width: 100%;
-    -webkit-box-flex: 1;
-        -ms-flex: 1 1 auto;
-            flex: 1 1 auto;
+    flex: 1 1 auto;
     border-top: 0;
     border-radius: 0 0 4px 4px;
 }
@@ -5091,9 +4993,7 @@
 .ideditor .form-field-input-wrap > label,
 .ideditor .form-field-input-wrap > textarea,
 .ideditor .form-field-input-wrap > ul.chiplist {
-    -webkit-box-flex: 1;
-        -ms-flex: 1 1 auto;
-            flex: 1 1 auto;
+    flex: 1 1 auto;
     border: 1px solid #ccc;
     border-top: 0;
     border-radius: 0;
@@ -5106,9 +5006,7 @@
 
 /* Buttons inside fields */
 .ideditor .form-field-button {
-    -webkit-box-flex: 0;
-        -ms-flex: 0 0 auto;
-            flex: 0 0 auto;
+    flex: 0 0 auto;
     width: 32px;
     position: relative;
     background-color: #fff;
@@ -5182,24 +5080,15 @@
 ------------------------------------------------------- */
 .ideditor .form-field-input-access,
 .ideditor .form-field-input-directionalcombo {
-    -webkit-box-flex: 1;
-        -ms-flex: 1 1 auto;
-            flex: 1 1 auto;
-    display: -webkit-box;
-    display: -ms-flexbox;
+    flex: 1 1 auto;
     display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-flow: row wrap;
-            flex-flow: row wrap;
+    flex-flow: row wrap;
 }
 
 /* Field - lists with labeled input items
 ------------------------------------------------------- */
 .ideditor .form-field ul.rows {
-    -webkit-box-flex: 1;
-        -ms-flex: 1 1 auto;
-            flex: 1 1 auto;
+    flex: 1 1 auto;
     border: 1px solid #ccc;
     border-top: 0;
     border-radius: 0 0 4px 4px;
@@ -5213,21 +5102,14 @@
     border-top: 0;
 }
 .ideditor .form-field ul.rows li {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-flow: row nowrap;
-            flex-flow: row nowrap;
+    flex-flow: row nowrap;
 }
-.ideditor .form-field ul.rows li.labeled-input > span,
 .ideditor .form-field ul.rows li.labeled-input > div {
-    -webkit-box-flex: 1;
-        -ms-flex: 1 1 auto;
-            flex: 1 1 auto;
+    flex: 1 1 auto;
     width: 100%;
     border-radius: 0;
+    line-height: 0.95rem;
 }
 .ideditor .form-field ul.rows li input {
     border-radius: 0;
@@ -5244,6 +5126,28 @@
 .ideditor[dir='rtl'] .form-field ul.rows li.labeled-input input,
 .ideditor[dir='rtl'] .form-field ul.rows li button {
     border-right-width: 1px;
+}
+
+/* Field - lists with labeled input items as table
+------------------------------------------------------- */
+.ideditor .form-field ul.rows.rows-table {
+    display: table;
+    width: 100%;
+}
+.ideditor .form-field ul.rows.rows-table li.labeled-input {
+    display: table-row;
+}
+.ideditor .form-field ul.rows.rows-table li.labeled-input > div:first-child {
+    display: table-cell;
+    width: auto;
+    max-width: 170px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.ideditor .form-field ul.rows.rows-table li.labeled-input > div:nth-child(2) {
+    display: table-cell;
+    width: auto;
 }
 
 
@@ -5299,16 +5203,8 @@
 }
 
 .ideditor .form-field-input-multicombo li {
-    display: -webkit-inline-box;
-    display: -ms-inline-flexbox;
     display: inline-flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-flow: row nowrap;
-            flex-flow: row nowrap;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    flex-flow: row nowrap;
     margin-bottom: 3px;
     margin-top: 3px;
     border-radius: 4px;
@@ -5331,6 +5227,8 @@
 }
 .ideditor .form-field-input-multicombo li.chip input {
     width: 1em;
+    height: 11px;
+    margin-top: 7px;
 }
 .ideditor[dir='ltr'] .form-field-input-multicombo li.chip {
     padding: 2px 0px 2px 5px;
@@ -5339,13 +5237,11 @@
     padding: 2px 5px 2px 0px;
 }
 .ideditor .form-field-input-multicombo li.chip.draggable {
-    cursor: -webkit-grab;
     cursor: grab;
 }
 .ideditor .form-field-input-multicombo li.chip.dragging {
     opacity: 0.75;
     z-index: 3000;
-    cursor: -webkit-grabbing;
     cursor: grabbing;
 }
 .ideditor .form-field-input-multicombo li.chip.raw-value {
@@ -5360,14 +5256,14 @@
 
 .ideditor .form-field-input-multicombo li.chip > span {
     display: block;
-    -webkit-box-flex: 1;
-        -ms-flex: 1 1 auto;
-            flex: 1 1 auto;
+    flex: 1 1 auto;
     overflow: hidden;
     word-wrap: break-word;
+    margin-top: 4px;
 }
 
-.ideditor .form-field-input-multicombo a {
+.ideditor .form-field-input-multicombo a,
+.ideditor .form-field-input-multicombo button {
     font-family: Arial, Helvetica, sans-serif !important;
     font-size: 16px !important;
     padding: 0px 5px 0px 5px;
@@ -5376,9 +5272,40 @@
     color: #a6b4ce;
     display: block;
     text-align: center;
-    -webkit-box-flex: 0;
-        -ms-flex: 0 0 auto;
-            flex: 0 0 auto;
+    flex: 0 0 auto;
+    background: transparent;
+    border: 0;
+}
+
+.ideditor .form-field-input-multicombo li.chip .field_buttons {
+    display: inline-block;
+    text-align: right;
+    margin-right: 2px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+.ideditor .form-field-input-multicombo li.chip .field_buttons a {
+    display: block;
+    float: right;
+    margin-top: -2px;
+    margin-bottom: -2px;
+}
+
+.ideditor[dir='rtl'] .form-field-input-multicombo li.chip .field_buttons a {
+    float: left;
+}
+
+.ideditor .form-field-input-multicombo li.chip .field_buttons button {
+    display: inline-block;
+    margin-right: -4px;
+    margin-top: -4px;
+    margin-bottom: -2px;
+    margin-left: -2px;
+}
+
+.ideditor .form-field-input-multicombo li.chip .field_buttons button:hover {
+    background-color: transparent;
 }
 
 .ideditor .form-field-input-multicombo .input-wrap {
@@ -5409,8 +5336,7 @@
     height: 24px;
     width: 30px;
     margin-right: -30px;
-    -ms-flex-item-align: center;
-        align-self: center;
+    align-self: center;
     vertical-align: middle;
     z-index: 1;
     padding-left: 11px;
@@ -5514,12 +5440,8 @@
 /* Field - Checkbox
 ------------------------------------------------------- */
 .ideditor .form-field-input-check {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    align-items: center;
     background: #fff;
     padding: 5px 10px;
     color: #7092ff;
@@ -5528,23 +5450,17 @@
     cursor: pointer;
 }
 .ideditor .form-field-input-check > input[type="checkbox"] {
-    -webkit-box-flex: 0;
-        -ms-flex: 0 1 auto;
-            flex: 0 1 auto;
+    flex: 0 1 auto;
     margin-top: 0;
 }
 .ideditor .form-field-input-check > span {
-    -webkit-box-flex: 1;
-        -ms-flex: 1 1 auto;
-            flex: 1 1 auto;
+    flex: 1 1 auto;
 }
 .ideditor .form-field-input-check > span.mixed {
     font-style: italic;
 }
 .ideditor .form-field-input-check > .reverser {
-    -webkit-box-flex: 0;
-        -ms-flex: 0 1 auto;
-            flex: 0 1 auto;
+    flex: 0 1 auto;
     background-color: #eff2f7;
     border: 1px solid #ccd5e3;
     border-radius: 2px;
@@ -5589,31 +5505,15 @@
 /* Field - Radio button
 ------------------------------------------------------- */
 .ideditor .form-field-input-radio {
-    -webkit-box-flex: 1;
-        -ms-flex: 1 1 auto;
-            flex: 1 1 auto;
-    display: -webkit-box;
-    display: -ms-flexbox;
+    flex: 1 1 auto;
     display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-flow: row wrap;
-            flex-flow: row wrap;
+    flex-flow: row wrap;
 }
 .ideditor .form-field-input-radio > label {
-    -webkit-box-flex: 1;
-        -ms-flex: 1 1 auto;
-            flex: 1 1 auto;
-    display: -webkit-box;
-    display: -ms-flexbox;
+    flex: 1 1 auto;
     display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-flow: row nowrap;
-            flex-flow: row nowrap;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    flex-flow: row nowrap;
+    align-items: center;
     width: 100%;
     padding: 5px 10px;
     background-color: #fff;
@@ -5642,14 +5542,10 @@
     border-bottom: 1px solid #ccc;
 }
 .ideditor .form-field-input-radio > label > input[type="radio"] {
-    -webkit-box-flex: 0;
-        -ms-flex: 0 1 auto;
-            flex: 0 1 auto;
+    flex: 0 1 auto;
 }
 .ideditor .form-field-input-radio > label > span {
-    -webkit-box-flex: 1;
-        -ms-flex: 1 1 auto;
-            flex: 1 1 auto;
+    flex: 1 1 auto;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -5672,20 +5568,16 @@
 .ideditor .form-field-input-roadheight input.roadheight-number,
 .ideditor .form-field-input-roadheight input.roadheight-secondary-number,
 .ideditor .form-field-input-roadspeed input.roadspeed-number {
-    -ms-flex-preferred-size: 0;
-        flex-basis: 0;
+    flex-basis: 0;
+    width: 0;
 }
 .ideditor .form-field-input-roadheight input.roadheight-unit,
 .ideditor .form-field-input-roadheight input.roadheight-secondary-unit {
-    -webkit-box-flex: 0;
-        -ms-flex: 0 1 auto;
-            flex: 0 1 auto;
+    flex: 0 1 auto;
     width: 60px;
 }
 .ideditor .form-field-input-roadspeed input.roadspeed-unit {
-    -webkit-box-flex: 0;
-        -ms-flex: 0 1 auto;
-            flex: 0 1 auto;
+    flex: 0 1 auto;
     width: 80px;
 }
 .ideditor[dir='ltr'] .form-field-input-roadheight > input:first-of-type,
@@ -5735,8 +5627,7 @@
 /* nested subfields for name in different languages */
 .ideditor .localized-multilingual {
     padding: 0 10px;
-    -ms-flex-preferred-size: 100%;
-        flex-basis: 100%;
+    flex-basis: 100%;
 }
 .ideditor .localized-multilingual .entry {
     position: relative;
@@ -5772,34 +5663,21 @@
 /* Field - Address
 ------------------------------------------------------- */
 .ideditor .form-field-input-address {
-    -webkit-box-flex: 1;
-        -ms-flex: 1 1 auto;
-            flex: 1 1 auto;
-    display: -webkit-box;
-    display: -ms-flexbox;
+    flex: 1 1 auto;
     display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-flow: row wrap;
-            flex-flow: row wrap;
+    flex-flow: row wrap;
     border: 1px solid #ccc;
     border-top: 0px;
 }
 
 .ideditor .addr-row {
-    -webkit-box-flex: 1;
-        -ms-flex: 1 1 auto;
-            flex: 1 1 auto;
-    display: -webkit-box;
-    display: -ms-flexbox;
+    flex: 1 1 auto;
     display: flex;
     width: 100%;
 }
 
 .ideditor .addr-row > input {
-    -webkit-box-flex: 1;
-        -ms-flex: 1 1 auto;
-            flex: 1 1 auto;
+    flex: 1 1 auto;
     border-radius: 0;
     border-right: 0;
     border-bottom: 0;
@@ -5848,38 +5726,22 @@
 /* Field - Wikipedia
 ------------------------------------------------------- */
 .ideditor .form-field-input-wikipedia {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-flow: row wrap;
-            flex-flow: row wrap;
-    -webkit-box-flex: 1;
-        -ms-flex: 1 1 auto;
-            flex: 1 1 auto;
+    flex-flow: row wrap;
+    flex: 1 1 auto;
 }
 
 .ideditor .wiki-lang-container,
 .ideditor .wiki-title-container {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-flow: row nowrap;
-            flex-flow: row nowrap;
-    -webkit-box-flex: 1;
-        -ms-flex: 1 1 auto;
-            flex: 1 1 auto;
+    flex-flow: row nowrap;
+    flex: 1 1 auto;
     width: 100%;
 }
 
 .ideditor .wiki-lang-container > input.wiki-lang,
 .ideditor .wiki-title-container > input.wiki-title {
-    -webkit-box-flex: 1;
-        -ms-flex: 1 1 auto;
-            flex: 1 1 auto;
+    flex: 1 1 auto;
     border-top: 0;
     border-radius: 0;
 }
@@ -5920,7 +5782,6 @@
     display: table;
     -webkit-user-select: none;
        -moz-user-select: none;
-        -ms-user-select: none;
             user-select: none;
 }
 
@@ -5975,7 +5836,6 @@
     pointer-events: none;
     -webkit-user-select: none;
        -moz-user-select: none;
-        -ms-user-select: none;
             user-select: none;
 }
 
@@ -6027,8 +5887,7 @@
 .ideditor div.combobox {
     z-index: 9999;
     display: none;
-    -webkit-box-shadow: 0 4px 10px 1px rgba(0,0,0,.2);
-            box-shadow: 0 4px 10px 1px rgba(0,0,0,.2);
+    box-shadow: 0 4px 10px 1px rgba(0,0,0,.2);
     margin-top: -1px;
     background: #fff;
     max-height: 245px;
@@ -6042,9 +5901,8 @@
     display: block;
     padding: 5px 10px;
     border-top: 1px solid #ccc;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
+    line-height: 0.95rem;
+    break: all;
 }
 
 .ideditor .combobox a.selected,
@@ -6069,8 +5927,7 @@
     height: 5px;
     width: 30px !important;
     margin-left: -30px;
-    -ms-flex-item-align: center;
-        align-self: center;
+    align-self: center;
     vertical-align: middle;
     cursor: pointer;
 }
@@ -6092,6 +5949,11 @@
 
 .ideditor .combobox .combobox-option.raw-option {
     font-family: monospace;
+    color: #333;
+}
+
+.ideditor .combobox .combobox-option.virtual-option {
+    font-style: italic;
     color: #333;
 }
 
@@ -6147,8 +6009,7 @@
     border-radius: 0 0 4px 4px;
     z-index: 20;
     background: rgba(255,255,255,0.95);
-    -webkit-box-shadow: 0 0 30px 5px rgba(0,0,0,.4);
-            box-shadow: 0 0 30px 5px rgba(0,0,0,.4);
+    box-shadow: 0 0 30px 5px rgba(0,0,0,.4);
 }
 
 .ideditor .field-help-title h2 {
@@ -6250,26 +6111,15 @@
 }
 
 .ideditor .more-fields label {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-flow: row nowrap;
-            flex-flow: row nowrap;
-    -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .ideditor .more-fields input {
     margin-left: 10px;
-    -webkit-box-flex: 1;
-        -ms-flex: 1 1 auto;
-            flex: 1 1 auto;
+    flex: 1 1 auto;
 }
 .ideditor[dir='rtl'] .more-fields input {
     margin-left: auto;
@@ -6285,22 +6135,13 @@
 /* Raw Tag Editor
 ------------------------------------------------------- */
 .ideditor .raw-tag-options {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-flow: row nowrap;
-            flex-flow: row nowrap;
-    -webkit-box-pack: end;
-        -ms-flex-pack: end;
-            justify-content: flex-end;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
     margin-top: -28px;
 }
 .ideditor button.raw-tag-option {
-    -webkit-box-flex: 0;
-        -ms-flex: 0 0 auto;
-            flex: 0 0 auto;
+    flex: 0 0 auto;
     padding: 3px;
     background: #aaa;
     color: #eee;
@@ -6327,11 +6168,8 @@
     display: block;
 }
 .ideditor[dir='ltr'] button.raw-tag-option-list {
-    -webkit-transform: scaleX(-1);
-        -ms-transform: scaleX(-1);
-            transform: scaleX(-1);
-    -webkit-filter: FlipH;
-            filter: FlipH;
+    transform: scaleX(-1);
+    filter: FlipH;
     -ms-filter: "FlipH";
 }
 
@@ -6353,21 +6191,14 @@
     position: relative;
 }
 .ideditor .tag-row .inner-wrap {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-flow: row nowrap;
-            flex-flow: row nowrap;
+    flex-flow: row nowrap;
     width: 100%;
     position: relative;
 }
 .ideditor .tag-row .key-wrap,
 .ideditor .tag-row .value-wrap {
-    -webkit-box-flex: 1;
-        -ms-flex: 1 1 50%;
-            flex: 1 1 50%;
+    flex: 1 1 50%;
 }
 
 .ideditor .tag-text.readonly,
@@ -6418,9 +6249,7 @@
     border-top: 1px solid #ccc;
 }
 .ideditor .tag-row button {
-    -webkit-box-flex: 0;
-        -ms-flex: 0 0 auto;
-            flex: 0 0 auto;
+    flex: 0 0 auto;
     width: 32px;
     border: 1px solid #ccc;
     border-top-width: 0;
@@ -6481,9 +6310,7 @@
 }
 
 .ideditor .tag-reference-body {
-    -webkit-box-flex: 1;
-        -ms-flex: 1 1 auto;
-            flex: 1 1 auto;
+    flex: 1 1 auto;
     width: 100%;
     overflow: hidden;
     display: none;
@@ -6559,21 +6386,46 @@
     font-weight: normal;
     padding-left: 10px;
 }
+.ideditor .section-raw-member-editor .member-row .member-entity-name.has-colour::before,
+.ideditor .section-raw-membership-editor .member-row .member-entity-name.has-colour::before,
+.ideditor .feature-list .entity-name.has-colour::before,
+.ideditor .combobox-parent-relation .has-colour::before {
+    display: inline-block;
+    content: '';
+    margin-left: -5px;
+    margin-right: 5px;
+    border-style: solid;
+    border-width: 4px;
+    border-radius: 4px;
+    border-color: inherit;
+}
+.ideditor .combobox-parent-relation .has-colour::before  {
+    margin-left: 2px;
+}
 
 .ideditor[dir='rtl'] .section-raw-member-editor .member-row .member-entity-name,
 .ideditor[dir='rtl'] .section-raw-membership-editor .member-row .member-entity-name {
     padding-left:0;
     padding-right: 10px;
 }
+.ideditor[dir='rtl'] .section-raw-member-editor .member-row .member-entity-name.has-colour::before,
+.ideditor[dir='rtl'] .section-raw-membership-editor .member-row .member-entity-name.has-colour::before,
+.ideditor[dir='rtl'] .feature-list .entity-name.has-colour::before {
+    margin-left: 5px;
+    margin-right: -5px;
+}
+.ideditor[dir='rtl'] .combobox-parent-relation .has-colour::before  {
+    margin-left: 5px;
+    margin-right: 2px;
+}
+
 
 .ideditor .form-field-input-member > input.member-role {
     border-radius: 0 0 4px 4px;
 }
 
 .ideditor .member-row-new .member-entity-input {
-    -webkit-box-flex: 1;
-        -ms-flex: 1 1 100%;
-            flex: 1 1 100%;
+    flex: 1 1 100%;
     border-radius: 4px 4px 0 0;
     border: 0;
 }
@@ -6588,26 +6440,17 @@
 
 /* add tag, add relation buttons */
 .ideditor .add-row {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
     width: 100%;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-flow: row nowrap;
-            flex-flow: row nowrap;
+    flex-flow: row nowrap;
 }
 .ideditor .add-row .add-tag,
 .ideditor .add-row .add-relation,
 .ideditor .add-row .space-value {
-    -webkit-box-flex: 1;
-        -ms-flex: 1 1 50%;
-            flex: 1 1 50%;
+    flex: 1 1 50%;
 }
 .ideditor .add-row .space-buttons {
-    -webkit-box-flex: 0;
-        -ms-flex: 0 0 62px;
-            flex: 0 0 62px;
+    flex: 0 0 62px;
 }
 .ideditor .add-row button {
     padding: 5px;
@@ -6639,25 +6482,16 @@
     background-color: #f6f6f6;
     border-radius: 5px;
     border: 1px solid #ccc;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-flow: row nowrap;
-            flex-flow: row nowrap;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    flex-flow: row nowrap;
+    align-items: center;
 }
 
 .ideditor .note-header-icon,
 .ideditor .qa-header-icon {
     background-color: #fff;
     padding: 10px;
-    -webkit-box-flex: 0;
-        -ms-flex: 0 0 auto;
-            flex: 0 0 auto;
+    flex: 0 0 auto;
     position: relative;
     width: 60px;
     height: 60px;
@@ -6691,9 +6525,7 @@
 .ideditor .qa-header-label {
     background-color: #f6f6f6;
     padding: 0 15px;
-    -webkit-box-flex: 1;
-        -ms-flex: 1 1 100%;
-            flex: 1 1 100%;
+    flex: 1 1 100%;
     font-size: 14px;
     font-weight: bold;
     border-radius: 0 5px 5px 0;
@@ -6719,19 +6551,12 @@
     border-radius: 5px;
     border: 1px solid #ccc;
     margin: 10px auto;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-flow: row nowrap;
-            flex-flow: row nowrap;
+    flex-flow: row nowrap;
 }
 .ideditor .comment-avatar {
     padding: 10px;
-    -webkit-box-flex: 0;
-        -ms-flex: 0 0 auto;
-            flex: 0 0 auto;
+    flex: 0 0 auto;
 }
 .ideditor .comment-avatar .icon.comment-avatar-icon {
     width: 40px;
@@ -6743,13 +6568,8 @@
 }
 .ideditor .comment-main {
     padding: 10px 10px 10px 0;
-    -webkit-box-flex: 1;
-        -ms-flex: 1 1 100%;
-            flex: 1 1 100%;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-flow: column nowrap;
-            flex-flow: column nowrap;
+    flex: 1 1 100%;
+    flex-flow: column nowrap;
     overflow: hidden;
     overflow-wrap: break-word;
 }
@@ -6758,13 +6578,8 @@
 }
 
 .ideditor .comment-metadata {
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-flow: row nowrap;
-            flex-flow: row nowrap;
-    -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
+    flex-flow: row nowrap;
+    justify-content: space-between;
 }
 .ideditor .comment-author {
     font-weight: bold;
@@ -6794,13 +6609,8 @@
     margin-top: 20px;
     border-radius: 4px;
     border: 1px solid #ccc;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    flex-direction: column;
 }
 .ideditor .qa-details-description-text::first-letter {
     text-transform: capitalize;
@@ -6842,24 +6652,15 @@
     background-color: #f6f6f6;
     border-radius: 5px;
     border: 1px solid #ccc;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-flow: row nowrap;
-            flex-flow: row nowrap;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    flex-flow: row nowrap;
+    align-items: center;
 }
 
 .ideditor .data-header-icon {
     background-color: #fff;
     padding: 10px;
-    -webkit-box-flex: 0;
-        -ms-flex: 0 0 auto;
-            flex: 0 0 auto;
+    flex: 0 0 auto;
     position: relative;
     width: 60px;
     height: 60px;
@@ -6880,9 +6681,7 @@
 .ideditor .data-header-label {
     background-color: #f6f6f6;
     padding: 0 15px;
-    -webkit-box-flex: 1;
-        -ms-flex: 1 1 100%;
-            flex: 1 1 100%;
+    flex: 1 1 100%;
     font-size: 14px;
     font-weight: bold;
     border-radius: 0 5px 5px 0;
@@ -6905,16 +6704,9 @@
     position: relative;
     height: 100%;
     pointer-events: none;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: reverse;
-        -ms-flex-direction: row-reverse;
-            flex-direction: row-reverse;
-    -webkit-box-align: end;
-        -ms-flex-align: end;
-            align-items: flex-end;
+    flex-direction: row-reverse;
+    align-items: flex-end;
     overflow: hidden;
 }
 .ideditor .over-map > * {
@@ -6952,13 +6744,8 @@
     width: 40px;
     position: absolute;
     bottom: 0;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    flex-direction: column;
     padding: 5px 0;
     pointer-events: none;
 }
@@ -6969,9 +6756,7 @@
     width: 40px;
     height: 100%;
     max-height: 70px;
-    -webkit-box-flex: 0;
-        -ms-flex: 0 1 auto;
-            flex: 0 1 auto;
+    flex: 0 1 auto;
 }
 .ideditor[dir='rtl'] .map-controls {
     left: 0;
@@ -6980,13 +6765,8 @@
 
 .ideditor .map-control {
     position: relative;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    flex-direction: column;
 }
 .ideditor .map-control > button {
     position: relative;
@@ -7111,8 +6891,6 @@
     background-color: #fff;
     color: #7092ff;
     position: relative;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
 }
 
@@ -7150,16 +6928,12 @@
 
 .ideditor .layer-list li.best > div.best {
     padding: 5px;
-    -webkit-box-flex: 0;
-        -ms-flex: 0 0 auto;
-            flex: 0 0 auto;
-    -ms-flex-item-align: center;
-        align-self: center;
+    flex: 0 0 auto;
+    align-self: center;
 }
 
 .ideditor[dir='rtl'] .list-item-data-browse svg {
-    -webkit-transform: rotateY(180deg);
-            transform: rotateY(180deg);
+    transform: rotateY(180deg);
 }
 
 /* make sure tooltip fits in map-control panel */
@@ -7171,15 +6945,9 @@
 .ideditor .layer-list label {
     padding: 5px 10px;
     cursor: pointer;
-    -webkit-box-flex: 1;
-        -ms-flex: 1 1 auto;
-            flex: 1 1 auto;
-    display: -webkit-box;
-    display: -ms-flexbox;
+    flex: 1 1 auto;
     display: flex;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    align-items: center;
     overflow: hidden;
 }
 
@@ -7250,42 +7018,29 @@
 .ideditor .issue .issue-label,
 .ideditor .issue-label .issue-text {
     width: 100%;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-flow: row nowrap;
-            flex-flow: row nowrap;
+    flex-flow: row nowrap;
     cursor: pointer;
     text-align: initial;
     background: none;
 }
 
 .ideditor .issue-text .issue-icon {
-    -webkit-box-flex: 0;
-        -ms-flex: 0 0 auto;
-            flex: 0 0 auto;
+    flex: 0 0 auto;
     padding: 2px 3px;
 }
 .ideditor .issue-text .issue-message {
-    -webkit-box-flex: 1;
-        -ms-flex: 1 1 auto;
-            flex: 1 1 auto;
+    flex: 1 1 auto;
     padding: 4px 5px;
 }
 .ideditor .issue-label .issue-autofix {
-    -webkit-box-flex: 0;
-        -ms-flex: 0 0 auto;
-            flex: 0 0 auto;
+    flex: 0 0 auto;
     padding: 5px 8px;
 }
 .ideditor .issue-label .issue-info-button {
     height: unset;
     width: 32px;
-    -webkit-box-flex: 0;
-        -ms-flex: 0 0 auto;
-            flex: 0 0 auto;
+    flex: 0 0 auto;
     border-left: 1px solid #ccc;
     background-color: rgba(0,0,0,0);
 }
@@ -7307,9 +7062,7 @@
 }
 
 .ideditor button.autofix.action {
-    -webkit-box-flex: 0;
-        -ms-flex: 0 0 20px;
-            flex: 0 0 20px;
+    flex: 0 0 20px;
     height: 20px;
     width: 20px;
     background: #7092ff;
@@ -7328,16 +7081,9 @@
 
 /* fix all */
 .ideditor .autofix-all {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-flow: row nowrap;
-            flex-flow: row nowrap;
-    -webkit-box-pack: end;
-        -ms-flex-pack: end;
-            justify-content: flex-end;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
     margin-top: -25px;
     padding-bottom: 5px;
 }
@@ -7492,16 +7238,9 @@
     margin-bottom: 0;
 }
 .ideditor .section-footer {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-flow: row nowrap;
-            flex-flow: row nowrap;
-    -webkit-box-pack: end;
-        -ms-flex-pack: end;
-            justify-content: flex-end;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
     height: 30px;
 }
 .ideditor .section-footer a {
@@ -7513,8 +7252,6 @@
     border: 1px solid #72d979;
     background: #c6ffca;
     padding: 5px !important;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
 }
 .ideditor .section-issues-status .icon {
@@ -7616,9 +7353,7 @@
 }
 
 .ideditor .issue-info {
-    -webkit-box-flex: 1;
-        -ms-flex: 1 1 auto;
-            flex: 1 1 auto;
+    flex: 1 1 auto;
     width: 100%;
     overflow: hidden;
     display: none;
@@ -7670,19 +7405,13 @@
 }
 
 .ideditor .display-control .control-wrap {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    align-items: center;
     width: 100%;
 }
 .ideditor .display-control .display-option-input {
     height: 20px;
-    -webkit-box-flex: 1;
-        -ms-flex: 1 1 100%;
-            flex: 1 1 100%;
+    flex: 1 1 100%;
 }
 
 .ideditor .display-control button {
@@ -7692,9 +7421,7 @@
     margin-right: 0px;
     vertical-align: text-bottom;
     border-radius: 4px;
-    -webkit-box-flex: 0;
-        -ms-flex: 0 0 auto;
-            flex: 0 0 auto;
+    flex: 0 0 auto;
 }
 .ideditor[dir='rtl'] .display-control button {
     margin-left: 0px;
@@ -7722,24 +7449,16 @@
     border: 1px solid #ccc;
     border-radius: 2px;
     padding: 20px 0;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    justify-content: center;
+    align-items: center;
     margin: 45px;
     cursor: move;
     /* prevent scrolling pane while dragging on touchscreen */
-    -ms-touch-action: none;
-        touch-action: none;
+    touch-action: none;
     /* disable drag-to-select */
     -webkit-user-select: none;
        -moz-user-select: none;
-        -ms-user-select: none;
             user-select: none;
     position: relative;
 }
@@ -7852,9 +7571,7 @@
 /* Side Panes - Background / Map Data / Help
 ------------------------------------------------------- */
 .ideditor .map-panes {
-    -webkit-box-flex: 0;
-        -ms-flex: 0 1 auto;
-            flex: 0 1 auto;
+    flex: 0 1 auto;
     position: relative;
     height: 100%;
     max-width: 100%;
@@ -7866,13 +7583,8 @@
     max-width: 100%;
     height: 100%;
     z-index: 10;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    flex-direction: column;
 }
 
 .ideditor .map-pane.help-pane {
@@ -7880,20 +7592,11 @@
 }
 
 .ideditor .pane-heading {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-flow: row nowrap;
-            flex-flow: row nowrap;
-    -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
+    flex-flow: row nowrap;
+    justify-content: space-between;
     border-bottom: 1px solid #ccc;
-    -webkit-box-flex: 0;
-        -ms-flex: 0 0 auto;
-            flex: 0 0 auto;
+    flex: 0 0 auto;
 }
 
 .ideditor .pane-heading h2 {
@@ -8171,15 +7874,11 @@
 ------------------------------------------------------- */
 .ideditor img.tile {
     position: absolute;
-    -webkit-transform-origin: 0 0;
-        -ms-transform-origin: 0 0;
-            transform-origin: 0 0;
+    transform-origin: 0 0;
 
     -webkit-user-select: none;
 
        -moz-user-select: none;
-
-        -ms-user-select: none;
 
             user-select: none;
 
@@ -8188,8 +7887,6 @@
     -webkit-user-drag: none;
 
     opacity: 0;
-
-    -webkit-transition: opacity 200ms linear;
 
     transition: opacity 200ms linear;
 }
@@ -8214,17 +7911,11 @@
     margin-left: -70px;
     margin-top: -20px;
 
-    -webkit-transform-origin: 0 0;
-
-        -ms-transform-origin: 0 0;
-
-            transform-origin: 0 0;
+    transform-origin: 0 0;
 
     -webkit-user-select: none;
 
        -moz-user-select: none;
-
-        -ms-user-select: none;
 
             user-select: none;
 }
@@ -8248,21 +7939,16 @@
     background: #000;
     -webkit-user-select: none;
        -moz-user-select: none;
-        -ms-user-select: none;
             user-select: none;
-    -ms-touch-action: none;
-        touch-action: none;
+    touch-action: none;
     -webkit-touch-callout: none;
 }
 .ideditor .main-map * {
-    -ms-touch-action: none;
-        touch-action: none;
+    touch-action: none;
 }
 
 .ideditor .supersurface {
-    -webkit-transform-origin: 0 0;
-        -ms-transform-origin: 0 0;
-            transform-origin: 0 0;
+    transform-origin: 0 0;
 }
 
 .ideditor .supersurface, .ideditor .layer {
@@ -8285,8 +7971,8 @@
     z-index: 2;
     background: #000;
     border: #aaa 1px solid;
-    -webkit-box-shadow: 0 0 2em black;
-            box-shadow: 0 0 2em black;
+    border-radius: 4px;
+    box-shadow: 0 0 2em black;
 }
 .ideditor[dir='ltr'] .map-in-map {
     left: 10px;
@@ -8296,12 +7982,9 @@
 }
 
 .ideditor .map-in-map-tiles {
-    -webkit-transform-origin: 0 0;
-        -ms-transform-origin: 0 0;
-            transform-origin: 0 0;
+    transform-origin: 0 0;
     -webkit-user-select: none;
        -moz-user-select: none;
-        -ms-user-select: none;
             user-select: none;
 }
 
@@ -8378,16 +8061,9 @@
 /* Information Panels
 ------------------------------------------------------- */
 .ideditor .info-panels {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-flow: row wrap-reverse;
-            flex-flow: row wrap-reverse;
-    -webkit-box-pack: end;
-        -ms-flex-pack: end;
-            justify-content: flex-end;
+    flex-flow: row wrap-reverse;
+    justify-content: flex-end;
     width: 100%;
     z-index: 1;
     -ms-user-select: element;
@@ -8411,9 +8087,7 @@
 }
 
 .ideditor .panel-container {
-    -webkit-box-flex: 0;
-        -ms-flex: 0 0 auto;
-            flex: 0 0 auto;
+    flex: 0 0 auto;
     margin: 0 2px 2px 0;
     border-radius: 4px;
     border: 1px solid rgba(0, 0, 0, 0.75);
@@ -8429,12 +8103,8 @@
 
 .ideditor .panel-title {
     padding: 5px 10px;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
+    justify-content: space-between;
 }
 
 .ideditor .panel-title button.close {
@@ -8510,17 +8180,10 @@
     position: relative;
     border-radius: 0;
     pointer-events: none;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    flex-direction: column;
     -ms-user-select: element;
-    -webkit-box-flex: 0;
-        -ms-flex: 0 0 auto;
-            flex: 0 0 auto;
+    flex: 0 0 auto;
 }
 
 .ideditor .map-footer-bar {
@@ -8532,19 +8195,10 @@
 
 .ideditor .main-footer-wrap,
 .ideditor .flash-wrap {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-flex: 0;
-        -ms-flex: 0 0 100%;
-            flex: 0 0 100%;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-flow: row nowrap;
-            flex-flow: row nowrap;
-    -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
+    flex: 0 0 100%;
+    flex-flow: row nowrap;
+    justify-content: space-between;
     height: 100%;
     position: absolute;
     right: 0;
@@ -8553,13 +8207,11 @@
 
 .ideditor .footer-show {
     bottom: 0px;
-    -webkit-transition: bottom 75ms linear;
     transition: bottom 75ms linear;
 }
 
 .ideditor .footer-hide {
     bottom: -100%;
-    -webkit-transition: bottom 75ms linear;
     transition: bottom 75ms linear;
 }
 
@@ -8571,15 +8223,9 @@
     bottom: 5px;
     left: 5px;
     right: 5px;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
-    -webkit-box-align: end;
-        -ms-flex-align: end;
-            align-items: flex-end;
+    justify-content: space-between;
+    align-items: flex-end;
     z-index: 0;
     pointer-events: none;
 }
@@ -8629,26 +8275,15 @@
 /* Footer - Flash messages
 ------------------------------------------------------- */
 .ideditor .flash-content {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-flex: 1;
-        -ms-flex: 1 0 auto;
-            flex: 1 0 auto;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-flow: row nowrap;
-            flex-flow: row nowrap;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    flex: 1 0 auto;
+    flex-flow: row nowrap;
+    align-items: center;
     padding: 2px;
 }
 
 .ideditor .flash-icon {
-    -webkit-box-flex: 0;
-        -ms-flex: 0 0 auto;
-            flex: 0 0 auto;
+    flex: 0 0 auto;
     width: 20px;
     height: 20px;
     margin: 0 8px;
@@ -8672,9 +8307,7 @@
 }
 
 .ideditor .flash-text {
-    -webkit-box-flex: 1;
-        -ms-flex: 1 1 auto;
-            flex: 1 1 auto;
+    flex: 1 1 auto;
 }
 
 /* Scale bar
@@ -8682,16 +8315,12 @@
 .ideditor .map-footer-bar .scale-block {
     vertical-align: bottom;
     width: 250px;
-    -webkit-box-flex: 0;
-        -ms-flex: 0 0 auto;
-            flex: 0 0 auto;
+    flex: 0 0 auto;
     -webkit-user-select: none;
        -moz-user-select: none;
-        -ms-user-select: none;
             user-select: none;
     height: 30px;
-    -ms-flex-item-align: center;
-        align-self: center;
+    align-self: center;
 }
 
 .ideditor .scale-block .scale {
@@ -8701,9 +8330,7 @@
     display: block;
 }
 .ideditor[dir='rtl'] .scale-block .scale {
-    -webkit-transform: scaleX(-1);
-        -ms-transform: scaleX(-1);
-            transform: scaleX(-1);
+    transform: scaleX(-1);
 }
 
 .ideditor .scale-block .scale-text {
@@ -8723,34 +8350,21 @@
 /* Footer - About, Source Switcher
 ------------------------------------------------------- */
 .ideditor .map-footer-bar .info-block {
-    -webkit-box-flex: 1;
-        -ms-flex: 1 1 100%;
-            flex: 1 1 100%;
+    flex: 1 1 100%;
     overflow: hidden;
 }
 
 .ideditor .map-footer-list {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-flow: row nowrap;
-            flex-flow: row nowrap;
+    flex-flow: row nowrap;
     height: 100%;
-    -webkit-box-pack: end;
-        -ms-flex-pack: end;
-            justify-content: flex-end;
+    justify-content: flex-end;
 }
 
 .ideditor .map-footer-list li {
     height: 100%;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    align-items: center;
     white-space: nowrap;
     padding: 5px;
 }
@@ -8808,9 +8422,7 @@
     text-align: right;
     padding: 1px 10px;
     color: #eee;
-    -webkit-box-flex: 1;
-        -ms-flex: 1 1 auto;
-            flex: 1 1 auto;
+    flex: 1 1 auto;
 }
 .ideditor[dir='rtl'] .api-status {
     text-align: left;
@@ -8849,19 +8461,13 @@
 ------------------------------------------------------- */
 /* For an icon (e.g. new version) */
 .ideditor .badge {
-    display: -webkit-inline-box;
-    display: -ms-inline-flexbox;
     display: inline-flex;
     background: #d32232;
     width: 21px;
     height: 21px;
     border-radius: 50%;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    align-items: center;
+    justify-content: center;
 }
 .ideditor[dir='ltr'] .badge {
     margin-left: 6px;
@@ -8874,9 +8480,7 @@
     width: 11px;
     height: 11px;
     color: #fff;
-    -webkit-box-flex: 0;
-        -ms-flex: 0 0 auto;
-            flex: 0 0 auto;
+    flex: 0 0 auto;
 }
 
 /* For text (e.g. upcoming events) */
@@ -8911,13 +8515,8 @@
     width: 80%;
     min-width: 200px;
     max-width: 550px;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    flex-direction: column;
 }
 
 .ideditor .modal .content {
@@ -8972,13 +8571,9 @@
 }
 
 .ideditor .save-section .buttons {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
-    -ms-flex-pack: distribute;
-        justify-content: space-around;
+    flex-wrap: wrap;
+    justify-content: space-around;
 }
 
 .ideditor .save-section .buttons .action,
@@ -8993,8 +8588,6 @@
     text-align: center;
 }
 .ideditor .modal-actions {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
 }
 .ideditor .modal-actions button {
@@ -9049,10 +8642,12 @@
 }
 
 .ideditor .save-summary,
+.ideditor .save-supporting,
 .ideditor .save-communityLinks {
     padding: 0px 20px 15px 20px;
 }
 
+.ideditor .save-supporting,
 .ideditor .save-communityLinks {
     border-top: 1px solid #ccc;
 }
@@ -9084,6 +8679,7 @@
 }
 
 .ideditor .summary-view-on-osm,
+.ideditor .support-the-map,
 .ideditor .community-name {
     font-size: 14px;
     font-weight: bold;
@@ -9192,15 +8788,9 @@
 }
 
 .ideditor .modal-shortcuts .shortcut-tab {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-flow: row wrap;
-            flex-flow: row wrap;
-    -ms-flex-pack: distribute;
-        justify-content: space-around;
+    flex-flow: row wrap;
+    justify-content: space-around;
 }
 
 .ideditor .modal-shortcuts .shortcut-column {
@@ -9208,9 +8798,7 @@
 }
 
 .ideditor .modal-shortcuts .shortcut-tab-tools .shortcut-column {
-    -webkit-box-flex: 1;
-        -ms-flex: 1 1 100%;
-            flex: 1 1 100%;
+    flex: 1 1 100%;
     width: 100%;
 }
 
@@ -9612,8 +9200,7 @@
     background-color: #666;
     border: solid 1px #444;
     border-bottom-color: #333;
-    -webkit-box-shadow: inset 0 -1px 0 #333;
-            box-shadow: inset 0 -1px 0 #333;
+    box-shadow: inset 0 -1px 0 #333;
     color: #eee;
 }
 
@@ -9650,13 +9237,8 @@
 ------------------------------------------------------- */
 .ideditor .edit-menu {
     position: absolute;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    flex-direction: column;
     background: #fff;
     border-radius: 4px;
     /* padding is set in edit_menu.js */
@@ -9667,12 +9249,8 @@
 }
 
 .ideditor .edit-menu-item {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    align-items: center;
     border-radius: 0;
     padding: 0 12px;
     /* height is set in edit_menu.js */
@@ -9756,13 +9334,8 @@ body {
 }
 
 .ideditor .intro-nav-wrap {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: row;
-            flex-direction: row;
+    flex-direction: row;
     position: absolute;
     left: 0;
     right: 0;
@@ -9772,9 +9345,7 @@ body {
 }
 
 .ideditor .intro-nav-wrap .intro-nav-wrap-logo {
-    -webkit-box-flex: 0;
-        -ms-flex: 0 0 auto;
-            flex: 0 0 auto;
+    flex: 0 0 auto;
     height: 40px;
     width: 40px;
     color: #fff;
@@ -9783,39 +9354,22 @@ body {
 }
 
 .ideditor .intro-nav-wrap .joined {
-    -webkit-box-flex: 1;
-        -ms-flex: 1 1 auto;
-            flex: 1 1 auto;
-    display: -webkit-box;
-    display: -ms-flexbox;
+    flex: 1 1 auto;
     display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: row;
-            flex-direction: row;
+    flex-direction: row;
 }
 
 .ideditor .intro-nav-wrap button.chapter {
-    -webkit-box-flex: 1;
-        -ms-flex: 1 1 100%;
-            flex: 1 1 100%;
+    flex: 1 1 100%;
     padding: 0px 5px;
     font-weight: bold;
 }
 
 .ideditor .intro-nav-wrap button.chapter.next {
-    -webkit-animation-duration: 1s;
-            animation-duration: 1s;
-    -webkit-animation-name: pulse;
-            animation-name: pulse;
-    -webkit-animation-iteration-count: infinite;
-            animation-iteration-count: infinite;
-    -webkit-animation-direction: alternate;
-            animation-direction: alternate;
-}
-@-webkit-keyframes pulse {
-    from  { background: #7092ff; }
-    to    { background: #c6d4ff; }
+    animation-duration: 1s;
+    animation-name: pulse;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
 }
 @keyframes pulse {
     from  { background: #7092ff; }
@@ -9901,7 +9455,6 @@ body {
 .ideditor .curtain-tooltip.intro-mouse {
     -webkit-user-select: none;
        -moz-user-select: none;
-        -ms-user-select: none;
             user-select: none;
 }
 

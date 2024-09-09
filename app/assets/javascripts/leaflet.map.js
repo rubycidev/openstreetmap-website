@@ -58,13 +58,6 @@ L.OSM.Map = L.Map.extend({
     }).prop("outerHTML");
     var tracestrack = I18n.t("javascripts.map.tracestrack_credit", { tracestrack_link: tracestrack_link });
 
-    var memomaps_link = $("<a>", {
-      href: "https://memomaps.de/",
-      target: "_blank",
-      text: I18n.t("javascripts.map.memomaps")
-    }).prop("outerHTML");
-    var memomaps = I18n.t("javascripts.map.opnvkarte_credit", { memomaps_link: memomaps_link });
-
     var hotosm_link = $("<a>", {
       href: "https://www.hotosm.org/",
       target: "_blank",
@@ -116,13 +109,6 @@ L.OSM.Map = L.Map.extend({
       }));
     }
 
-    this.baseLayers.push(new L.OSM.OPNVKarte({
-      attribution: copyright + ". " + memomaps + ". " + terms,
-      code: "O",
-      keyid: "opnvkarte",
-      name: I18n.t("javascripts.map.base.opnvkarte")
-    }));
-
     this.baseLayers.push(new L.OSM.HOT({
       attribution: copyright + ". " + hotosm + ". " + terms,
       code: "H",
@@ -138,8 +124,7 @@ L.OSM.Map = L.Map.extend({
 
     this.gpsLayer = new L.OSM.GPS({
       pane: "overlayPane",
-      code: "G",
-      name: I18n.t("javascripts.map.base.gps")
+      code: "G"
     });
 
     this.on("layeradd", function (event) {

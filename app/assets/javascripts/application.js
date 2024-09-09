@@ -16,8 +16,6 @@
 //= require matomo
 //= require richtext
 //= require qs/dist/qs
-//= require bs-custom-file-input
-//= require bs-custom-file-input-init
 
 /*
  * Called as the user scrolls/zooms around to manipulate hrefs of the
@@ -68,15 +66,11 @@ window.updateLinks = function (loc, zoom, layers, object) {
     .toggleClass("disabled", editDisabled);
 };
 
-window.maximiseMap = function () {
-  $("#content").addClass("maximised");
-};
-
-window.minimiseMap = function () {
-  $("#content").removeClass("maximised");
-};
-
 $(document).ready(function () {
+  // NB: Turns Turbo Drive off by default. Turbo Drive must be opt-in on a per-link and per-form basis
+  // See https://turbo.hotwired.dev/reference/drive#turbo.session.drive
+  Turbo.session.drive = false;
+
   var headerWidth = 0,
       compactWidth = 0;
 
@@ -111,9 +105,13 @@ $(document).ready(function () {
 
     $("body").removeClass("compact-nav");
 
+    $("header").removeClass("text-nowrap");
+    $("header nav.secondary > ul").removeClass("flex-nowrap");
+
     updateHeader();
 
     $(window).resize(updateHeader);
+    $(document).on("turbo:render", updateHeader);
   }, 0);
 
   $("#menu-icon").on("click", function (e) {
@@ -132,6 +130,7 @@ $(document).ready(function () {
   I18n.fallbacks = true;
 
   OSM.preferred_editor = application_data.preferredEditor;
+  OSM.preferred_languages = application_data.preferredLanguages;
 
   if (application_data.user) {
     OSM.user = application_data.user;

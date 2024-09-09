@@ -123,7 +123,6 @@ skr-arab:
         description: تفصیل
       user:
         email: ای میل
-        email_confirmation: ای میل دی تصدیق
         new_email: نواں ای میل پتہ
         active: متحرک
         display_name: ظاہری ناں
@@ -189,10 +188,6 @@ skr-arab:
     destroy:
       success: کھاتہ مٹ ڳیا۔
   browse:
-    created: بݨ ڳیا
-    closed: بند تھیا
-    created_ago_html: '%{time_ago} خلقیا'
-    closed_ago_html: '%{time_ago} بند تھیا'
     version: ورژن
     in_changeset: تبدیلیاں
     anonymous: گمنام
@@ -202,13 +197,6 @@ skr-arab:
     view_history: تاریخچہ ݙیکھو
     view_details: تفصیل ݙکھاؤ
     location: 'محل وقوع:'
-    changeset:
-      title: تبدیلیاں:%{id}
-      belongs_to: مصنف
-      node: نوݙاں(%{count})
-      way: رستے(%{count})
-      comment: تبصرے (%{count})
-      discussion: بحث مباحثہ
     node:
       title_html: 'نوڈ: %{name}'
       history_title_html: نوݙ تاریخچہ:%{name}
@@ -259,16 +247,29 @@ skr-arab:
     changeset:
       anonymous: گمنام
       no_edits: (کوئی ترمیم کائنی)
-    changesets:
-      id: آئی ڈی
-      saved_at: تے محفوظ ہے
-      user: ورتݨ آلا
-      comment: رائے
-      area: علاقہ
     index:
       title: تبدیلیاں
       empty: تبدیلیاں کائنی لبھیاں۔
       load_more: ٻئے لوݙ کرو
+      feed:
+        created: بݨ ڳیا
+        closed: بند تھیا
+        belongs_to: مصنف
+    show:
+      title: تبدیلیاں:%{id}
+      created: بݨیا:%{when}
+      closed: 'بند تھیا: %{when}'
+      created_ago_html: '%{time_ago} خلقیا'
+      closed_ago_html: '%{time_ago} بند تھیا'
+      discussion: بحث مباحثہ
+      subscribe: سبسکرائب کرو
+      unsubscribe: اݨ سبسکرائب کرو
+      hide_comment: لُکاؤ
+      unhide_comment: ݙکھاؤ
+      comment: تبصرہ
+    paging_nav:
+      nodes: نوݙاں(%{count})
+      ways: رستے(%{count})
   dashboards:
     contact:
       km away: '%{count} کلومیٹر دور'
@@ -286,10 +287,14 @@ skr-arab:
       use_map_link: نقشہ استعمال کرو
     index:
       my_diary: میݙی ڈائری
+    page:
       older_entries: پراݨی انٹریاں
       newer_entries: نویاں انٹریاں
     show:
       user_title: '%{user} دی ڈائری'
+      discussion: بحث مباحثہ
+      subscribe: سبسکرائب کرو
+      unsubscribe: اݨ سبسکرائب کرو
       leave_a_comment: رائے ݙیوو
       login: لاگ ان تھیوو
     diary_entry:
@@ -308,7 +313,8 @@ skr-arab:
       location: 'محل وقوع:'
       view: ݙکھالے
       edit: لکھو
-    comments:
+  diary_comments:
+    page:
       post: پوسٹ
       when: کڈݨ
       comment: رائے
@@ -921,6 +927,7 @@ skr-arab:
           information: معلومات
           motel: موٹل
           museum: عڄائب گھر
+          theme_park: تھیم پارک
           zoo: چڑیا گھر
         tunnel:
           "yes": سرنگ
@@ -959,13 +966,21 @@ skr-arab:
       not_updated: اپ ڈیٹ کائنی تھیا
       search: ڳولو
       search_guidance: 'ڳولݨ رولے:'
-      status: حیثیت
-      reports: رپورٹاں
-      last_updated: چھیکڑی تبدیلی
       link_to_reports: رپوٹاں ݙیکھو
       states:
         open: کھولو
         resolved: حل تھی ڳیا
+    page:
+      reported_user: رپورٹ تھیا ورتݨ آلا
+      status: حیثیت
+      reports: رپورٹاں
+      last_updated: چھیکڑی تبدیلی
+      states:
+        ignored: نظر انداز تھیا
+        open: کھولو
+        resolved: حل تھی ڳیا
+      older_issues: پراݨے مسئلے
+      newer_issues: نویں مسئلے
     show:
       no_reports: کوئی رپورٹاں کائنی
       resolve: حل کرو
@@ -995,7 +1010,6 @@ skr-arab:
     issues: مسئلے
     data: ڈیٹا
     export_data: ڈَیٹا برامد کرو
-    partners_ucl: یو سی ایل
     partners_fastly: تکھیرے
     partners_partners: بھائیوال
     tou: ورتݨ شرطاں
@@ -1029,8 +1043,11 @@ skr-arab:
     changeset_comment_notification:
       hi: سلام %{to_user}،
       greeting: سلام،
+      commented:
+        partial_changeset_without_comment: تبصرے بغیر
   confirmations:
     confirm:
+      heading: آپݨی ای میل ݙیکھو!
       button: تصدیق
       click_here: اِتھ کلک کرو
     confirm_email:
@@ -1038,27 +1055,29 @@ skr-arab:
   messages:
     inbox:
       title: ان باکس
-      my_inbox: میݙا انباکس
-      my_outbox: میݙا آؤٹ باکس
+    messages_table:
       from: کنوں
+      to: تائیں
       subject: موضوع
       date: تریخ
+      actions: عمل
     message_summary:
       unread_button: نشان لاؤ جو کائنی پڑھا
       read_button: نشان لاؤ جو پڑھ گھدے
       reply_button: جواب
       destroy_button: مٹاؤ
+      unmute_button: انباکس تے ون٘ڄو
     new:
       title: سنیہا پٹھو
       send_message_to_html: '%{name} کوں نواں سنیہا پٹھو'
       back_to_inbox: انباکس تے واپس
+    create:
+      message_sent: سنیہا بھیڄ ݙتے
     outbox:
       title: آؤٹ باکس
-      my_inbox: میݙا انباکس
-      my_outbox: میݙا آؤٹ باکس
-      to: تائیں
-      subject: موضوع
-      date: تریخ
+      actions: عمل
+    muted:
+      title: خاموش تھئے سنیہے
     show:
       title: سنیہا پڑھو
       reply_button: جواب
@@ -1067,15 +1086,20 @@ skr-arab:
       back: پچھوں
     sent_message_summary:
       destroy_button: مٹاؤ
+    heading:
+      my_inbox: میݙا انباکس
+      my_outbox: میݙا آؤٹ باکس
+      muted_messages: خاموش تھئے سنیہے
     destroy:
       destroyed: سنیہا مٹ ڳیا
   passwords:
-    lost_password:
-      email address: 'ای میل پتہ:'
+    new:
+      email address: ای میل پتہ
       new password button: پاس ورڈ ولدا ٹھیک کرو
-    reset_password:
+    edit:
       title: پاس ورڈ ولدا ٹھیک کرو
       reset: پاس ورڈ ولدا ٹھیک کرو
+    update:
       flash changed: تہاݙا پاس ورڈ تبدیل تھی ڳیا۔
   preferences:
     show:
@@ -1092,39 +1116,23 @@ skr-arab:
       save: پروفائل اپ ڈیٹ کرو
       cancel: منسوخ
       image: تصویر
+      gravatar:
+        gravatar: گراواتار ورتو
+        what_is_gravatar: گراواتار کیا ہے؟
+      new image: ہک تصویر شامل کرو
       show: ݙِکھاؤ
       delete: مٹاؤ
       undelete: بحال
   sessions:
     new:
       title: لاگ ان
-      heading: لاگ ان
-      password: 'پاس ورڈ:'
-      openid_html: '%{logo} اوپن آئی ڈی:'
+      tab_title: لاگ ان
+      email or username: ای میل پتہ یا ورتݨ ناں
+      password: پاس ورڈ
       remember: میکوں یاد رکھو
       lost password link: پاسورڈ بھل ڳئے ہو؟
       login_button: لاگ ان
-      openid_logo_alt: اوپن آئی ڈی نال لاگ ان تھیوو
-      auth_providers:
-        openid:
-          title: اوپن آئی ڈی نال لاگ ان تھیوو
-          alt: اوپن آئی ڈی یوآرایل نال لاگ ان تھیوو
-        google:
-          title: گوگل نال لاگ ان تھیوو
-          alt: گوگل اوپن آئی ڈی نال لاگ ان تھیوو
-        facebook:
-          title: فیس بک نال لاگ ان تھیوو
-        microsoft:
-          title: مائیکروسافٹ نال لاگ ان تھیوو
-          alt: مائیکروسافٹ کھاتے نال لاگ ان تھیوو
-        github:
-          title: گٹ ہب نال لاگ ان تھیوو
-          alt: گٹ ہب کھاتے نال لاگ ان تھیوو
-        wikipedia:
-          title: وکی پیڈیا نال لاگ ان تھیوو
-          alt: وکی پیڈیا کھاتے نال لاگ ان تھیوو
-        wordpress:
-          title: ورڈپریس نال لاگ ان تھیوو
+      or: یا
     destroy:
       title: لاگ آؤٹ
       logout_button: لاگ آؤٹ
@@ -1143,6 +1151,7 @@ skr-arab:
     richtext_field:
       edit: لکھو
       preview: پیشگی ݙکھالا
+      help: مدد
   site:
     about:
       next: اڳلا
@@ -1167,6 +1176,7 @@ skr-arab:
         contributors_ca_canada: کنیڈا
         contributors_fi_finland: فِن لینڈ
         contributors_fr_france: فرانس
+        contributors_hr_croatia: کروشین
         contributors_nl_netherlands: نیدرلینڈز
         contributors_nz_new_zealand: نیوزی لینڈ
         contributors_nz_cc_by: سی سی بی وائی ٤.٠
@@ -1175,27 +1185,15 @@ skr-arab:
         contributors_es_spain: سپین
         contributors_es_cc_by: سی سی بی وائی ٤.٠
         contributors_za_south_africa: جنوبی افریقہ
+        contributors_gb_united_kingdom: برطانیہ
         trademarks_title: ٹریڈ مارک
         trademarks_1_1_trademark_policy: ٹریڈمارک پالیسی
-    index:
-      permalink: پکا لنک
-      shortlink: مختصر لنک
-      createnote: نوٹ شامل کرو
     export:
       title: ٻاہر بھیڄو
       licence: لائیسنس
       too_large:
         other:
           title: ٻئے ماخذ
-      options: اختیارات
-      format: فارمیٹ
-      scale: پیمانہ
-      max: ودھ و ودھ
-      image_size: فوٹو دا سائز
-      zoom: وݙا چھوٹا کرݨ
-      latitude: عرض بلد
-      longitude: طول بلد
-      output: آؤٹ پٹ
       export_button: ٻاہر بھیڄو
     help:
       irc:
@@ -1212,35 +1210,54 @@ skr-arab:
     key:
       table:
         entry:
+          motorway: موٹروے
           track: ٹرَیک
-          tram:
-            1: ٹرام
-          cable:
-          - کیبل کار
-          - چیئر لفٹ
+          rail: ریلوے
+          train: ڳَݙی
+          subway: سب وے
+          light_rail: لائٹ ریل
+          tram: ٹرام
+          trolleybus: ٹرالی بس
+          bus: بس
+          cable_car: کیبل کار
+          chair_lift: چیئر لفٹ
+          taxiway: ٹیکسی دا راہ
+          capital: دار الحکومت
+          city: شَہر
+          orchard: بغیچا
           forest: جنگل
           wood: لکڑ
+          grass: گھا
+          meadow: چراگاہ
+          sand: ریت
           golf: گولف مَیدان
           park: پارک
-          common:
-          - وقف
-          - چراگاہ
-          - باغ
+          common: وقف
           retail: پرچون علاقہ
           industrial: صنعتی علاقہ
           commercial: کمرشل ایریا
-          lake:
-          - جھیل
+          lake: جھیل
+          reservoir: ذخائر
+          glacier: گلیشیئر
           farm: کھیت
-          school:
-          - سکول
-          - یونی ورسٹی
+          beach: ساحل
+          school: سکول
+          university: یونی ورسٹی
+          hospital: ہسپتال
           station: ریلوے ٹیشݨ
+          peak: چوٹی
+          bus_stop: بساں دا اݙا
+          stop: اݙہ
+          toilets: بیت الخلاء
     welcome:
       title: ست بسم اللہ!
       basic_terms:
+        editor: ایڈیٹر
         node: نوڈ
+        way: راہ
         tag: ٹیگ
+      rules:
+        title: اصول!
       add_a_note:
         the_map: نقشہ
     communities:
@@ -1273,6 +1290,26 @@ skr-arab:
   application:
     settings_menu:
       account_settings: کھاتہ ترتیباں
+    auth_providers:
+      openid_login_button: جاری رکھو
+      openid:
+        title: اوپن آئی ڈی نال لاگ ان تھیوو
+        alt: اوپن آئی ڈی لوگو
+      google:
+        title: گوگل نال لاگ ان تھیوو
+        alt: گوگل لوگو
+      facebook:
+        title: فیس بک نال لاگ ان تھیوو
+        alt: فیس بک لوگو
+      microsoft:
+        title: مائیکروسافٹ نال لاگ ان تھیوو
+        alt: مائیکروسافٹ لوگو
+      github:
+        title: گٹ ہب نال لاگ ان تھیوو
+        alt: گٹ ہب لوگو
+      wikipedia:
+        title: وکی پیڈیا نال لاگ ان تھیوو
+        alt: وکی پیڈیا لوگو
   oauth2_applications:
     index:
       name: ناں
@@ -1294,9 +1331,15 @@ skr-arab:
   users:
     new:
       title: سائن اپ
+      tab_title: سائن اپ
       support: سہارا
+      by_signing_up:
+        privacy_policy: رازداری پالیسی
+      tou: ورتݨ شرطاں
       continue: سائن اپ
-      privacy_policy: رازداری پالیسی
+      email_help:
+        privacy_policy: رازداری پالیسی
+      or: یا
     terms:
       title: شرطاں
       heading: شرطاں
@@ -1316,12 +1359,23 @@ skr-arab:
     revoke:
       confirm: تصدیق
   user_blocks:
+    edit:
+      revoke: بلاک منسوخ کرو
     show:
       show: ݙِکھاؤ
       edit: لکھو
     block:
       show: ݙِکھاؤ
       edit: تبدیلی کرو
+    navigation:
+      new_block: نواں بلاک
+  user_mutes:
+    index:
+      table:
+        thead:
+          actions: عمل
+        tbody:
+          send_message: سنیہا پٹھو
   notes:
     index:
       subheading_submitted: جمع تھی ڳیا
@@ -1333,6 +1387,8 @@ skr-arab:
       comment: تبصرہ
     new:
       title: نواں نوٹ
+      anonymous_warning_log_in: لاگ ان
+      anonymous_warning_sign_up: سائن اپ
       add: نوٹ شامل کرو
   javascripts:
     close: بند کرو
@@ -1346,13 +1402,6 @@ skr-arab:
       embed: ایچ ٹی ایم ایل
       format: فارمیٹ
       scale: 'پیمانہ:'
-    changesets:
-      show:
-        comment: تبصرہ
-        subscribe: سبسکرائب کرو
-        unsubscribe: اݨ سبسکرائب کرو
-        hide_comment: لُکاؤ
-        unhide_comment: ݙکھاؤ
     directions:
       engines:
         fossgis_valhalla_bicycle: سائیکل (ول ہلا)
